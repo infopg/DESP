@@ -1,0 +1,524 @@
+{% extends "standard/base.html" %}{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/zTreeStyle/zTreeStyle.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block breadcrumb %}
+    <button class="btn btn-default" onclick="createForm()">
+        <span class="glyphicon glyphicon-plus"></span> 添 加
+    </button>
+{% endblock %}
+
+{% block delete %}
+    <button class="btn btn-default" onclick="deleteForm()">
+        <span class="glyphicon glyphicon-plus"></span> 删 除
+    </button>
+{% endblock %}
+
+{% block edit %}
+    <button class="btn btn-default" onclick="editForm()">
+        <span class="glyphicon glyphicon-plus"></span> 修 改
+    </button>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-widget">
+                <div class="box-body">
+                    <ul id="treeDemo" class="ztree"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modalForm">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalForm_title"></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <form class="form-horizontal" id="modalForm_Content" method="post"
+                                  action="">{% csrf_token %}
+                                <input type="text" id="form_id" value="" hidden>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label"> 名称 </label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="form_name" name="name" required
+                                               placeholder="">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label"> 父节点 </label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="form_parent" name="parent"
+                                                onclick="showTree();"></select>
+
+                                        <div id="menuContent" class="menuContent" style="display:none;">
+                                            <ul id="treeDemo2" class="ztree" style="margin-top:0;"></ul>
+                                        </div>
+
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label"> 权重</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="form_weight" name="weight" required
+                                               placeholder="">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">评估项目</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="form_evaluation" name="evaluation"
+                                               required
+                                               placeholder="">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">管理员ID</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="form_adminID" name="adminID"
+                                               required
+                                               placeholder="">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">管理员</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="form_admin" name="admin" required
+                                               placeholder="">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" onclick="submit_type=1">SAVE</button>
+                                    <button type="submit" class="btn btn-default" onclick="submit_type=2">Continue
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="deleteForm">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="deleteForm_title"></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <form class="form-horizontal" id="deleteForm_Content" method="post"
+                                  action="">{% csrf_token %}
+                                <input type="text" id="form_id" value="" hidden>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label"> 节点 </label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="form_parent_delete" name="parent"
+                                                onclick="showTree_delete();"></select>
+
+                                        <div id="menuContent_delete" class="menuContent" style="display:none;">
+                                            <ul id="treeDemo3" class="ztree" style="margin-top:0;"></ul>
+                                        </div>
+
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" onclick="submit_type=1">SAVE</button>
+                                    <button type="submit" class="btn btn-default" onclick="submit_type=2">Continue
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="editForm">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="editForm_title"></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <form class="form-horizontal" id="editForm_Content" method="post"
+                                  action="">{% csrf_token %}
+                                <input type="text" id="form_id" value="" hidden>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label"> 修改指标名称 </label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="form_name" name="name_edit" required
+                                               placeholder="">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label"> 权重</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="form_weight_edit" name="weight_edit" required
+                                               placeholder="">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label"> 节点 </label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="form_parent_edit" name="parent_edit"
+                                                onclick="showTree_edit();"></select>
+
+                                        <div id="menuContent_edit" class="menuContent" style="display:none;">
+                                            <ul id="treeDemo4" class="ztree" style="margin-top:0;"></ul>
+                                        </div>
+
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" onclick="submit_type=1">SAVE</button>
+                                    <button type="submit" class="btn btn-default" onclick="submit_type=2">Continue
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script src="{% static 'js/jquery.ztree.all.min.js' %}"></script>
+    <script src="{% static 'js/django.ajax.post.csrf.js' %}"></script>
+    <script>
+        $('#page_header').text('指标体系');
+        $('#page_header_descript').text('Standard');
+
+        // 页面加载时生成树
+        var setting = {
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            }
+
+        };
+
+        $.fn.zTree.init($("#treeDemo"), setting, {{ data|safe }});
+
+        function deleteForm() {
+            $('#deleteForm_title').text('删除数据');
+            $('#deleteForm_Content').trigger("reset");
+            var setting3 = {
+                view: {
+                    selectedMulti: false
+                },
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    onClick: onClick_delete
+                }
+            };
+
+            $.fn.zTree.init($("#treeDemo3"), setting3, {{ data|safe }});
+            $('#deleteForm').modal('show');
+        }
+
+        // 点击创建时的表单信息
+        function createForm() {
+            $('#modalForm_title').text('添加数据');
+            $('#modalForm_Content').trigger("reset");
+
+            var setting2 = {
+                view: {
+                    selectedMulti: false
+                },
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    onClick: onClick
+                }
+            };
+
+            $.fn.zTree.init($("#treeDemo2"), setting2, {{ data|safe }});
+            $('#modalForm').modal('show');
+        }
+
+
+        function editForm() {
+            $('#editForm_title').text('添加数据');
+            $('#editForm_Content').trigger("reset");
+
+            var setting4 = {
+                view: {
+                    selectedMulti: false
+                },
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    onClick: onClick_edit
+                }
+            };
+
+            $.fn.zTree.init($("#treeDemo4"), setting4, {{ data|safe }});
+            $('#editForm').modal('show');
+        }
+
+        // 当点击tree节点时触发
+        function onClick(e, treeId, treeNode) {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo2");
+            nodes = zTree.getSelectedNodes();
+
+            // 将点击的节点填充到select下
+            $("#form_parent").html(
+                "<option value='" + nodes[0].id + "'>" + nodes[0].name + "</option>"
+            );
+
+            // 填充之后隐藏树
+            hideTree();
+        }
+
+        // 删除时的onClick方法
+        function onClick_delete(e, treeId, treeNode) {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo3");
+            nodes = zTree.getSelectedNodes();
+
+            // 将点击的节点填充到select下
+            $("#form_parent_delete").html(
+                "<option value='" + nodes[0].id + "'>" + nodes[0].name + "</option>"
+            );
+
+            // 填充之后隐藏树
+            hideTree_delete();
+        }
+
+        function onClick_edit(e, treeId, treeNode) {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo4");
+            nodes = zTree.getSelectedNodes();
+
+            // 将点击的节点填充到select下
+            $("#form_parent_edit").html(
+                "<option value='" + nodes[0].id + "'>" + nodes[0].name + "</option>"
+            );
+
+            // 填充之后隐藏树
+            hideTree_edit();
+        }
+
+        //删除时的showTree
+        function showTree_delete() {
+            $("#menuContent_delete").slideDown("fast");
+            $("body").bind("mousedown", onBodyDown_delete);
+        }
+
+
+        // 点击下拉框时展示tree
+        function showTree() {
+            $("#menuContent").slideDown("fast");
+            $("body").bind("mousedown", onBodyDown);
+        }
+
+        function showTree_edit() {
+            $("#menuContent_edit").slideDown("fast");
+            $("body").bind("mousedown", onBodyDown_edit);
+        }
+
+        // 删除时的hideTree
+        function hideTree_delete() {
+            $("#menuContent_delete").fadeOut("fast");
+            $("body").unbind("mousedown", onBodyDown_delete);
+        }
+
+        // 隐藏tree
+        function hideTree() {
+            $("#menuContent").fadeOut("fast");
+            $("body").unbind("mousedown", onBodyDown);
+        }
+
+        function hideTree_edit() {
+            $("#menuContent_edit").fadeOut("fast");
+            $("body").unbind("mousedown", onBodyDown_edit);
+        }
+
+        function onBodyDown_delete(event) {
+            if (!(event.target.id == "form_parent_delete" || event.target.id == "menuContent_delete" || $(event.target).parents("#menuContent_delete").length > 0)) {
+                hideTree_delete();
+            }
+        }
+
+        // 判断点击的位置不在下拉框或者时tree本身则调用hideTree隐藏树
+        function onBodyDown(event) {
+            if (!(event.target.id == "form_parent" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length > 0)) {
+                hideTree();
+            }
+        }
+
+        function onBodyDown_edit(event) {
+            if (!(event.target.id == "form_parent_edit" || event.target.id == "menuContent_edit" || $(event.target).parents("#menuContent_edit").length > 0)) {
+                hideTree_edit();
+            }
+        }
+
+        // 添加 - Ajax提交
+        $('#modalForm_Content').submit(function (event) {
+            event.preventDefault();
+
+            if (confirm("确认提交这些数据吗？")) {
+                params = $('#modalForm_Content').serializeJson();
+
+                $.ajax({
+                    type: "post",
+                    url: "{% url "create" %}",
+                    data: JSON.stringify(params),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.state) {
+                            if (submit_type == 1) {
+                                window.location = "/standard"
+                            }
+                            if (submit_type == 2) {
+                                $('#modalForm_Content').trigger("reset");
+                            }
+
+                            toastr.success(data.message);
+                        } else {
+                            toastr.error(data.message)
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Error: ajax 请求出错！')
+                    }
+                });
+            }
+        });
+
+        //删除节点
+        $('#deleteForm_Content').submit(function (event) {
+            event.preventDefault();
+
+            if (confirm("确认提交这些数据吗？")) {
+                params = $('#deleteForm_Content').serializeJson();
+                $.ajax({
+                    type: "post",
+                    url: "{% url "delete" %}",
+                    data: JSON.stringify(params),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.state) {
+                            if (submit_type == 1) {
+                                window.location = "/standard"
+                            }
+                            if (submit_type == 2) {
+                                $('#deleteForm_Content').trigger("reset");
+                            }
+
+                            toastr.success(data.message);
+                        } else {
+                            toastr.error(data.message)
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Error: ajax 请求出错！')
+                    }
+                });
+            }
+        });
+
+        $('#editForm_Content').submit(function (event) {
+            event.preventDefault();
+
+            if (confirm("确认提交这些数据吗？")) {
+                params = $('#editForm_Content').serializeJson();
+                $.ajax({
+                    type: "post",
+                    url: "{% url "edit" %}",
+                    data: JSON.stringify(params),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.state) {
+                            if (submit_type == 1) {
+                                window.location = "/standard"
+                            }
+                            if (submit_type == 2) {
+                                $('#editForm_Content').trigger("reset");
+                            }
+
+                            toastr.success(data.message);
+                        } else {
+                            toastr.error(data.message)
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Error: ajax 请求出错！')
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}

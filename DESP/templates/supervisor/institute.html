@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" class="loading">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description"
+          content="Convex admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Page for superuser</title>
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app-assets/img/ico/apple-icon-60.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app-assets/img/ico/apple-icon-76.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app-assets/img/ico/apple-icon-120.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'app-assets/img/ico/apple-icon-152.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'app-assets/img/ico/favicon.ico' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'app-assets/img/ico/favicon-32.png' %}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'ztreecss/zTreeStyle/zTreeStyle.css ' %}">
+    <style type="text/css">
+        div#rMenu {
+            position: absolute;
+            visibility: hidden;
+            top: 0;
+            background-color: #e5ebff;
+            text-align: left;
+            padding: 3px;
+        }
+
+        div#rMenu a {
+            cursor: pointer;
+            list-style: none outside none;
+        }
+
+        .aMenu {
+            font-size: small;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body data-col="2-columns" class=" 2-columns ">
+<div id="mymodal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">添加下属机构</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="CreateForm_Content" method="post">{% csrf_token %}
+                    <div>
+                        <label>机构名称</label>
+                        <div>
+                            <input type="text" id="create_name"
+                                   name="name" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>机构地址</label>
+                        <div>
+                            <input type="text" id="create_location"
+                                   name="location" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>邮编</label>
+                        <div>
+                            <input type="text" id="create_zipcode"
+                                   name="zipcode" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>领域</label>
+                        <div>
+                            <input type="text" id="create_field"
+                                   name="field" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary"
+                                id="add">提交更改
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Index -->
+<div id="mymodal_edit" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="EditLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="EditLabel">修改信息</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="EditForm_Content" method="post">{% csrf_token %}
+
+                    <div>
+                        <label>机构名称</label>
+                        <div>
+                            <input type="text" id="edit_name"
+                                   name="name" value="" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>机构地址</label>
+                        <div>
+                            <input type="text" id="edit_location"
+                                   name="location" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>邮编</label>
+                        <div>
+                            <input type="text" id="edit_zipcode"
+                                   name="zipcode" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>父机构</label>
+                        <div>
+                            <input type="text" id="edit_parent"
+                                   name="parent" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>领域</label>
+                        <div>
+                            <input type="text" id="edit_field"
+                                   name="field" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary"
+                                id="edit_add">确定
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Delete Form-->
+<div id="mymodal_delete" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="DeleteLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="DeleteLabel">删除</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="DeleteForm_Content" method="post">{% csrf_token %}
+                    <div>
+                        <span>您确定要删除吗？</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary"
+                                id="delete_add">确定
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Delete Root-->
+<div id="mymodal_deleteroot" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="DeleteRootLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="DeleteRootLabel">删除</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="DeleteRootForm_Content" method="post">{% csrf_token %}
+                    <div>
+                        <span>要删除的节点是父节点，如果删除将连同子节点一起删掉。您确定要删除吗？</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary"
+                                id="deleteroot_add">确定
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete used org -->
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+<div class="wrapper nav-collapsed menu-collapsed">
+
+    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="#" class="logo-text float-left">
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
+                <span class="text align-middle">CNIC</span></a><a id="sidebarToggle" href="javascript:;"
+                                                                  class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i
+                    data-toggle="collapsed" class="ft-circle toggle-icon"></i></a><a id="sidebarClose"
+                                                                                     href="javascript:;"
+                                                                                     class="nav-close d-block d-md-block d-lg-none d-xl-none"><i
+                    class="ft-circle"></i></a></div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+                    <li class="has-sub nav-item"><a href="{% url 'institute' %}"><i class="icon-home"></i><span
+                            data-i18n=""
+                            class="menu-title">机构设置</span></a>
+                    </li>
+                    <li class="has-sub nav-item"><a href="{% url 'people' %}"><i class="icon-screen-desktop"></i><span
+                            data-i18n=""
+                            class="menu-title">人员设置</span></a>
+                    </li>
+                    <li class="has-sub nav-item"><a href="{% url 'evaluation' %}"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">评估系统</span></a>
+                        <ul class="menu-content">
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            </div>
+            <div class="navbar-container">
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                                class="avatar avatar-online"><img id="navbar-avatar"
+                                                                  src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
+                                                                  alt="avatar"/></span>
+                            <p class="d-none">User Settings</p></a>
+                            <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
+                                <div class="arrow_box_right">
+                                    <a href="{% url 'logout' %}" class="dropdown-item"><i
+                                            class="ft-power mr-2"></i><span>Logout</span></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-panel">
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2 class="content-header">欢迎</h2>
+                        </div>
+                    </div>
+                    <!-- Base style table -->
+                    <div class="row">
+                        <div class="col-12">
+                            <section id="base-style" class="card">
+
+                                <div class="card-header">
+                                    <div class="card-title-wrap bar-success">
+                                        <h4 class="card-title">机构展示</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    {% if message %}
+                                        <div class="alert alert-warning">{{ message }}</div>
+                                    {% endif %}{% csrf_token %}
+                                    <div class="card-block">
+                                        <p>
+                                            <a class="btn mr-1 btn-round btn-secondary"
+                                               href="{% url "organization_export" %}">导出</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <!--/ Base style table -->
+                </div>
+            </div>
+            <div>
+                <ul id='tree' class="ztree"></ul>
+            </div>
+            <div id="rMenu">
+                <a class="list-group-item aMenu" id="item_add" onclick="organization_add()">增加机构</a>
+                <a class="list-group-item aMenu" id="item_edit" onclick="organization_edit()">修改机构</a>
+                <a class="list-group-item aMenu" id="item_del" onclick="organization_delete()">删除机构</a>
+            </div>
+        </div>
+        <footer class="footer footer-static footer-light">
+            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2018 <a href="#"
+                                                                                            id="pixinventLink"
+                                                                                            target="_blank"
+                                                                                            class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
+            </p>
+        </footer>
+    </div>
+</div>
+
+<script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/toastr.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/prism.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/jquery.matchHeight-min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/screenfull.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/pace/pace.min.js' %}"></script>
+<!-- BEGIN VENDOR JS-->
+<!-- BEGIN PAGE VENDOR JS-->
+<script src="{% static 'app-assets/vendors/js/datatable/datatables.min.js' %}"></script>
+<!-- END PAGE VENDOR JS-->
+<!-- BEGIN CONVEX JS-->
+<script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+<script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+<!-- END CONVEX JS-->
+<!-- BEGIN PAGE LEVEL JS-->
+<script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
+<script src="{% static 'ztreejs/jquery.ztree.core.js' %}"></script>
+<script>
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
+    });
+    var setting = {
+        view: {
+            selectedMulti: false,
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onClick: NodeClick,
+        },
+    };
+    var zTree = $.fn.zTree.init($("#tree"), setting, {{ data|safe }});
+
+    function organization_add() {
+
+        $('#mymodal').modal('show');
+    }
+
+    function organization_edit() {
+
+        $.ajax({
+            type: 'GET',
+            data: {
+                'edit_id': NodeID
+            },
+            url: "{% url "organization_edit" %}",
+            dataType: 'json',
+            success: function (data) {
+                $("#edit_name").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_name);
+                $("#edit_location").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_address);
+                $("#edit_zipcode").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_postcode);
+                $("#edit_parent").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_parent_name);
+                $("#edit_field").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_field);
+            }
+        });
+        $('#mymodal_edit').modal('show');
+    }
+
+    function organization_delete() {
+        var nodes = zTree.getSelectedNodes();
+        var eval_org ={{ array|safe }};
+        if (eval_org.indexOf(Nodename) > -1) {
+            alert("该机构在使用中，不允许删除");
+            $("#rMenu").hide();
+        } else if (nodes && nodes.length > 0) {
+            if (nodes[0].children && nodes[0].children.length > 0) {
+
+                $('#mymodal_deleteroot').modal('show');
+
+            } else {
+                $('#mymodal_delete').modal('show');
+            }
+        }
+
+
+    }
+
+
+    function NodeClick(event, treeId, treeNode) {
+        Nodename = treeNode.name;
+        NodeID = treeNode.id;
+        {#alert(treeNode.children);#}
+        if (treeNode.type === 0) {
+            return;
+        }
+        showRMenu(treeNode.pId, event.clientX, event.clientY);
+        {#alert(event.clientX)#}
+    }
+
+    function showRMenu(type, x, y) {
+        $("#rMenu").show();
+        if (type === null) {
+            $("#item_edit").hide();
+        } else {
+            $("#item_edit").show();
+            $("#item_add").show();
+            $("#item_del").show();
+        }
+        $("#rMenu").css({"top": y + "px", "left": x + "px", "visibility": "visible"}); //设置右键菜单的位置、可见
+        $("body").bind("mousedown", onBodyMouseDown);
+    }
+
+    //鼠标按下事件
+    function onBodyMouseDown(event) {
+        if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length > 0)) {
+            $("#rMenu").css({"visibility": "hidden"});
+        }
+    }
+
+    $("#CreateForm_Content").submit(function (event) {
+        event.preventDefault();
+        var create_name = $("#create_name").val();
+        var create_location = $('#create_location').val();
+        var create_zipcode = $('#create_zipcode').val();
+        var parent_name = Nodename;
+        var create_field = $('#create_field').val();
+        $.ajax({
+            type: 'POST',
+            data: {
+                "create_name": create_name,
+                "create_location": create_location,
+                'create_zipcode': create_zipcode,
+                'parent_name': parent_name,
+                'create_field': create_field,
+
+            },
+            url: "{% url "organization_create" %}",
+            cache: false,
+            dataType: "json",
+            success: function (data) {
+                window.location = 'institute';
+                alert(data.message)
+            },
+            error: function () {
+                toastr.error('Error');
+            }
+        });
+        return false;
+    });
+    $("#EditForm_Content").submit(function (event) {
+        event.preventDefault();
+        var edit_id = NodeID;
+        var edit_name = $("#edit_name").val();
+        var edit_location = $("#edit_location").val();
+        var edit_zipcode = $("#edit_zipcode").val();
+        var edit_field = $("#edit_field").val();
+        var edit_parent = $("#edit_parent").val();
+        $.ajax({
+            type: 'POST',
+            data: {
+                "edit_id": edit_id,
+                "edit_name": edit_name,
+                "edit_location": edit_location,
+                "edit_zipcode": edit_zipcode,
+                "edit_field": edit_field,
+                "edit_parent": edit_parent
+            },
+            async: false,
+            url: "{% url "organization_edit" %}",
+            cache: false,
+            dataType: "json",
+            success: function (data) {
+                window.location = 'institute';
+                alert(data.message)
+
+            },
+            error: function () {
+                toastr.error('Error');
+
+            }
+        });
+        return false;
+    });
+    $("#DeleteForm_Content,#DeleteRootForm_Content").submit(function () {
+        var delete_id = NodeID;
+        $.ajax({
+            type: 'POST',
+            data: {
+                "delete_id": delete_id,
+            },
+            async: false,
+            url: "{% url "organization_delete" %}",
+            cache: false,
+            dataType: "HTML",
+            success: function (data) {
+                window.location = 'institute';
+                toastr.success(data.message);
+
+            },
+            error: function () {
+                toastr.error('Error');
+
+            }
+        });
+        return false;
+    });
+</script>
+<!-- END PAGE LEVEL JS-->
+</body>
+</html>
