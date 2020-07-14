@@ -146,16 +146,6 @@ def edit(request):
                     return JsonResponse({'message': '子级指标的和不应超过100%'})
         return JsonResponse({'message': '修改成功!'})
 
-
-def mark_method(request):
-    if request.method == 'POST':
-        mark_method = request.POST.get('mark_method')
-        nodeID = request.POST.get('nodeID')
-        questionaire={
-            ''
-        }
-    return JsonResponse({'message': '传送成功!'})
-
 def indicator_export(request):
     # pdb.set_trace()
     response = HttpResponse(content_type='text/csv')
@@ -363,3 +353,7 @@ def download_indicator(request):
     response['Content-Type'] = 'application/octet-stream'  # 设置头信息，告诉浏览器这是个文件
     response['Content-Disposition'] = 'attachment;filename="TableIndicator_Import.xlsx"'
     return response
+
+def questionaire(request):
+    a = request.GET.get('nodeID')
+    return render(request,'standard/questionaire.html')
