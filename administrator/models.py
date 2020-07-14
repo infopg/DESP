@@ -54,7 +54,10 @@ class TableTimeliner(models.Model):
     table_timeliner_col_end = models.DateField(db_column='Table_Timeliner_col_end')  # Field name made lowercase.
     table_timeliner_col_status = models.CharField(db_column='Table_Timeliner_col_status', max_length=128)  # Field name made lowercase.
     table_timeliner_col_name = models.CharField(db_column='Table_Timeliner_col_name', max_length=128)
+    table_timeliner_col_evaluation = models.CharField(db_column='Table_Timeliner_col_evaluation', max_length=128)
 
     class Meta:
         managed = True
         db_table = 'Table_Timeliner'
+        ordering = ['table_timeliner_col_start', 'table_timeliner_col_evaluation']
+

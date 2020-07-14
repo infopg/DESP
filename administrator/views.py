@@ -31,7 +31,8 @@ def standard(request):
         evalname = TableEvaluation.objects.filter(
             Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
             'table_evaluation_col_name')
-        return render(request, 'standard/standard.html', {'data': _data, 'evalname': evalname, 'admin': administrator})
+        timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by('table_timeliner_col_evaluation')
+        return render(request, 'standard/standard.html', {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname':timeevalname})
     else:
         administrator = request.session['user_name']
         evallist = TableEvaluation.objects.filter(
@@ -62,8 +63,9 @@ def standard(request):
             evalname = TableEvaluation.objects.filter(
                 Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
                 'table_evaluation_col_name')
+            timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by('table_timeliner_col_evaluation')
             return render(request, 'standard/standard.html',
-                          {'data': _data, 'evalname': evalname, 'admin': administrator})
+                          {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname})
         else:
             return JsonResponse({'message': '您输入的用户或评估项目不存在'})  # 增加返回到administrator页面 及message显示的功能
 
@@ -161,14 +163,30 @@ def indicator_export(request):
 ## 时间线部分
 
 def timeliner(request):
-    timeline = models.TableTimeliner.objects.all()
-    # organizations = models.TableOrganization.objects.filter(~Q(table_organization_col_name="机构树"))
-    # users = models.TableUser.objects.filter(table_user_col_type_id=1)
-    admin = request.session['user_name']
+    administrator = request.session['user_name']
     evalname = TableEvaluation.objects.filter(
-        Q(table_evaluation_col_administrator=admin) & Q(table_evaluation_col_status='启用')).values(
-        'table_evaluation_col_name')
-    return render(request, 'standard/timeliner.html', locals())
+            Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
+            'table_evaluation_col_name')
+    timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
+            'table_timeliner_col_evaluation')
+    timeline = models.TableTimeliner.objects.filter(
+            table_timeliner_col_evaluation=request.GET.get('timeevalname'))
+    dateline = models.TableTimeliner.objects.filter(
+            table_timeliner_col_evaluation=request.GET.get('timeevalname'))
+    for date in dateline:
+            date_start = date.table_timeliner_col_start
+            date_new_start = str(date_start).replace('-', '/')
+            date_use_start = date_new_start[-2:] + date_new_start[4:8] + date_new_start[0:4]
+            date.table_timeliner_col_start = date_use_start
+            date_end = date.table_timeliner_col_end
+            date_new_end = str(date_end).replace('-', '/')
+            date_use_end = date_new_end[-2:] + date_new_end[4:8] + date_new_end[0:4]
+            date.table_timeliner_col_end = date_use_end
+    return render(request, 'standard/timeliner.html',
+                      {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
+                       'timeline':timeline, 'dateline': dateline})
+
+
 
 
 def timeliner_create(request):
@@ -354,6 +372,10 @@ def download_indicator(request):
     response['Content-Disposition'] = 'attachment;filename="TableIndicator_Import.xlsx"'
     return response
 
+
 def questionaire(request):
     a = request.GET.get('nodeID')
     return render(request,'standard/questionaire.html')
+
+
+

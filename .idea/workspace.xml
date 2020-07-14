@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="495a9a34-d66d-42cd-b481-066e01c6ea1d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/DESP/templates/standard/timeline_users.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/administrator/migrations/0003_tabletimeliner.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/static/app-assets/js/horizontal-timeline.js" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/static/app-assets/js/horizontal-timeline.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/templates/login/administrator.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/login/administrator.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DESP/templates/standard/standard.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/standard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/templates/standard/timeliner.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/timeliner.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/administrator/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/administrator/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/administrator/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -305,6 +312,7 @@
       <workItem from="1594694963114" duration="98000" />
       <workItem from="1594695404851" duration="693000" />
       <workItem from="1594696151168" duration="9321000" />
+      <workItem from="1594718253283" duration="503000" />
     </task>
     <servers />
   </component>

@@ -163,9 +163,17 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}"><i class="icon-magnet"></i><span
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
                             data-i18n=""
                             class="menu-title">工作进度</span></a>
+                        <ul class="menu-content">
+                            {% for t in timeevalname %}
+                                <li>
+                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_timeliner_col_evaluation }}&admin={{ admin }}"
+                                       class="menu-item">{{ t.table_timeliner_col_evaluation }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -237,6 +245,7 @@
                                                     </button>
                                                     <a class="btn mr-1 btn-secondary"
                                                        href="{% url "download_indicator" %}">下载模板</a>
+
                                                 </p>
                                                 <div style="width: 600px">
                                                     <input id="keyword" type="search" placeHolder="搜索关键字"/>

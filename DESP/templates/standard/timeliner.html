@@ -238,9 +238,17 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}"><i class="icon-magnet"></i><span
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
                             data-i18n=""
                             class="menu-title">工作进度</span></a>
+                        <ul class="menu-content">
+                            {% for t in timeevalname %}
+                                <li>
+                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_timeliner_col_evaluation }}&admin={{ admin }}"
+                                       class="menu-item">{{ t.table_timeliner_col_evaluation }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -372,16 +380,73 @@
         </div>
 
 
+    <div class="card">
+	<div class="card-body">
+		<div class="card-block">
+			<section class="cd-horizontal-timeline">
+				<div class="timeline">
+					<div class="events-wrapper">
+						<div class="events">
+							<ol>
+								<li><a data-date="01/03/2020" class="selected">时间线开始</a></li>
+                                {% for date in dateline %}
+                                <li><a data-date={{ date.table_timeliner_col_start }}>{{ date.table_timeliner_col_name }}</a></li>
+                                {% endfor %}
+							</ol>
+							<span class="filling-line" aria-hidden="true"></span>
+						</div>
+						<!-- .events -->
+					</div>
+					<!-- .events-wrapper -->
+
+					<ul class="cd-timeline-navigation">
+						<li><a href="#0" class="prev inactive">Prev</a></li>
+						<li><a href="#0" class="next">Next</a></li>
+					</ul>
+					<!-- .cd-timeline-navigation -->
+				</div>
+				<!-- .timeline -->
+
+				<div class="events-content">
+					<ol>
+                        <li class="selected" data-date="01/03/2020">
+							<h4 class="text-bold-500">选择查看工作进度</h4>
+						</li>
+
+                        {% for dateps in dateline %}
+						<li data-date={{ dateps.table_timeliner_col_start }}>
+							<h4 class="text-bold-500">{{ dateps.table_timeliner_col_name }}</h4>
+							<h5 class="text-bold-500 mb-2">起始时间：{{ dateps.table_timeliner_col_start }}
+                                &nbsp;&nbsp; 完成时间：{{ dateps.table_timeliner_col_end }}
+                                &nbsp;&nbsp; 状态：{{ dateps.table_timeliner_col_status}}</h5>
+							<p>
+								{{ dateps.table_timeliner_col_content }}
+							</p>
+						</li>
+                        {% endfor %}
+					</ol>
+				</div>
+				<!-- .events-content -->
+			</section>
+		</div>
+	</div>
+</div>
+
+
         <footer class="footer footer-static footer-light">
             <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2018 <a href="#" id="pixinventLink"
                                                                                             target="_blank"
                                                                                             class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
             </p>
         </footer>
-
     </div>
-
 </div>
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+
+
+
 
 <script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>
@@ -401,6 +466,7 @@
 <!-- END CONVEX JS-->
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
+<script src="{% static 'app-assets/js/horizontal-timeline.js' %}"></script>
 <script>
     function go(id) {
         itemid = id
@@ -458,7 +524,7 @@
                 dataType: "json",
 
                 success: function (data) {
-                    window.location = 'timeliner';
+                    window.location.reload();
                     alert(data.message);
                 },
                 error: function (data) {
@@ -494,7 +560,7 @@
                 dataType: "json",
 
                 success: function (data) {
-                    window.location = 'timeliner';
+                    window.location.reload();
                     alert(data.message);
 
                 },

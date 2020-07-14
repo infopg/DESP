@@ -185,9 +185,9 @@
 	         		timelineStyle.getPropertyValue("transform");
 
 	        if( timelineTranslate.indexOf('(') >=0 ) {
-	        	var timelineTranslate = timelineTranslate.split('(')[1];
-	    		timelineTranslate = timelineTranslate.split(')')[0];
-	    		timelineTranslate = timelineTranslate.split(',');
+	        	var timelineTranslate = (timelineTranslate || "").split('(')[1];
+	    		timelineTranslate = (timelineTranslate || "").split(')')[0];
+	    		timelineTranslate = (timelineTranslate || "").split(',');
 	    		var translateValue = timelineTranslate[4];
 	        } else {
 	        	var translateValue = 0;
@@ -209,15 +209,15 @@
 			var dateArrays = [];
 			events.each(function(){
 				var singleDate = $(this),
-					dateComp = singleDate.data('date').split('T');
+					dateComp = (singleDate.data('date') || "").split('T');
 				if( dateComp.length > 1 ) { //both DD/MM/YEAR and time are provided
-					var dayComp = dateComp[0].split('/'),
-						timeComp = dateComp[1].split(':');
+					var dayComp = (dateComp[0] || "").split('/'),
+						timeComp = (dateComp[1] || "").split(':');
 				} else if( dateComp[0].indexOf(':') >=0 ) { //only time is provide
 					var dayComp = ["2000", "0", "0"],
-						timeComp = dateComp[0].split(':');
+						timeComp = (dateComp[0] || "").split(':');
 				} else { //only DD/MM/YEAR
-					var dayComp = dateComp[0].split('/'),
+					var dayComp = (dateComp[0] || "").split('/'),
 						timeComp = ["0", "0"];
 				}
 				var	newDate = new Date(dayComp[2], dayComp[1]-1, dayComp[0], timeComp[0], timeComp[1]);

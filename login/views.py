@@ -14,6 +14,8 @@ from login.forms import ForgetForm, ResetForm
 import pdb
 import datetime, json
 from django.core import serializers
+from administrator.models import TableTimeliner
+
 
 
 # Create your views here.
@@ -104,7 +106,10 @@ def administrator(request):
     evalname = TableEvaluation.objects.filter(
         Q(table_evaluation_col_administrator=username) & Q(table_evaluation_col_status='启用')).values(
         'table_evaluation_col_name')
-    return render(request, 'login/administrator.html', {'evalname': evalname, 'admin': username})
+    timeevalname = TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
+        'table_timeliner_col_evaluation')
+    return render(request, 'login/administrator.html', {'evalname': evalname, 'admin': username, 'timeevalname':timeevalname})
+
 
 
 def user(request):
