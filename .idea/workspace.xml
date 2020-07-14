@@ -2,79 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="495a9a34-d66d-42cd-b481-066e01c6ea1d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/DESP.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Administrator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_11_34_33_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_11_39_00_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_11_41_01_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_11_42_00_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_11_44_14_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_11_46_31_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_11_48_37_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_11_49_25_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_13_59_47_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_14_04_50_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_14_08_32_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_14_09_32_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_14_11_50_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_14_14_53_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/20200708_14_19_04_TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/organization/TableOrg_Import.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/user/20200708_10_30_06_TableUser_Import0709v2.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/user/20200708_10_38_24_TableUser_Import0709v2.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/user/20200708_10_45_35_TableUser_Import0709v2.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/user/20200708_10_45_41_TableUser_Import0709v2.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/user/20200708_10_48_16_TableUser_Import0709v2.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/user/20200708_10_49_35_TableUser_Import0709v2.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/user/20200708_10_55_16_TableUser_Import0709v2.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/user/20200708_10_56_52_TableUser_Import0709v2.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/user/20200708_10_58_07_TableUser_Import0709v2.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/user/TableUser_Import0708v2.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DESP/uploads/user/TableUser_Import0709.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/static/app-assets/vendors/js/datatable/datatables.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/static/app-assets/vendors/js/datatable/datatables.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/static/app-assets/vendors/js/datatable/pdfmake.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/static/app-assets/vendors/js/datatable/pdfmake.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/static/src/sass/scss/bootstrap/_dropdown.scss" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/static/src/sass/scss/bootstrap/_dropdown.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/static/src/sass/scss/bootstrap/_reboot.scss" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/static/src/sass/scss/bootstrap/_reboot.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/templates/login/administrator.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/login/administrator.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/templates/login/supervisor.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/login/supervisor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/templates/standard/tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/standard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/templates/supervisor/evaluation.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/supervisor/evaluation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/templates/supervisor/institute.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/supervisor/institute.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/templates/supervisor/people.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/supervisor/people.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/1151040774788386816.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/2019年度报告——中央厅修改意见汇总.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/Consent-Form-CN.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/Deep Learning in Research Paper Classification.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/Import_Excel.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/Program-Temporary-Stop-Out.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/ReadingResearchCourse.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/TableUser_Import.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/uploads/user/TableUser_Import.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/htdocs0630.rar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/mongodb.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/中国科学院信息化评估报告2020-改.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/工作簿1.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/数据处理平台重构需求文档.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/研究所管理信息化统计.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/uploads/user/科学数据管理制度.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/administrator/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/administrator/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/administrator/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/supervisor/excelimport.py" beforeDir="false" afterPath="$PROJECT_DIR$/supervisor/excelimport.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/supervisor/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/supervisor/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/supervisor/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/supervisor/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/supervisor/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/supervisor/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -370,6 +298,7 @@
       <workItem from="1594343322136" duration="20701000" />
       <workItem from="1594556174756" duration="10779000" />
       <workItem from="1594602061344" duration="16288000" />
+      <workItem from="1594689456712" duration="894000" />
     </task>
     <servers />
   </component>
