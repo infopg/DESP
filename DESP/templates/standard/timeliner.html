@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" class="loading">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description"
+          content="Convex admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Page for timeline</title>
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app-assets/img/ico/apple-icon-60.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app-assets/img/ico/apple-icon-76.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app-assets/img/ico/apple-icon-120.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'app-assets/img/ico/apple-icon-152.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'app-assets/img/ico/favicon.ico' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'app-assets/img/ico/favicon-32.png' %}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+</head>
+<body data-col="2-columns" class=" 2-columns ">
+
+<!--modals begin-->
+<!--add-->
+<div id="mymodal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">添加工作项目</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="CreateForm_Content" method="post">{% csrf_token %}
+                    <div>
+                        <label>工作项目</label>
+                        <div>
+                            <input type="text" id="create_name"
+                                   name="name" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>工作内容</label>
+
+                        <textarea style="height:80px; width:420px" id="create_content"
+                                      name="content" required></textarea>
+
+                    </div>
+
+                    <div>
+                        <label>开始时间</label>
+                        <div>
+                            <input type="date" id="create_start"
+                                   name="field" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>结束时间</label>
+                        <div>
+                            <input type="date" id="create_end"
+                                   name="field" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>工作状态</label>
+                        <div>
+                            <input type="text" id="create_status"
+                                   name="time_status" list="time_status_list" required>
+                            <datalist id="time_status_list">
+                                <option>未开始</option>
+                                <option>进行中</option>
+                                <option>已完成</option>
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary"
+                                id="add">提交更改
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Index -->
+<div id="mymodal_edit" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="EditLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="EditLabel">修改工作项目</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="EditForm_Content" method="post">{% csrf_token %}
+                    <div>
+                        <label>工作项目</label>
+                        <div>
+                            <input type="text" id="edit_name"
+                                   name="name" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>工作内容</label>
+
+                        <textarea style="height:80px; width:420px" id="edit_content"
+                                  name="content" required></textarea>
+
+                    </div>
+
+                    <div>
+                        <label>开始时间</label>
+                        <div>
+                            <input type="date" id="edit_start"
+                                   name="field" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>结束时间</label>
+                        <div>
+                            <input type="date" id="edit_end"
+                                   name="field" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>工作状态</label>
+                        <div>
+                            <input type="text" id="edit_status"
+                                   name="time_status" list="time_status_list" required>
+                            <datalist id="time_status_list">
+                                <option>未开始</option>
+                                <option>进行中</option>
+                                <option>已完成</option>
+                            </datalist>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary"
+                                id="add">提交更改
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Delete Form-->
+<div id="mymodal_delete" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="DeleteLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="DeleteLabel">删除</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="DeleteForm_Content" method="post">{% csrf_token %}
+                    <div>
+                        <span>您确定要删除吗？</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary"
+                                id="delete_add">确定
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+<!--modals end-->
+<div class="wrapper nav-collapsed menu-collapsed">
+
+
+         <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="{% url 'administrator' %}" class="logo-text float-left">
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
+                <span class="text align-middle">CNIC</span></a><a id="sidebarToggle" href="javascript:;"
+                                                                  class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i
+                    data-toggle="collapsed" class="ft-circle toggle-icon"></i></a><a id="sidebarClose"
+                                                                                     href="javascript:;"
+                                                                                     class="nav-close d-block d-md-block d-lg-none d-xl-none"><i
+                    class="ft-circle"></i></a></div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-screen-desktop"></i><span
+                            data-i18n=""
+                            class="menu-title">数据采集</span></a>
+                    </li>
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">数据统计</span></a>
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">项目分类</span></a>
+                        <ul class="menu-content">
+                            {% for u in evalname %}
+                                <li>
+                                    <a href="{% url 'standard' %}?evalname={{ u.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ u.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">工作进度</span></a>
+                        <ul class="menu-content">
+                            {% for t in timeevalname %}
+                                <li>
+                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_timeliner_col_evaluation }}&admin={{ admin }}"
+                                       class="menu-item">{{ t.table_timeliner_col_evaluation }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+
+                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
+                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span></button>
+                <span class="d-lg-none navbar-right navbar-collapse-toggle"><a class="open-navbar-container"><i
+                        class="ft-more-vertical"></i></a></span><a id="navbar-fullscreen" href="javascript:;"
+                                                                   class="mr-2 display-inline-block apptogglefullscreen"><i
+                    class="ft-maximize blue-grey darken-4 toggleClass"></i>
+                <p class="d-none">fullscreen</p></a>
+
+            </div>
+            <div class="navbar-container">
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                                class="avatar avatar-online"><img id="navbar-avatar"
+                                                                  src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
+                                                                  alt="avatar"/></span>
+                            <p class="d-none">User Settings</p></a>
+                            <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
+                                <div class="arrow_box_right">
+                                    <a href="{% url 'logout' %}" class="dropdown-item"><i
+                                            class="ft-power mr-2"></i><span>Logout</span></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+<!--End of sidebar and navibar-->
+
+    <div class="main-panel">
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="container-fluid"><!-- Base style table -->
+                    <section id="base-style">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title-wrap bar-success">
+                                            <h4 class="card-title">欢迎</h4>
+                                        </div>
+                                        <button type="button" class="btn mr-1 btn-secondary" data-toggle="modal"
+                                                data-target="#mymodal">添加
+                                        </button>
+                                    </div>
+                                    <div class="card-body collapse show">
+                                        <div class="card-block card-dashboard">
+                                            <p class="card-text"></p>
+                                            <table class="table table-striped table-bordered base-style">
+                                                <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>工作项目</th>
+                                                    <th>工作内容</th>
+                                                    <th>开始时间</th>
+                                                    <th>截止时间</th>
+                                                    <th>工作状态</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for timestamp in timeline %}
+                                                    <tr>
+                                                        <td>{{ timestamp.table_timeliner_col_id }}</td>
+                                                        <td>{{ timestamp.table_timeliner_col_name }}</td>
+                                                        <td>{{ timestamp.table_timeliner_col_content }}</td>
+                                                        <td>{{ timestamp.table_timeliner_col_start }}</td>
+                                                        <td>{{ timestamp.table_timeliner_col_end }}</td>
+                                                        <td>{{ timestamp.table_timeliner_col_status }}</td>
+                                                        <td>
+                                                            <button type="button" class="btn mr-1 btn-secondary"
+                                                                    data-toggle="modal"
+                                                                    data-target="#mymodal_edit"
+                                                                    id="{{ timestamp.table_timeliner_col_id }}"
+
+                                                                    onclick="timeliner_edit(this.id)">编辑
+
+                                                            </button>
+                                                            <button type="button" class="btn mr-1 btn-secondary"
+                                                                    data-toggle="modal"
+                                                                    data-target="#mymodal_delete"
+                                                                    id="{{ timestamp.table_timeliner_col_id }}"
+                                                                    onclick="go(this.id)">删除
+                                                            </button>
+
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>工作项目</th>
+                                                    <th>工作内容</th>
+                                                    <th>开始时间</th>
+                                                    <th>截止时间</th>
+                                                    <th>工作状态</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--/ Base style table -->
+                </div>
+            </div>
+        </div>
+
+
+    <div class="card">
+	<div class="card-body">
+		<div class="card-block">
+			<section class="cd-horizontal-timeline">
+				<div class="timeline">
+					<div class="events-wrapper">
+						<div class="events">
+							<ol>
+								<li><a data-date="01/03/2020" class="selected">时间线开始</a></li>
+                                {% for date in dateline %}
+                                <li><a data-date={{ date.table_timeliner_col_start }}>{{ date.table_timeliner_col_name }}</a></li>
+                                {% endfor %}
+							</ol>
+							<span class="filling-line" aria-hidden="true"></span>
+						</div>
+						<!-- .events -->
+					</div>
+					<!-- .events-wrapper -->
+
+					<ul class="cd-timeline-navigation">
+						<li><a href="#0" class="prev inactive">Prev</a></li>
+						<li><a href="#0" class="next">Next</a></li>
+					</ul>
+					<!-- .cd-timeline-navigation -->
+				</div>
+				<!-- .timeline -->
+
+				<div class="events-content">
+					<ol>
+                        <li class="selected" data-date="01/03/2020">
+							<h4 class="text-bold-500">选择查看工作进度</h4>
+						</li>
+
+                        {% for dateps in dateline %}
+						<li data-date={{ dateps.table_timeliner_col_start }}>
+							<h4 class="text-bold-500">{{ dateps.table_timeliner_col_name }}</h4>
+							<h5 class="text-bold-500 mb-2">起始时间：{{ dateps.table_timeliner_col_start }}
+                                &nbsp;&nbsp; 完成时间：{{ dateps.table_timeliner_col_end }}
+                                &nbsp;&nbsp; 状态：{{ dateps.table_timeliner_col_status}}</h5>
+							<p>
+								{{ dateps.table_timeliner_col_content }}
+							</p>
+						</li>
+                        {% endfor %}
+					</ol>
+				</div>
+				<!-- .events-content -->
+			</section>
+		</div>
+	</div>
+</div>
+
+        <footer class="footer footer-static footer-light">
+            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2018 <a href="#" id="pixinventLink"
+                                                                                            target="_blank"
+                                                                                            class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
+            </p>
+        </footer>
+    </div>
+</div>
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+
+
+
+
+<script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/prism.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/jquery.matchHeight-min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/screenfull.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/pace/pace.min.js' %}"></script>
+<!-- BEGIN VENDOR JS-->
+<!-- BEGIN PAGE VENDOR JS-->
+<script src="{% static 'app-assets/vendors/js/datatable/datatables.min.js' %}"></script>
+<!-- END PAGE VENDOR JS-->
+<!-- BEGIN CONVEX JS-->
+<script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+<script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+<!-- END CONVEX JS-->
+<!-- BEGIN PAGE LEVEL JS-->
+<script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
+<script src="{% static 'app-assets/js/horizontal-timeline.js' %}"></script>
+<script>
+    function go(id) {
+        itemid = id
+    }
+</script>
+
+
+<script>
+    function timeliner_edit(id) {
+        itemid = id;
+        $.ajax({
+            type: 'GET',
+            data: {
+                'edit_id': itemid
+            },
+            url: "{% url "timeliner_edit" %}",
+            dataType: 'json',
+            success: function (data) {
+                $("#edit_name").attr("value", eval("(" + data.timeline + ")")[0].fields.table_timeliner_col_name);
+                $("#edit_content").val(eval("(" + data.timeline + ")")[0].fields.table_timeliner_col_content);
+                $('#edit_start').attr("value", eval("(" + data.timeline + ")")[0].fields.table_timeliner_col_start);
+                $('#edit_end').attr("value", eval("(" + data.timeline + ")")[0].fields.table_timeliner_col_end);
+                $('#edit_status').attr("value", eval("(" + data.timeline + ")")[0].fields.table_timeliner_col_status);
+            }
+
+        });
+        $('#mymodal_edit').modal('show');
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
+        });
+
+        $("#CreateForm_Content").submit(function () {
+            var create_name = $("#create_name").val();
+            var create_content = $("#create_content").val();
+            var create_start = $('#create_start').val();
+            var create_end = $('#create_end').val();
+            var create_status = $('#create_status').val();
+            $.ajax({
+                type: 'POST',
+                data: {
+                    "name": create_name,
+                    "content": create_content,
+                    'start': create_start,
+                    'end': create_end,
+                    'status': create_status
+                },
+                url: "{% url "timeliner_create" %}",
+                cache: false,
+
+                dataType: "json",
+
+                success: function (data) {
+                    window.location.reload();
+                    alert(data.message);
+                },
+                error: function (data) {
+                    alert(data.message);
+                }
+            });
+            return false;
+        });
+
+        $("#EditForm_Content").submit(function (event) {
+            event.preventDefault();
+
+            var edit_id = itemid;
+            var edit_name = $("#edit_name").val();
+            var edit_content = $("#edit_content").val();
+            var edit_start = $('#edit_start').val();
+            var edit_end = $('#edit_end').val();
+            var edit_status = $('#edit_status').val();
+            $.ajax({
+                type: 'POST',
+                data: {
+                    'edit_id': edit_id,
+                    'edit_name':edit_name,
+                    "content": edit_content,
+                    'start': edit_start,
+                    'end': edit_end,
+                    'status': edit_status
+                },
+                async: false,
+                url: "{% url "timeliner_edit" %}",
+                cache: false,
+
+                dataType: "json",
+
+                success: function (data) {
+                    window.location.reload();
+                    alert(data.message);
+
+                },
+                error: function (data) {
+                    alert(data.message);
+
+                }
+            });
+            return false;
+        });
+
+
+    });
+    $("#DeleteForm_Content").submit(function () {
+        var delete_id = itemid;
+        $.ajax({
+            type: 'POST',
+            data: {
+                "delete_id": delete_id,
+            },
+            async: false,
+            url: "{% url "timeliner_delete" %}",
+            cache: false,
+            dataType: "json",
+            success: function (data) {
+                window.location = 'timeliner';
+                alert(data.message);
+
+            },
+            error: function (data) {
+                alert(data.message);
+
+            }
+        });
+        return false;
+    });
+
+</script>
+<!-- END PAGE LEVEL JS-->
+</body>
+</html>

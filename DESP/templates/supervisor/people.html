@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" class="loading">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description"
+          content="Convex admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Page for superuser</title>
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app-assets/img/ico/apple-icon-60.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app-assets/img/ico/apple-icon-76.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app-assets/img/ico/apple-icon-120.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'app-assets/img/ico/apple-icon-152.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'app-assets/img/ico/favicon.ico' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'app-assets/img/ico/favicon-32.png' %}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+</head>
+<body data-col="2-columns" class=" 2-columns ">
+<div id="mymodal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">添加人员</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="CreateForm_Content" method="post">{% csrf_token %}
+                    <div>
+                        <label>用户名</label>
+                        <div>
+                            <input type="text" id="create_name"
+                                   name="name" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>用户性别</label>
+                        <div>
+                            <input type="text" id="create_sex"
+                                   name="user_create_sex" list="user_create_sex_list" required>
+                            <datalist id="user_create_sex_list">
+                                <option>男</option>
+                                <option>女</option>
+                            </datalist>
+                        </div>
+                    </div>
+                    <div>
+                        <label>密码</label>
+                        <div>
+                            <input type="text" id="create_password"
+                                   name="password" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>再次输入密码</label>
+                        <div>
+                            <input type="text" id="create_password_twice"
+                                   name="password_twice" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>所属机构</label>
+                        <div>
+                            <input type="text" id="create_organization"
+                                   name="organization" list="org_list" required>
+                            <datalist id="org_list">
+                                {% for org in organization %}
+                                <option>{{ org.table_organization_col_name }}</option>
+                                {% endfor %}
+                            </datalist>
+                        </div>
+                    </div>
+                    <div>
+                        <label>所属部门</label>
+                        <div>
+                            <input type="text" id="create_department"
+                                   name="department" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>邮编</label>
+                        <div>
+                            <input type="text" id="create_zipcode"
+                                   name="zipcode" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>邮箱</label>
+                        <div>
+                            <input type="text" id="create_email"
+                                   name="email" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>电话号码</label>
+                        <div>
+                            <input type="text" id="create_phonenumber"
+                                   name="phonenumber" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>地址</label>
+                        <div>
+                            <input type="text" id="create_location"
+                                   name="location" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>学历</label>
+                        <div>
+                            <input type="text" id="create_edu"
+                                   name="user_create_edu" list="user_create_edu_list" required>
+                            <datalist id="user_create_edu_list">
+                                <option>博士</option>
+                                <option>硕士</option>
+                                <option>本科</option>
+                                <option>大专</option>
+                                <option>高中及高职</option>
+                                <option>高中以下</option>
+                            </datalist>
+                        </div>
+                    </div>
+                    <div>
+                        <label>用户类型</label>
+                        <div>
+                            <input type="text" id="create_type"
+                                   name="user_type" list="user_type_list" required>
+                            <datalist id="user_type_list">
+                                <option>超级管理员</option>
+                                <option>管理员</option>
+                                <option>机构管理员</option>
+                                <option>机构用户</option>
+                                <option>专家用户</option>
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary"
+                                id="add">提交更改
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Index -->
+<div id="mymodal_edit" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="EditLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="EditLabel">修改信息</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="EditForm_Content" method="post">{% csrf_token %}
+                    <div>
+                        <label>用户名</label>
+                        <div>
+                            <input type="text" id="edit_name"
+                                   name="name" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>用户性别</label>
+                        <div>
+                            <input type="text" id="edit_sex"
+                                   name="user_edit_sex" list="user_edit_sex_list" required>
+                            <datalist id="user_edit_sex_list">
+                                <option>男</option>
+                                <option>女</option>
+                            </datalist>
+                        </div>
+                    </div>
+                    <div>
+                        <label>密码</label>
+                        <div>
+                            <input type="text" id="edit_password"
+                                   name="password" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>再次输入密码</label>
+                        <div>
+                            <input type="text" id="edit_password_twice"
+                                   name="password_twice" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>所属机构</label>
+                        <div>
+                            <input type="text" id="edit_organization"
+                                   name="organization" list="org_list" required>
+                            <datalist id="org_list">
+                                {% for org in organization %}
+                                <option>{{ org.table_organization_col_name }}</option>
+                                {% endfor %}
+                            </datalist>
+                        </div>
+                    </div>
+                    <div>
+                        <label>所属部门</label>
+                        <div>
+                            <input type="text" id="edit_department"
+                                   name="department" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>邮编</label>
+                        <div>
+                            <input type="text" id="edit_zipcode"
+                                   name="zipcode" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>邮箱</label>
+                        <div>
+                            <input type="text" id="edit_email"
+                                   name="email" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>电话号码</label>
+                        <div>
+                            <input type="text" id="edit_phonenumber"
+                                   name="phonenumber" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>地址</label>
+                        <div>
+                            <input type="text" id="edit_location"
+                                   name="location" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>学历</label>
+                        <div>
+                            <input type="text" id="edit_edu"
+                                   name="user_edit_edu" list="user_edit_edu_list" required>
+                            <datalist id="user_edit_edu_list">
+                                <option>博士</option>
+                                <option>硕士</option>
+                                <option>本科</option>
+                                <option>大专</option>
+                                <option>高中及高职</option>
+                                <option>高中以下</option>
+                            </datalist>
+                        </div>
+                    </div>
+                    <div>
+                        <label>用户类型</label>
+                        <div>
+                            <input type="text" id="edit_type"
+                                   name="user_edit_type" list="user_edit_type_list" required>
+                            <datalist id="user_edit_type_list">
+                                <option>超级管理员</option>
+                                <option>管理员</option>
+                                <option>机构管理员</option>
+                                <option>机构用户</option>
+                                <option>专家用户</option>
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary"
+                                id="edit_add">确定
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Delete Form-->
+<div id="mymodal_delete" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="DeleteLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="DeleteLabel">删除</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="DeleteForm_Content" method="post">{% csrf_token %}
+                    <div>
+                        <span>您确定要删除吗？</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary"
+                                id="delete_add">确定
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+
+
+
+<!--Upload and Update-->
+<div id="mymodal_update" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="UploadLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="UploadLabel">导入表格（.xlsx格式）</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="UpdateForm_Content" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="modal-footer">
+                        <input type="file" id="fafafa">
+                        <input type="submit" id="file_upload">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+
+
+<div class="wrapper nav-collapsed menu-collapsed">
+
+
+    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="#" class="logo-text float-left">
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
+                <span class="text align-middle">CNIC</span></a><a id="sidebarToggle" href="javascript:;"
+                                                                  class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i
+                    data-toggle="collapsed" class="ft-circle toggle-icon"></i></a><a id="sidebarClose"
+                                                                                     href="javascript:;"
+                                                                                     class="nav-close d-block d-md-block d-lg-none d-xl-none"><i
+                    class="ft-circle"></i></a></div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+                    <li class="has-sub nav-item"><a href="{% url 'institute' %}"><i class="icon-home"></i><span
+                            data-i18n=""
+                            class="menu-title">机构设置</span></a>
+                        {#                            <li><a href="{% url 'department' %}" class="menu-item">分院</a>#}
+                        {#                            </li>#}
+                        {#                            <li><a href="{% url 'unit' %}" class="menu-item">支撑单位</a>#}
+                        {#                            </li>#}
+                        {#                            <li><a href="{% url 'others' %}" class="menu-item">其他评估系统</a>#}
+                        {#                            </li>#}
+
+
+                    </li>
+                    <li class="has-sub nav-item"><a href="{% url 'people' %}"><i class="icon-screen-desktop"></i><span
+                            data-i18n=""
+                            class="menu-title">人员设置</span></a>
+                    </li>
+                    <li class="has-sub nav-item"><a href="{% url 'evaluation' %}"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">评估系统</span></a>
+                        <ul class="menu-content">
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+
+                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
+                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span></button>
+                <span class="d-lg-none navbar-right navbar-collapse-toggle"><a class="open-navbar-container"><i
+                        class="ft-more-vertical"></i></a></span><a id="navbar-fullscreen" href="javascript:;"
+                                                                   class="mr-2 display-inline-block apptogglefullscreen"><i
+                    class="ft-maximize blue-grey darken-4 toggleClass"></i>
+                <p class="d-none">fullscreen</p></a>
+            </div>
+            <div class="navbar-container">
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                                class="avatar avatar-online"><img id="navbar-avatar"
+                                                                  src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
+                                                                  alt="avatar"/></span>
+                            <p class="d-none">User Settings</p></a>
+                            <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
+                                <div class="arrow_box_right">
+                                    <a href="{% url 'logout' %}" class="dropdown-item"><i
+                                            class="ft-power mr-2"></i><span>Logout</span></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-panel">
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="container-fluid"><!-- Base style table -->
+                    <section id="base-style">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title-wrap bar-success">
+                                            <h4 class="card-title">欢迎</h4>
+                                        </div>
+                                        <button type="button" class="btn mr-1 btn-secondary" data-toggle="modal"
+                                                data-target="#mymodal">添加
+                                        </button>
+                                        <button type="button" class="btn mr-1 btn-secondary" data-toggle="modal"
+                                                data-target="#mymodal_update">上传模板
+                                        </button>
+
+                                        <a class="btn mr-1 btn-secondary" href="{% url 'download_user' %}" rel="external nofollow">下载模板</a>
+
+
+
+                                        {#                                        <div>#}
+                                        {#                                            <input type="file" name="file" id="file_upload">#}
+                                        {#                                            <input type="button" value="上传" onclick="fileupload()">#}
+                                        {#                                        </div>#}
+                                    </div>
+                                    <div class="card-body collapse show">
+                                        <div class="card-block card-dashboard">
+                                            <p class="card-text"></p>
+                                            <table class="table table-striped table-bordered base-style">
+                                                <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>机构ID(重构外键）</th>
+                                                    <th>姓名</th>
+                                                    <th>用户职位</th>
+                                                    <th>用户类型</th>
+                                                    <th>所属部门</th>
+                                                    <th>手机</th>
+                                                    <th>工作领域</th>
+                                                    <th>邮箱</th>
+                                                    <th>备注</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for user in users %}
+                                                    <tr>
+                                                        <td>{{ user.table_user_col_id }}</td>
+                                                        <td>{{ user.table_user_col_organization_id }}</td>
+                                                        <td>{{ user.table_user_col_real_name }}</td>
+                                                        <td>{{ user.table_user_col_title }}</td>
+                                                        <td>{{ user.table_user_col_type }}</td>
+                                                        <td>{{ user.table_user_col_department }}</td>
+                                                        <td>{{ user.table_user_col_mobile }}</td>
+                                                        <td>{{ user.table_user_col_work_field }}</td>
+                                                        <td>{{ user.table_user_col_email }}</td>
+                                                        <td>{{ user.table_user_col_memo }}</td>
+                                                        <td>
+                                                            <button type="button" class="btn mr-1 btn-secondary"
+                                                                    data-toggle="modal"
+                                                                    data-target="#mymodal_edit"
+                                                                    id="{{ user.table_user_col_id }}"
+                                                                    onclick="user_edit(this.id)">编辑
+                                                            </button>
+                                                            <button type="button" class="btn mr-1 btn-secondary"
+                                                                    data-toggle="modal"
+                                                                    data-target="#mymodal_delete"
+                                                                    id="{{ user.table_user_col_id }}"
+                                                                    onclick="go(this.id)">删除
+                                                            </button>
+
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>机构ID(重构外键）</th>
+                                                    <th>姓名</th>
+                                                    <th>用户职位</th>
+                                                    <th>用户类型</th>
+                                                    <th>所属部门</th>
+                                                    <th>手机</th>
+                                                    <th>工作领域</th>
+                                                    <th>邮箱</th>
+                                                    <th>备注</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--/ Base style table -->
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer footer-static footer-light">
+            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2018 <a href="#" id="pixinventLink"
+                                                                                            target="_blank"
+                                                                                            class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
+            </p>
+        </footer>
+
+    </div>
+</div>
+<script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/prism.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/jquery.matchHeight-min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/screenfull.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/pace/pace.min.js' %}"></script>
+<!-- BEGIN VENDOR JS-->
+<!-- BEGIN PAGE VENDOR JS-->
+<script src="{% static 'app-assets/vendors/js/datatable/datatables.min.js' %}"></script>
+<!-- END PAGE VENDOR JS-->
+<!-- BEGIN CONVEX JS-->
+<script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+<script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+<!-- END CONVEX JS-->
+<!-- BEGIN PAGE LEVEL JS-->
+<script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
+
+<script src="{% static 'src/js/jquery.cookie.js' %}"></script>
+<script>
+    function go(id) {
+        itemid = id
+    }
+</script>
+
+<script>
+    function user_edit(id) {
+        itemid = id;
+        $.ajax({
+            type: 'GET',
+            data: {
+                'edit_id': itemid
+            },
+            url: "{% url "user_edit" %}",
+            dataType: 'json',
+            success: function (data) {
+                $("#edit_name").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_name);
+                $("#edit_realname").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_real_name);
+                $("#edit_sex").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_sex);
+                $("#edit_location").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_address);
+                {#$("#edit_password").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_password);#}
+                {#$('#edit_password_twice').attr("value", eval("(" + data.ppl + ")")[0].fields.table_evaluation_col_create_time);#}
+                {#$('#edit_organization').attr("value", "机构ID：" + eval("(" + data.ppl + ")")[0].fields.table_user_col_organization_id);#}
+                $('#edit_department').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_department);
+                $("#edit_title").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_title);
+                $("#edit_field").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_work_field);
+                $("#edit_email").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_email);
+                $("#edit_zipcode").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_postcode);
+                $("#edit_edu").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_bachelor);
+                $('#edit_memo').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_memo);
+                $('#edit_birthday').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_birth);
+                $('#edit_identity').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_IdentityID);
+                $('#edit_type').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_type);
+                $('#edit_mobilenumber').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_mobile);
+                $('#edit_telnumber').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_tel);
+            }
+            {#console.log(data.eva)}#}
+
+        });
+        $('#mymodal_edit').modal('show');
+    }
+</script>
+<script>
+    {##}
+    {#    function fileupload() {#}
+    {#            var form_data = new FormData();#}
+    {#            var file_info =$('#file_upload')[0].files[0];#}
+    {#            form_data.append('file',file_info);#}
+    {#            //if(file_info==undefined)暂且不许要判断是否有附件#}
+    {#                //alert('你没有选择任何文件');#}
+    {#                //return false#}
+    {##}
+    {#            $.ajax({#}
+    {#                url:"{% url "upload_ajax" %}",#}
+    {#                type:'POST',#}
+    {#                data: form_data,#}
+    {#processData: false,  // tell jquery not to process the data#}
+    {#contentType: false, // tell jquery not to set contentType#}
+    {#                success: function(callback) {#}
+    {##}
+    {#                    console.log('ok')#}
+    {#                }#}
+    {#            });#}
+    {##}
+    {#            }#}
+
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
+        });
+        $("#CreateForm_Content").submit(function () {
+            var create_name = $("#create_name").val();
+            var create_realname = $("#create_realname").val();
+            var create_sex = $("#create_sex").val();
+            var create_password = $("#create_password").val();
+            var create_password_twice = $('#create_password_twice').val();
+            var create_organization = $('#create_organization').val();
+            var create_department = $('#create_department').val();
+            var create_title = $('#create_title').val();
+            var create_field = $('#create_field').val();
+            var create_email = $('#create_email').val();
+            var create_zipcode = $('#create_zipcode').val();
+            var create_mobilenumber = $('#create_mobilenumber').val();
+            var create_telnumber = $('#create_telnumber').val();
+            var create_type = $('#create_type').val();
+            var create_location = $('#create_location').val();
+            var create_edu = $('#create_edu').val();
+            var create_memo = $('#create_memo').val();
+            var create_birthday = $('#create_birthday').val();
+            var create_identity = $('#create_identity').val();
+            $.ajax({
+                type: 'POST',
+                data: {
+                    "create_name": create_name,
+                    "create_realname": create_realname,
+                    "create_sex": create_sex,
+                    "create_location": create_location,
+                    'create_password': create_password,
+                    'create_password_twice': create_password_twice,
+                    'create_organization': create_organization,
+                    'create_department': create_department,
+                    'create_title': create_title,
+                    'create_field': create_field,
+                    'create_email': create_email,
+                    'create_mobilenumber': create_mobilenumber,
+                    'create_telnumber': create_telnumber,
+                    'create_zipcode': create_zipcode,
+                    'create_type': create_type,
+                    'create_edu': create_edu,
+                    'create_memo': create_memo,
+                    'create_birthday': create_birthday,
+                    'create_identity': create_identity,
+                },
+                url: "{% url "user_create" %}",
+                cache: false,
+                dataType: "json",
+                success: function () {
+                    window.location = 'people';
+                    toastr.success(data.message);
+                },
+                error: function () {
+                    toastr.error('Error');
+                }
+            });
+            return false;
+        });
+        $("#EditForm_Content").submit(function () {
+            var edit_name = $("#edit_name").val();
+            var edit_realname = $("#edit_realname").val();
+            var edit_sex = $("#edit_sex").val();
+            var edit_password = $("#edit_password").val();
+            var edit_password_twice = $('#edit_password_twice').val();
+            var edit_organization = $('#edit_organization').val();
+            var edit_department = $('#edit_department').val();
+            var edit_title = $('#edit_title').val();
+            var edit_field = $('#edit_field').val();
+            var edit_email = $('#edit_email').val();
+            var edit_zipcode = $('#edit_zipcode').val();
+            var edit_mobilenumber = $('#edit_mobilenumber').val();
+            var edit_telnumber = $('#edit_telnumber').val();
+            var edit_type = $('#edit_type').val();
+            var edit_location = $('#edit_location').val();
+            var edit_edu = $('#edit_edu').val();
+            var edit_memo = $('#edit_memo').val();
+            var edit_birthday = $('#edit_birthday').val();
+            var edit_identity = $('#edit_identity').val();
+            var edit_id = itemid;
+            $.ajax({
+                type: 'POST',
+                data: {
+                    'edit_id': edit_id,
+                    "edit_name": edit_name,
+
+                    "edit_realname": edit_realname,
+                    "edit_sex": edit_sex,
+                    "edit_location": edit_location,
+                    'edit_password': edit_password,
+                    'edit_password_twice': edit_password_twice,
+                    'edit_organization': edit_organization,
+                    'edit_department': edit_department,
+                    'edit_title': edit_title,
+                    'edit_field': edit_field,
+                    'edit_email': edit_email,
+                    'edit_mobilenumber': edit_mobilenumber,
+                    'edit_telnumber': edit_telnumber,
+                    'edit_zipcode': edit_zipcode,
+                    'edit_type': edit_type,
+                    'edit_edu': edit_edu,
+                    'edit_memo': edit_memo,
+                    'edit_birthday': edit_birthday,
+                    'edit_identity': edit_identity,
+                },
+                async: false,
+                url: "{% url "user_edit" %}",
+                cache: false,
+                dataType: "json",
+                success: function (data) {
+                    window.location = 'people';
+                    alert(data.message);
+
+                },
+                error: function () {
+                    toastr.error('Error');
+
+                }
+            });
+            return false;
+        });
+
+
+    });
+    $("#DeleteForm_Content").submit(function () {
+        var delete_id = itemid;
+        $.ajax({
+            type: 'POST',
+            data: {
+                "delete_id": delete_id,
+            },
+            async: false,
+            url: "{% url "user_delete" %}",
+            cache: false,
+            dataType: "json",
+            success: function (data) {
+                window.location = 'people';
+                alert(data.message);
+            },
+            error: function () {
+                toastr.error('Error');
+
+            }
+        });
+        return false;
+    });
+
+    $("#UpdateForm_Content").submit(function () {
+        var file = $('input[type=file]')[0].files[0];
+        var formdata = new FormData();
+        var csrf = $('input[name=csrfmiddlewaretoken]').val();
+        formdata.append('file_obj', file);
+        formdata.append('csrfmiddlewaretoken',csrf);
+        $.ajax({
+            type: 'POST',
+            async: false,
+            data: formdata,
+            url: "{% url "upload_user" %}",
+            cache: false,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            header: {
+                'X-CSRFToken': $.cookie('csrftoken'),
+            },
+            success: function (data) {
+                window.location.reload();
+                alert(data.message);
+
+            },
+            error: function (data) {
+                alert('模板错误');
+
+            }
+        });
+        return false;
+    });
+
+
+</script>
+<!-- END PAGE LEVEL JS-->
+</body>
+</html>
