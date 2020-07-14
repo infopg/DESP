@@ -38,7 +38,7 @@
 
     <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
         <div class="sidebar-header">
-            <div class="logo clearfix"><a href="#" class="logo-text float-left">
+            <div class="logo clearfix"><a href="{% url 'supervisor' %}" class="logo-text float-left">
                 <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
                 <span class="text align-middle">CNIC</span></a><a id="sidebarToggle" href="javascript:;"
                                                                   class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i
@@ -95,6 +95,7 @@
                                                                    class="mr-2 display-inline-block apptogglefullscreen"><i
                     class="ft-maximize blue-grey darken-4 toggleClass"></i>
                 <p class="d-none">fullscreen</p></a>
+
 {#                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span#}
 {#                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span#}
 {#                        class="icon-bar"></span><span class="icon-bar"></span></button>#}

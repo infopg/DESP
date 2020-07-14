@@ -287,7 +287,7 @@
 
     <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
         <div class="sidebar-header">
-            <div class="logo clearfix"><a href="#" class="logo-text float-left">
+            <div class="logo clearfix"><a href="{% url 'supervisor' %}" class="logo-text float-left">
                 <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
                 <span class="text align-middle">CNIC</span></a><a id="sidebarToggle" href="javascript:;"
                                                                   class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i
@@ -299,14 +299,17 @@
         <div class="sidebar-content">
             <div class="nav-container">
                 <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
-                    <li class="has-sub nav-item"><a href="{% url 'institute' %}"><i class="icon-home"></i><span data-i18n=""
-                                                                                            class="menu-title">机构设置</span></a>
-                            {#                            <li><a href="{% url 'department' %}" class="menu-item">分院</a>#}
-                            {#                            </li>#}
-                            {#                            <li><a href="{% url 'unit' %}" class="menu-item">支撑单位</a>#}
-                            {#                            </li>#}
-                            {#                            <li><a href="{% url 'others' %}" class="menu-item">其他评估系统</a>#}
-                            {#                            </li>#}
+
+                    <li class="has-sub nav-item"><a href="{% url 'institute' %}"><i class="icon-home"></i><span
+                            data-i18n=""
+                            class="menu-title">机构设置</span></a>
+                        {#                            <li><a href="{% url 'department' %}" class="menu-item">分院</a>#}
+                        {#                            </li>#}
+                        {#                            <li><a href="{% url 'unit' %}" class="menu-item">支撑单位</a>#}
+                        {#                            </li>#}
+                        {#                            <li><a href="{% url 'others' %}" class="menu-item">其他评估系统</a>#}
+                        {#                            </li>#}
+
                     </li>
                     <li class="has-sub nav-item"><a href="{% url 'people' %}"><i class="icon-screen-desktop"></i><span
                             data-i18n=""
@@ -328,7 +331,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
         <div class="container-fluid">
             <div class="navbar-header">
-                                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
+
+                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
                         class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
                         class="icon-bar"></span><span class="icon-bar"></span></button>
                 <span class="d-lg-none navbar-right navbar-collapse-toggle"><a class="open-navbar-container"><i
@@ -336,6 +340,7 @@
                                                                    class="mr-2 display-inline-block apptogglefullscreen"><i
                     class="ft-maximize blue-grey darken-4 toggleClass"></i>
                 <p class="d-none">fullscreen</p></a>
+
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
@@ -410,7 +415,9 @@
                                                                     data-toggle="modal"
                                                                     data-target="#mymodal_edit"
                                                                     id="{{ evaluation.table_evaluation_col_id }}"
+
                                                                     onclick="evaluation_edit(this.id)">编辑
+
                                                             </button>
                                                             <button type="button" class="btn mr-1 btn-secondary"
                                                                     data-toggle="modal"
@@ -482,6 +489,7 @@
     }
 </script>
 
+
 <script>
     function evaluation_edit(id) {
         itemid = id;
@@ -502,7 +510,7 @@
                 $('#edit_endtime').attr("value", eval("(" + data.eva + ")")[0].fields.table_evaluation_col_finish_time);
                 $('#edit_status').attr("value", eval("(" + data.eva + ")")[0].fields.table_evaluation_col_status);
             }
-                {#console.log(data.eva)}#}
+            {#console.log(data.eva)}#}
 
         });
         $('#mymodal_edit').modal('show');
@@ -538,7 +546,9 @@
                 },
                 url: "{% url "evaluation_create" %}",
                 cache: false,
+
                 dataType: "json",
+
                 success: function () {
                     window.location = 'evaluation';
                     toastr.success(data.message);
@@ -549,8 +559,10 @@
             });
             return false;
         });
+
         $("#EditForm_Content").submit(function (event) {
             event.preventDefault();
+
             var edit_id = itemid;
             var edit_name = $("#edit_name").val();
             var edit_organization = $('#edit_org').val();
@@ -576,7 +588,9 @@
                 async: false,
                 url: "{% url "evaluation_edit" %}",
                 cache: false,
+
                 dataType: "json",
+
                 success: function (data) {
                     window.location = 'evaluation';
                     toastr.success(data.message);

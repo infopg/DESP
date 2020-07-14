@@ -10,7 +10,7 @@
     <meta name="keywords"
           content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Styling DataTable - Convex bootstrap 4 admin dashboard template</title>
+    <title>Page for administrator</title>
     <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app-assets/img/ico/apple-icon-60.png' %}">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app-assets/img/ico/apple-icon-76.png' %}">
     <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app-assets/img/ico/apple-icon-120.png' %}">
@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css"
           href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'ztreecss/zTreeStyle/zTreeStyle.css ' %}">
 </head>
 <body data-col="2-columns" class=" 2-columns ">
 <!-- ////////////////////////////////////////////////////////////////////////////-->
@@ -38,7 +39,7 @@
 
     <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
         <div class="sidebar-header">
-            <div class="logo clearfix"><a href="#" class="logo-text float-left">
+            <div class="logo clearfix"><a href="{% url 'administrator' %}" class="logo-text float-left">
                 <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
                 <span class="text align-middle">CNIC</span></a><a id="sidebarToggle" href="javascript:;"
                                                                   class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i
@@ -50,17 +51,17 @@
         <div class="sidebar-content">
             <div class="nav-container">
                 <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-home"></i><span data-i18n=""
-                                                                                            class="menu-title">指标管理</span></a>
-                        <ul class="menu-content">
-                            <li><a href="{% url 'tree-url' %}" class="menu-item">指标设置</a>
-                            </li>
-                            <li><a href="#" class="menu-item">问卷内容</a>
-                            </li>
-                            <li><a href="#" class="menu-item">工作记录</a>
-                            </li>
-                        </ul>
-                    </li>
+                    {#                    <li class="has-sub nav-item"><a href="#"><i class="icon-home"></i><span data-i18n=""#}
+                    {#                                                                                            class="menu-title">指标管理</span></a>#}
+                    {#                        <ul class="menu-content">#}
+                    {#                            <li><a href="{% url 'tree-url' %}" class="menu-item">指标设置</a>#}
+                    {#                            </li>#}
+                    {#                            <li><a href="#" class="menu-item">问卷内容</a>#}
+                    {#                            </li>#}
+                    {#                            <li><a href="#" class="menu-item">工作记录</a>#}
+                    {#                            </li>#}
+                    {#                        </ul>#}
+                    {#                    </li>#}
                     <li class="has-sub nav-item"><a href="#"><i class="icon-screen-desktop"></i><span
                             data-i18n=""
                             class="menu-title">数据采集</span></a>
@@ -75,24 +76,22 @@
                     </li>
                     <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
                             data-i18n=""
-                            class="menu-title">数据统计</span></a>
+                            class="menu-title">数据统计</span></a></li>
                     <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
                             data-i18n=""
                             class="menu-title">项目分类</span></a>
                         <ul class="menu-content">
-                            <li><a href="#" class="menu-item">2019年评估项目</a>
-                            </li>
-                            <li><a href="#" class="menu-item">2018年评估项目</a>
-                            </li>
-                            {#                            <li><a href="#" class="menu-item">Color Palette</a>#}
-                            {#                            </li>#}
-                            {#                            <li><a href="#" class="menu-item">Grid</a>#}
-                            {#                            </li>#}
-                            {#                            <li><a href="#" class="menu-item">Typography</a>#}
-                            {#                            </li>#}
-                            {#                            <li><a href="#" class="menu-item">Syntax Highlighter</a>#}
-                            {#                            </li>#}
+                            {% for u in evalname %}
+                                <li>
+                                    <a href="{% url 'standard' %}?evalname={{ u.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ u.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
                         </ul>
+                    </li>
+                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">工作进度</span></a>
                     </li>
                 </ul>
             </div>
@@ -104,7 +103,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
         <div class="container-fluid">
             <div class="navbar-header">
-                                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
+
+                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
                         class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
                         class="icon-bar"></span><span class="icon-bar"></span></button>
                 <span class="d-lg-none navbar-right navbar-collapse-toggle"><a class="open-navbar-container"><i

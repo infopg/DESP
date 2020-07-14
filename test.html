@@ -1,524 +1,697 @@
-{% extends "standard/base.html" %}{% load static %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" class="loading">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description"
+          content="Convex admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Page for administrator</title>
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app-assets/img/ico/apple-icon-60.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app-assets/img/ico/apple-icon-76.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app-assets/img/ico/apple-icon-120.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'app-assets/img/ico/apple-icon-152.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'app-assets/img/ico/favicon.ico' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'app-assets/img/ico/favicon-32.png' %}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
+          rel="stylesheet">
 
-{% block css %}
-    <link href="{% static 'css/zTreeStyle/zTreeStyle.css' %}" rel="stylesheet">
-{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'ztreecss/zTreeStyle/zTreeStyle.css' %}">
+    <style type="text/css">
+        div#rMenu {
+            position: absolute;
+            visibility: hidden;
+            top: 0;
+            background-color: #e5ebff;
+            text-align: left;
+            padding: 3px;
+        }
 
-{% block breadcrumb %}
-    <button class="btn btn-default" onclick="createForm()">
-        <span class="glyphicon glyphicon-plus"></span> 添 加
-    </button>
-{% endblock %}
+        div#rMenu a {
+            cursor: pointer;
+            list-style: none outside none;
+        }
 
-{% block delete %}
-    <button class="btn btn-default" onclick="deleteForm()">
-        <span class="glyphicon glyphicon-plus"></span> 删 除
-    </button>
-{% endblock %}
+        .aMenu {
+            font-size: small;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body data-col="2-columns" class=" 2-columns ">
+<div class="modal fade" id="modalForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalForm_title">添加指标</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
 
-{% block edit %}
-    <button class="btn btn-default" onclick="editForm()">
-        <span class="glyphicon glyphicon-plus"></span> 修 改
-    </button>
-{% endblock %}
-
-
-{% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-widget">
-                <div class="box-body">
-                    <ul id="treeDemo" class="ztree"></ul>
-                </div>
             </div>
-        </div>
-    </div>
+            <div class="modal-body">
 
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <form class="form-horizontal" id="modalForm_Content"
+                              method="post"
+                              action="">{% csrf_token %}
+                            {#                            <input type="text" id="form_id" value="" hidden>#}
 
-    <div class="modal fade" id="modalForm">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="modalForm_title"></h4>
-                </div>
-                <div class="modal-body">
-
-                    <div class="tab-content">
-                        <div class="tab-pane active">
-                            <form class="form-horizontal" id="modalForm_Content" method="post"
-                                  action="">{% csrf_token %}
-                                <input type="text" id="form_id" value="" hidden>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label"> 名称 </label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" id="form_name" name="name" required
-                                               placeholder="">
-                                        <span class="help-block"></span>
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"> 名称 </label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control"
+                                           id="form_name" name="name" required
+                                           placeholder="">
+                                    <span class="help-block"></span>
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label"> 父节点 </label>
-                                    <div class="col-md-9">
-                                        <select class="form-control" id="form_parent" name="parent"
-                                                onclick="showTree();"></select>
+                            {#                            <div class="form-group">#}
+                            {#                                <label class="col-md-2 control-label"> 父节点 </label>#}
+                            {#                                <div class="col-md-9">#}
+                            {#                                    <select class="form-control" id="form_parent"#}
+                            {#                                            name="parent"#}
+                            {#                                            onclick="showTree();"></select>#}
+                            {##}
+                            {#                                    <div id="menuContent" class="menuContent"#}
+                            {#                                         style="display:none;">#}
+                            {#                                        <ul id="treeDemo2" class="ztree"#}
+                            {#                                            style="margin-top:0;"></ul>#}
+                            {#                                    </div>#}
+                            {##}
+                            {#                                    <span class="help-block"></span>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
 
-                                        <div id="menuContent" class="menuContent" style="display:none;">
-                                            <ul id="treeDemo2" class="ztree" style="margin-top:0;"></ul>
-                                        </div>
-
-                                        <span class="help-block"></span>
-                                    </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"> 权重</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control"
+                                           id="form_weight" name="weight" required
+                                           placeholder="">
+                                    <span class="help-block"></span>
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label"> 权重</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" id="form_weight" name="weight" required
-                                               placeholder="">
-                                        <span class="help-block"></span>
-                                    </div>
-                                </div>
+                            {#                            <div class="form-group">#}
+                            {#                                <label class="col-md-2 control-label">评估项目</label>#}
+                            {#                                <div class="col-md-9">#}
+                            {#                                    <input type="text" class="form-control"#}
+                            {#                                           id="form_evaluation" name="evaluation"#}
+                            {#                                           required#}
+                            {#                                           placeholder="">#}
+                            {#                                    <span class="help-block"></span>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            {##}
+                            {#                            <div class="form-group">#}
+                            {#                                <label class="col-md-2 control-label">管理员ID</label>#}
+                            {#                                <div class="col-md-9">#}
+                            {#                                    <input type="text" class="form-control"#}
+                            {#                                           id="form_adminID" name="adminID"#}
+                            {#                                           required#}
+                            {#                                           placeholder="">#}
+                            {#                                    <span class="help-block"></span>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            {##}
+                            {#                            <div class="form-group">#}
+                            {#                                <label class="col-md-2 control-label">管理员</label>#}
+                            {#                                <div class="col-md-9">#}
+                            {#                                    <input type="text" class="form-control"#}
+                            {#                                           id="form_admin" name="admin" required#}
+                            {#                                           placeholder="">#}
+                            {#                                    <span class="help-block"></span>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            <div class="modal-footer">
 
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">评估项目</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" id="form_evaluation" name="evaluation"
-                                               required
-                                               placeholder="">
-                                        <span class="help-block"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">管理员ID</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" id="form_adminID" name="adminID"
-                                               required
-                                               placeholder="">
-                                        <span class="help-block"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">管理员</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" id="form_admin" name="admin" required
-                                               placeholder="">
-                                        <span class="help-block"></span>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" onclick="submit_type=1">SAVE</button>
-                                    <button type="submit" class="btn btn-default" onclick="submit_type=2">Continue
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                                <button type="submit" class="btn btn-primary"
+                                        onclick="submit_type=1">提交
+                                </button>
+                                <button class="btn btn-default pull-left"
+                                        data-dismiss="modal">关闭
+                                </button>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 
 
+<div class="modal fade" id="deleteForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">删除指标</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
 
-    <div class="modal fade" id="deleteForm">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="deleteForm_title"></h4>
-                </div>
-                <div class="modal-body">
-
-                    <div class="tab-content">
-                        <div class="tab-pane active">
-                            <form class="form-horizontal" id="deleteForm_Content" method="post"
-                                  action="">{% csrf_token %}
-                                <input type="text" id="form_id" value="" hidden>
-
-
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label"> 节点 </label>
-                                    <div class="col-md-9">
-                                        <select class="form-control" id="form_parent_delete" name="parent"
-                                                onclick="showTree_delete();"></select>
-
-                                        <div id="menuContent_delete" class="menuContent" style="display:none;">
-                                            <ul id="treeDemo3" class="ztree" style="margin-top:0;"></ul>
-                                        </div>
-
-                                        <span class="help-block"></span>
-                                    </div>
-                                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <form class="form-horizontal" id="deleteForm_Content"
+                              method="post"
+                              action="">{% csrf_token %}
+                            {#                            <input type="text" id="form_id" value="" hidden>#}
 
 
-                                <div class="modal-footer">
-                                    <button class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" onclick="submit_type=1">SAVE</button>
-                                    <button type="submit" class="btn btn-default" onclick="submit_type=2">Continue
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                            {#                            <div class="form-group">#}
+                            {#                                <label class="col-md-2 control-label"> 节点 </label>#}
+                            {#                                <div class="col-md-9">#}
+                            {#                                    <select class="form-control"#}
+                            {#                                            id="form_parent_delete" name="parent"#}
+                            {#                                            onclick="showTree_delete();"></select>#}
+                            {##}
+                            {#                                    <div id="menuContent_delete" class="menuContent"#}
+                            {#                                         style="display:none;">#}
+                            {#                                        <ul id="treeDemo3" class="ztree"#}
+                            {#                                            style="margin-top:0;"></ul>#}
+                            {#                                    </div>#}
+                            {##}
+                            {#                                    <span class="help-block"></span>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            <div>
+                                <span>您确定要删除吗？</span>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"
+                                        onclick="submit_type=1">提交
+                                </button>
+                                <button class="btn btn-default pull-left"
+                                        data-dismiss="modal">关闭
+                                </button>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 
 
-    <div class="modal fade" id="editForm">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="editForm_title"></h4>
-                </div>
-                <div class="modal-body">
+<div class="modal fade" id="editForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">修改指标</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
 
-                    <div class="tab-content">
-                        <div class="tab-pane active">
-                            <form class="form-horizontal" id="editForm_Content" method="post"
-                                  action="">{% csrf_token %}
-                                <input type="text" id="form_id" value="" hidden>
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <form class="form-horizontal" id="editForm_Content"
+                              method="post"
+                              action="">{% csrf_token %}
+                            {#                            <input type="text" id="form_id" value="" hidden>#}
 
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label"> 修改指标名称 </label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" id="form_name" name="name_edit" required
-                                               placeholder="">
-                                        <span class="help-block"></span>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    名称 </label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control"
+                                           id="form_name_edit" name="name_edit" required
+                                           placeholder="">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"> 权重</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control"
+                                           id="form_weight_edit" name="weight_edit"
+                                           required
+                                           placeholder="">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"> 父节点 </label>
+                                <div class="col-md-9">
+                                    <select class="form-control"
+                                            id="form_parent_edit" name="parent_edit"
+                                            onclick="showTree_edit();"></select>
+
+                                    <div id="menuContent_edit" class="menuContent"
+                                         style="display:none;">
+                                        <ul id="treeDemo4" class="ztree"
+                                            style="margin-top:0;"></ul>
                                     </div>
+
+                                    <span class="help-block"></span>
                                 </div>
+                            </div>
 
 
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label"> 权重</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" id="form_weight_edit" name="weight_edit" required
-                                               placeholder="">
-                                        <span class="help-block"></span>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label"> 节点 </label>
-                                    <div class="col-md-9">
-                                        <select class="form-control" id="form_parent_edit" name="parent_edit"
-                                                onclick="showTree_edit();"></select>
-
-                                        <div id="menuContent_edit" class="menuContent" style="display:none;">
-                                            <ul id="treeDemo4" class="ztree" style="margin-top:0;"></ul>
-                                        </div>
-
-                                        <span class="help-block"></span>
-                                    </div>
-                                </div>
-
-
-                                <div class="modal-footer">
-                                    <button class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" onclick="submit_type=1">SAVE</button>
-                                    <button type="submit" class="btn btn-default" onclick="submit_type=2">Continue
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"
+                                        onclick="submit_type=1">提交
+                                </button>
+                                <button class="btn btn-default pull-left"
+                                        data-dismiss="modal">关闭
+                                </button>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
+
             </div>
         </div>
     </div>
-{% endblock %}
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+<div class="wrapper nav-collapsed menu-collapsed">
 
 
-{% block js %}
-    <script src="{% static 'js/jquery.ztree.all.min.js' %}"></script>
-    <script src="{% static 'js/django.ajax.post.csrf.js' %}"></script>
-    <script>
-        $('#page_header').text('指标体系');
-        $('#page_header_descript').text('Standard');
+    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="{% url 'administrator' %}" class="logo-text float-left">
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
+                <span class="text align-middle">CNIC</span></a><a id="sidebarToggle" href="javascript:;"
+                                                                  class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i
+                    data-toggle="collapsed" class="ft-circle toggle-icon"></i></a><a id="sidebarClose"
+                                                                                     href="javascript:;"
+                                                                                     class="nav-close d-block d-md-block d-lg-none d-xl-none"><i
+                    class="ft-circle"></i></a></div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+                    {#                    <li class="has-sub nav-item"><a href="#"><i class="icon-home"></i><span data-i18n=""#}
+                    {#                                                                                            class="menu-title">指标管理</span></a>#}
+                    {#                        <ul class="menu-content">#}
+                    {#                            <li><a href="{% url 'tree-url' %}" class="menu-item">指标设置</a>#}
+                    {#                            </li>#}
+                    {#                            <li><a href="#" class="menu-item">问卷内容</a>#}
+                    {#                            </li>#}
+                    {#                            <li><a href="#" class="menu-item">工作记录</a>#}
+                    {#                            </li>#}
+                    {#                        </ul>#}
+                    {#                    </li>#}
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-screen-desktop"></i><span
+                            data-i18n=""
+                            class="menu-title">数据采集</span></a>
+                    </li>
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">数据统计</span></a>
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">项目分类</span></a>
+                        <ul class="menu-content">
+                            {% for u in evalname %}
+                                <li>
+                                    <a href="{% url 'standard' %}?evalname={{ u.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ u.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
 
-        // 页面加载时生成树
-        var setting = {
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
+                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span></button>
+                <span class="d-lg-none navbar-right navbar-collapse-toggle"><a class="open-navbar-container"><i
+                        class="ft-more-vertical"></i></a></span><a id="navbar-fullscreen" href="javascript:;"
+                                                                   class="mr-2 display-inline-block apptogglefullscreen"><i
+                    class="ft-maximize blue-grey darken-4 toggleClass"></i>
+                <p class="d-none">fullscreen</p></a>
+
+            </div>
+            <div class="navbar-container">
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                                class="avatar avatar-online"><img id="navbar-avatar"
+                                                                  src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
+                                                                  alt="avatar"/></span>
+                            <p class="d-none">User Settings</p></a>
+                            <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
+                                <div class="arrow_box_right">
+                                    <a href="{% url 'logout' %}" class="dropdown-item"><i
+                                            class="ft-power mr-2"></i><span>Logout</span></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-panel">
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="container-fluid"><!-- Base style table -->
+                    <section id="base-style">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title-wrap bar-success">
+                                            <h4 class="card-title">欢迎</h4>
+                                        </div>
+                                        {#                                        <button class="btn mr-1 btn-secondary" onclick="createForm()">#}
+                                        {#                                            <span class="glyphicon glyphicon-plus"></span> 添 加#}
+                                        {#                                        </button>#}
+                                        {#                                        <button class="btn mr-1 btn-secondary" onclick="deleteForm()">#}
+                                        {#                                            <span class="glyphicon glyphicon-plus"></span> 删 除#}
+                                        {#                                        </button>#}
+                                        {#                                        <button class="btn mr-1 btn-secondary" onclick="editForm()">#}
+                                        {#                                            <span class="glyphicon glyphicon-plus"></span> 修 改#}
+                                        {#                                        </button>#}
+                                    </div>
+                                    <div class="card-body">                                        {% if message %}
+                                        <div class="alert alert-warning">{{ message }}</div>
+                                    {% endif %}{% csrf_token %}</div>
+                                    <div class="card-block">
+                                        <p>
+                                            <a class="btn mr-1 btn-round btn-secondary"
+                                               href="{% url "organization_export" %}">导出</a>
+                                        </p>
+                                        <div style="width: 600px">
+                                            <input id="keyword" type="search" placeHolder="搜索关键字"/>
+                                        </div>
+                                        <div>
+                                            <ul id="treeDemo" class="ztree"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--/ Base style table -->
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer footer-static footer-light">
+            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2018 <a href="#" id="pixinventLink"
+                                                                                            target="_blank"
+                                                                                            class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
+            </p>
+        </footer>
+
+    </div>
+</div>
+<div id="rMenu">
+    <a class="list-group-item aMenu" id="item_add" onclick="standard_add()">增加指标</a>
+    <a class="list-group-item aMenu" id="item_edit"
+       onclick="standard_edit()">修改指标</a>
+    <a class="list-group-item aMenu" id="item_del"
+       onclick="standard_delete()">删除指标</a>
+    <a class="list-group-item aMenu" id="item_ques"
+       onclick="standard_question()">编辑问卷</a>
+</div>
+<!-- BEGIN VENDOR JS-->
+<script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'ztreejs/jquery.ztree.all.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/prism.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/jquery.matchHeight-min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/screenfull.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/pace/pace.min.js' %}"></script>
+<!-- BEGIN VENDOR JS-->
+<!-- BEGIN PAGE VENDOR JS-->
+<script src="{% static 'app-assets/vendors/js/datatable/datatables.min.js' %}"></script>
+<!-- END PAGE VENDOR JS-->
+<!-- BEGIN CONVEX JS-->
+<script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+<script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+<!-- END CONVEX JS-->
+<!-- BEGIN PAGE LEVEL JS-->
+<script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
+<script src="{% static 'ztreejs/jquery.ztree.core.js' %}"></script>
+<script type="text/javascript" src="{% static 'ztreejs/jquery.ztree.exhide.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'ztreejs/fuzzysearch.js' %}"></script>
+<!-- END PAGE LEVEL JS-->
+<script src="{% static 'ztreejs/csrf.js' %}"></script>
+<script src="{% static 'ztreejs/jquery.custom.js' %}"></script>
+<script>
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
+    });
+    // 页面加载时生成树
+    var setting = {
+
+        view: {
+            selectedMulti: false,
+            nameIsHTML: true
+        },
+        edit: {
+            enable: false,
+            editNameSelectAll: false
+        },
+        data: {
+            key: {
+                name: "name",
+                weight: "weight"
+            },
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId",
+            },
+            keep: {
+                parent: true
+            }
+
+        },
+        callback: {
+            onClick: onClick
+
+        }
+
+    };
+    var zTree = $.fn.zTree.init($("#treeDemo"), setting, {{ data|safe }});
+    zTree.expandAll(true);
+    fuzzySearch('treeDemo', '#keyword', null, true);
+
+    function standard_delete() {
+        $('#deleteForm').modal('show');
+    }
+
+    // 点击创建时的表单信息
+    function standard_add() {
+        $('#modalForm').modal('show');
+    }
+
+    function standard_edit() {
+        var setting4 = {
+            view: {
+                selectedMulti: false
+            },
             data: {
                 simpleData: {
                     enable: true
                 }
+            },
+            callback: {
+                onClick: onClick_edit
             }
-
         };
+        $.fn.zTree.init($("#treeDemo4"), setting4, {{ data|safe }});
 
-        $.fn.zTree.init($("#treeDemo"), setting, {{ data|safe }});
+        $.ajax({
+            type: 'GET',
+            data: {
+                'edit_id': standardID,
+                'parent_id': parentstandID
+            },
+            url: "{% url "edit" %}",
+            dataType: 'json',
+            success: function (data) {
+                $("#form_name").attr("value", eval("(" + data.org + ")")[0].fields.table_evaluation_indicator_col_name);
+                $("#form_parent_edit").attr("value", data.parent);
+                $("#form_weight_edit").attr("value", eval("(" + data.org + ")")[0].fields.table_evaluation_indicator_col_weight);
+            }
+        });
+        $('#editForm').modal('show');
+    }
 
-        function deleteForm() {
-            $('#deleteForm_title').text('删除数据');
-            $('#deleteForm_Content').trigger("reset");
-            var setting3 = {
-                view: {
-                    selectedMulti: false
-                },
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {
-                    onClick: onClick_delete
-                }
-            };
-
-            $.fn.zTree.init($("#treeDemo3"), setting3, {{ data|safe }});
-            $('#deleteForm').modal('show');
+    // 当点击tree节点时触发
+    function onClick(e, treeId, treeNode) {
+        standardname = treeNode.name;
+        standardID = treeNode.id;
+        parentstandID = treeNode.pId;
+        {#alert(treeNode.children);#}
+        if (treeNode.type === 0) {
+            return;
         }
+        showRMenustand(treeNode.pId, event.clientX, event.clientY);
+    }
 
-        // 点击创建时的表单信息
-        function createForm() {
-            $('#modalForm_title').text('添加数据');
-            $('#modalForm_Content').trigger("reset");
-
-            var setting2 = {
-                view: {
-                    selectedMulti: false
-                },
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {
-                    onClick: onClick
-                }
-            };
-
-            $.fn.zTree.init($("#treeDemo2"), setting2, {{ data|safe }});
-            $('#modalForm').modal('show');
+    function showRMenustand(type, x, y) {
+        $("#rMenu").show();
+        if (type === null) {
+            $("#item_edit").hide();
+        } else {
+            $("#item_edit").show();
+            $("#item_add").show();
+            $("#item_del").show();
+            $("#item_ques").show();
         }
+        $("#rMenu").css({"top": y + "px", "left": x + "px", "visibility": "visible", 'z-index': '50'}); //设置右键菜单的位置、可见
+        $("body").bind("mousedown", onBodyMouseDownstand);
+    }
 
-
-        function editForm() {
-            $('#editForm_title').text('添加数据');
-            $('#editForm_Content').trigger("reset");
-
-            var setting4 = {
-                view: {
-                    selectedMulti: false
-                },
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {
-                    onClick: onClick_edit
-                }
-            };
-
-            $.fn.zTree.init($("#treeDemo4"), setting4, {{ data|safe }});
-            $('#editForm').modal('show');
+    function onBodyMouseDownstand(event) {
+        if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length > 0)) {
+            $("#rMenu").css({"visibility": "hidden"});
         }
+    }
 
-        // 当点击tree节点时触发
-        function onClick(e, treeId, treeNode) {
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo2");
-            nodes = zTree.getSelectedNodes();
 
-            // 将点击的节点填充到select下
-            $("#form_parent").html(
-                "<option value='" + nodes[0].id + "'>" + nodes[0].name + "</option>"
-            );
+    function onClick_edit(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo4");
+        nodes = zTree.getSelectedNodes();
 
-            // 填充之后隐藏树
-            hideTree();
-        }
+        // 将点击的节点填充到select下
+        $("#form_parent_edit").html(
+            "<option value='" + nodes[0].id + "'>" + nodes[0].name + "</option>"
+        );
 
-        // 删除时的onClick方法
-        function onClick_delete(e, treeId, treeNode) {
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo3");
-            nodes = zTree.getSelectedNodes();
+        // 填充之后隐藏树
+        hideTree_edit();
+    }
 
-            // 将点击的节点填充到select下
-            $("#form_parent_delete").html(
-                "<option value='" + nodes[0].id + "'>" + nodes[0].name + "</option>"
-            );
 
-            // 填充之后隐藏树
-            hideTree_delete();
-        }
+    function showTree_edit() {
+        $("#menuContent_edit").slideDown("fast");
+        $("body").bind("mousedown", onBodyDown_edit);
+    }
 
-        function onClick_edit(e, treeId, treeNode) {
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo4");
-            nodes = zTree.getSelectedNodes();
+    function hideTree_edit() {
+        $("#menuContent_edit").fadeOut("fast");
+        $("body").unbind("mousedown", onBodyDown_edit);
+    }
 
-            // 将点击的节点填充到select下
-            $("#form_parent_edit").html(
-                "<option value='" + nodes[0].id + "'>" + nodes[0].name + "</option>"
-            );
-
-            // 填充之后隐藏树
+    function onBodyDown_edit(event) {
+        if (!(event.target.id == "form_parent_edit" || event.target.id == "menuContent_edit" || $(event.target).parents("#menuContent_edit").length > 0)) {
             hideTree_edit();
         }
-
-        //删除时的showTree
-        function showTree_delete() {
-            $("#menuContent_delete").slideDown("fast");
-            $("body").bind("mousedown", onBodyDown_delete);
-        }
+    }
 
 
-        // 点击下拉框时展示tree
-        function showTree() {
-            $("#menuContent").slideDown("fast");
-            $("body").bind("mousedown", onBodyDown);
-        }
-
-        function showTree_edit() {
-            $("#menuContent_edit").slideDown("fast");
-            $("body").bind("mousedown", onBodyDown_edit);
-        }
-
-        // 删除时的hideTree
-        function hideTree_delete() {
-            $("#menuContent_delete").fadeOut("fast");
-            $("body").unbind("mousedown", onBodyDown_delete);
-        }
-
-        // 隐藏tree
-        function hideTree() {
-            $("#menuContent").fadeOut("fast");
-            $("body").unbind("mousedown", onBodyDown);
-        }
-
-        function hideTree_edit() {
-            $("#menuContent_edit").fadeOut("fast");
-            $("body").unbind("mousedown", onBodyDown_edit);
-        }
-
-        function onBodyDown_delete(event) {
-            if (!(event.target.id == "form_parent_delete" || event.target.id == "menuContent_delete" || $(event.target).parents("#menuContent_delete").length > 0)) {
-                hideTree_delete();
+    // 添加 - Ajax提交
+    $('#modalForm_Content').submit(function (event) {
+        event.preventDefault();
+        var create_name = $("#form_name").val();
+        var create_weight = $("#form_weight").val();
+        var create_parent = standardID;
+        $.ajax({
+            type: "post",
+            url: "{% url "create" %}",
+            data: {
+                create_name: create_name,
+                create_weight: create_weight,
+                create_parent: create_parent
+            },
+            dataType: "json",
+            success: function (data) {
+                window.location.reload();
+                alert(data.message);
+            },
+            error: function (data) {
+                alert(data.message)
             }
-        }
+        });
+    });
 
-        // 判断点击的位置不在下拉框或者时tree本身则调用hideTree隐藏树
-        function onBodyDown(event) {
-            if (!(event.target.id == "form_parent" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length > 0)) {
-                hideTree();
-            }
-        }
-
-        function onBodyDown_edit(event) {
-            if (!(event.target.id == "form_parent_edit" || event.target.id == "menuContent_edit" || $(event.target).parents("#menuContent_edit").length > 0)) {
-                hideTree_edit();
-            }
-        }
-
-        // 添加 - Ajax提交
-        $('#modalForm_Content').submit(function (event) {
-            event.preventDefault();
-
-            if (confirm("确认提交这些数据吗？")) {
-                params = $('#modalForm_Content').serializeJson();
-
-                $.ajax({
-                    type: "post",
-                    url: "{% url "create" %}",
-                    data: JSON.stringify(params),
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.state) {
-                            if (submit_type == 1) {
-                                window.location = "/administrator"
-                            }
-                            if (submit_type == 2) {
-                                $('#modalForm_Content').trigger("reset");
-                            }
-
-                            toastr.success(data.message);
-                        } else {
-                            toastr.error(data.message)
-                        }
-                    },
-                    error: function () {
-                        toastr.error('Error: ajax 请求出错！')
-                    }
-                });
+    //删除节点
+    $('#deleteForm_Content').submit(function (event) {
+        event.preventDefault();
+        var deleteID = standardID;
+        $.ajax({
+            type: "post",
+            url: "{% url "delete" %}",
+            data: {
+                delete_id: deleteID
+            },
+            dataType: "json",
+            success: function (data) {
+                window.location.reload();
+                alert(data.message);
+            },
+            error: function (data) {
+                alert(data.message)
             }
         });
 
-        //删除节点
-        $('#deleteForm_Content').submit(function (event) {
-            event.preventDefault();
+    });
 
-            if (confirm("确认提交这些数据吗？")) {
-                params = $('#deleteForm_Content').serializeJson();
-                $.ajax({
-                    type: "post",
-                    url: "{% url "delete" %}",
-                    data: JSON.stringify(params),
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.state) {
-                            if (submit_type == 1) {
-                                window.location = "/administrator"
-                            }
-                            if (submit_type == 2) {
-                                $('#deleteForm_Content').trigger("reset");
-                            }
-
-                            toastr.success(data.message);
-                        } else {
-                            toastr.error(data.message)
-                        }
-                    },
-                    error: function () {
-                        toastr.error('Error: ajax 请求出错！')
-                    }
-                });
+    $('#editForm_Content').submit(function (event) {
+        event.preventDefault();
+        var edit_name = $("#form_name_edit").val();
+        var edit_weight = $("#form_weight_edit").val();
+        var edit_id = standardID;
+        var edit_parentid = $("#form_parent_edit").val();
+        $.ajax({
+            type: "post",
+            url: "{% url "edit" %}",
+            data: {
+                edit_name: edit_name,
+                edit_weight: edit_weight,
+                edit_id: edit_id,
+                edit_parentid: edit_parentid
+            },
+            dataType: "json",
+            success: function (data) {
+                window.location.reload();
+                alert(data.message);
+            },
+            error: function (data) {
+                alert(data.message)
             }
         });
 
-        $('#editForm_Content').submit(function (event) {
-            event.preventDefault();
-
-            if (confirm("确认提交这些数据吗？")) {
-                params = $('#editForm_Content').serializeJson();
-                $.ajax({
-                    type: "post",
-                    url: "{% url "edit" %}",
-                    data: JSON.stringify(params),
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.state) {
-                            if (submit_type == 1) {
-                                window.location = "/administrator"
-                            }
-                            if (submit_type == 2) {
-                                $('#editForm_Content').trigger("reset");
-                            }
-
-                            toastr.success(data.message);
-                        } else {
-                            toastr.error(data.message)
-                        }
-                    },
-                    error: function () {
-                        toastr.error('Error: ajax 请求出错！')
-                    }
-                });
-            }
-        });
-    </script>
-{% endblock %}
+    });
+</script>
+</body>
+</html>

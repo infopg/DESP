@@ -18,5 +18,8 @@ urlpatterns = [
     re_path(r'/evaluation_edit$', views.evaluation_edit, name='evaluation_edit'),
     re_path(r'/evaluation_delete$', views.evaluation_delete, name='evaluation_delete'),
     url(r'/evaluation',views.organization_evaluation,name='evaluation'),
-    re_path(r'/upload$', views.upload, name='upload'),
+    re_path(r'/upload_user$', views.upload_user, name='upload_user'),
+    url(r'^download_user/', views.download_user, name="download_user"),
+    re_path(r'/upload_organization$', views.upload_organization, name='upload_organization'),
+    url(r'^download_organization/', views.download_organization, name="download_organization"),
 ]

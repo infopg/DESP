@@ -228,6 +228,31 @@
     </div>
 </div>
 <!-- Delete used org -->
+
+<!--Upload and Update-->
+<div id="mymodal_update" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="UploadLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="UploadLabel">导入表格（.xlsx格式）</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="UpdateForm_Content_Org" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="modal-footer">
+                        <input type="file" id="fafafa">
+                        <input type="submit" id="file_upload">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 <div class="wrapper nav-collapsed menu-collapsed">
 
@@ -325,9 +350,15 @@
                                     {% endif %}{% csrf_token %}
                                     <div class="card-block">
                                         <p>
-                                            <a class="btn mr-1 btn-round btn-secondary"
+                                            <a class="btn mr-1 btn-secondary"
                                                href="{% url "organization_export" %}">导出</a>
+                                            <button type="button" class="btn mr-1 btn-secondary" data-toggle="modal"
+                                                data-target="#mymodal_update">上传模板
+                                            </button>
+                                            <a class="btn mr-1 btn-secondary"
+                                               href="{% url "download_organization" %}">下载模板</a>
                                         </p>
+
                                         <div style="width: 600px">
                                             <input id="keyword" type="search" placeHolder="搜索关键字"/>
                                         </div>
@@ -336,6 +367,7 @@
                                         </div>
                                     </div>
 
+
                                 </div>
                             </section>
                         </div>
@@ -343,6 +375,7 @@
                     <!--/ Base style table -->
                 </div>
             </div>
+
         </div>
         <footer class="footer footer-static footer-light">
             <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2018 <a href="#"
@@ -360,6 +393,7 @@
     <a class="list-group-item aMenu" id="item_del"
        onclick="organization_delete()">删除机构</a>
 </div>
+
 
 <script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/toastr.min.js' %}"></script>
@@ -383,6 +417,7 @@
 <script src="{% static 'ztreejs/jquery.ztree.core.js' %}"></script>
 <script type="text/javascript" src="{% static 'ztreejs/jquery.ztree.exhide.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'ztreejs/fuzzysearch.js' %}"></script>
+<script src="{% static 'src/js/jquery.cookie.js' %}"></script>
 <script>
     $.ajaxSetup({
         data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
@@ -399,9 +434,11 @@
         data: {
             simpleData: {
                 enable: true
+
             },
             keep: {
                 parent: true
+
             }
         },
         callback: {
@@ -409,10 +446,12 @@
         },
     };
     var zTree = $.fn.zTree.init($("#tree"), setting, {{ data|safe }});
+
     zTree.expandAll(true);
     fuzzySearch('tree', '#keyword', null, true);
 
     function organization_add() {
+
         $('#mymodal').modal('show');
     }
 
@@ -421,8 +460,10 @@
         $.ajax({
             type: 'GET',
             data: {
+
                 'edit_id': NodeID,
                 'parent_id': parentID
+
             },
             url: "{% url "organization_edit" %}",
             dataType: 'json',
@@ -431,6 +472,7 @@
                 $("#edit_location").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_address);
                 $("#edit_zipcode").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_postcode);
                 $("#edit_parent").attr("value", data.parent);
+
                 $("#edit_field").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_field);
             }
         });
@@ -461,7 +503,6 @@
         Nodename = treeNode.name;
         NodeID = treeNode.id;
         parentID = treeNode.pId;
-
         {#alert(treeNode.children);#}
         if (treeNode.type === 0) {
             return;
@@ -551,6 +592,7 @@
                 window.location = 'institute';
                 alert(data.message)
 
+
             }
         });
         return false;
@@ -573,6 +615,38 @@
             },
             error: function () {
                 alert.error('Error');
+
+
+            }
+        });
+        return false;
+    });
+
+     $("#UpdateForm_Content_Org").submit(function () {
+        var file = $('input[type=file]')[0].files[0];
+        var formdata = new FormData();
+        var csrf = $('input[name=csrfmiddlewaretoken]').val();
+        formdata.append('file_obj_org', file);
+        formdata.append('csrfmiddlewaretoken',csrf);
+        $.ajax({
+            type: 'POST',
+            async: false,
+            data: formdata,
+            url: "{% url "upload_organization" %}",
+            cache: false,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            header: {
+                'X-CSRFToken': $.cookie('csrftoken'),
+            },
+            success: function (data) {
+                window.location = 'institute';
+                alert.success(data.message);
+
+            },
+            error: function (data) {
+                alert('表格内容错误，请重新检查并上传!');
 
             }
         });

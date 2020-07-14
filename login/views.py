@@ -1,21 +1,26 @@
 from random import Random
 
 from django.contrib.auth.hashers import make_password, check_password
+
 from django.shortcuts import render
 from django.shortcuts import redirect
 from login import models
 from . import forms
 from django.views import View
 from login.utils.email_send import send_register_email
+from supervisor.models import TableEvaluation
+from django.db.models import Q
 from login.forms import ForgetForm, ResetForm
 import pdb
 import datetime, json
+from django.core import serializers
 
 
 # Create your views here.
 def login(request):
     # pdb.set_trace()
     if request.session.get('is_login', None):  # 登录后再次进入login页面，则根据其权限进入对应页面
+
         if request.session.get('permission') == 0:
             return redirect('/supervisor')
         if request.session.get('permission') == 1:
@@ -37,6 +42,7 @@ def login(request):
             try:
                 user = models.TableUser.objects.get(table_user_col_name=username)
             except:
+
                 try:
                     user = models.TableUser.objects.get(table_user_col_mobile=username)
                 except:
@@ -46,9 +52,9 @@ def login(request):
                         message = '用户名不存在！'
                         return render(request, 'login/login.html', locals())
 
-
             encryptpwd = user.table_user_col_password
             if check_password(password, encryptpwd) == True:
+
                 request.session['is_login'] = True
                 request.session['user_id'] = user.table_user_col_id
                 request.session['user_name'] = user.table_user_col_name
@@ -82,6 +88,7 @@ def login(request):
 def supervisor(request):
     # pdb.set_trace()
     if not request.session.get('is_login', None) or request.session['permission'] != 0:  # 没登录过的或权限不对的，都直接返回到登录界面
+
         return redirect('/')
     return render(request, 'login/supervisor.html/')
 
@@ -94,7 +101,10 @@ def administrator(request):
     lastlogintime = d.strftime("%Y-%m-%d %H:%M:%S.%f")
     username = request.session.get('user_name')
     models.TableUser.objects.filter(table_user_col_name=username).update(table_user_col_lastlogintime=lastlogintime)
-    return render(request, 'login/administrator.html')
+    evalname = TableEvaluation.objects.filter(
+        Q(table_evaluation_col_administrator=username) & Q(table_evaluation_col_status='启用')).values(
+        'table_evaluation_col_name')
+    return render(request, 'login/administrator.html', {'evalname': evalname, 'admin': username})
 
 
 def user(request):

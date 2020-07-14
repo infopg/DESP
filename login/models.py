@@ -56,6 +56,7 @@ class TableUser(AbstractUser):
                                                  max_length=128)  # Field name made lowercase.
     table_user_col_sex = models.CharField(db_column='Table_User_col_Sex', max_length=128,
                                           null=True)  # Field name made lowercase.
+
     table_user_col_nationality_id = models.IntegerField(
         db_column='Table_User_col_Nationality_id', null=True)  # Field name made lowercase.
     table_user_col_bachelor = models.CharField(db_column='Table_User_col_Bachelor', max_length=128,

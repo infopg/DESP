@@ -11,28 +11,50 @@ from django.db.models import Q
 from django.contrib.auth.hashers import make_password, check_password
 from datetime import datetime
 import numpy
-from supervisor.excelimport import to_mysql
+from supervisor.excelimport import to_tableuser,to_tableorg
 import xlrd
-import os
+import os,time
 
 
 # Create your views here.
 def institute(request):
     o = models.TableOrganization.objects.all()
-    _data = [
-        {
-            'id': x.table_organization_col_id,
-            'name': x.table_organization_col_name,
-            'pId': x.table_organization_col_parent_name.table_organization_col_id if x.table_organization_col_parent_name else 0,
-            'open': 1,
-        } for x in o
-    ]
-    list = []
-    eval_org = models.TableEvaluation.objects.values_list('table_evaluation_col_organization')
-    for i in range(0, len(eval_org)):
-        list.append(eval_org[i][0])
-    listforfilter = json.dumps(list)
-    return render(request, 'supervisor/institute.html', {'data': _data, 'array': listforfilter})
+    if o.exists():
+        _data = [
+            {
+                'id': x.table_organization_col_id,
+                'name': x.table_organization_col_name,
+                'pId': x.table_organization_col_parent_name.table_organization_col_id if x.table_organization_col_parent_name else 0,
+                'open': 1,
+            } for x in o
+        ]
+        list = []
+        eval_org = models.TableEvaluation.objects.values_list('table_evaluation_col_organization')
+        for i in range(0, len(eval_org)):
+            list.append(eval_org[i][0])
+        listforfilter = json.dumps(list)
+        return render(request, 'supervisor/institute.html', {'data': _data, 'array': listforfilter})
+    else:
+        models.TableOrganization.objects.create(table_organization_col_name='机构树',
+                                                table_organization_col_address=None,
+                                                table_organization_col_postcode=None,
+                                                table_organization_col_field=None,
+                                                table_organization_col_parent_name=None)
+        root = models.TableOrganization.objects.all()
+        _data = [
+            {
+                'id': x.table_organization_col_id,
+                'name': x.table_organization_col_name,
+                'pId': x.table_organization_col_parent_name.table_organization_col_id if x.table_organization_col_parent_name else 0,
+                'open': 1,
+            } for x in root
+        ]
+        list = []
+        eval_org = models.TableEvaluation.objects.values_list('table_evaluation_col_organization')
+        for i in range(0, len(eval_org)):
+            list.append(eval_org[i][0])
+        listforfilter = json.dumps(list)
+        return render(request, 'supervisor/institute.html', {'data': _data, 'array': listforfilter})
 
 
 def organization_create(request):
@@ -62,6 +84,7 @@ def organization_create(request):
 def organization_edit(request):
     if request.method == 'GET':
         organization_id = request.GET.get('edit_id')
+
         parent_id = request.GET.get('parent_id')
         org = serializers.serialize("json",
                                     models.TableOrganization.objects.filter(table_organization_col_id=organization_id))
@@ -74,6 +97,7 @@ def organization_edit(request):
         organization_name = request.POST.get('edit_name')
         organization_location = request.POST.get('edit_location')
         organization_zipcode = request.POST.get('edit_zipcode')
+
         try:
             parent = models.TableOrganization.objects.get(
                 table_organization_col_name=request.POST.get('edit_parent'))
@@ -84,7 +108,7 @@ def organization_edit(request):
         # pdb.set_trace()
         organization_field = request.POST.get('edit_field')
         org = models.TableOrganization.objects.filter(table_organization_col_name=organization_name)
-        if org.exists() and org.values_list('table_organization_col_id')[0][0] == organization_id:
+        if org.exists() and str(org.values_list('table_organization_col_id')[0][0]) != organization_id:
             message = '该机构名已存在，请重新输入'
             return JsonResponse({'message': message})
         try:
@@ -165,9 +189,8 @@ def user_edit(request):
         user_password = request.POST.get('edit_password')
         user_password_twice = request.POST.get('edit_password_twice')
         user_organization = request.POST.get('edit_organization')
-        user_organization_query = models.TableOrganization.objects.filter(table_organization_col_name=user_organization)
-        for query in user_organization_query:
-            user_organizationID = query.table_organization_col_id
+        user_organizationID = models.TableOrganization.objects.filter(
+            table_organization_col_name=user_organization).values_list('table_organization_col_id')[0][0]
         user_department = request.POST.get('edit_department'),
         user_title = request.POST.get('edit_title'),
         user_field = request.POST.get('edit_field'),
@@ -190,27 +213,30 @@ def user_edit(request):
             user_type_id = '4'
         else:
             user_type_id = None
+
         user_mobilenumber = request.POST.get('edit_mobilenumber')
         user_telnumber = request.POST.get('edit_telnumber')
         username = models.TableUser.objects.filter(table_user_col_name=user_name)
-        if username.exists():
+        print(type(username))
+        if username.exists() and str(username.values_list('table_user_col_id')[0][0]) != user_id:
             message = '该用户名已存在，请重新输入'
             return JsonResponse({'message': message})
         useremail = models.TableUser.objects.filter(table_user_col_email=user_email)
-        if useremail.exists():
+        if useremail.exists() and str(useremail.values_list('table_user_col_id')[0][0]) != user_id:
             message = '该邮箱以被使用，请重新输入'
             return JsonResponse({'message': message})
         usermobile = models.TableUser.objects.filter(table_user_col_mobile=user_mobilenumber)
-        if usermobile.exists():
+        if usermobile.exists() and str(usermobile.values_list('table_user_col_id')[0][0]) != user_id:
             message = '该手机号以被使用，请重新输入'
             return JsonResponse({'message': message})
         if user_password != user_password_twice:
             message = '你两次输入的密码不一致，请重新输入'
             return JsonResponse({'message': message})
         try:
-
             models.TableUser.objects.filter(table_user_col_id=user_id).update(table_user_col_name=user_name,
+
                                                                               table_user_col_real_name=user_realname,
+
                                                                               table_user_col_sex=user_sex,
                                                                               table_user_col_address=user_location,
                                                                               table_user_col_postcode=user_zipcode,
@@ -232,6 +258,7 @@ def user_edit(request):
                                                                               table_user_col_birth=user_birthday,
                                                                               table_user_col_IdentityID=user_identity
                                                                               )
+
             return JsonResponse({'state': 1, 'message': '修改成功!'})
         except Exception as e:
             return JsonResponse({'state': 0, 'message': 'Create Error: ' + str(e)})
@@ -243,14 +270,15 @@ def user_create(request):
     if request.method == 'POST':
         user_name = request.POST.get('create_name')
         user_realname = request.POST.get('create_realname')
+
         user_sex = request.POST.get('create_sex')
         user_location = request.POST.get('create_location')
         user_password = request.POST.get('create_password')
         user_password_twice = request.POST.get('create_password_twice')
         user_organization = request.POST.get('create_organization')
-        user_organization_query = models.TableOrganization.objects.filter(table_organization_col_name=user_organization)
-        for query in user_organization_query:
-            user_organizationID = query.table_organization_col_id
+        user_organizationID = models.TableOrganization.objects.filter(
+            table_organization_col_name=user_organization).values_list('table_organization_col_id')[0][0]
+
         user_department = request.POST.get('create_department'),
         user_title = request.POST.get('create_title'),
         user_field = request.POST.get('create_field'),
@@ -403,51 +431,188 @@ def evaluation_delete(request):
 
 ## Import Excel
 # 读取excel表格
-def excel_import(filename):
-    file_excel = '/DESP/uploads/user/'+str(filename)+'/'
+def excel_import_user(filename):
+    # pdb.set_trace()
+    file_excel = 'C:/Users/Administrator/Desktop/DESP-qzc/DESP/uploads/indicator/' + str(filename)
+    # print(file_excel)
     col_name_index = 0
     by_name = u'Sheet1'
     data = xlrd.open_workbook(file_excel)  # 打开excel
     table = data.sheet_by_name(by_name)  # 表单名称
     n_rows = table.nrows  # 行数
     row_dict = {}
+    # try:
     for row_num in range(1, n_rows):
-        row = table.row_values(row_num)  # 获得每行的字段
-        # seq = [row[0], row[1], row[2], row[3]]
-        seq = {'ID': row[0], 'Type_ID': row[1], 'Type': row[2], 'Name': row[3],
-               'Real_Name': row[4], 'Org_ID': row[5], 'Mobile': row[6], 'Tel': row[7],
-               'Address': row[8], 'Password': row[9], 'Email': row[10], 'Title': row[11],
-               'Postcode': row[12], 'Department': row[13], 'Work_Field': row[14], 'Sex': row[15],
-               'Nationality': row[16], 'Bachelor': row[17], 'Memo': row[18], 'Birthday': row[19],
-               'IdentityID': row[20]}
-        row_dict[row_num] = seq
-    da = {
-        'code': '200',
-        'msg': 'success',
-        'data': row_dict
-    }
+            row = table.row_values(row_num)  # 获得每行的字段
+            # seq = [row[0], row[1], row[2], row[3]]
+            seq_user = {'ID': row[0], 'Type': row[1], 'Name': row[2],
+                        'Real_Name': row[3], 'Org_Name': row[4], 'Mobile': row[5], 'Tel': row[6],
+                        'Address': row[7], 'Password': make_password(str(row[8])), 'Email': row[9], 'Title': row[10],
+                        'Postcode': str(row[11]), 'Department': row[12], 'Work_Field': row[13], 'Sex': row[14],
+                        'Nationality': row[15], 'Bachelor': row[16], 'Memo': row[17], 'Birthday': row[18],
+                        'IdentityID': row[19]}
+            row_dict[row_num] = seq_user
+    data_user = {
+            'code': '200',
+            'msg': 'success',
+            'data': row_dict
+        }
+    user_write = data_user['data']
+    max_position = len(user_write)
+    # except:
+    #     return JsonResponse({'message': '模板错误'})
+    try:
+        position = 1
+        while position <= max_position:
+            try:
+                arrs = user_write[position]
+                orgname = arrs['Org_Name']
+                org_id = models.TableOrganization.objects.filter(table_organization_col_name=orgname).values_list('table_organization_col_id')[0][0]
+                # print(org_id)
+            except:
+                return JsonResponse({'message': '检查上级机构问题'})
+            try:
+                if arrs['Type'] == '超级管理员':
+                    type_id = 0
+                elif arrs['Type'] == '管理员':
+                    type_id = 1
+                elif arrs['Type'] == '机构管理员':
+                    type_id = 2
+                elif arrs['Type'] == '机构用户':
+                    type_id = 3
+                elif arrs['Type'] == '专家用户':
+                    type_id = 4
+            except:
+                return JsonResponse({'message': '用户类型问题'})
+            try:
+                models.TableUser.objects.create(table_user_col_id=arrs['ID'], table_user_col_type_id=type_id,
+                                                table_user_col_type=arrs['Type'],
+                                                table_user_col_name=arrs['Name'],
+                                                table_user_col_real_name=arrs['Real_Name'],
+                                                table_user_col_organization_id=org_id,
+                                                table_user_col_mobile=arrs['Mobile'], table_user_col_tel=arrs['Tel'],
+                                                table_user_col_address=arrs['Address'],
+                                                table_user_col_password=arrs['Password'],
+                                                table_user_col_email=arrs['Email'], table_user_col_title=arrs['Title'],
+                                                table_user_col_postcode=arrs['Postcode'],
+                                                table_user_col_department=arrs['Department'],
+                                                table_user_col_work_field=arrs['Work_Field'],
+                                                table_user_col_sex=arrs['Sex'],
+                                                table_user_col_nationality_id=arrs['Nationality'],
+                                                table_user_col_bachelor=arrs['Bachelor'], table_user_col_memo=arrs['Memo'],
+                                                table_user_col_birth=arrs['Birthday'],
+                                                table_user_col_IdentityID=arrs['IdentityID'])
+                position = position + 1
+            except:
+                return JsonResponse({'message': '检查填报内容'})
+        else:
+            return JsonResponse({'message': '上传成功'})
+    except:
+        return JsonResponse({'message': '检查填报内容'})
 
-    # 调用方法 ---自定义模板函数 这里必须要return
-    return to_mysql(da)
+    # # 调用方法 ---自定义模板函数 这里必须要return
+    # return to_tableuser(data_user)
 
 
-def upload(request):
+def upload_user(request):
+    # pdb.set_trace()
     if request.method == 'GET':
         return render(request, 'supervisor/people.html')
     elif request.method == 'POST':
         obj = request.FILES.get('file_obj')
-        print(obj)
-        f = open(os.path.join('DESP', 'uploads', 'user', obj.name), 'wb')
-        for chunk in obj.chunks():
-            f.write(chunk)
-        f.close()
-        # excel_import(obj)
-        return JsonResponse({'message': '修改成功!'})
+        obj.name = time.strftime("%Y%m%d_%H_%M_%S_", time.localtime(time.time())) + obj.name
+        # print(obj)
+        if str(obj).endswith('.xlsx'):
+            f = open(os.path.join('DESP', 'uploads', 'user', obj.name), 'wb')
+            for chunk in obj.chunks():
+                f.write(chunk)
+            f.close()
+            return excel_import_user(obj)
+        else:
+            return JsonResponse({'message': '文件格式错误！'})
 
 
-def download(request):
-  file = open('crm/models.py', 'rb')
-  response = HttpResponse(file)
-  response['Content-Type'] = 'application/octet-stream' #设置头信息，告诉浏览器这是个文件
-  response['Content-Disposition'] = 'attachment;filename="models.py"'
-  return response
+def download_user(request):
+    # pdb.set_trace()
+    file = open('DESP/uploads/user/TableUser_Import.xlsx', 'rb')
+    response = HttpResponse(file)
+    response['Content-Type'] = 'application/octet-stream'  # 设置头信息，告诉浏览器这是个文件
+    response['Content-Disposition'] = 'attachment;filename="TableUser_Import.xlsx"'
+    return response
+
+
+def excel_import_organization(filename):
+    file_excel = 'C:/Users/Administrator/Desktop/DESP-qzc/DESP/uploads/indicator/' + str(filename)  ##存储路径
+    # print(file_excel)
+    col_name_index = 0
+    by_name = u'Sheet1'
+    data = xlrd.open_workbook(file_excel)  # 打开excel
+    table = data.sheet_by_name(by_name)  # 表单名称
+    n_rows = table.nrows  # 行数
+    row_dict = {}
+
+    for row_num in range(1, n_rows):
+            row = table.row_values(row_num)  # 获得每行的字段
+            # seq = [row[0], row[1], row[2], row[3]]
+            seq_org = {'Org_ID': str(row[0]), 'Org_Name': row[1], 'Org_Address': row[2], 'Org_Post': str(row[3]),
+                       'Org_Field': row[4], 'Org_Parent_Name': row[5]}
+            row_dict[row_num] = seq_org
+    data_org = {
+            'code': '200',
+            'msg': 'success',
+            'data': row_dict
+        }
+    org_write = data_org['data']
+    max_position = len(org_write)
+        # print(max_position)
+
+    try:
+        position = 1
+        while position <= max_position:
+            try:
+                arrs = org_write[position]
+                # print(arrs)
+                orgname = arrs['Org_Parent_Name']
+                parent_id = models.TableOrganization.objects.get(table_organization_col_name=orgname)
+                models.TableOrganization.objects.create(table_organization_col_id=arrs['Org_ID'],
+                                                        table_organization_col_name=arrs['Org_Name'],
+                                                        table_organization_col_address=arrs['Org_Address'],
+                                                        table_organization_col_postcode=arrs['Org_Post'],
+                                                        table_organization_col_field=arrs['Org_Field'],
+                                                        table_organization_col_parent_name=parent_id)
+                position = position + 1
+            except:
+                return JsonResponse({'message': '检查填报内容'})
+        else:
+            return JsonResponse({'message': '上传成功'})
+    except:
+        return JsonResponse({'message': '检查填报内容'})
+    # # 调用方法 ---自定义模板函数 这里必须要return
+    # return to_tableorg(data_org)
+
+
+def upload_organization(request):
+    # pdb.set_trace()
+    if request.method == 'GET':
+        return render(request, 'supervisor/institute.html')
+    elif request.method == 'POST':
+        obj = request.FILES.get('file_obj_org')
+        obj.name = time.strftime("%Y%m%d_%H_%M_%S_", time.localtime(time.time())) + obj.name
+        # print(obj)
+        if str(obj).endswith('.xlsx'):
+            f = open(os.path.join('DESP', 'uploads', 'organization', obj.name), 'wb')  ##存储位置
+            for chunk in obj.chunks():
+                f.write(chunk)
+            f.close()
+            return excel_import_organization(obj)
+        else:
+            return JsonResponse({'message': '文件格式错误！'})
+
+
+def download_organization(request):
+    # pdb.set_trace()
+    file = open('DESP/uploads/organization/TableOrg_Import.xlsx', 'rb')
+    response = HttpResponse(file)
+    response['Content-Type'] = 'application/octet-stream'  # 设置头信息，告诉浏览器这是个文件
+    response['Content-Disposition'] = 'attachment;filename="TableOrg_Import.xlsx"'
+    return response

@@ -77,10 +77,15 @@
                         </div>
                     </div>
                     <div>
-                        <label>所属机构ID</label>
+                        <label>所属机构</label>
                         <div>
-                            <input type="text" id="create_organizationID"
-                                   name="organization" required>
+                            <input type="text" id="create_organization"
+                                   name="organization" list="org_list" required>
+                            <datalist id="org_list">
+                                {% for org in organization %}
+                                <option>{{ org.table_organization_col_name }}</option>
+                                {% endfor %}
+                            </datalist>
                         </div>
                     </div>
                     <div>
@@ -206,10 +211,15 @@
                         </div>
                     </div>
                     <div>
-                        <label>所属机构ID</label>
+                        <label>所属机构</label>
                         <div>
-                            <input type="text" id="edit_organizationID"
-                                   name="organization" required>
+                            <input type="text" id="edit_organization"
+                                   name="organization" list="org_list" required>
+                            <datalist id="org_list">
+                                {% for org in organization %}
+                                <option>{{ org.table_organization_col_name }}</option>
+                                {% endfor %}
+                            </datalist>
                         </div>
                     </div>
                     <div>
@@ -321,13 +331,14 @@
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 
 
+
 <!--Upload and Update-->
 <div id="mymodal_update" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="UploadLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="UploadLabel">导入表格</h4>
+                <h4 class="modal-title" id="UploadLabel">导入表格（.xlsx格式）</h4>
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
@@ -373,6 +384,7 @@
                         {#                            <li><a href="{% url 'others' %}" class="menu-item">其他评估系统</a>#}
                         {#                            </li>#}
 
+
                     </li>
                     <li class="has-sub nav-item"><a href="{% url 'people' %}"><i class="icon-screen-desktop"></i><span
                             data-i18n=""
@@ -394,6 +406,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
         <div class="container-fluid">
             <div class="navbar-header">
+
                 <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
                         class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
                         class="icon-bar"></span><span class="icon-bar"></span></button>
@@ -443,9 +456,10 @@
                                         <button type="button" class="btn mr-1 btn-secondary" data-toggle="modal"
                                                 data-target="#mymodal_update">上传模板
                                         </button>
-                                        <button type="button" class="btn mr-1 btn-secondary" action="/download/">
-                                            下载模板
-                                        </button>
+
+                                        <a class="btn mr-1 btn-secondary" href="{% url 'download_user' %}" rel="external nofollow">下载模板</a>
+
+
 
                                         {#                                        <div>#}
                                         {#                                            <input type="file" name="file" id="file_upload">#}
@@ -556,12 +570,14 @@
 <!-- END CONVEX JS-->
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
+
 <script src="{% static 'src/js/jquery.cookie.js' %}"></script>
 <script>
     function go(id) {
         itemid = id
     }
 </script>
+
 <script>
     function user_edit(id) {
         itemid = id;
@@ -712,6 +728,7 @@
                 data: {
                     'edit_id': edit_id,
                     "edit_name": edit_name,
+
                     "edit_realname": edit_realname,
                     "edit_sex": edit_sex,
                     "edit_location": edit_location,
@@ -764,7 +781,6 @@
             success: function (data) {
                 window.location = 'people';
                 alert(data.message);
-
             },
             error: function () {
                 toastr.error('Error');
@@ -773,6 +789,7 @@
         });
         return false;
     });
+
     $("#UpdateForm_Content").submit(function () {
         var file = $('input[type=file]')[0].files[0];
         var formdata = new FormData();
@@ -783,7 +800,7 @@
             type: 'POST',
             async: false,
             data: formdata,
-            url: "{% url "upload" %}",
+            url: "{% url "upload_user" %}",
             cache: false,
             dataType: "json",
             processData: false,
@@ -792,17 +809,18 @@
                 'X-CSRFToken': $.cookie('csrftoken'),
             },
             success: function (data) {
-                window.location = 'people';
+                window.location.reload();
                 alert(data.message);
 
             },
             error: function (data) {
-                alert('Error');
+                alert('模板错误');
 
             }
         });
         return false;
     });
+
 
 </script>
 <!-- END PAGE LEVEL JS-->
