@@ -90,7 +90,9 @@
                                     <td style="display: none"></td>
                                     <td>总计</td>
                                     <td></td>
-                                    <td></td>
+                                    <td><button type="submit" class="btn btn-primary"
+                                        onclick="return calc_add();">计算
+                                </button></td>
 {#                                    <td><button class="btn btn-primary mb-2" onclick="return addrow();">添加</button></td>#}
                                 </tr>
 
@@ -379,10 +381,6 @@
         document.getElementById(e).parentNode.parentNode.parentNode.removeChild(document.getElementById(e).parentNode.parentNode);
     }
 
-    {#function standard_question() {#}
-    {#    window.location.href = "{% url 'questionaire'  %}" + "?" + "nodeID" + "=" + standardID;#}
-    {#}#}
-
     function standard_edit() {
         $.ajax({
             type: 'GET',
@@ -416,20 +414,9 @@
                     weightCell.setAttribute('contentEditable', 'false');
                     row.appendChild(weightCell);
 
-                    var CreateCell = document.createElement('td');
-                        row.appendChild(CreateCell);
-                        var btnCreate = document.createElement('input');
-                        btnCreate.setAttribute('type', 'button');
-                        btnCreate.setAttribute('value', '添加');
-                        btnCreate.setAttribute('class', 'btn mr-1 btn-secondary')
-
-                        btnCreate.onclick = function () {
-
-                        }
-
-
-                        CreateCell.appendChild(btnCreate)
-                        return row;
+                    var delCell = document.createElement('td');
+                    row.appendChild(delCell);
+                    return row
                 }
 
                 for (var i = 1; i < eval(data.data).length; i++) {
@@ -509,27 +496,6 @@
                     };
                     calcTotal(document.getElementById('tb'), 2);
 
-                {#var crow = CreateRow();#}
-                {#    tbody.appendChild(crow);#}
-                {#function CreateRow() {#}
-                {#    var row = document.createElement('tr');#}
-                {#    #}
-                {##}
-                {#    var CreateCell = document.createElement('td');#}
-                {#        row.appendChild(CreateCell);#}
-                {#        var btnCreate = document.createElement('input');#}
-                {#        btnCreate.setAttribute('type', 'button');#}
-                {#        btnCreate.setAttribute('value', '添加');#}
-                {#        btnCreate.setAttribute('class', 'btn mr-1 btn-secondary')#}
-                {##}
-                {#    var emptyCell2 = document.createElement('td');#}
-                {#    row.appendChild(emptyCell2);#}
-                {#    return row;#}
-                {##}
-                {#    var emptyCell3 = document.createElement('td');#}
-                {#    row.appendChild(emptyCell3);#}
-                {#    return row;}#}
-
             }
         });
         $('#editForm').modal('show');
@@ -543,7 +509,7 @@
         if (treeNode.type === 0) {
             return;
         }
-        showRMenustand(treeNode.pId, event.clientX, event.clientY);
+        showRMenustand(treeNode.pId, event.pageX, event.pageY);
     }
 
     function showRMenustand(type, x, y) {
@@ -564,6 +530,35 @@
         if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length > 0)) {
             $("#rMenu").css({"visibility": "hidden"});
         }
+    }
+
+    function calc_add(){
+        var data = [];
+        for (var i = 0; i < document.getElementById('manageList').rows.length-1; i++) {
+            for (var j = 0; j < document.getElementById('manageList').rows[i].cells.length - 1; j++) {
+                if (!data[i]) {
+                    data[i] = [];
+                }
+                data[i][j] = document.getElementById('manageList').rows[i].cells[j].innerHTML;
+            }
+        }
+        $.ajax({
+            type: "post",
+            data: {
+                'datalist': JSON.stringify(data)
+            },
+            dataType: "json",
+            success:
+                function () {
+                    standard_edit();
+                }
+
+            ,
+            error: function (data) {
+                {#alert(data.message)#}
+            }
+        })
+        ;
     }
 
     $('#editForm_Content').submit(function (event) {

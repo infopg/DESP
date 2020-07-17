@@ -64,6 +64,19 @@
                     </div>
 
                     <div>
+                        <label>评估项目</label>
+                        <div>
+                            <input type="text" id="create_eval"
+                                   name="time_eval" list="time_eval_list" required>
+                            <datalist id="time_eval_list">
+                                {% for evals in evalname %}
+                                <option>{{ evals.table_evaluation_col_name }}</option>
+                                {% endfor %}
+                            </datalist>
+                        </div>
+                    </div>
+
+                    <div>
                         <label>开始时间</label>
                         <div>
                             <input type="date" id="create_start"
@@ -145,6 +158,7 @@
                                    name="field" required>
                         </div>
                     </div>
+
                     <div>
                         <label>工作状态</label>
                         <div>
@@ -305,9 +319,9 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <div class="card-title-wrap bar-success">
-                                            <h4 class="card-title">欢迎</h4>
-                                        </div>
+{#                                        <div class="card-title-wrap bar-success">#}
+{#                                            <h4 class="card-title">{{ timeevalname.}}</h4>#}
+{#                                        </div>#}
                                         <button type="button" class="btn mr-1 btn-secondary" data-toggle="modal"
                                                 data-target="#mymodal">添加
                                         </button>
@@ -318,29 +332,29 @@
                                             <table class="table table-striped table-bordered base-style">
                                                 <thead>
                                                 <tr>
-                                                    <th>ID</th>
+                                                    <th>开始时间</th>
                                                     <th>工作项目</th>
                                                     <th>工作内容</th>
-                                                    <th>开始时间</th>
+
                                                     <th>截止时间</th>
                                                     <th>工作状态</th>
                                                     <th>操作</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {% for timestamp in timeline %}
+                                                {% for t in timeline_list %}
                                                     <tr>
-                                                        <td>{{ timestamp.table_timeliner_col_id }}</td>
-                                                        <td>{{ timestamp.table_timeliner_col_name }}</td>
-                                                        <td>{{ timestamp.table_timeliner_col_content }}</td>
-                                                        <td>{{ timestamp.table_timeliner_col_start }}</td>
-                                                        <td>{{ timestamp.table_timeliner_col_end }}</td>
-                                                        <td>{{ timestamp.table_timeliner_col_status }}</td>
+                                                        <td>{{ t.table_timeliner_col_start }}</td>
+                                                        <td>{{ t.table_timeliner_col_name }}</td>
+                                                        <td>{{ t.table_timeliner_col_content }}</td>
+
+                                                        <td>{{ t.table_timeliner_col_end }}</td>
+                                                        <td>{{ t.table_timeliner_col_status }}</td>
                                                         <td>
                                                             <button type="button" class="btn mr-1 btn-secondary"
                                                                     data-toggle="modal"
                                                                     data-target="#mymodal_edit"
-                                                                    id="{{ timestamp.table_timeliner_col_id }}"
+                                                                    id="{{ t.table_timeliner_col_id }}"
 
                                                                     onclick="timeliner_edit(this.id)">编辑
 
@@ -348,7 +362,7 @@
                                                             <button type="button" class="btn mr-1 btn-secondary"
                                                                     data-toggle="modal"
                                                                     data-target="#mymodal_delete"
-                                                                    id="{{ timestamp.table_timeliner_col_id }}"
+                                                                    id="{{ t.table_timeliner_col_id }}"
                                                                     onclick="go(this.id)">删除
                                                             </button>
 
@@ -358,10 +372,10 @@
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                    <th>ID</th>
+                                                    <th>开始时间</th>
                                                     <th>工作项目</th>
                                                     <th>工作内容</th>
-                                                    <th>开始时间</th>
+
                                                     <th>截止时间</th>
                                                     <th>工作状态</th>
                                                     <th>操作</th>
@@ -388,7 +402,7 @@
 					<div class="events-wrapper">
 						<div class="events">
 							<ol>
-								<li><a data-date="01/03/2020" class="selected">时间线开始</a></li>
+								<li><a data-date="01/04/2020" class="selected">时间线开始</a></li>
                                 {% for date in dateline %}
                                 <li><a data-date={{ date.table_timeliner_col_start }}>{{ date.table_timeliner_col_name }}</a></li>
                                 {% endfor %}
@@ -409,7 +423,7 @@
 
 				<div class="events-content">
 					<ol>
-                        <li class="selected" data-date="01/03/2020">
+                        <li class="selected" data-date="01/04/2020">
 							<h4 class="text-bold-500">选择查看工作进度</h4>
 						</li>
 
@@ -508,6 +522,7 @@
             var create_start = $('#create_start').val();
             var create_end = $('#create_end').val();
             var create_status = $('#create_status').val();
+            var create_eval = $('#create_eval').val();
             $.ajax({
                 type: 'POST',
                 data: {
@@ -515,7 +530,8 @@
                     "content": create_content,
                     'start': create_start,
                     'end': create_end,
-                    'status': create_status
+                    'status': create_status,
+                    'eval':create_eval
                 },
                 url: "{% url "timeliner_create" %}",
                 cache: false,

@@ -3,7 +3,7 @@
     'use strict';
 	$(document).ready(function($){
 		var timelines = $('.cd-horizontal-timeline'),
-			eventsMinDistance = 60;
+			eventsMinDistance = 20;
 
 		(timelines.length > 0) && initTimeline(timelines);
 
@@ -142,7 +142,7 @@
 			var timeSpan = daydiff(timelineComponents['timelineDates'][0], timelineComponents['timelineDates'][timelineComponents['timelineDates'].length-1]),
 				timeSpanNorm = timeSpan/timelineComponents['eventsMinLapse'],
 				timeSpanNorm = Math.round(timeSpanNorm) + 4,
-				totalWidth = timeSpanNorm*width;
+				totalWidth = timeSpanNorm*(width-1);
 			timelineComponents['eventsWrapper'].css('width', totalWidth+'px');
 			updateFilling(timelineComponents['eventsWrapper'].find('a.selected'), timelineComponents['fillingLine'], totalWidth);
 			updateTimelinePosition('next', timelineComponents['eventsWrapper'].find('a.selected'), timelineComponents);

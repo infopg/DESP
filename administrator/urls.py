@@ -16,5 +16,4 @@ urlpatterns = [
     re_path(r'/timeliner_edit$', views.timeliner_edit, name='timeliner_edit'),
     re_path(r'/timeliner_delete$', views.timeliner_delete, name='timeliner_delete'),
     url('/timeliner', timeliner, name='timeliner'),
-    url(r'/timeline_users',views.timeline_users, name='timeline_users')
 ]
