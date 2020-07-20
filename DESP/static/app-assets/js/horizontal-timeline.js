@@ -3,7 +3,7 @@
     'use strict';
 	$(document).ready(function($){
 		var timelines = $('.cd-horizontal-timeline'),
-			eventsMinDistance = 20;
+			eventsMinDistance = 90;
 
 		(timelines.length > 0) && initTimeline(timelines);
 
@@ -228,14 +228,14 @@
 		}
 
 		function daydiff(first, second) {
-		    return Math.round((second-first));
+		    return Math.round((second-first)+5);
 		}
 
 		function minLapse(dates) {
 			//determine the minimum distance among events
 			var dateDistances = [];
 			for (var i = 1; i < dates.length; i++) { 
-			    var distance = daydiff(dates[i-1], dates[i]);
+			    var distance = daydiff(dates[i-1], dates[i])*2;
 			    dateDistances.push(distance);
 			}
 			return Math.min.apply(null, dateDistances);

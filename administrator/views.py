@@ -102,12 +102,12 @@ def edit(request):
             'table_evaluation_indicator_col_evaluation_name')[0][0]
 
         for item in editdata:
-            if len(item) < 3:
+            if item[0] == "":
                 postdata = {
-                    "table_evaluation_indicator_col_name": item[0],
+                    "table_evaluation_indicator_col_name": item[1],
                     "table_evaluation_indicator_col_parent_name": TableEvaluationIndicator.objects.get(
                         table_evaluation_indicator_col_id=create_parent),
-                    "table_evaluation_indicator_col_weight": item[1],
+                    "table_evaluation_indicator_col_weight": item[2],
                     "table_evaluation_indicator_col_evaluation_name": evalname,
                     "table_evaluation_indicator_col_administrator_id": request.session['user_id'],
                     "table_evaluation_indicator_col_administrator_name": administrator
@@ -117,7 +117,7 @@ def edit(request):
                         Q(table_evaluation_indicator_col_parent_name=create_parent)):
                     list.append(a.table_evaluation_indicator_col_weight)
                 result = sum(list)
-                if result + Decimal(float(item[1])) <= 100:
+                if result + Decimal(float(item[2])) <= 100:
                     try:
                         TableEvaluationIndicator.objects.create(**postdata)
                         continue

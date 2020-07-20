@@ -479,7 +479,7 @@
 <!-- END CONVEX JS-->
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
-<script src="{% static 'app-assets/js/horizontal-timeline.js' %}"></script>
+<script src="{% static 'app-assets/js/horizontal-timeline.min.js' %}"></script>
 <script>
     function go(id) {
         itemid = id
@@ -601,7 +601,7 @@
             cache: false,
             dataType: "json",
             success: function (data) {
-                window.location = 'timeliner';
+                window.location.reload();
                 alert(data.message);
 
             },
