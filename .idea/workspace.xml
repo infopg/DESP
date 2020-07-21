@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="495a9a34-d66d-42cd-b481-066e01c6ea1d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/static/app-assets/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/static/app-assets/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/static/app-assets/js/horizontal-timeline.js" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/static/app-assets/js/horizontal-timeline.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DESP/templates/standard/questionaire.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/questionaire.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/templates/standard/standard.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/standard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/templates/supervisor/institute.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/supervisor/institute.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/administrator/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/administrator/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,16 +58,16 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\DESP\DESP" />
+      <recent name="C:\Users\Administrator\Desktop\DESP\login" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\Desktop\DESP-qzc\DESP\templates\standard" />
       <recent name="C:\Users\Administrator\Desktop\DESP-qzc\DESP\uploads" />
       <recent name="C:\Users\Administrator\Desktop\DESP-qzc\DESP" />
       <recent name="C:\Users\Administrator\Desktop\DESP\DESP\templates\supervisor" />
       <recent name="C:\Users\Administrator\Desktop\DESP\DESP\static\ztreejs" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Administrator\Desktop\DESP\DESP" />
-      <recent name="C:\Users\Administrator\Desktop\DESP\login" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -319,7 +313,7 @@
       <workItem from="1595161156278" duration="1848000" />
       <workItem from="1595206752597" duration="18370000" />
       <workItem from="1595263464452" duration="8607000" />
-      <workItem from="1595293717934" duration="6450000" />
+      <workItem from="1595293717934" duration="7822000" />
     </task>
     <servers />
   </component>
