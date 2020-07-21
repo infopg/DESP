@@ -81,11 +81,21 @@
                                 </tr>
                                 </thead>
                                 <tbody id="tb">
+
                                 </tbody>
-                                <tfoot>
+
+                                <tfoot id="tdfoot">
+
                                 <tr>
+                                    {#                                    <td style="display: none"></td>#}
+                                    {#                                    <td>总计</td>#}
+                                    {#                                    <td></td>#}
+                                    {#                                    <td></td>#}
                                 </tr>
+
+
                                 </tfoot>
+
                             </table>
                             <button class="btn btn-primary mb-2" onclick="return addrow();">添加</button>
                             <div class="modal-footer">
@@ -349,14 +359,36 @@
     zTree.expandAll(true);
     fuzzySearch('treeDemo', '#keyword', null, true);
 
+    function standard_question() {
+        window.location.href = "{% url 'questionaire'  %}" + "?" + "nodeID" + "=" + standardID;
+    }
+
     function addrow() {
         var tables = document.getElementById('manageList');
-        var addtr = $("<tr>" +
+        var addtr = $("<tr class=\"newvalue\">" +
+            "<td style=\"display: none\"></td>" +
             "<td contenteditable=\"true\"></td>" +
             "<td contenteditable=\"true\"></td>" +
-            "<td><input type=\"button\" id=\"deletenode\" value=\"删除\" class=\"btn mr-1 btn-danger\" onclick=\"deletenull(this.id)\"></td>" +
+            "<td><input type=\"button\" value=\"删除\" class=\"btn mr-1 btn-danger\" onclick=\"deletenull(this.id)\"></td>" +
             "</tr>");
         addtr.appendTo(tables);
+        var val_diff = document.getElementsByClassName('newvalue');
+        for (var j = val_diff.length - 1; j < val_diff.length; j++) {
+            val_diff[j].id = Math.random().toString(36).substr(2);
+            var total = 0;
+            var calcDiff = function (table, column) {
+                var trs = table.getElementsByTagName('tr');
+                {#var total = 0;#}
+                for (var i = 1; i < trs.length - 1; i++) {
+                    var td = trs[i].getElementsByTagName('td')[column];
+                    var t = parseFloat(td.innerHTML);
+                    if (t) total += t;
+                }
+                document.getElementById(val_diff[j].id).getElementsByTagName('td')[column].innerHTML = 100 - total;
+            };
+            calcDiff(document.getElementById('tb'), 2);
+        }
+
         var links = document.getElementsByClassName('btn mr-1 btn-danger');
         for (var i = 0; i < links.length; i++) {
             links[i].id = i;
@@ -366,13 +398,8 @@
         return false
     }
 
-
     function deletenull(e) {
         document.getElementById(e).parentNode.parentNode.parentNode.removeChild(document.getElementById(e).parentNode.parentNode);
-    }
-
-    function standard_question() {
-        window.location.href = "{% url 'questionaire'  %}" + "?" + "nodeID" + "=" + standardID;
     }
 
     function standard_edit() {
@@ -387,7 +414,34 @@
             success: function (data) {
                 $("#manageList tbody").html("");
                 var tbody = document.getElementById('tb');
-                for (var i = 0; i < eval(data.data).length; i++) {
+                trow = getRow(eval(data.data)[0]);
+                trow.setAttribute('style', 'color: blue');
+                tbody.appendChild(trow);
+
+                function getRow(h) {
+                    var row = document.createElement('tr');
+
+                    var idCell = document.createElement('td');
+                    idCell.setAttribute('style', 'display: none');
+                    idCell.innerHTML = h.pk;
+                    row.appendChild(idCell);
+
+                    var nameCell = document.createElement('td');
+                    nameCell.setAttribute('contentEditable', 'false');
+                    nameCell.innerHTML = h.fields.table_evaluation_indicator_col_name;
+                    row.appendChild(nameCell);
+
+                    var weightCell = document.createElement('td');
+                    weightCell.innerHTML = h.fields.table_evaluation_indicator_col_weight;
+                    weightCell.setAttribute('contentEditable', 'false');
+                    row.appendChild(weightCell);
+
+                    var delCell = document.createElement('td');
+                    row.appendChild(delCell);
+                    return row
+                }
+
+                for (var i = 1; i < eval(data.data).length; i++) {
                     var trow = getDataRow(eval(data.data)[i]);
                     tbody.appendChild(trow);
                 }
@@ -410,41 +464,49 @@
                     weightCell.setAttribute('contentEditable', 'true');
                     row.appendChild(weightCell);
 
+                    var node = zTree.getNodeByParam("id", h.pk);
+                    if (node.children && node.children.length > 0) {
+                        var delCell = document.createElement('td');
+                        row.appendChild(delCell);
+                        return row
+                    } else {
+                        var delCell = document.createElement('td');
+                        row.appendChild(delCell);
+                        var btnDel = document.createElement('input');
+                        btnDel.setAttribute('type', 'button');
+                        btnDel.setAttribute('value', '删除');
+                        btnDel.setAttribute('class', 'btn mr-1 btn-secondary');
 
-                    var delCell = document.createElement('td');
-                    row.appendChild(delCell);
-                    var btnDel = document.createElement('input');
-                    btnDel.setAttribute('type', 'button');
-                    btnDel.setAttribute('value', '删除');
-                    btnDel.setAttribute('class', 'btn mr-1 btn-danger');
+                        //删除操作
+                        btnDel.onclick = function () {
+                            if (confirm("确定删除这一行嘛？")) {
+                                this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
+                                var deleteID = h.pk;
+                                $.ajax({
+                                    type: "post",
+                                    url: "{% url "delete" %}",
+                                    async: false,
+                                    data: {
+                                        delete_id: deleteID
+                                    },
+                                    dataType: "json",
+                                    success: function (data) {
+                                        standard_edit();
+                                        alert(data.message);
+                                    },
+                                    error: function (data) {
+                                        alert(data.message)
+                                    }
+                                });
 
-                    //删除操作
-                    btnDel.onclick = function () {
-                        if (confirm("确定删除这一行嘛？")) {
-                            this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
-                            var deleteID = h.pk;
-                            $.ajax({
-                                type: "post",
-                                url: "{% url "delete" %}",
-                                async: false,
-                                data: {
-                                    delete_id: deleteID
-                                },
-                                dataType: "json",
-                                success: function (data) {
-                                    window.location.reload();
-                                    alert(data.message);
-                                },
-                                error: function (data) {
-                                    alert(data.message)
-                                }
-                            });
+                            }
+                        };
+                        delCell.appendChild(btnDel);
+                        return row;
 
-                        }
-                    };
-                    delCell.appendChild(btnDel);
-                    return row;
+                    }
                 }
+
             }
         });
         $('#editForm').modal('show');
@@ -460,9 +522,18 @@
         }
         showRMenustand(treeNode.pId, event.pageX, event.pageY);
     }
+
     alert(event.clientX);
+
     function showRMenustand(type, x, y) {
+        var nodes = zTree.getSelectedNodes()
         $("#rMenu").show();
+        if (nodes[0].children && nodes[0].children.length > 0) {
+            $("#item_ques").hide();
+        } else {
+            $("#item_eidt").show();
+            $("#item_ques").show();
+        }
         $("#rMenu").css({"top": y + "px", "left": x + "px", "visibility": "visible", 'z-index': '50'}); //设置右键菜单的位置、可见
         $("body").bind("mousedown", onBodyMouseDownstand);
     }
@@ -473,10 +544,11 @@
         }
     }
 
+
     $('#editForm_Content').submit(function (event) {
         event.preventDefault();
         var data = [];
-        for (var i = 0; i < document.getElementById('manageList').rows.length; i++) {
+        for (var i = 0; i < document.getElementById('manageList').rows.length - 1; i++) {
             for (var j = 0; j < document.getElementById('manageList').rows[i].cells.length - 1; j++) {
                 if (!data[i]) {
                     data[i] = [];
@@ -497,14 +569,11 @@
                     window.location.reload();
                     alert(data.message);
                 }
-
             ,
             error: function (data) {
                 alert(data.message)
             }
-        })
-        ;
-
+        });
     });
 
     $("#UpdateForm_Content_Indicator").submit(function () {

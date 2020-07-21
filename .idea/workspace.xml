@@ -2,8 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="495a9a34-d66d-42cd-b481-066e01c6ea1d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/DESP_0713.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/administrator/migrations/0004_auto_20200717_1140.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/administrator/migrations/0005_auto_20200717_1145.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/administrator/migrations/0006_auto_20200717_1345.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/templates/standard/questionaire.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/questionaire.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/static/app-assets/js/horizontal-timeline.js" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/static/app-assets/js/horizontal-timeline.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/templates/standard/standard.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/standard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/templates/standard/timeline_users.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/templates/standard/timeliner.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/timeliner.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/administrator/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/administrator/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/administrator/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -314,6 +328,7 @@
       <workItem from="1595206752597" duration="18370000" />
       <workItem from="1595263464452" duration="8607000" />
       <workItem from="1595293717934" duration="7822000" />
+      <workItem from="1595310838577" duration="318000" />
     </task>
     <servers />
   </component>
