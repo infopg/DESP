@@ -2,7 +2,7 @@ from administrator import views
 from django.conf import settings
 from django.urls import path
 from django.conf.urls import include, url,re_path
-from administrator.views import standard, delete, edit, mark_method, timeliner
+from administrator.views import standard, delete, edit, timeliner
 
 urlpatterns = [
     url('/standard', standard, name='standard'),

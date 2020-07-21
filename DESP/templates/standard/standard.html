@@ -354,15 +354,21 @@
         var addtr = $("<tr>" +
             "<td contenteditable=\"true\"></td>" +
             "<td contenteditable=\"true\"></td>" +
-            "<td><input type=\"button\" id=\"deletenode\" value=\"删除\" class=\"btn mr-1 btn-secondary\" onclick=\"deletenull()\"></td>" +
+            "<td><input type=\"button\" id=\"deletenode\" value=\"删除\" class=\"btn mr-1 btn-danger\" onclick=\"deletenull(this.id)\"></td>" +
             "</tr>");
-
         addtr.appendTo(tables);
+        var links = document.getElementsByClassName('btn mr-1 btn-danger');
+        for (var i = 0; i < links.length; i++) {
+            links[i].id = i;
+        }
+
+
         return false
     }
 
-    function deletenull() {
-        document.getElementById("deletenode").parentNode.parentNode.parentNode.removeChild(document.getElementById("deletenode").parentNode.parentNode);
+
+    function deletenull(e) {
+        document.getElementById(e).parentNode.parentNode.parentNode.removeChild(document.getElementById(e).parentNode.parentNode);
     }
 
     function standard_question() {
@@ -410,7 +416,7 @@
                     var btnDel = document.createElement('input');
                     btnDel.setAttribute('type', 'button');
                     btnDel.setAttribute('value', '删除');
-                    btnDel.setAttribute('class', 'btn mr-1 btn-secondary');
+                    btnDel.setAttribute('class', 'btn mr-1 btn-danger');
 
                     //删除操作
                     btnDel.onclick = function () {
@@ -452,9 +458,9 @@
         if (treeNode.type === 0) {
             return;
         }
-        showRMenustand(treeNode.pId, event.clientX, event.clientY);
+        showRMenustand(treeNode.pId, event.pageX, event.pageY);
     }
-
+    alert(event.clientX);
     function showRMenustand(type, x, y) {
         $("#rMenu").show();
         $("#rMenu").css({"top": y + "px", "left": x + "px", "visibility": "visible", 'z-index': '50'}); //设置右键菜单的位置、可见

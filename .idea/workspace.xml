@@ -3,6 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="495a9a34-d66d-42cd-b481-066e01c6ea1d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/static/app-assets/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/static/app-assets/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/static/app-assets/js/horizontal-timeline.js" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/static/app-assets/js/horizontal-timeline.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/templates/standard/questionaire.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/questionaire.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/templates/standard/standard.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/standard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/templates/supervisor/institute.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/supervisor/institute.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/administrator/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/administrator/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,10 +37,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
         <option value="Python Script" />
         <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -305,6 +312,14 @@
       <workItem from="1594718253283" duration="503000" />
       <workItem from="1594719046846" duration="81000" />
       <workItem from="1594775246217" duration="1844000" />
+      <workItem from="1594778042631" duration="66000" />
+      <workItem from="1594778230010" duration="11064000" />
+      <workItem from="1594862023253" duration="16563000" />
+      <workItem from="1594948883335" duration="11324000" />
+      <workItem from="1595161156278" duration="1848000" />
+      <workItem from="1595206752597" duration="18370000" />
+      <workItem from="1595263464452" duration="8607000" />
+      <workItem from="1595293717934" duration="6450000" />
     </task>
     <servers />
   </component>

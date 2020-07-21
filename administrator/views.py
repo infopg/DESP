@@ -9,8 +9,8 @@ from supervisor.models import TableEvaluation
 from django.db.models import Q
 from administrator import models
 from django.core import serializers
-from administrator.models import TableEvaluationIndicator,TableQuestionContent
-import time,xlrd,codecs,csv,os
+from administrator.models import TableEvaluationIndicator, TableQuestionContent
+import time, xlrd, codecs, csv, os
 
 
 def standard(request):
@@ -31,8 +31,10 @@ def standard(request):
         evalname = TableEvaluation.objects.filter(
             Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
             'table_evaluation_col_name')
-        timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by('table_timeliner_col_evaluation')
-        return render(request, 'standard/standard.html', {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname':timeevalname})
+        timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
+            'table_timeliner_col_evaluation')
+        return render(request, 'standard/standard.html',
+                      {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname})
     else:
         administrator = request.session['user_name']
         evallist = TableEvaluation.objects.filter(
@@ -63,7 +65,8 @@ def standard(request):
             evalname = TableEvaluation.objects.filter(
                 Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
                 'table_evaluation_col_name')
-            timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by('table_timeliner_col_evaluation')
+            timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
+                'table_timeliner_col_evaluation')
             return render(request, 'standard/standard.html',
                           {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname})
         else:
@@ -148,6 +151,7 @@ def edit(request):
                     return JsonResponse({'message': '子级指标的和不应超过100%'})
         return JsonResponse({'message': '修改成功!'})
 
+
 def indicator_export(request):
     # pdb.set_trace()
     response = HttpResponse(content_type='text/csv')
@@ -157,36 +161,36 @@ def indicator_export(request):
     indicator = models.TableEvaluationIndicator.objects.all()
     writer.writerow(['id', 'name'])
     for x in indicator:
-        writer.writerow([x.table_evaluation_indicator_col_id, x.table_evaluation_indicator_col_name, x.table_evaluation_indicator_col_weight])
+        writer.writerow([x.table_evaluation_indicator_col_id, x.table_evaluation_indicator_col_name,
+                         x.table_evaluation_indicator_col_weight])
     return response
+
 
 ## 时间线部分
 
 def timeliner(request):
     administrator = request.session['user_name']
     evalname = TableEvaluation.objects.filter(
-            Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
-            'table_evaluation_col_name')
+        Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
+        'table_evaluation_col_name')
     timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
-            'table_timeliner_col_evaluation')
+        'table_timeliner_col_evaluation')
     timeline = models.TableTimeliner.objects.filter(
-            table_timeliner_col_evaluation=request.GET.get('timeevalname'))
+        table_timeliner_col_evaluation=request.GET.get('timeevalname'))
     dateline = models.TableTimeliner.objects.filter(
-            table_timeliner_col_evaluation=request.GET.get('timeevalname'))
+        table_timeliner_col_evaluation=request.GET.get('timeevalname'))
     for date in dateline:
-            date_start = date.table_timeliner_col_start
-            date_new_start = str(date_start).replace('-', '/')
-            date_use_start = date_new_start[-2:] + date_new_start[4:8] + date_new_start[0:4]
-            date.table_timeliner_col_start = date_use_start
-            date_end = date.table_timeliner_col_end
-            date_new_end = str(date_end).replace('-', '/')
-            date_use_end = date_new_end[-2:] + date_new_end[4:8] + date_new_end[0:4]
-            date.table_timeliner_col_end = date_use_end
+        date_start = date.table_timeliner_col_start
+        date_new_start = str(date_start).replace('-', '/')
+        date_use_start = date_new_start[-2:] + date_new_start[4:8] + date_new_start[0:4]
+        date.table_timeliner_col_start = date_use_start
+        date_end = date.table_timeliner_col_end
+        date_new_end = str(date_end).replace('-', '/')
+        date_use_end = date_new_end[-2:] + date_new_end[4:8] + date_new_end[0:4]
+        date.table_timeliner_col_end = date_use_end
     return render(request, 'standard/timeliner.html',
-                      {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
-                       'timeline':timeline, 'dateline': dateline})
-
-
+                  {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
+                   'timeline': timeline, 'dateline': dateline})
 
 
 def timeliner_create(request):
@@ -200,10 +204,10 @@ def timeliner_create(request):
         try:
             models.TableTimeliner.objects.create(table_timeliner_col_name=timeliner_name,
                                                  table_timeliner_col_content=timeliner_content,
-                                                  table_timeliner_col_status=timeliner_status,
-                                                  table_timeliner_col_start=timeliner_start,
-                                                  table_timeliner_col_end=timeliner_end,
-                                                  )
+                                                 table_timeliner_col_status=timeliner_status,
+                                                 table_timeliner_col_start=timeliner_start,
+                                                 table_timeliner_col_end=timeliner_end,
+                                                 )
             return JsonResponse({'state': 1, 'message': '创建成功!'})
         except Exception as e:
             return JsonResponse({'state': 0, 'message': 'Create Error: ' + str(e)})
@@ -213,7 +217,7 @@ def timeliner_edit(request):
     if request.method == 'GET':
         timeliner_id = request.GET.get('edit_id')
         timeline = serializers.serialize("json",
-                                    models.TableTimeliner.objects.filter(table_timeliner_col_id=timeliner_id))
+                                         models.TableTimeliner.objects.filter(table_timeliner_col_id=timeliner_id))
         # print(eva)
         return JsonResponse({'timeline': timeline})
     elif request.method == 'POST':
@@ -266,20 +270,20 @@ def excel_import_indicator(filename):
     row_dict = {}
 
     for row_num in range(1, n_rows):
-            row = table.row_values(row_num)  # 获得每行的字段
-            # seq = [row[0], row[1], row[2], row[3]]
-            seq_indicator = {'Indicator_ID': str(row[0]), 'Indicator_Name': row[1], 'Indicator_Weight': row[2],
-                                'Indicator_Eval_Name': row[3], 'Indicator_AdminID': str(row[4]), 'Indicator_AdminName': row[5],
-                                'Indicator_Parent_Name': row[6]}
-            row_dict[row_num] = seq_indicator
+        row = table.row_values(row_num)  # 获得每行的字段
+        # seq = [row[0], row[1], row[2], row[3]]
+        seq_indicator = {'Indicator_ID': str(row[0]), 'Indicator_Name': row[1], 'Indicator_Weight': row[2],
+                         'Indicator_Eval_Name': row[3], 'Indicator_AdminID': str(row[4]), 'Indicator_AdminName': row[5],
+                         'Indicator_Parent_Name': row[6]}
+        row_dict[row_num] = seq_indicator
     data_indicator = {
-            'code': '200',
-            'msg': 'success',
-            'data': row_dict
-        }
+        'code': '200',
+        'msg': 'success',
+        'data': row_dict
+    }
     indicator_write = data_indicator['data']
     max_position = len(indicator_write)
-        # print(max_position)
+    # print(max_position)
 
     try:
         position = 1
@@ -375,7 +379,4 @@ def download_indicator(request):
 
 def questionaire(request):
     a = request.GET.get('nodeID')
-    return render(request,'standard/questionaire.html')
-
-
-
+    return render(request, 'standard/questionaire.html')
