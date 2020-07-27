@@ -248,7 +248,7 @@
                                             <div class="col-md-6 col-sm-6 col-12">
                                                 <p>
                                                     <a class="btn mr-1 btn-round btn-secondary"
-                                                       href="{% url "indicator_export" %}">导出</a>
+                                                       href="{% url "indicator_export" %}?evalname={{ currenteval}}">导出</a>
                                                     <button type="button" class="btn mr-1 btn-secondary"
                                                             data-toggle="modal"
                                                             data-target="#mymodal_update_indicator">上传模板
@@ -526,7 +526,7 @@
     alert(event.clientX);
 
     function showRMenustand(type, x, y) {
-        var nodes = zTree.getSelectedNodes()
+        var nodes = zTree.getSelectedNodes();
         $("#rMenu").show();
         if (nodes[0].children && nodes[0].children.length > 0) {
             $("#item_ques").hide();

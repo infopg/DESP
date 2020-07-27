@@ -17,6 +17,7 @@ def standard(request):
     mList = TableEvaluationIndicator.objects.filter(
         Q(table_evaluation_indicator_col_evaluation_name=request.GET.get('evalname')) &
         Q(table_evaluation_indicator_col_administrator_name=request.session.get('user_name')))
+    currenteval = request.GET.get('evalname')
     if mList.exists():
         _data = [
             {
@@ -31,10 +32,12 @@ def standard(request):
         evalname = TableEvaluation.objects.filter(
             Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
             'table_evaluation_col_name')
+
         timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
             'table_timeliner_col_evaluation')
         return render(request, 'standard/standard.html',
-                      {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname})
+                      {'data': _data, 'evalname': evalname, 'admin': administrator, 'currenteval': currenteval,
+                       'timeevalname': timeevalname})
     else:
         administrator = request.session['user_name']
         evallist = TableEvaluation.objects.filter(
@@ -161,7 +164,8 @@ def indicator_export(request):
     response.write(codecs.BOM_UTF8)
     response['Content-Disposition'] = "attachment;filename='evaluation_indicator.csv'"
     writer = csv.writer(response)
-    indicator = models.TableEvaluationIndicator.objects.all()
+    indicator = models.TableEvaluationIndicator.objects.filter(
+        table_evaluation_indicator_col_evaluation_name=request.GET.get('evalname'))
     writer.writerow(['id', 'name'])
     for x in indicator:
         writer.writerow([x.table_evaluation_indicator_col_id, x.table_evaluation_indicator_col_name,
@@ -178,19 +182,19 @@ def timeliner(request):
         Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
         'table_evaluation_col_name')
     timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
-            'table_timeliner_col_evaluation')
+        'table_timeliner_col_evaluation')
     timeline_list = models.TableTimeliner.objects.filter(
-            table_timeliner_col_evaluation=request.GET.get('timeevalname')).order_by('table_timeliner_col_start')
+        table_timeliner_col_evaluation=request.GET.get('timeevalname')).order_by('table_timeliner_col_start')
 
     dateline_list = models.TableTimeliner.objects.filter(
-            table_timeliner_col_evaluation=request.GET.get('timeevalname')).order_by('table_timeliner_col_start')
-    date_length=len(dateline_list)
-    order_list=[]
-    order_count=0
-    while order_count<date_length:
+        table_timeliner_col_evaluation=request.GET.get('timeevalname')).order_by('table_timeliner_col_start')
+    date_length = len(dateline_list)
+    order_list = []
+    order_count = 0
+    while order_count < date_length:
         order_list.append(dateline_list.values_list('table_timeliner_col_id')[order_count][0])
-        order_count=order_count + 1
-    dateline=models.TableTimeliner.objects.filter(pk__in=order_list)
+        order_count = order_count + 1
+    dateline = models.TableTimeliner.objects.filter(pk__in=order_list)
 
     for date in dateline:
         date_start = date.table_timeliner_col_start
@@ -202,14 +206,11 @@ def timeliner(request):
         date_use_end = date_new_end[-2:] + date_new_end[4:8] + date_new_end[0:4]
         date.table_timeliner_col_end = date_use_end
     return render(request, 'standard/timeliner.html',
-                      {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
-                       'timeline_list':timeline_list, 'dateline': dateline})
-
-
+                  {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
+                   'timeline_list': timeline_list, 'dateline': dateline})
 
 
 def timeliner_create(request):
-
     if request.method == 'POST':
         # pdb.set_trace()
         timeliner_name = request.POST.get('name')
@@ -218,15 +219,15 @@ def timeliner_create(request):
         timeliner_start = request.POST.get('start')
         timeliner_end = request.POST.get('end')
         timeliner_eval = request.POST.get('eval')
-        if timeliner_end>timeliner_start:
+        if timeliner_end > timeliner_start:
             try:
                 models.TableTimeliner.objects.create(table_timeliner_col_name=timeliner_name,
                                                      table_timeliner_col_content=timeliner_content,
-                                                      table_timeliner_col_status=timeliner_status,
-                                                      table_timeliner_col_start=timeliner_start,
-                                                      table_timeliner_col_end=timeliner_end,
-                                                      table_timeliner_col_evaluation=timeliner_eval
-                                                      )
+                                                     table_timeliner_col_status=timeliner_status,
+                                                     table_timeliner_col_start=timeliner_start,
+                                                     table_timeliner_col_end=timeliner_end,
+                                                     table_timeliner_col_evaluation=timeliner_eval
+                                                     )
                 return JsonResponse({'state': 1, 'message': '创建成功!'})
             except Exception as e:
                 return JsonResponse({'state': 0, 'message': 'Create Error: ' + str(e)})
