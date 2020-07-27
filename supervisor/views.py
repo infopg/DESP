@@ -138,7 +138,7 @@ def organization_export(request):
     # pdb.set_trace()
     response = HttpResponse(content_type='text/csv')
     response.write(codecs.BOM_UTF8)
-    response['Content-Disposition'] = "attachment;filename='organization.csv'"
+    response['Content-Disposition'] = "attachment;filename=organization.csv"
     writer = csv.writer(response)
     o = models.TableOrganization.objects.all()
     writer.writerow(['id', 'name'])

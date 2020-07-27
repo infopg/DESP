@@ -248,7 +248,7 @@
                                             <div class="col-md-6 col-sm-6 col-12">
                                                 <p>
                                                     <a class="btn mr-1 btn-round btn-secondary"
-                                                       href="{% url "indicator_export" %}">导出</a>
+                                                       href="{% url "indicator_export" %}?current_eval={{ current_eval }}">导出</a>
                                                     <button type="button" class="btn mr-1 btn-secondary"
                                                             data-toggle="modal"
                                                             data-target="#mymodal_update_indicator">上传模板
@@ -523,7 +523,7 @@
         showRMenustand(treeNode.pId, event.pageX, event.pageY);
     }
 
-    alert(event.clientX);
+
 
     function showRMenustand(type, x, y) {
         var nodes = zTree.getSelectedNodes()
@@ -586,7 +586,7 @@
             type: 'POST',
             async: false,
             data: formdata,
-            url: "{% url "upload_indicator" %}",
+            url: "{% url "upload_indicator" %}?current_eval={{ current_eval }}&current_admin={{ current_admin }}",
             cache: false,
             dataType: "json",
             processData: false,

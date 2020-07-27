@@ -2,24 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="495a9a34-d66d-42cd-b481-066e01c6ea1d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/DESP_0713.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/administrator/migrations/0004_auto_20200717_1140.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/administrator/migrations/0005_auto_20200717_1145.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/administrator/migrations/0006_auto_20200717_1345.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DESP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DESP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/static/app-assets/js/horizontal-timeline.js" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/static/app-assets/js/horizontal-timeline.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DESP/templates/standard/standard.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/standard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/templates/standard/timeline_users.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DESP/templates/standard/timeliner.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/timeliner.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/administrator/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/administrator/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_14_58_46_TableIndicator_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_01_11_TableIndicator_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_02_39_TableIndicator_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_16_30_TableIndicator_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_18_48_TableIndicator_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_20_27_TableIndicator_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_22_25_TableIndicator_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_24_04_TableIndicator_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_40_51_TableUser_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_41_03_TableIndicator_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_42_21_TableOrg_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_44_49_TableOrg_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_44_57_TableOrg_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_45_19_TableOrg_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_49_41_TableOrg_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_15_59_37_研究所管理信息化统计.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_16_00_04_研究所管理信息化统计.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_16_00_12_TableUser_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_16_00_27_TableOrg_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_16_01_20_研究所管理信息化统计.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_16_02_28_科学数据管理制度.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_16_04_06_TableOrg_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_16_04_25_TableOrg_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_16_04_56_TableOrg_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/20200709_16_36_34_TableOrg_Import.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DESP/uploads/indicator/TableIndicator_Import.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/uploads/indicator/TableIndicator_Import.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/administrator/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/supervisor/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/supervisor/views.py" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,6 +76,11 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -66,7 +88,10 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/DESP/templates/standard" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -83,18 +108,6 @@
       <recent name="C:\Users\Administrator\Desktop\DESP\DESP\templates\supervisor" />
       <recent name="C:\Users\Administrator\Desktop\DESP\DESP\static\ztreejs" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Django server.DESP">
     <configuration name="login.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/DESP/DESP/templates/login/login.html" useBuiltInWebServerPort="true">
@@ -196,14 +209,14 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="DESP.settings" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\Administrator\AppData\Local\Programs\Python\Python36\python.exe" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
       <option name="port" value="8000" />
-      <option name="host" value="" />
+      <option name="host" value="127.0.0.1" />
       <option name="additionalOptions" value="" />
       <option name="browserUrl" value="" />
       <option name="runTestServer" value="false" />
@@ -212,6 +225,14 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Django server.DESP" />
+      <item itemvalue="JavaScript Debug.login.html" />
+      <item itemvalue="Python.email_send" />
+      <item itemvalue="Python.test" />
+      <item itemvalue="Python.views" />
+      <item itemvalue="Python.views (1)" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.views (1)" />
@@ -329,6 +350,7 @@
       <workItem from="1595263464452" duration="8607000" />
       <workItem from="1595293717934" duration="7822000" />
       <workItem from="1595310838577" duration="318000" />
+      <workItem from="1595556239120" duration="17892000" />
     </task>
     <servers />
   </component>
@@ -371,14 +393,38 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state width="1493" height="151" key="GridCell.Tab.0.bottom" />
-    <state width="1493" height="151" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" />
-    <state width="1493" height="151" key="GridCell.Tab.0.center" />
-    <state width="1493" height="151" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" />
-    <state width="1493" height="151" key="GridCell.Tab.0.left" />
-    <state width="1493" height="151" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" />
-    <state width="1493" height="151" key="GridCell.Tab.0.right" />
-    <state width="1493" height="151" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" />
+    <state x="223" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1595556314586">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="223" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1595556314586" />
+    <state width="698" height="4" key="GridCell.Tab.0.bottom" timestamp="1595641474376">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="698" height="4" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1595641474376" />
+    <state width="698" height="4" key="GridCell.Tab.0.center" timestamp="1595641474376">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="698" height="4" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1595641474376" />
+    <state width="698" height="4" key="GridCell.Tab.0.left" timestamp="1595641474375">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="698" height="4" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1595641474375" />
+    <state width="698" height="4" key="GridCell.Tab.0.right" timestamp="1595641474376">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="698" height="4" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1595641474376" />
+    <state x="272" y="57" key="SettingsEditor" timestamp="1595556292476">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="272" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1595556292476" />
+    <state x="461" y="240" key="com.intellij.ide.util.TipDialog" timestamp="1595556239152">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="461" y="240" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1595556239152" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1595557931590">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1595557931590" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

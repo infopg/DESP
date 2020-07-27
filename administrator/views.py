@@ -10,6 +10,7 @@ from django.db.models import Q
 from administrator import models
 from django.core import serializers
 from administrator.models import TableEvaluationIndicator, TableQuestionContent
+from login.models import TableUser
 import time, xlrd, codecs, csv, os
 
 
@@ -17,6 +18,8 @@ def standard(request):
     mList = TableEvaluationIndicator.objects.filter(
         Q(table_evaluation_indicator_col_evaluation_name=request.GET.get('evalname')) &
         Q(table_evaluation_indicator_col_administrator_name=request.session.get('user_name')))
+    current_eval = request.GET.get('evalname')
+    current_admin = request.session.get('user_name')
     if mList.exists():
         _data = [
             {
@@ -34,7 +37,8 @@ def standard(request):
         timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
             'table_timeliner_col_evaluation')
         return render(request, 'standard/standard.html',
-                      {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname})
+                      {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
+                       'current_eval':current_eval, 'current_admin':current_admin})
     else:
         administrator = request.session['user_name']
         evallist = TableEvaluation.objects.filter(
@@ -68,7 +72,7 @@ def standard(request):
             timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
                 'table_timeliner_col_evaluation')
             return render(request, 'standard/standard.html',
-                          {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname})
+                          {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname, 'current_eval':current_eval})
         else:
             return JsonResponse({'message': '您输入的用户或评估项目不存在'})  # 增加返回到administrator页面 及message显示的功能
 
@@ -120,7 +124,7 @@ def edit(request):
                         Q(table_evaluation_indicator_col_parent_name=create_parent)):
                     list.append(a.table_evaluation_indicator_col_weight)
                 result = sum(list)
-                if result + Decimal(float(item[2])) <= 100:
+                if result + round(Decimal(float(item[2])),2) <= 100:
                     try:
                         TableEvaluationIndicator.objects.create(**postdata)
                         continue
@@ -159,13 +163,36 @@ def indicator_export(request):
     # pdb.set_trace()
     response = HttpResponse(content_type='text/csv')
     response.write(codecs.BOM_UTF8)
-    response['Content-Disposition'] = "attachment;filename='evaluation_indicator.csv'"
+    response['Content-Disposition'] = "attachment;filename=evaluation_indicator.csv"
     writer = csv.writer(response)
-    indicator = models.TableEvaluationIndicator.objects.all()
-    writer.writerow(['id', 'name'])
-    for x in indicator:
-        writer.writerow([x.table_evaluation_indicator_col_id, x.table_evaluation_indicator_col_name,
-                         x.table_evaluation_indicator_col_weight])
+    page_eval = request.GET.get('current_eval')
+    indicator = models.TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_evaluation_name=page_eval)
+    writer.writerow(['Indicator_Name','Indicator_Weight','Indicator_Parent_Name'])
+    write_length = len(indicator)
+    write_position = 1
+    while write_position < write_length:
+        # pdb.set_trace()
+        try:
+            indicator_row = indicator[write_position]
+            select_parent=models.TableEvaluationIndicator.objects.get(table_evaluation_indicator_col_name=page_eval)
+        except:
+            return JsonResponse({'message':'没有数据可导出'})
+        if indicator_row.table_evaluation_indicator_col_parent_name == select_parent:
+            try:
+                writer.writerow([indicator_row.table_evaluation_indicator_col_name,
+                                 indicator_row.table_evaluation_indicator_col_weight])
+                write_position += 1
+            except:
+                return JsonResponse({'message': '高级节点数据缺失'})
+        else:
+            try:
+                parent_key=indicator_row.table_evaluation_indicator_col_parent_name
+                writer.writerow([indicator_row.table_evaluation_indicator_col_name,
+                                 indicator_row.table_evaluation_indicator_col_weight,
+                                 parent_key.table_evaluation_indicator_col_name])
+                write_position += 1
+            except:
+                return JsonResponse({'message': '节点数据缺失'})
     return response
 
 
@@ -282,23 +309,19 @@ def timeliner_delete(request):
 
 
 ## 上传功能
-def excel_import_indicator(filename):
+def excel_import_indicator(filename,this_eval_name,this_admin_name):
     # pdb.set_trace()
-    file_excel = 'C:/Users/Administrator/Desktop/DESP-qzc/DESP/uploads/indicator/' + str(filename)  ##存储路径
-    # print(file_excel)
-    col_name_index = 0
+    file_excel = 'C:/Users/DELL/Desktop/DESP/DESP/uploads/indicator/' + str(filename)  ##存储绝对路径（随时修改）
     by_name = u'Sheet1'
     data = xlrd.open_workbook(file_excel)  # 打开excel
     table = data.sheet_by_name(by_name)  # 表单名称
     n_rows = table.nrows  # 行数
     row_dict = {}
-
     for row_num in range(1, n_rows):
         row = table.row_values(row_num)  # 获得每行的字段
         # seq = [row[0], row[1], row[2], row[3]]
-        seq_indicator = {'Indicator_ID': str(row[0]), 'Indicator_Name': row[1], 'Indicator_Weight': row[2],
-                         'Indicator_Eval_Name': row[3], 'Indicator_AdminID': str(row[4]), 'Indicator_AdminName': row[5],
-                         'Indicator_Parent_Name': row[6]}
+        seq_indicator = { 'Indicator_Name': row[0], 'Indicator_Weight': row[1],
+                         'Indicator_Parent_Name': row[2]}
         row_dict[row_num] = seq_indicator
     data_indicator = {
         'code': '200',
@@ -307,78 +330,97 @@ def excel_import_indicator(filename):
     }
     indicator_write = data_indicator['data']
     max_position = len(indicator_write)
-    # print(max_position)
 
     try:
         position = 1
         while position <= max_position:
             try:
+
                 arrs = indicator_write[position]
                 indicatorname = arrs['Indicator_Parent_Name']
                 parent_key = models.TableEvaluationIndicator.objects.get(
-                    table_evaluation_indicator_col_name=indicatorname)
+                    Q(table_evaluation_indicator_col_name=indicatorname)&
+                    Q(table_evaluation_indicator_col_evaluation_name=this_eval_name))
                 parent_id = models.TableEvaluationIndicator.objects.filter(
-                    table_evaluation_indicator_col_name=indicatorname).values_list(
+                    Q(table_evaluation_indicator_col_name=indicatorname)&
+                    Q(table_evaluation_indicator_col_evaluation_name=this_eval_name)).values_list(
                     'table_evaluation_indicator_col_id')[0][0]
-                # print(parent_id)
+                admin_username = this_admin_name
+                admin_id = TableUser.objects.filter(table_user_col_name=admin_username).values(
+                    'table_user_col_id')[0]['table_user_col_id']
             except:
                 return JsonResponse({'message': '上级指标问题'})
             try:
-                add_weight = arrs['Indicator_Weight']
-                children_set = models.TableEvaluationIndicator.objects.filter(
-                    table_evaluation_indicator_col_parent_name=parent_id).values_list(
-                    'table_evaluation_indicator_col_weight')
-                children_lenth = len(children_set) - 1
-                # print(children_lenth)
+                current_child_name = arrs['Indicator_Name']
+                child_name_set = models.TableEvaluationIndicator.objects.filter(
+                    table_evaluation_indicator_col_parent_name=parent_id).values(
+                    'table_evaluation_indicator_col_name')
+                current_name_query = {'table_evaluation_indicator_col_name':current_child_name}
             except:
-                return JsonResponse({'message': '权重问题'})
-            if children_lenth == -1:
-                current_weight = 0
-            else:
-                try:
-                    child_position = 0
-                    weight_list = []
-                    while child_position <= children_lenth:
+                return JsonResponse({'message':'模板不应包含最高级节点'})
+            try:
+                if current_name_query in child_name_set:
+                    return JsonResponse({'message':'指标重复命名'})
+                else:
+                    try:
+                        add_weight = arrs['Indicator_Weight']
+                        children_set = models.TableEvaluationIndicator.objects.filter(
+                            table_evaluation_indicator_col_parent_name=parent_id).values_list(
+                            'table_evaluation_indicator_col_weight')
+                        children_lenth = len(children_set) - 1
+                        # print(children_lenth)
+                    except:
+                        return JsonResponse({'message': '权重问题'})
+                    if children_lenth == -1:
+                        current_weight = 0
+                    else:
                         try:
-                            weight_list.append(children_set[child_position][0])
-                            child_position += 1
-                            current_weight = sum(weight_list)
-                            # print(current_weight)
+                            child_position = 0
+                            weight_list = []
+                            while child_position <= children_lenth:
+                                try:
+                                    weight_list.append(children_set[child_position][0])
+                                    child_position += 1
+                                    current_weight = sum(weight_list)
+                                    # print(current_weight)
+                                except:
+                                    return JsonResponse({'message': '权重问题'})
                         except:
                             return JsonResponse({'message': '权重问题'})
+                try:
+                    if round(Decimal(float(add_weight)),2) + current_weight <= 100:
+                        print(Decimal(float(add_weight)))
+                        print(current_weight)
+                        try:
+                            models.TableEvaluationIndicator.objects.create(
+                                table_evaluation_indicator_col_name=arrs['Indicator_Name'],
+                                table_evaluation_indicator_col_weight=arrs['Indicator_Weight'],
+                                table_evaluation_indicator_col_evaluation_name=this_eval_name,
+                                table_evaluation_indicator_col_administrator_id=admin_id,
+                                table_evaluation_indicator_col_administrator_name=this_admin_name,
+                                table_evaluation_indicator_col_parent_name=parent_key)
+                        except:
+                            return JsonResponse({'message': '填写格式问题'})
+                    else:
+                        return JsonResponse({'message': '权重问题'})
+                    position = position + 1
                 except:
                     return JsonResponse({'message': '权重问题'})
-            try:
-                if Decimal(float(add_weight)) + current_weight <= 100:
-                    try:
-                        models.TableEvaluationIndicator.objects.create(
-                            table_evaluation_indicator_col_id=arrs['Indicator_ID'],
-                            table_evaluation_indicator_col_name=arrs['Indicator_Name'],
-                            table_evaluation_indicator_col_weight=arrs['Indicator_Weight'],
-                            table_evaluation_indicator_col_evaluation_name=arrs['Indicator_Eval_Name'],
-                            table_evaluation_indicator_col_administrator_id=arrs['Indicator_AdminID'],
-                            table_evaluation_indicator_col_administrator_name=arrs['Indicator_AdminName'],
-                            table_evaluation_indicator_col_parent_name=parent_key)
-                    except:
-                        return JsonResponse({'message': '填写格式问题'})
-                else:
-                    return JsonResponse({'message': '权重问题'})
-                position = position + 1
             except:
-                return JsonResponse({'message': '权重问题'})
+                return JsonResponse({'message':'检查指标命名及权重'})
         else:
             return JsonResponse({'message': '上传成功'})
     except:
         return JsonResponse({'message': '表格填写格式问题！'})
-    # # 调用方法 ---自定义模板函数 这里必须要return
-    # return to_tableindicator(data_indicator)
 
 
 def upload_indicator(request):
-    # pdb.set_trace()
+
     if request.method == 'GET':
         return render(request, 'standard/standard.html')
     elif request.method == 'POST':
+        get_eval_name=request.GET.get('current_eval')
+        get_admin_name=request.GET.get('current_admin')
         obj = request.FILES.get('file_obj_indicator')
         obj.name = time.strftime("%Y%m%d_%H_%M_%S_", time.localtime(time.time())) + obj.name
         # print(obj)
@@ -387,7 +429,7 @@ def upload_indicator(request):
             for chunk in obj.chunks():
                 f.write(chunk)
             f.close()
-            return excel_import_indicator(obj)
+            return excel_import_indicator(obj,get_eval_name,get_admin_name)
         else:
             return JsonResponse({'message': '文件格式错误！'})
 
