@@ -32,7 +32,7 @@ class TableUser(AbstractUser):
     table_user_col_type_id = models.IntegerField(db_column='Table_User_col_type_id', choices=user_type_choices,
                                                  null=True)  # Field name made lowercase.
     table_user_col_type = models.CharField(db_column='Table_User_col_Type', max_length=256, null=True)
-    table_user_col_name = models.CharField(db_column='Table_User_col_Name', max_length=30)
+    table_user_col_name = models.CharField(db_column='Table_User_col_Name', max_length=30, unique=True)
     table_user_col_real_name = models.CharField(db_column='Table_User_col_Real_Name', max_length=30, null=True)
     # Field name made lowercase.
     table_user_col_organization_id = models.CharField(db_column='Table_User_col_Organization_id',
@@ -78,4 +78,4 @@ class TableUser(AbstractUser):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return '{0}({1})'.format(self.table_user_col_code, self.table_user_col_email)
+        return '{0}({1})'.format(self.table_user_col_id, self.table_user_col_name)
