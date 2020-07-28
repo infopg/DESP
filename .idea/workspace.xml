@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="495a9a34-d66d-42cd-b481-066e01c6ea1d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DESP/static/app-assets/css/bootstrap-theme.css" beforeDir="false" />
@@ -11,6 +12,9 @@
       <change beforePath="$PROJECT_DIR$/DESP/templates/standard/standard.html" beforeDir="false" afterPath="$PROJECT_DIR$/DESP/templates/standard/standard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/administrator/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrator/views.py" afterDir="false" />
     </list>
+=======
+    <list default="true" id="495a9a34-d66d-42cd-b481-066e01c6ea1d" name="Default Changelist" comment="" />
+>>>>>>> qzc
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
