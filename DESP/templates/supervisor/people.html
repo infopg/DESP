@@ -52,6 +52,13 @@
                         </div>
                     </div>
                     <div>
+                        <label>姓名</label>
+                        <div>
+                            <input type="text" id="create_realname"
+                                   name="name" required>
+                        </div>
+                    </div>
+                    <div>
                         <label>用户性别</label>
                         <div>
                             <input type="text" id="create_sex"
@@ -96,10 +103,17 @@
                         </div>
                     </div>
                     <div>
-                        <label>邮编</label>
+                        <label>部门职位</label>
                         <div>
-                            <input type="text" id="create_zipcode"
-                                   name="zipcode" required>
+                            <input type="text" id="create_title"
+                                   name="title">
+                        </div>
+                    </div>
+                    <div>
+                        <label>工作领域</label>
+                        <div>
+                            <input type="text" id="create_field"
+                                   name="field" required>
                         </div>
                     </div>
                     <div>
@@ -110,17 +124,17 @@
                         </div>
                     </div>
                     <div>
-                        <label>电话号码</label>
+                        <label>手机号码</label>
                         <div>
-                            <input type="text" id="create_phonenumber"
-                                   name="phonenumber" required>
+                            <input type="text" id="create_mobilenumber"
+                                   name="mobilenumber" required>
                         </div>
                     </div>
                     <div>
-                        <label>地址</label>
+                        <label>座机号码</label>
                         <div>
-                            <input type="text" id="create_location"
-                                   name="location" required>
+                            <input type="text" id="create_telnumber"
+                                   name="telnumber">
                         </div>
                     </div>
                     <div>
@@ -150,6 +164,20 @@
                                 <option>机构用户</option>
                                 <option>专家用户</option>
                             </datalist>
+                        </div>
+                    </div>
+                    <div>
+                        <label>证件号</label>
+                        <div>
+                            <input type="text" id="create_identity"
+                                   name="identity">
+                        </div>
+                    </div>
+                    <div>
+                        <label>备注</label>
+                        <div>
+                            <input type="text" id="create_memo"
+                                   name="memo">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -182,6 +210,13 @@
                         <label>用户名</label>
                         <div>
                             <input type="text" id="edit_name"
+                                   name="name" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>姓名</label>
+                        <div>
+                            <input type="text" id="edit_realname"
                                    name="name" required>
                         </div>
                     </div>
@@ -230,10 +265,17 @@
                         </div>
                     </div>
                     <div>
-                        <label>邮编</label>
+                        <label>部门职位</label>
                         <div>
-                            <input type="text" id="edit_zipcode"
-                                   name="zipcode" required>
+                            <input type="text" id="edit_title"
+                                   name="title">
+                        </div>
+                    </div>
+                    <div>
+                        <label>工作领域</label>
+                        <div>
+                            <input type="text" id="edit_field"
+                                   name="title" required>
                         </div>
                     </div>
                     <div>
@@ -244,17 +286,17 @@
                         </div>
                     </div>
                     <div>
-                        <label>电话号码</label>
+                        <label>手机号码</label>
                         <div>
-                            <input type="text" id="edit_phonenumber"
-                                   name="phonenumber" required>
+                            <input type="text" id="edit_mobilenumber"
+                                   name="mobilenumber" required>
                         </div>
                     </div>
                     <div>
-                        <label>地址</label>
+                        <label>座机号码</label>
                         <div>
-                            <input type="text" id="edit_location"
-                                   name="location" required>
+                            <input type="text" id="edit_telnumber"
+                                   name="telnumber">
                         </div>
                     </div>
                     <div>
@@ -284,6 +326,20 @@
                                 <option>机构用户</option>
                                 <option>专家用户</option>
                             </datalist>
+                        </div>
+                    </div>
+                    <div>
+                        <label>证件号</label>
+                        <div>
+                            <input type="text" id="edit_identity"
+                                   name="identity">
+                        </div>
+                    </div>
+                    <div>
+                        <label>备注</label>
+                        <div>
+                            <input type="text" id="edit_memo"
+                                   name="memo">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -377,14 +433,6 @@
                     <li class="has-sub nav-item"><a href="{% url 'institute' %}"><i class="icon-home"></i><span
                             data-i18n=""
                             class="menu-title">机构设置</span></a>
-                        {#                            <li><a href="{% url 'department' %}" class="menu-item">分院</a>#}
-                        {#                            </li>#}
-                        {#                            <li><a href="{% url 'unit' %}" class="menu-item">支撑单位</a>#}
-                        {#                            </li>#}
-                        {#                            <li><a href="{% url 'others' %}" class="menu-item">其他评估系统</a>#}
-                        {#                            </li>#}
-
-
                     </li>
                     <li class="has-sub nav-item"><a href="{% url 'people' %}"><i class="icon-screen-desktop"></i><span
                             data-i18n=""
@@ -453,18 +501,12 @@
                                         <button type="button" class="btn mr-1 btn-secondary" data-toggle="modal"
                                                 data-target="#mymodal">添加
                                         </button>
+                                        <a class="btn mr-1 btn-secondary"
+                                               href="{% url "user_export" %}">导出人员信息</a>
                                         <button type="button" class="btn mr-1 btn-secondary" data-toggle="modal"
                                                 data-target="#mymodal_update">上传模板
                                         </button>
-
                                         <a class="btn mr-1 btn-secondary" href="{% url 'download_user' %}" rel="external nofollow">下载模板</a>
-
-
-
-                                        {#                                        <div>#}
-                                        {#                                            <input type="file" name="file" id="file_upload">#}
-                                        {#                                            <input type="button" value="上传" onclick="fileupload()">#}
-                                        {#                                        </div>#}
                                     </div>
                                     <div class="card-body collapse show">
                                         <div class="card-block card-dashboard">
@@ -472,14 +514,12 @@
                                             <table class="table table-striped table-bordered base-style">
                                                 <thead>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>机构ID(重构外键）</th>
-                                                    <th>姓名</th>
-                                                    <th>用户职位</th>
+                                                    <th>用户姓名</th>
+                                                    <th>用户名</th>
+                                                    <th>所属机构</th>
                                                     <th>用户类型</th>
-                                                    <th>所属部门</th>
-                                                    <th>手机</th>
                                                     <th>工作领域</th>
+                                                    <th>手机</th>
                                                     <th>邮箱</th>
                                                     <th>备注</th>
                                                     <th>操作</th>
@@ -488,14 +528,12 @@
                                                 <tbody>
                                                 {% for user in users %}
                                                     <tr>
-                                                        <td>{{ user.table_user_col_id }}</td>
-                                                        <td>{{ user.table_user_col_organization_id }}</td>
                                                         <td>{{ user.table_user_col_real_name }}</td>
-                                                        <td>{{ user.table_user_col_title }}</td>
+                                                        <td>{{ user.table_user_col_name }}</td>
+                                                        <td>{{ user.table_user_col_organization.table_organization_col_name }}</td>
                                                         <td>{{ user.table_user_col_type }}</td>
-                                                        <td>{{ user.table_user_col_department }}</td>
-                                                        <td>{{ user.table_user_col_mobile }}</td>
                                                         <td>{{ user.table_user_col_work_field }}</td>
+                                                        <td>{{ user.table_user_col_mobile }}</td>
                                                         <td>{{ user.table_user_col_email }}</td>
                                                         <td>{{ user.table_user_col_memo }}</td>
                                                         <td>
@@ -518,14 +556,12 @@
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th>机构ID(重构外键）</th>
-                                                    <th>姓名</th>
-                                                    <th>用户职位</th>
+                                                    <th>用户姓名</th>
+                                                    <th>用户名</th>
+                                                    <th>所属机构</th>
                                                     <th>用户类型</th>
-                                                    <th>所属部门</th>
-                                                    <th>手机</th>
                                                     <th>工作领域</th>
+                                                    <th>手机</th>
                                                     <th>邮箱</th>
                                                     <th>备注</th>
                                                     <th>操作</th>
@@ -592,54 +628,24 @@
                 $("#edit_name").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_name);
                 $("#edit_realname").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_real_name);
                 $("#edit_sex").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_sex);
-                $("#edit_location").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_address);
                 {#$("#edit_password").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_password);#}
                 {#$('#edit_password_twice').attr("value", eval("(" + data.ppl + ")")[0].fields.table_evaluation_col_create_time);#}
-                {#$('#edit_organization').attr("value", "机构ID：" + eval("(" + data.ppl + ")")[0].fields.table_user_col_organization_id);#}
+                {#$('#edit_organization').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_organization);#}
                 $('#edit_department').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_department);
                 $("#edit_title").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_title);
                 $("#edit_field").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_work_field);
                 $("#edit_email").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_email);
-                $("#edit_zipcode").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_postcode);
                 $("#edit_edu").attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_bachelor);
                 $('#edit_memo').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_memo);
-                $('#edit_birthday').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_birth);
                 $('#edit_identity').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_IdentityID);
                 $('#edit_type').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_type);
                 $('#edit_mobilenumber').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_mobile);
                 $('#edit_telnumber').attr("value", eval("(" + data.ppl + ")")[0].fields.table_user_col_tel);
+                {console.log(data.ppl)}
             }
-            {#console.log(data.eva)}#}
-
         });
         $('#mymodal_edit').modal('show');
     }
-</script>
-<script>
-    {##}
-    {#    function fileupload() {#}
-    {#            var form_data = new FormData();#}
-    {#            var file_info =$('#file_upload')[0].files[0];#}
-    {#            form_data.append('file',file_info);#}
-    {#            //if(file_info==undefined)暂且不许要判断是否有附件#}
-    {#                //alert('你没有选择任何文件');#}
-    {#                //return false#}
-    {##}
-    {#            $.ajax({#}
-    {#                url:"{% url "upload_ajax" %}",#}
-    {#                type:'POST',#}
-    {#                data: form_data,#}
-    {#processData: false,  // tell jquery not to process the data#}
-    {#contentType: false, // tell jquery not to set contentType#}
-    {#                success: function(callback) {#}
-    {##}
-    {#                    console.log('ok')#}
-    {#                }#}
-    {#            });#}
-    {##}
-    {#            }#}
-
-
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -657,14 +663,11 @@
             var create_title = $('#create_title').val();
             var create_field = $('#create_field').val();
             var create_email = $('#create_email').val();
-            var create_zipcode = $('#create_zipcode').val();
             var create_mobilenumber = $('#create_mobilenumber').val();
             var create_telnumber = $('#create_telnumber').val();
             var create_type = $('#create_type').val();
-            var create_location = $('#create_location').val();
             var create_edu = $('#create_edu').val();
             var create_memo = $('#create_memo').val();
-            var create_birthday = $('#create_birthday').val();
             var create_identity = $('#create_identity').val();
             $.ajax({
                 type: 'POST',
@@ -672,7 +675,6 @@
                     "create_name": create_name,
                     "create_realname": create_realname,
                     "create_sex": create_sex,
-                    "create_location": create_location,
                     'create_password': create_password,
                     'create_password_twice': create_password_twice,
                     'create_organization': create_organization,
@@ -682,11 +684,9 @@
                     'create_email': create_email,
                     'create_mobilenumber': create_mobilenumber,
                     'create_telnumber': create_telnumber,
-                    'create_zipcode': create_zipcode,
                     'create_type': create_type,
                     'create_edu': create_edu,
                     'create_memo': create_memo,
-                    'create_birthday': create_birthday,
                     'create_identity': create_identity,
                 },
                 url: "{% url "user_create" %}",
@@ -713,14 +713,11 @@
             var edit_title = $('#edit_title').val();
             var edit_field = $('#edit_field').val();
             var edit_email = $('#edit_email').val();
-            var edit_zipcode = $('#edit_zipcode').val();
             var edit_mobilenumber = $('#edit_mobilenumber').val();
             var edit_telnumber = $('#edit_telnumber').val();
             var edit_type = $('#edit_type').val();
-            var edit_location = $('#edit_location').val();
             var edit_edu = $('#edit_edu').val();
             var edit_memo = $('#edit_memo').val();
-            var edit_birthday = $('#edit_birthday').val();
             var edit_identity = $('#edit_identity').val();
             var edit_id = itemid;
             $.ajax({
@@ -728,10 +725,8 @@
                 data: {
                     'edit_id': edit_id,
                     "edit_name": edit_name,
-
                     "edit_realname": edit_realname,
                     "edit_sex": edit_sex,
-                    "edit_location": edit_location,
                     'edit_password': edit_password,
                     'edit_password_twice': edit_password_twice,
                     'edit_organization': edit_organization,
@@ -741,11 +736,9 @@
                     'edit_email': edit_email,
                     'edit_mobilenumber': edit_mobilenumber,
                     'edit_telnumber': edit_telnumber,
-                    'edit_zipcode': edit_zipcode,
                     'edit_type': edit_type,
                     'edit_edu': edit_edu,
                     'edit_memo': edit_memo,
-                    'edit_birthday': edit_birthday,
                     'edit_identity': edit_identity,
                 },
                 async: false,
