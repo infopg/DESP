@@ -140,10 +140,33 @@ def organization_export(request):
     response.write(codecs.BOM_UTF8)
     response['Content-Disposition'] = "attachment;filename=organization.csv"
     writer = csv.writer(response)
-    o = models.TableOrganization.objects.all()
-    writer.writerow(['id', 'name'])
-    for x in o:
-        writer.writerow([x.table_organization_col_id, x.table_organization_col_name])
+    org_csv = models.TableOrganization.objects.filter(~Q(table_organization_col_name='机构列表'))
+    writer.writerow(['Org_ID', 'Org_Name','Org_Address','Org_Post','Org_Field','Org_Parent_Name'])
+    write_length= len(org_csv)
+    write_position=0
+    while write_position < write_length:
+        try:
+            org_row = org_csv[write_position]
+            parent_org_query = org_row.table_organization_col_parent_name
+            parent_org = parent_org_query.table_organization_col_name
+            if parent_org == '机构列表':
+                try:
+                    writer.writerow([org_row.table_organization_col_id, org_row.table_organization_col_name,
+                                     org_row.table_organization_col_address, org_row.table_organization_col_postcode,
+                                     org_row.table_organization_col_field])
+                    write_position += 1
+                except:
+                    return JsonResponse({'message':'顶级机构问题'})
+            else:
+                try:
+                    writer.writerow([org_row.table_organization_col_id, org_row.table_organization_col_name,
+                                     org_row.table_organization_col_address, org_row.table_organization_col_postcode,
+                                     org_row.table_organization_col_field, parent_org])
+                    write_position += 1
+                except:
+                    return JsonResponse({'message':'下级机构问题'})
+        except:
+            return JsonResponse({'message':'检查父级机构'})
     return response
 
 
@@ -185,20 +208,17 @@ def user_edit(request):
         user_name = request.POST.get('edit_name')
         user_realname = request.POST.get('edit_realname')
         user_sex = request.POST.get('edit_sex')
-        user_location = request.POST.get('edit_location')
         user_password = request.POST.get('edit_password')
         user_password_twice = request.POST.get('edit_password_twice')
         user_organization = request.POST.get('edit_organization')
-        user_organizationID = models.TableOrganization.objects.filter(
-            table_organization_col_name=user_organization).values_list('table_organization_col_id')[0][0]
+        user_organizationID = models.TableOrganization.objects.get(
+            table_organization_col_name=user_organization)
         user_department = request.POST.get('edit_department'),
         user_title = request.POST.get('edit_title'),
         user_field = request.POST.get('edit_field'),
         user_email = request.POST.get('edit_email'),
-        user_zipcode = request.POST.get('edit_zipcode')
         user_edu = request.POST.get('edit_edu')
         user_memo = request.POST.get('edit_memo')
-        user_birthday = request.POST.get('edit_birthday')
         user_identity = request.POST.get('edit_identity')
         user_type = request.POST.get('edit_type')
         if user_type == '超级管理员':
@@ -234,17 +254,13 @@ def user_edit(request):
             return JsonResponse({'message': message})
         try:
             models.TableUser.objects.filter(table_user_col_id=user_id).update(table_user_col_name=user_name,
-
                                                                               table_user_col_real_name=user_realname,
-
                                                                               table_user_col_sex=user_sex,
-                                                                              table_user_col_address=user_location,
-                                                                              table_user_col_postcode=user_zipcode,
                                                                               table_user_col_type=user_type,
                                                                               table_user_col_type_id=user_type_id,
                                                                               table_user_col_password=make_password(
                                                                                   user_password),
-                                                                              table_user_col_organization_id=
+                                                                              table_user_col_organization=
                                                                               user_organizationID,
                                                                               table_user_col_department=user_department[
                                                                                   0],
@@ -255,7 +271,6 @@ def user_edit(request):
                                                                               table_user_col_mobile=user_mobilenumber,
                                                                               table_user_col_tel=user_telnumber,
                                                                               table_user_col_memo=user_memo,
-                                                                              table_user_col_birth=user_birthday,
                                                                               table_user_col_IdentityID=user_identity
                                                                               )
 
@@ -270,23 +285,18 @@ def user_create(request):
     if request.method == 'POST':
         user_name = request.POST.get('create_name')
         user_realname = request.POST.get('create_realname')
-
         user_sex = request.POST.get('create_sex')
-        user_location = request.POST.get('create_location')
         user_password = request.POST.get('create_password')
         user_password_twice = request.POST.get('create_password_twice')
         user_organization = request.POST.get('create_organization')
-        user_organizationID = models.TableOrganization.objects.filter(
-            table_organization_col_name=user_organization).values_list('table_organization_col_id')[0][0]
-
+        user_organizationID = models.TableOrganization.objects.get(
+            table_organization_col_name=user_organization)
         user_department = request.POST.get('create_department'),
         user_title = request.POST.get('create_title'),
         user_field = request.POST.get('create_field'),
         user_email = request.POST.get('create_email'),
-        user_zipcode = request.POST.get('create_zipcode')
         user_edu = request.POST.get('create_edu')
         user_memo = request.POST.get('create_memo')
-        user_birthday = request.POST.get('create_birthday')
         user_identity = request.POST.get('create_identity')
         user_type = request.POST.get('create_type')
         if user_type == '超级管理员':
@@ -322,12 +332,10 @@ def user_create(request):
             models.TableUser.objects.create(table_user_col_name=user_name,
                                             table_user_col_real_name=user_realname,
                                             table_user_col_sex=user_sex,
-                                            table_user_col_address=user_location,
-                                            table_user_col_postcode=user_zipcode,
                                             table_user_col_type=user_type,
                                             table_user_col_type_id=user_type_id,
                                             table_user_col_password=make_password(user_password),
-                                            table_user_col_organization_id=user_organizationID,
+                                            table_user_col_organization=user_organizationID,
                                             table_user_col_department=user_department[0],
                                             table_user_col_title=user_title[0],
                                             table_user_col_work_field=user_field[0],
@@ -336,7 +344,6 @@ def user_create(request):
                                             table_user_col_mobile=user_mobilenumber,
                                             table_user_col_tel=user_telnumber,
                                             table_user_col_memo=user_memo,
-                                            table_user_col_birth=user_birthday,
                                             table_user_col_IdentityID=user_identity
                                             ),
             return JsonResponse({'state': 1, 'message': '创建成功!'})
@@ -346,7 +353,7 @@ def user_create(request):
 
 def people(request):
     users = models.TableUser.objects.all()
-    organization = models.TableOrganization.objects.filter(~Q(table_organization_col_name="机构树"))
+    organization = models.TableOrganization.objects.filter(~Q(table_organization_col_name="机构列表"))
     return render(request, 'supervisor/people.html', locals())
 
 
@@ -400,20 +407,22 @@ def evaluation_edit(request):
         evaluation_deliver = request.POST.get('deliver')
         evaluation_mark = request.POST.get('mark')
         evalutaion_organization = request.POST.get('organization')
-        try:
-            models.TableEvaluation.objects.filter(table_evaluation_col_id=evaluation_id).update(
-                table_evaluation_col_name=evalutaion_name,
-                table_evaluation_col_administrator=evaluation_admin,
-                table_evaluation_col_status=evaluation_status,
-                table_evaluation_col_create_time=evaluation_createtime,
-                table_evaluation_col_finish_time=evaluation_endtime,
-                table_evaluation_col_organization=evalutaion_organization,
-                table_evaluation_col_deliver=evaluation_deliver,
-                table_evaluation_col_mark=evaluation_mark)
-            return JsonResponse({'state': 1, 'message': '创建成功!'})
-        except Exception as e:
-            return JsonResponse({'state': 0, 'message': 'Create Error: ' + str(e)})
-
+        if evaluation_endtime > evaluation_createtime:
+            try:
+                models.TableEvaluation.objects.filter(table_evaluation_col_id=evaluation_id).update(
+                    table_evaluation_col_name=evalutaion_name,
+                    table_evaluation_col_administrator=evaluation_admin,
+                    table_evaluation_col_status=evaluation_status,
+                    table_evaluation_col_create_time=evaluation_createtime,
+                    table_evaluation_col_finish_time=evaluation_endtime,
+                    table_evaluation_col_organization=evalutaion_organization,
+                    table_evaluation_col_deliver=evaluation_deliver,
+                    table_evaluation_col_mark=evaluation_mark)
+                return JsonResponse({'state': 1, 'message': '创建成功!'})
+            except Exception as e:
+                return JsonResponse({'state': 0, 'message': 'Create Error: ' + str(e)})
+        else:
+            return JsonResponse({'message':'截止时间不得早于开始时间！'})
 
 def evaluation_delete(request):
     if request.method == 'POST':
@@ -445,12 +454,11 @@ def excel_import_user(filename):
     for row_num in range(1, n_rows):
             row = table.row_values(row_num)  # 获得每行的字段
             # seq = [row[0], row[1], row[2], row[3]]
-            seq_user = {'ID': row[0], 'Type': row[1], 'Name': row[2],
-                        'Real_Name': row[3], 'Org_Name': row[4], 'Mobile': row[5], 'Tel': row[6],
-                        'Address': row[7], 'Password': make_password(str(row[8])), 'Email': row[9], 'Title': row[10],
-                        'Postcode': str(row[11]), 'Department': row[12], 'Work_Field': row[13], 'Sex': row[14],
-                        'Nationality': row[15], 'Bachelor': row[16], 'Memo': row[17], 'Birthday': row[18],
-                        'IdentityID': row[19]}
+            seq_user = {'User_Type': row[0], 'User_Username': row[1],
+                        'User_Real_Name': row[2], 'User_Org': row[3], 'User_Mobile': row[4], 'User_Tel': row[5],
+                        'User_Password': make_password(str(row[6])), 'User_Email': row[7], 'User_Title': row[8],
+                        'User_Department': row[9], 'User_Work_Field': row[10], 'User_Sex': row[11],
+                        'User_Bachelor': row[12], 'User_Memo': row[13], 'User_Identity': row[14]}
             row_dict[row_num] = seq_user
     data_user = {
             'code': '200',
@@ -467,7 +475,7 @@ def excel_import_user(filename):
             try:
                 arrs = user_write[position]
                 orgname = arrs['Org_Name']
-                org_id = models.TableOrganization.objects.filter(table_organization_col_name=orgname).values_list('table_organization_col_id')[0][0]
+                org_query = models.TableOrganization.objects.get(table_organization_col_name=orgname)
                 # print(org_id)
             except:
                 return JsonResponse({'message': '检查上级机构问题'})
@@ -485,23 +493,22 @@ def excel_import_user(filename):
             except:
                 return JsonResponse({'message': '用户类型问题'})
             try:
-                models.TableUser.objects.create(table_user_col_id=arrs['ID'], table_user_col_type_id=type_id,
-                                                table_user_col_type=arrs['Type'],
-                                                table_user_col_name=arrs['Name'],
-                                                table_user_col_real_name=arrs['Real_Name'],
-                                                table_user_col_organization_id=org_id,
-                                                table_user_col_mobile=arrs['Mobile'], table_user_col_tel=arrs['Tel'],
-                                                table_user_col_address=arrs['Address'],
-                                                table_user_col_password=arrs['Password'],
-                                                table_user_col_email=arrs['Email'], table_user_col_title=arrs['Title'],
-                                                table_user_col_postcode=arrs['Postcode'],
-                                                table_user_col_department=arrs['Department'],
-                                                table_user_col_work_field=arrs['Work_Field'],
-                                                table_user_col_sex=arrs['Sex'],
-                                                table_user_col_nationality_id=arrs['Nationality'],
-                                                table_user_col_bachelor=arrs['Bachelor'], table_user_col_memo=arrs['Memo'],
-                                                table_user_col_birth=arrs['Birthday'],
-                                                table_user_col_IdentityID=arrs['IdentityID'])
+                models.TableUser.objects.create(table_user_col_type_id=type_id,
+                                                table_user_col_type=arrs['User_Type'],
+                                                table_user_col_name=arrs['User_Username'],
+                                                table_user_col_real_name=arrs['User_Real_Name'],
+                                                table_user_col_organization_id=org_query,
+                                                table_user_col_mobile=arrs['User_Mobile'],
+                                                table_user_col_tel=arrs['User_Tel'],
+                                                table_user_col_password=arrs['User_Password'],
+                                                table_user_col_email=arrs['User_Email'],
+                                                table_user_col_title=arrs['User_Title'],
+                                                table_user_col_department=arrs['User_Department'],
+                                                table_user_col_work_field=arrs['User_Work_Field'],
+                                                table_user_col_sex=arrs['User_Sex'],
+                                                table_user_col_bachelor=arrs['User_Bachelor'],
+                                                table_user_col_memo=arrs['User_Memo'],
+                                                table_user_col_IdentityID=arrs['User_Identity'])
                 position = position + 1
             except:
                 return JsonResponse({'message': '检查填报内容'})
@@ -540,6 +547,35 @@ def download_user(request):
     response['Content-Disposition'] = 'attachment;filename="TableUser_Import.xlsx"'
     return response
 
+def user_export(request):
+
+    response = HttpResponse(content_type='text/csv')
+    response.write(codecs.BOM_UTF8)
+    response['Content-Disposition'] = "attachment;filename=user_list.csv"
+    writer = csv.writer(response)
+    user_csv = models.TableUser.objects.all()
+    writer.writerow(['User_Type', 'User_Username','User_Real_Name','User_Org','User_Mobile','User_Tel','User_Password',
+                     'User_Email','User_Title','User_Department','User_Work_Field','User_Sex','User_Bachelor',
+                     'User_Memo','User_Identity'])
+    write_length= len(user_csv)
+    write_position=0
+    while write_position < write_length:
+        try:
+            user_row = user_csv[write_position]
+            user_org_query = user_row.table_user_col_organization
+            org_name=user_org_query.table_organization_col_name
+        except:
+            return JsonResponse({'message':'人员机构数据绑定问题'})
+        try:
+            writer.writerow([user_row.table_user_col_type, user_row.table_user_col_name,user_row.table_user_col_real_name,
+                             org_name,user_row.table_user_col_mobile,user_row.table_user_col_tel,'不显示',
+                             user_row.table_user_col_email,user_row.table_user_col_title,user_row.table_user_col_department,
+                             user_row.table_user_col_work_field,user_row.table_user_col_sex,user_row.table_user_col_bachelor,
+                             user_row.table_user_col_memo,user_row.table_user_col_IdentityID])
+            write_position += 1
+        except:
+            return JsonResponse({'message':'录入问题'})
+    return response
 
 def excel_import_organization(filename):
     file_excel = 'C:/Users/Administrator/Desktop/DESP-qzc/DESP/uploads/indicator/' + str(filename)  ##存储路径

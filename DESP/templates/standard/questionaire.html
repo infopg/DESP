@@ -182,6 +182,14 @@
                     <li class="has-sub nav-item"><a href="{% url 'timeliner' %}"><i class="icon-magnet"></i><span
                             data-i18n=""
                             class="menu-title">工作进度</span></a>
+                        <ul class="menu-content">
+                            {% for t in evalname %}
+                                <li>
+                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ t.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </li>
                 </ul>
             </div>

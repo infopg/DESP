@@ -256,10 +256,10 @@
                             data-i18n=""
                             class="menu-title">工作进度</span></a>
                         <ul class="menu-content">
-                            {% for t in timeevalname %}
+                            {% for t in evalname %}
                                 <li>
-                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_timeliner_col_evaluation }}&admin={{ admin }}"
-                                       class="menu-item">{{ t.table_timeliner_col_evaluation }}</a>
+                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ t.table_evaluation_col_name }}</a>
                                 </li>
                             {% endfor %}
                         </ul>
