@@ -7,14 +7,14 @@
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-(function(window, document, $) {
+(function (window, document, $) {
     'use strict';
-    $(document).ready(function(){
+    $(document).ready(function () {
         /*******************************
-        *       Simple Options         *
-        *******************************/
+         *       Simple Options         *
+         *******************************/
 
-    	// case sensitive
+        // case sensitive
         $(".case-sensitive").tagging({
             "case-sensitive": true,
         });
@@ -46,17 +46,17 @@
 
 
         /*******************************
-        *       Advance Options        *
-        *******************************/
+         *       Advance Options        *
+         *******************************/
 
         // Forbidden Chars
         $(".forbidden-chars").tagging({
-            "forbidden-chars": ["," , ".", "_", "?"],
+            "forbidden-chars": [",", ".", "_", "?"],
         });
 
         // Forbidden Words
         $(".forbidden-words").tagging({
-            "forbidden-words": ["bastard","bitch","biatch","bloody"],
+            "forbidden-words": ["bastard", "bitch", "biatch", "bloody"],
         });
 
         // Define pre tags separator
@@ -81,8 +81,8 @@
 
 
         /******************************
-        *       Simple Methods        *
-        ******************************/
+         *       Simple Methods        *
+         ******************************/
 
         $('.add-box').tagging();
         $('.remove-box').tagging();
@@ -97,34 +97,34 @@
 
         $('.destroy-box').tagging();
 
-        $('.add-tagging').on('click',function(){
-            $('.add-box').tagging( "add", "Sydney" );
+        $('.add-tagging').on('click', function () {
+            $('.add-box').tagging("add", "Sydney");
         });
 
-        $('.remove-tagging').on('click',function(){
-            $('.remove-box').tagging( "remove", "cairo" );
+        $('.remove-tagging').on('click', function () {
+            $('.remove-box').tagging("remove", "cairo");
         });
 
-        $('.remove-all-tagging').on('click',function(){
+        $('.remove-all-tagging').on('click', function () {
             removeAll.tagging("removeAll");
         });
 
-        $('.refresh-tagging').on('click',function(){
+        $('.refresh-tagging').on('click', function () {
             refresh.tagging("refresh");
         });
 
-        $('.reset-tagging').on('click',function(){
+        $('.reset-tagging').on('click', function () {
             reset.tagging("reset");
         });
 
-        $('.destroy-tagging').on('click',function(){
+        $('.destroy-tagging').on('click', function () {
             $('.destroy-box').tagging('destroy');
         });
 
 
         /*******************************
-        *       Advance Methods        *
-        *******************************/
+         *       Advance Methods        *
+         *******************************/
 
         $('.special-keys-box').tagging();
         $('.focus-input-box').tagging();
@@ -132,25 +132,25 @@
         $('.get-special-keys-box').tagging();
         $('.val-input-box').tagging();
 
-        $('.add-special-keys').on('click',function(){
-            $('.special-keys-box').tagging( "addSpecialKeys", [ "add", { right_arrow: 39 } ] );
-            $('.special-keys-box').tagging( "addSpecialKeys", [ "remove", { left_arrow: 37 } ] );
+        $('.add-special-keys').on('click', function () {
+            $('.special-keys-box').tagging("addSpecialKeys", ["add", {right_arrow: 39}]);
+            $('.special-keys-box').tagging("addSpecialKeys", ["remove", {left_arrow: 37}]);
         });
 
-        $('.focus-input').on('click',function(){
-            $('.focus-input-box').tagging( "focusInput" );
+        $('.focus-input').on('click', function () {
+            $('.focus-input-box').tagging("focusInput");
         });
 
-        $('.get-special-keys').on('click',function(){
-            console.log($('.get-special-keys-box').tagging( "getSpecialKeys" ));
+        $('.get-special-keys').on('click', function () {
+            console.log($('.get-special-keys-box').tagging("getSpecialKeys"));
         });
 
-        $('.val-input').on('click',function(){
+        $('.val-input').on('click', function () {
             // Set Value
-            $('.val-input-box').tagging( "valInput", "Cairo" );
+            $('.val-input-box').tagging("valInput", "Cairo");
 
             // Get Value
-            console.log($('.val-input-box').tagging( "valInput" ));
+            console.log($('.val-input-box').tagging("valInput"));
         });
     });
 })(window, document, jQuery);

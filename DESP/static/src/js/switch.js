@@ -7,27 +7,27 @@
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-(function(window, document, $) {
-  'use strict';
-  var $html = $('html');
+(function (window, document, $) {
+    'use strict';
+    var $html = $('html');
 
     // Switchery
     var i = 0;
     if (Array.prototype.forEach) {
 
         var elems = $('.switchery');
-        $.each( elems, function( key, value ) {
-            var $size="", $color="",$sec_color="",$jack_color="",$jack_sec_color="",$sizeClass="", $colorCode="",$colorCodeSec="",$jackColorCode="",$jackColorCodeSec="";
+        $.each(elems, function (key, value) {
+            var $size = "", $color = "", $sec_color = "", $jack_color = "", $jack_sec_color = "", $sizeClass = "",
+                $colorCode = "", $colorCodeSec = "", $jackColorCode = "", $jackColorCodeSec = "";
             $size = $(this).data('size');
-            var $sizes ={
-                'lg' : "large",
-                'sm' : "small",
-                'xs' : "xsmall"
+            var $sizes = {
+                'lg': "large",
+                'sm': "small",
+                'xs': "xsmall"
             };
-            if($(this).data('size')!== undefined){
-                $sizeClass = "switchery switchery-"+$sizes[$size];
-            }
-            else{
+            if ($(this).data('size') !== undefined) {
+                $sizeClass = "switchery switchery-" + $sizes[$size];
+            } else {
                 $sizeClass = "switchery";
             }
 
@@ -35,43 +35,45 @@
             $sec_color = $(this).data('color-secondary');
             $jack_color = $(this).data('jack-color');
             $jack_sec_color = $(this).data('jack-color-secondary');
-            var $colors ={
-                'primary' : "#666EE8",
-                'success' : "#28D094",
-                'danger' : "#FF4961",
-                'warning' : "#FF9149",
-                'info' : "#1E9FF2",
-                'white' : "#FFFFFF"
+            var $colors = {
+                'primary': "#666EE8",
+                'success': "#28D094",
+                'danger': "#FF4961",
+                'warning': "#FF9149",
+                'info': "#1E9FF2",
+                'white': "#FFFFFF"
             };
-            if($color !== undefined){
+            if ($color !== undefined) {
                 $colorCode = $colors[$color];
-            }
-            else{
+            } else {
                 $colorCode = "#28D094";
             }
 
-            if($sec_color !== undefined){
+            if ($sec_color !== undefined) {
                 $colorCodeSec = $colors[$sec_color];
-            }
-            else{
+            } else {
                 $colorCodeSec = "#FFFFFF";
             }
 
-            if($jack_color !== undefined){
+            if ($jack_color !== undefined) {
                 $jackColorCode = $colors[$jack_color];
-            }
-            else{
+            } else {
                 $jackColorCode = "#FFFFFF";
             }
 
-            if($jack_sec_color !== undefined){
+            if ($jack_sec_color !== undefined) {
                 $jackColorCodeSec = $colors[$jack_sec_color];
-            }
-            else{
+            } else {
                 $jackColorCodeSec = "#FFFFFF";
             }
 
-            var switchery = new Switchery($(this)[0], { className: $sizeClass, color: $colorCode, secondaryColor: $colorCodeSec, jackColor: $jackColorCode, jackSecondaryColor: $jackColorCodeSec });
+            var switchery = new Switchery($(this)[0], {
+                className: $sizeClass,
+                color: $colorCode,
+                secondaryColor: $colorCodeSec,
+                jackColor: $jackColorCode,
+                jackSecondaryColor: $jackColorCodeSec
+            });
         });
     } else {
         var elems1 = document.querySelectorAll('.switchery');
@@ -79,7 +81,7 @@
         for (i = 0; i < elems1.length; i++) {
             var $size = elems1[i].data('size');
             var $color = elems1[i].data('color');
-            var switchery = new Switchery(elems1[i], { color: '#28D094' });
+            var switchery = new Switchery(elems1[i], {color: '#28D094'});
         }
     }
     /*  Toggle Ends   */

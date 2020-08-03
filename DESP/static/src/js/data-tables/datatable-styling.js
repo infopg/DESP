@@ -7,34 +7,34 @@
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-(function(window, document, $) {
+(function (window, document, $) {
     'use strict';
-	$(document).ready(function() {
+    $(document).ready(function () {
 
-	/********************************
-	*       js of Base style        *
-	********************************/
+        /********************************
+         *       js of Base style        *
+         ********************************/
 
-	$('.base-style').DataTable();
+        $('.base-style').DataTable();
 
-	/******************************
-	*       js of no style        *
-	******************************/
+        /******************************
+         *       js of no style        *
+         ******************************/
 
-	$('.no-style-no').DataTable();
+        $('.no-style-no').DataTable();
 
-	/******************************************
-	*       js of Base style - compact        *
-	******************************************/
+        /******************************************
+         *       js of Base style - compact        *
+         ******************************************/
 
-	$('.compact').DataTable();
+        $('.compact').DataTable();
 
-	/*********************************
-	*       js of Bootstrap 3        *
-	**********************************/
+        /*********************************
+         *       js of Bootstrap 3        *
+         **********************************/
 
-	$('.bootstrap-3').DataTable();
+        $('.bootstrap-3').DataTable();
 
 
-	} );
+    });
 })(window, document, jQuery);

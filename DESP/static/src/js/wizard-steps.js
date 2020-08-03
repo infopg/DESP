@@ -9,9 +9,9 @@
 ==========================================================================================*/
 
 // Wizard tabs with icons setup
-(function(window, document, $) {
+(function (window, document, $) {
     'use strict';
-    $(document).ready( function(){
+    $(document).ready(function () {
         $(".icons-tab-steps").steps({
             headerTag: "h6",
             bodyTag: "fieldset",
@@ -27,5 +27,5 @@
 
         // To select event date
         $('.pickadate').pickadate();
-     });
+    });
 })(window, document, jQuery);

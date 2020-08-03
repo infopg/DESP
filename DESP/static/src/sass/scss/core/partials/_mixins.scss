@@ -8,22 +8,20 @@
     bottom: auto;
     right: auto;
     -ms-transform: ranslateX(-50%) translateY(-50%); /* IE 9 */
-		-webkit-transform: ranslateX(-50%) translateY(-50%); /* Safari 3-8 */
-		transform: ranslateX(-50%) translateY(-50%);
-  }
-  @else if $xy == x {
+    -webkit-transform: ranslateX(-50%) translateY(-50%); /* Safari 3-8 */
+    transform: ranslateX(-50%) translateY(-50%);
+  } @else if $xy == x {
     left: 50%;
     right: auto;
     -ms-transform: translateX(-50%); /* IE 9 */
-		-webkit-transform: translateX(-50%); /* Safari 3-8 */
-		transform: translateX(-50%);
-  }
-  @else if $xy == y {
+    -webkit-transform: translateX(-50%); /* Safari 3-8 */
+    transform: translateX(-50%);
+  } @else if $xy == y {
     top: 50%;
     bottom: auto;
     -ms-transform: translateY(-50%); /* IE 9 */
-		-webkit-transform: translateY(-50%); /* Safari 3-8 */
-		transform: translateY(-50%);
+    -webkit-transform: translateY(-50%); /* Safari 3-8 */
+    transform: translateY(-50%);
   }
 }
 

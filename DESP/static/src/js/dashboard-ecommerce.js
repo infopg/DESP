@@ -10,41 +10,41 @@
 
 // chartist chart
 // ------------------------------]
-(function(window, document, $) {
+(function (window, document, $) {
     'use strict';
     $(window).on("load", function () {
 
         // Widget Area Chart 1 Starts
         var widgetlineChart = new Chartist.Line('#Widget-line-chart', {
-            labels: [1,2,3,4,5,6],
+            labels: [1, 2, 3, 4, 5, 6],
             series: [
-                [0,13,6,30,18,28]
+                [0, 13, 6, 30, 18, 28]
             ]
         }, {
+            low: 0,
+            fullWidth: true,
+            showArea: true,
+            onlyInteger: true,
+            targetLine: {
+                value: 30,
+                class: 'ct-target-line'
+            },
+            axisY: {
+                showGrid: false,
                 low: 0,
-                fullWidth: true,
-                showArea: true,
-                onlyInteger: true,
-                targetLine: {
-                    value: 30,
-                    class: 'ct-target-line'
-                },
-                axisY: {
-                    showGrid: false,
-                    low: 0,
-                    scaleMinSpace: 10,
-                    showLabel: false,
-                    offset: 0,
-                },
-                axisX: {
-                    showGrid: false,
-                    showLabel: false,
-                    offset: 0,
-                },
-                lineSmooth: Chartist.Interpolation.simple({
-                    divisor: 2
-                }),
-            });
+                scaleMinSpace: 10,
+                showLabel: false,
+                offset: 0,
+            },
+            axisX: {
+                showGrid: false,
+                showLabel: false,
+                offset: 0,
+            },
+            lineSmooth: Chartist.Interpolation.simple({
+                divisor: 2
+            }),
+        });
 
         widgetlineChart.on('created', function (data) {
             var defs = data.svg.elem('defs');
@@ -87,35 +87,35 @@
 
         // Widget Area Chart 2 Starts
         var widgetlineChart = new Chartist.Line('#Widget-line-chart1', {
-            labels: [1,2,3,4,5,6],
+            labels: [1, 2, 3, 4, 5, 6],
             series: [
-                [0,13,6,30,18,28]
+                [0, 13, 6, 30, 18, 28]
             ]
         }, {
+            low: 0,
+            fullWidth: true,
+            showArea: true,
+            onlyInteger: true,
+            targetLine: {
+                value: 30,
+                class: 'ct-target-line'
+            },
+            axisY: {
+                showGrid: false,
                 low: 0,
-                fullWidth: true,
-                showArea: true,
-                onlyInteger: true,
-                targetLine: {
-                    value: 30,
-                    class: 'ct-target-line'
-                },
-                axisY: {
-                    showGrid: false,
-                    low: 0,
-                    scaleMinSpace: 10,
-                    showLabel: false,
-                    offset: 0,
-                },
-                axisX: {
-                    showGrid: false,
-                    showLabel: false,
-                    offset: 0,
-                },
-                lineSmooth: Chartist.Interpolation.simple({
-                    divisor: 2
-                }),
-            });
+                scaleMinSpace: 10,
+                showLabel: false,
+                offset: 0,
+            },
+            axisX: {
+                showGrid: false,
+                showLabel: false,
+                offset: 0,
+            },
+            lineSmooth: Chartist.Interpolation.simple({
+                divisor: 2
+            }),
+        });
 
         widgetlineChart.on('created', function (data) {
             var defs = data.svg.elem('defs');
@@ -158,35 +158,35 @@
 
         // Widget Area Chart 3 Starts
         var widgetlineChart = new Chartist.Line('#Widget-line-chart2', {
-            labels: [1,2,3,4,5,6],
+            labels: [1, 2, 3, 4, 5, 6],
             series: [
-                [0,13,6,30,18,28]
+                [0, 13, 6, 30, 18, 28]
             ]
         }, {
+            low: 0,
+            fullWidth: true,
+            showArea: true,
+            onlyInteger: true,
+            targetLine: {
+                value: 30,
+                class: 'ct-target-line'
+            },
+            axisY: {
+                showGrid: false,
                 low: 0,
-                fullWidth: true,
-                showArea: true,
-                onlyInteger: true,
-                targetLine: {
-                    value: 30,
-                    class: 'ct-target-line'
-                },
-                axisY: {
-                    showGrid: false,
-                    low: 0,
-                    scaleMinSpace: 10,
-                    showLabel: false,
-                    offset: 0,
-                },
-                axisX: {
-                    showGrid: false,
-                    showLabel: false,
-                    offset: 0,
-                },
-                lineSmooth: Chartist.Interpolation.simple({
-                    divisor: 2
-                }),
-            });
+                scaleMinSpace: 10,
+                showLabel: false,
+                offset: 0,
+            },
+            axisX: {
+                showGrid: false,
+                showLabel: false,
+                offset: 0,
+            },
+            lineSmooth: Chartist.Interpolation.simple({
+                divisor: 2
+            }),
+        });
 
         widgetlineChart.on('created', function (data) {
             var defs = data.svg.elem('defs');
@@ -234,26 +234,26 @@
                 [0, 4500, 2600, 6100, 2600, 6500, 3200, 6800],
             ]
         }, {
+            low: 0,
+            fullWidth: true,
+            onlyInteger: true,
+            chartPadding: {
+                right: 20
+            },
+            axisY: {
                 low: 0,
-                fullWidth: true,
-                onlyInteger: true,
-                chartPadding: {
-                    right: 20
+                scaleMinSpace: 60,
+                labelInterpolationFnc: function labelInterpolationFnc(value) {
+                    return value / 1000 + 'K';
                 },
-                axisY: {
-                    low: 0,
-                    scaleMinSpace: 60,
-                    labelInterpolationFnc: function labelInterpolationFnc(value) {
-                        return value / 1000 + 'K';
-                    },
-                },
-                axisX: {
-                    showGrid: false
-                },
-                lineSmooth: Chartist.Interpolation.simple({
-                    divisor: 2
-                }),
-            });
+            },
+            axisX: {
+                showGrid: false
+            },
+            lineSmooth: Chartist.Interpolation.simple({
+                divisor: 2
+            }),
+        });
 
         lineArea.on('created', function (data) {
             var defs = data.svg.elem('defs');
@@ -279,7 +279,7 @@
                     cx: data.x,
                     cy: data.y,
                     r: circleRadius,
-                    class: data.value.y === 0 || data.value.y === 6800 ? 'ct-circle-transperent' :  'ct-circle'
+                    class: data.value.y === 0 || data.value.y === 6800 ? 'ct-circle-transperent' : 'ct-circle'
                 });
                 data.element.replace(circle);
             }
@@ -293,17 +293,17 @@
                 [7, 4, 2, -2, -4, -7, -7, -4, -2, 2, 4, 7]
             ]
         }, {
-                fullWidth: true,
-                axisX: {
-                    showGrid: false,
-                },
-                axisY: {
-                    showGrid: true,
-                    showLabel: false,
-                    offset: 0
-                },
-                chartPadding: 30
-            });
+            fullWidth: true,
+            axisX: {
+                showGrid: false,
+            },
+            axisY: {
+                showGrid: true,
+                showLabel: false,
+                offset: 0
+            },
+            chartPadding: 30
+        });
 
         Stackbarchart.on('created', function (data) {
             var defs = data.svg.elem('defs');
@@ -335,8 +335,7 @@
                     r: 5
                 }, 'ct-slice-bar'));
 
-            }
-            else if (data.type === 'label') {
+            } else if (data.type === 'label') {
                 data.element.attr({
                     y: 270
                 })
@@ -344,12 +343,12 @@
         });
         // Stack bar Chart Ends
 
-         // Bar Chart Starts
+        // Bar Chart Starts
         var barChart = new Chartist.Bar('#bar-chart', {
-            labels: ["Sport", "Music", "Travel", "News", "Blog"],
-            series: [[35, 20, 30, 45, 55]]
+                labels: ["Sport", "Music", "Travel", "News", "Blog"],
+                series: [[35, 20, 30, 45, 55]]
 
-        }, {
+            }, {
                 axisX: {
                     showGrid: false,
                 },

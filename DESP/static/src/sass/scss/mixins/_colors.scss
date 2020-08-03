@@ -1,12 +1,12 @@
 @mixin bg-opacity($color, $opacity: 1) {
-    background: $color; /* The Fallback */
-    background: rgba($color, $opacity);
+  background: $color; /* The Fallback */
+  background: rgba($color, $opacity);
 }
 
 
 // Progress bars
 @mixin progress-variant($color) {
-  background-color: $color;  
+  background-color: $color;
   &[value]::-webkit-progress-value {
     background-color: $color;
   }
@@ -21,7 +21,8 @@
   }
 
   // IE9
-  @media screen and (min-width:0\0) {
+  @media screen and (min-width: 0 \0
+  ) {
     .progress-bar {
       background-color: $color;
     }

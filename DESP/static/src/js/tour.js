@@ -1,11 +1,11 @@
-(function(window, document, $) {
+(function (window, document, $) {
     'use strict';
     // Define the tour!
     var tour = {
         id: "demo-tour",
         showPrevButton: true,
-        steps: [       
-            
+        steps: [
+
             {
                 title: "Customizer",
                 content: "This is the customizer for the theme where you can customize menu options.",
@@ -23,12 +23,12 @@
                 content: "Check this link to know more about Pixinvent.",
                 target: "pixinventLink",
                 placement: "top"
-            }        
+            }
         ]
     };
 
     // Start the tour!
-    $('#btnStartTour').on('click',function(e){
+    $('#btnStartTour').on('click', function (e) {
         hopscotch.startTour(tour);
     });
 })(window, document, jQuery);

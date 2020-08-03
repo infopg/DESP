@@ -10,7 +10,7 @@
 
 // Line chart
 // ------------------------------
-(function(window, document, $) {
+(function (window, document, $) {
     'use strict';
     $(window).on("load", function () {
 
@@ -107,7 +107,6 @@
 
         // Create the chart
         var lineChart = new Chart(ctx, config);
-
 
 
         ////////////////////////////////////////////////////////////////////////////////////
@@ -318,49 +317,49 @@
     //Get the context of the Chart canvas element we want to select
     var ctx = $("#radar-chart");
 
-        // Chart Options
-        var chartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            responsiveAnimationDuration:500,
-            legend: {
-                position: 'top',
-            },
-            scale: {
-              reverse: false,
-              ticks: {
+    // Chart Options
+    var chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        responsiveAnimationDuration: 500,
+        legend: {
+            position: 'top',
+        },
+        scale: {
+            reverse: false,
+            ticks: {
                 beginAtZero: true
-              }
             }
-        };
+        }
+    };
 
-        // Chart Data
-        var chartData = {
-            labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-            datasets: [{
-                label: "Series A",
-                backgroundColor: "rgba(255, 95, 32, 0.8)",
-                borderColor: "transparent",
-                data: [65, 59, 90, 81, 56, 55, 40],
-            }, {
-                label: "Series B",
-                backgroundColor: "rgba(102, 110, 232, 0.8)",
-                borderColor: "transparent",
-                data: [28, 48, 40, 19, 96, 27, 100],
-            },]
-        };
+    // Chart Data
+    var chartData = {
+        labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+        datasets: [{
+            label: "Series A",
+            backgroundColor: "rgba(255, 95, 32, 0.8)",
+            borderColor: "transparent",
+            data: [65, 59, 90, 81, 56, 55, 40],
+        }, {
+            label: "Series B",
+            backgroundColor: "rgba(102, 110, 232, 0.8)",
+            borderColor: "transparent",
+            data: [28, 48, 40, 19, 96, 27, 100],
+        },]
+    };
 
-        var config = {
-            type: 'radar',
+    var config = {
+        type: 'radar',
 
-            // Chart Options
-            options : chartOptions,
+        // Chart Options
+        options: chartOptions,
 
-            data : chartData
-        };
+        data: chartData
+    };
 
-        // Create the chart
-        var polarChart = new Chart(ctx, config);
+    // Create the chart
+    var polarChart = new Chart(ctx, config);
 
 
     /////////////////////////////////////////////////////////////////////////////////

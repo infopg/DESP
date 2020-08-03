@@ -10,7 +10,7 @@
 
 // chartist chart
 // ------------------------------
-(function(window, document, $) {
+(function (window, document, $) {
     'use strict';
     $(window).on("load", function () {
 
@@ -21,24 +21,24 @@
                 [3, 20, 17, 35, 32, 45]
             ]
         }, {
-                axisX: {
-                    showGrid: false,
-                    showLabel: false,
-                    offset: 0,
-                },
-                axisY: {
-                    showGrid: false,
-                    low: 0,
-                    showLabel: false,
-                    offset: 0,
-                },
-                lineSmooth: Chartist.Interpolation.simple({
-                    divisor: 2
-                }),
-                fullWidth: true,
-                showArea: true,
-                onlyInteger: true,
-            });
+            axisX: {
+                showGrid: false,
+                showLabel: false,
+                offset: 0,
+            },
+            axisY: {
+                showGrid: false,
+                low: 0,
+                showLabel: false,
+                offset: 0,
+            },
+            lineSmooth: Chartist.Interpolation.simple({
+                divisor: 2
+            }),
+            fullWidth: true,
+            showArea: true,
+            onlyInteger: true,
+        });
         lineAreaWidget.on('created', function (data) {
             var defs = data.svg.elem('defs');
             defs.elem('linearGradient', {
@@ -76,24 +76,24 @@
                 [3, 20, 17, 35, 32, 45]
             ]
         }, {
-                axisX: {
-                    showGrid: false,
-                    showLabel: false,
-                    offset: 0,
-                },
-                axisY: {
-                    showGrid: false,
-                    low: 0,
-                    showLabel: false,
-                    offset: 0,
-                },
-                lineSmooth: Chartist.Interpolation.simple({
-                    divisor: 2
-                }),
-                fullWidth: true,
-                showArea: true,
-                onlyInteger: true,
-            });
+            axisX: {
+                showGrid: false,
+                showLabel: false,
+                offset: 0,
+            },
+            axisY: {
+                showGrid: false,
+                low: 0,
+                showLabel: false,
+                offset: 0,
+            },
+            lineSmooth: Chartist.Interpolation.simple({
+                divisor: 2
+            }),
+            fullWidth: true,
+            showArea: true,
+            onlyInteger: true,
+        });
         lineAreaWidget2.on('created', function (data) {
             var defs = data.svg.elem('defs');
             defs.elem('linearGradient', {
@@ -131,24 +131,24 @@
                 [3, 20, 17, 35, 32, 45]
             ]
         }, {
-                axisX: {
-                    showGrid: false,
-                    showLabel: false,
-                    offset: 0,
-                },
-                axisY: {
-                    showGrid: false,
-                    low: 0,
-                    showLabel: false,
-                    offset: 0,
-                },
-                lineSmooth: Chartist.Interpolation.simple({
-                    divisor: 2
-                }),
-                fullWidth: true,
-                showArea: true,
-                onlyInteger: true,
-            });
+            axisX: {
+                showGrid: false,
+                showLabel: false,
+                offset: 0,
+            },
+            axisY: {
+                showGrid: false,
+                low: 0,
+                showLabel: false,
+                offset: 0,
+            },
+            lineSmooth: Chartist.Interpolation.simple({
+                divisor: 2
+            }),
+            fullWidth: true,
+            showArea: true,
+            onlyInteger: true,
+        });
         lineAreaWidget3.on('created', function (data) {
             var defs = data.svg.elem('defs');
             defs.elem('linearGradient', {
@@ -183,11 +183,11 @@
 
         // Line Chart Starts (Sales Analysis)
         var lineArea = new Chartist.Line('#line-area6', {
-            labels: [1, 2, 3, 4, 5, 6, 7],
-            series: [
-                [10, 6, 15, 13, 20, 17, 19]
-            ]
-        }, {
+                labels: [1, 2, 3, 4, 5, 6, 7],
+                series: [
+                    [10, 6, 15, 13, 20, 17, 19]
+                ]
+            }, {
                 axisX: {
                     showGrid: false,
                 },
@@ -259,15 +259,15 @@
             }
         });
         // Line Chart 2 Ends
-        
+
         // Line Chart 2 Starts (Statistics)
         var lineChart2 = new Chartist.Line('#line-chart2', {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            series: [
-                [160, 150, 140, 120, 75, 35, 45, 65, 100, 145, 160, 180],
-                [100, 95, 90, 100, 110, 120, 130, 140, 130, 95, 75, 80]
-            ]
-        }, {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                series: [
+                    [160, 150, 140, 120, 75, 35, 45, 65, 100, 145, 160, 180],
+                    [100, 95, 90, 100, 110, 120, 130, 140, 130, 95, 75, 80]
+                ]
+            }, {
                 axisX: {
                     showGrid: false,
                 },
@@ -332,16 +332,15 @@
                     class: 'ct-circle'
                 });
                 data.element.replace(circle);
-            }
-            else if (data.type === 'label') {
+            } else if (data.type === 'label') {
                 // adjust label position for rotation
                 const dX = data.width / 2 + (30 - data.width)
-                data.element.attr({ x: data.element.attr('x') - dX })
+                data.element.attr({x: data.element.attr('x') - dX})
             }
         });
         // Line Chart 2 Ends
 
-        
+
         // Line with Area Chart  Starts (User Conversion)
         var lineArea3 = new Chartist.Line('#line-area-chart', {
             labels: [1, 2, 3, 4, 5, 6, 7, 8],
@@ -350,18 +349,18 @@
                 [0, 3, 5, 2, 8, 1, 5, 0]
             ]
         }, {
+            low: 0,
+            showArea: true,
+            fullWidth: true,
+            onlyInteger: true,
+            axisY: {
                 low: 0,
-                showArea: true,
-                fullWidth: true,
-                onlyInteger: true,
-                axisY: {
-                    low: 0,
-                    scaleMinSpace: 50,
-                },
-                axisX: {
-                    showGrid: false
-                }
-            });
+                scaleMinSpace: 50,
+            },
+            axisX: {
+                showGrid: false
+            }
+        });
 
         lineArea3.on('created', function (data) {
             var defs = data.svg.elem('defs');
@@ -400,7 +399,7 @@
                     cx: data.x,
                     cy: data.y,
                     r: circleRadius,
-                    class: data.value.y === 0 ? 'ct-point-circle-transperent' :  'ct-point-circle'
+                    class: data.value.y === 0 ? 'ct-point-circle-transperent' : 'ct-point-circle'
                 });
                 data.element.replace(circle);
             }

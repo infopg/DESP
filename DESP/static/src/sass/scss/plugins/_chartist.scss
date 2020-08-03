@@ -37,7 +37,7 @@
   -ms-flex-pack: $ct-text-justify;
   justify-content: $ct-text-justify;
   // Fallback to text-align for non-flex browsers
-  @if($ct-text-justify == 'flex-start') {
+  @if ($ct-text-justify == 'flex-start') {
     text-align: left;
   } @else if ($ct-text-justify == 'flex-end') {
     text-align: right;
@@ -55,7 +55,6 @@
   display: -webkit-flex;
   display: flex;
 }
-
 
 
 @mixin ct-chart-label($ct-text-color: $ct-text-color, $ct-text-size: $ct-text-size, $ct-text-line-height: $ct-text-line-height) {
@@ -232,24 +231,30 @@
   }
 }
 
-.ct-blue{
-    stroke: theme-color("primary") !important;
+.ct-blue {
+  stroke: theme-color("primary") !important;
 }
-.ct-azure{
-    stroke: theme-color("info") !important;
+
+.ct-azure {
+  stroke: theme-color("info") !important;
 }
-.ct-green{
-    stroke: theme-color("success") !important;
+
+.ct-green {
+  stroke: theme-color("success") !important;
 }
-.ct-orange{
-    stroke: theme-color("warning") !important;
+
+.ct-orange {
+  stroke: theme-color("warning") !important;
 }
-.ct-red{
-    stroke: theme-color("danger") !important;
+
+.ct-red {
+  stroke: theme-color("danger") !important;
 }
-.ct-white{
-    stroke: $white !important;
+
+.ct-white {
+  stroke: $white !important;
 }
-.ct-rose{
-    stroke: $red !important;
+
+.ct-rose {
+  stroke: $red !important;
 }

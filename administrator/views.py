@@ -18,7 +18,6 @@ def standard(request):
     mList = TableEvaluationIndicator.objects.filter(
         Q(table_evaluation_indicator_col_evaluation_name=request.GET.get('evalname')) &
         Q(table_evaluation_indicator_col_administrator_name=request.session.get('user_name')))
-
     current_eval = request.GET.get('evalname')
     current_admin = request.session.get('user_name')
 

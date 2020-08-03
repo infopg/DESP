@@ -3,17 +3,20 @@
 @import "../../../../assets/scss/variables/app-variables";
 
 // Full calendar style
-.fc-unthemed .fc-content, .fc-unthemed .fc-divider, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead{
-  border-color: lighten($brand-primary,28%);
+.fc-unthemed .fc-content, .fc-unthemed .fc-divider, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
+  border-color: lighten($brand-primary, 28%);
 }
-th.fc-widget-header, .fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-number span{
+
+th.fc-widget-header, .fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-number span {
   padding: 10px;
 }
-.fc-state-default{
+
+.fc-state-default {
   background-image: none;
   box-shadow: none;
 }
-.fc button{
+
+.fc button {
   @extend .btn;
   @extend .btn-secondary;
   height: auto;
@@ -21,37 +24,47 @@ th.fc-widget-header, .fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-
   border-radius: 0;
   text-shadow: none;
 }
-.btn:focus, .fc button:focus, .btn.focus, .fc button.focus, .btn:active:focus, .fc button:active:focus, .btn:active.focus, .fc button:active.focus, .btn.active:focus, .fc button.active:focus, .btn.active.focus, .fc button.active.focus{
+
+.btn:focus, .fc button:focus, .btn.focus, .fc button.focus, .btn:active:focus, .fc button:active:focus, .btn:active.focus, .fc button:active.focus, .btn.active:focus, .fc button.active:focus, .btn.active.focus, .fc button.active.focus {
   outline: none;
 }
-.fc-toolbar .fc-state-active, .fc-toolbar .ui-state-active{
+
+.fc-toolbar .fc-state-active, .fc-toolbar .ui-state-active {
   @extend .btn-secondary.active
 }
+
 .fc-day-grid-event {
   margin: 0 5px 5px 5px;
   padding: 4px 8px;
 }
-.fc-event{
-  background:$brand-primary;
-  border: 1px solid darken($brand-primary,5%);
-  span{
+
+.fc-event {
+  background: $brand-primary;
+  border: 1px solid darken($brand-primary, 5%);
+
+  span {
     font-size: 1rem;
     color: #FFF;
   }
 }
-.fc-time-grid-event .fc-title{
+
+.fc-time-grid-event .fc-title {
   color: #FFF;
 }
+
 .fc-unthemed .fc-today {
   color: #FFF;
   background: $brand-primary;
 }
+
 .fc-unthemed .fc-divider, .fc-unthemed .fc-popover .fc-header {
-    background: #E4EBF1;
+  background: #E4EBF1;
 }
+
 .fc-popover .fc-header {
-    padding: 10px 5px;
+  padding: 10px 5px;
 }
+
 /* Styling for each event from Schedule */
 .fc-time-grid-event.fc-v-event.fc-event {
   border-radius: 4px;
@@ -85,35 +98,36 @@ th.fc-widget-header, .fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-
 .fc-ltr .fc-h-event.fc-not-end, .fc-rtl .fc-h-event.fc-not-start {
   opacity: .65 !important;
   margin-left: 12px !important;
-  padding: 5px! important;
+  padding: 5px ! important;
 }
 
 /* Apply same opacity to all day events */
 .fc-day-grid-event.fc-h-event.fc-event.fc-not-start.fc-end {
   opacity: .65 !important;
   margin-left: 12px !important;
-  padding: 5px! important;
+  padding: 5px ! important;
 }
 
-.fc-time-grid .fc-slats td{
+.fc-time-grid .fc-slats td {
   height: auto;
 }
 
-.fc-ltr .fc-axis{
+.fc-ltr .fc-axis {
   padding: 10px;
 }
 
-.fc-nonbusiness{
+.fc-nonbusiness {
   background: #D7E0EA;
 }
 
-.fc-events-container{
+.fc-events-container {
   padding: 0 10px;
   border: 1px solid #A2B8CD;
   background: $content-bg;
   text-align: left;
 }
-.fc-events-container .fc-event{
+
+.fc-events-container .fc-event {
   padding: 5px;
   margin: 10px 0;
 }

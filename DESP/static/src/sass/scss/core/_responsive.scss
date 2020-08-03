@@ -2,55 +2,62 @@
 
 // Minimum width 992px
 @media (min-width: 992px) {
-	.main-panel{
-		.main-content{
-			padding-left:250px;
-		}
-	}
+  .main-panel {
+    .main-content {
+      padding-left: 250px;
+    }
+  }
   .navbar {
-    .navbar-header{
+    .navbar-header {
       padding-left: 240px;
     }
-    .navbar-container{
+
+    .navbar-container {
       // padding-left: 250px; 
     }
   }
-  footer{
-    &.footer{
+  footer {
+    &.footer {
       padding-left: 250px;
     }
   }
 
-  .sidebar-sm{
-    .main-panel .main-content{
-        padding-left: 220px;
+  .sidebar-sm {
+    .main-panel .main-content {
+      padding-left: 220px;
     }
+
     .navbar {
-      .navbar-header{
+      .navbar-header {
         padding-left: 210px;
       }
-      .navbar-container{
+
+      .navbar-container {
         padding-left: 220px;
       }
     }
-    footer{
+
+    footer {
       padding-left: 220px;
     }
   }
 
-  .sidebar-lg{
-    .main-panel .main-content{
-        padding-left: 280px;
+  .sidebar-lg {
+    .main-panel .main-content {
+      padding-left: 280px;
     }
+
     .navbar {
-      .navbar-header{
+      .navbar-header {
         padding-left: 270px;
       }
-      .navbar-container{
+
+      .navbar-container {
         padding-left: 280px;
       }
     }
-    footer{
+
+    footer {
       padding-left: 280px;
     }
   }
@@ -58,19 +65,19 @@
 
 // Maximum width 992px
 @media (max-width: 992px) {
-  .app-sidebar{
-    transition: transform .4s cubic-bezier(.25,.8,.25,1);
+  .app-sidebar {
+    transition: transform .4s cubic-bezier(.25, .8, .25, 1);
   }
-  .navbar{
+  .navbar {
     padding: 0 25px;
   }
   .navbar-toggle {
     display: block;
   }
-  #navbar-fullscreen{
+  #navbar-fullscreen {
     margin-top: 20px !important;
   }
-	.navbar-toggle .icon-bar {
+  .navbar-toggle .icon-bar {
     display: block;
     position: relative;
     background: #fff;
@@ -86,38 +93,50 @@
     height: 40px;
   }
   .navbar-header .navbar-collapse-toggle {
-     margin: 20px 15px 10px 0px;
+    margin: 20px 15px 10px 0px;
   }
 
   .navbar-header .navbar-collapse-toggle {
     margin: 20px 0px 10px 15px;
   }
 
-  .navbar-form{
+  .navbar-form {
     margin-top: .75rem !important;
   }
-  .navbar-search{
-    .navbar-form{
+  .navbar-search {
+    .navbar-form {
       margin-top: .75rem !important;
     }
   }
-  .header-navbar .navbar-container .navbar-collapse.show{
+  .header-navbar .navbar-container .navbar-collapse.show {
     float: right;
   }
-  .header-navbar .navbar-container .navbar-collapse.show ul.navbar-nav li{
+  .header-navbar .navbar-container .navbar-collapse.show ul.navbar-nav li {
     float: left !important;
   }
   @-webkit-keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
   @-moz-keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
   @keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
   .bar1,
   .bar2,
@@ -126,28 +145,40 @@
   }
 
   @-webkit-keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
   @-moz-keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
   @keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 }
 
 // Minimum width 320px
 @media (min-width: 320px) {
-  .navbar-header{
+  .navbar-header {
     float: left;
   }
-  .navbar-right{
+  .navbar-right {
     float: right !important;
   }
-  .navbar-nav>li{
+  .navbar-nav > li {
     float: left;
     margin-right: 0.5rem;
   }
@@ -155,14 +186,14 @@
 
 // Maximum width 320px
 @media (max-width: 320px) {
-  .navbar-right{
+  .navbar-right {
     display: none;
   }
 }
 
 // Maximum width 640px
 @media (max-width: 640px) {
-  .navbar-form{
+  .navbar-form {
     display: none;
   }
 }

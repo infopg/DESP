@@ -7,13 +7,13 @@
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-(function(window, document, $) {
+(function (window, document, $) {
     'use strict';
     Dropzone.options.dpzSingleFile = {
         paramName: "file", // The name that will be used to transfer the file
         maxFiles: 1,
-        init: function() {
-            this.on("maxfilesexceeded", function(file) {
+        init: function () {
+            this.on("maxfilesexceeded", function (file) {
                 this.removeAllFiles();
                 this.addFile(file);
             });
@@ -21,8 +21,8 @@
     };
 
     /********************************************
-    *               Multiple Files              *
-    ********************************************/
+     *               Multiple Files              *
+     ********************************************/
     Dropzone.options.dpzMultipleFiles = {
         paramName: "file", // The name that will be used to transfer the file
         maxFilesize: 0.5, // MB
@@ -31,8 +31,8 @@
 
 
     /********************************************************
-    *               Use Button To Select Files              *
-    ********************************************************/
+     *               Use Button To Select Files              *
+     ********************************************************/
     new Dropzone(document.body, { // Make the whole body a dropzone
         url: "#", // Set the url
         previewsContainer: "#dpz-btn-select-files", // Define the container to display the previews
@@ -41,8 +41,8 @@
 
 
     /****************************************************************
-    *               Limit File Size and No. Of Files                *
-    ****************************************************************/
+     *               Limit File Size and No. Of Files                *
+     ****************************************************************/
     Dropzone.options.dpzFileLimits = {
         paramName: "file", // The name that will be used to transfer the file
         maxFilesize: 0.5, // MB
@@ -52,8 +52,8 @@
 
 
     /********************************************
-    *               Accepted Files              *
-    ********************************************/
+     *               Accepted Files              *
+     ********************************************/
     Dropzone.options.dpAcceptFiles = {
         paramName: "file", // The name that will be used to transfer the file
         maxFilesize: 1, // MB
@@ -62,8 +62,8 @@
 
 
     /************************************************
-    *               Remove Thumbnail                *
-    ************************************************/
+     *               Remove Thumbnail                *
+     ************************************************/
     Dropzone.options.dpzRemoveThumb = {
         paramName: "file", // The name that will be used to transfer the file
         maxFilesize: 1, // MB
@@ -72,18 +72,18 @@
     }
 
     /*****************************************************
-    *               Remove All Thumbnails                *
-    *****************************************************/
+     *               Remove All Thumbnails                *
+     *****************************************************/
     Dropzone.options.dpzRemoveAllThumb = {
         paramName: "file", // The name that will be used to transfer the file
         maxFilesize: 1, // MB
-        init: function() {
+        init: function () {
 
             // Using a closure.
             var _this = this;
 
             // Setup the observer for the button.
-            $("#clear-dropzone").on("click", function() {
+            $("#clear-dropzone").on("click", function () {
                 // Using "_this" here, because "this" doesn't point to the dropzone anymore
                 _this.removeAllFiles();
                 // If you want to cancel uploads as well, you
