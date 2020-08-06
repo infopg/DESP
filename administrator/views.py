@@ -41,7 +41,7 @@ def standard(request):
         return render(request, 'standard/standard.html',
 
                       {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
-                       'current_eval':current_eval, 'current_admin':current_admin})
+                       'current_eval': current_eval, 'current_admin': current_admin})
 
     else:
         administrator = request.session['user_name']
@@ -76,7 +76,8 @@ def standard(request):
             timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
                 'table_timeliner_col_evaluation')
             return render(request, 'standard/standard.html',
-                          {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname, 'current_eval':current_eval})
+                          {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
+                           'current_eval': current_eval})
         else:
             return JsonResponse({'message': '您输入的用户或评估项目不存在'})  # 增加返回到administrator页面 及message显示的功能
 
@@ -128,7 +129,7 @@ def edit(request):
                         Q(table_evaluation_indicator_col_parent_name=create_parent)):
                     list.append(a.table_evaluation_indicator_col_weight)
                 result = sum(list)
-                if result + round(Decimal(float(item[2])),2) <= 100:
+                if result + round(Decimal(float(item[2])), 2) <= 100:
                     try:
                         TableEvaluationIndicator.objects.create(**postdata)
                         continue
@@ -171,16 +172,16 @@ def indicator_export(request):
     writer = csv.writer(response)
     page_eval = request.GET.get('current_eval')
     indicator = models.TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_evaluation_name=page_eval)
-    writer.writerow(['Indicator_Name','Indicator_Weight','Indicator_Parent_Name'])
+    writer.writerow(['Indicator_Name', 'Indicator_Weight', 'Indicator_Parent_Name'])
     write_length = len(indicator)
     write_position = 1
     while write_position < write_length:
         # pdb.set_trace()
         try:
             indicator_row = indicator[write_position]
-            select_parent=models.TableEvaluationIndicator.objects.get(table_evaluation_indicator_col_name=page_eval)
+            select_parent = models.TableEvaluationIndicator.objects.get(table_evaluation_indicator_col_name=page_eval)
         except:
-            return JsonResponse({'message':'没有数据可导出'})
+            return JsonResponse({'message': '没有数据可导出'})
         if indicator_row.table_evaluation_indicator_col_parent_name == select_parent:
             try:
                 writer.writerow([indicator_row.table_evaluation_indicator_col_name,
@@ -190,7 +191,7 @@ def indicator_export(request):
                 return JsonResponse({'message': '高级节点数据缺失'})
         else:
             try:
-                parent_key=indicator_row.table_evaluation_indicator_col_parent_name
+                parent_key = indicator_row.table_evaluation_indicator_col_parent_name
                 writer.writerow([indicator_row.table_evaluation_indicator_col_name,
                                  indicator_row.table_evaluation_indicator_col_weight,
                                  parent_key.table_evaluation_indicator_col_name])
@@ -311,7 +312,7 @@ def timeliner_delete(request):
 
 
 ## 上传功能
-def excel_import_indicator(filename,this_eval_name,this_admin_name):
+def excel_import_indicator(filename, this_eval_name, this_admin_name):
     # pdb.set_trace()
     file_excel = 'C:/Users/DELL/Desktop/DESP/DESP/uploads/indicator/' + str(filename)  ##存储绝对路径（随时修改）
     by_name = u'Sheet1'
@@ -322,7 +323,7 @@ def excel_import_indicator(filename,this_eval_name,this_admin_name):
     for row_num in range(1, n_rows):
         row = table.row_values(row_num)  # 获得每行的字段
         # seq = [row[0], row[1], row[2], row[3]]
-        seq_indicator = { 'Indicator_Name': row[0], 'Indicator_Weight': row[1],
+        seq_indicator = {'Indicator_Name': row[0], 'Indicator_Weight': row[1],
                          'Indicator_Parent_Name': row[2]}
         row_dict[row_num] = seq_indicator
     data_indicator = {
@@ -341,10 +342,10 @@ def excel_import_indicator(filename,this_eval_name,this_admin_name):
                 arrs = indicator_write[position]
                 indicatorname = arrs['Indicator_Parent_Name']
                 parent_key = models.TableEvaluationIndicator.objects.get(
-                    Q(table_evaluation_indicator_col_name=indicatorname)&
+                    Q(table_evaluation_indicator_col_name=indicatorname) &
                     Q(table_evaluation_indicator_col_evaluation_name=this_eval_name))
                 parent_id = models.TableEvaluationIndicator.objects.filter(
-                    Q(table_evaluation_indicator_col_name=indicatorname)&
+                    Q(table_evaluation_indicator_col_name=indicatorname) &
                     Q(table_evaluation_indicator_col_evaluation_name=this_eval_name)).values_list(
                     'table_evaluation_indicator_col_id')[0][0]
                 admin_username = this_admin_name
@@ -357,12 +358,12 @@ def excel_import_indicator(filename,this_eval_name,this_admin_name):
                 child_name_set = models.TableEvaluationIndicator.objects.filter(
                     table_evaluation_indicator_col_parent_name=parent_id).values(
                     'table_evaluation_indicator_col_name')
-                current_name_query = {'table_evaluation_indicator_col_name':current_child_name}
+                current_name_query = {'table_evaluation_indicator_col_name': current_child_name}
             except:
-                return JsonResponse({'message':'模板不应包含最高级节点'})
+                return JsonResponse({'message': '模板不应包含最高级节点'})
             try:
                 if current_name_query in child_name_set:
-                    return JsonResponse({'message':'指标重复命名'})
+                    return JsonResponse({'message': '指标重复命名'})
                 else:
                     try:
                         add_weight = arrs['Indicator_Weight']
@@ -390,7 +391,7 @@ def excel_import_indicator(filename,this_eval_name,this_admin_name):
                         except:
                             return JsonResponse({'message': '权重问题'})
                 try:
-                    if round(Decimal(float(add_weight)),2) + current_weight <= 100:
+                    if round(Decimal(float(add_weight)), 2) + current_weight <= 100:
                         print(Decimal(float(add_weight)))
                         print(current_weight)
                         try:
@@ -409,7 +410,7 @@ def excel_import_indicator(filename,this_eval_name,this_admin_name):
                 except:
                     return JsonResponse({'message': '权重问题'})
             except:
-                return JsonResponse({'message':'检查指标命名及权重'})
+                return JsonResponse({'message': '检查指标命名及权重'})
         else:
             return JsonResponse({'message': '上传成功'})
     except:
@@ -417,12 +418,11 @@ def excel_import_indicator(filename,this_eval_name,this_admin_name):
 
 
 def upload_indicator(request):
-
     if request.method == 'GET':
         return render(request, 'standard/standard.html')
     elif request.method == 'POST':
-        get_eval_name=request.GET.get('current_eval')
-        get_admin_name=request.GET.get('current_admin')
+        get_eval_name = request.GET.get('current_eval')
+        get_admin_name = request.GET.get('current_admin')
         obj = request.FILES.get('file_obj_indicator')
         obj.name = time.strftime("%Y%m%d_%H_%M_%S_", time.localtime(time.time())) + obj.name
         # print(obj)
@@ -431,7 +431,7 @@ def upload_indicator(request):
             for chunk in obj.chunks():
                 f.write(chunk)
             f.close()
-            return excel_import_indicator(obj,get_eval_name,get_admin_name)
+            return excel_import_indicator(obj, get_eval_name, get_admin_name)
         else:
             return JsonResponse({'message': '文件格式错误！'})
 
@@ -448,3 +448,8 @@ def download_indicator(request):
 def questionaire(request):
     a = request.GET.get('nodeID')
     return render(request, 'standard/questionaire.html')
+
+
+def questionaire_add(request):
+    print(request.GET['choice'])
+    return JsonResponse({'msg': 'success'})

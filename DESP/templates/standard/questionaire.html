@@ -273,7 +273,7 @@
                                             <div id="question_list">
 
                                                 <div class="div_question">
-                                                    <form method="post" class="form-horizontal">
+                                                    <form method="post" class="form-horizontal">{% csrf_token %}
                                                         <div>
                                                             <div>
                                                                 <h5 style="display: inline">1.&nbsp;Question 1</h5>
@@ -282,7 +282,7 @@
                                                                 <ul class="choice_list">
                                                                     <li class="mb-2">
                                                                         <input type="checkbox">
-                                                                        <span >Answer1</span></li>
+                                                                        <span>Answer1</span></li>
                                                                     <li class="mb-2">
                                                                         <input type="checkbox">
                                                                         <span>Answer2</span></li>
@@ -290,26 +290,27 @@
                                                             </div>
                                                         </div>
                                                         <div>
+                                                            <input style="display: none" name="questiontype" value="选择题">
                                                         <textarea class="form-control"
-                                                                  onkeyup="SwapTxt(event)"></textarea>
+                                                                  onkeyup="SwapTxt(event)" name="choicetitle"></textarea>
                                                             <div class="row" style="margin-top: 15px">
                                                                 <div class="col-md-9">
-                                                        <span><select class="form-control-sm">
+                                                        <span><select class="form-control-sm" name="class">
                                                             <option>单选</option>
                                                             <option>多选</option>
                                                         </select>
                                                             </span>
                                                                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-                                                                            type="checkbox"><span>必答题</span></span>
+                                                                            type="checkbox" name="required"><span>必答题</span></span>
                                                                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-                                                                            type="checkbox"><span>含附件上传</span></span>
+                                                                            type="checkbox" name="attachment"><span>含附件上传</span></span>
                                                                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select
-                                                                            class="form-control-sm">
+                                                                            class="form-control-sm" name="markmethod">
                                                             <option>自动打分</option>
                                                             <option>手动打分</option>
                                                         </select></span>
                                                                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-                                                                            type="checkbox"><span>导入答案</span></span>
+                                                                            type="checkbox" name="importanswer"><span>导入答案</span></span>
                                                                 </div>
                                                             </div>
                                                             <div style="margin-top: 15px">
@@ -324,25 +325,31 @@
                                                                     <tr class="choiceedit">
                                                                         <td>
                                                                             <input type="text"
-                                                                                   onkeyup="SwapTxt_option(event)" onclick="trid(event)" >
-                                                                            <a onclick="delchoice(event)"><i class="ft-minus-circle"></i></a>
+                                                                                   onkeyup="SwapTxt_option(event)"
+                                                                                   onclick="trid(event)" name="choice">
+                                                                            <a onclick="delchoice(event)"><i
+                                                                                    class="ft-minus-circle"></i></a>
                                                                         </td>
                                                                         <td>
-                                                                            <input type="checkbox">
+                                                                            <input type="checkbox"
+                                                                                   onchange="allowblank(event)" name="allowblank">
                                                                         </td>
                                                                         <td>
                                                                             <a><i class="ft-arrow-up"></i></a>
                                                                             <a><i class="ft-arrow-down"></i></a>
                                                                         </td>
                                                                     </tr>
-                                                                      <tr class="choiceedit">
+                                                                    <tr class="choiceedit">
                                                                         <td>
                                                                             <input type="text"
-                                                                                   onkeyup="SwapTxt_option(event)" onclick="trid(event)">
-                                                                            <a onclick="delchoice(event)"><i class="ft-minus-circle"></i></a>
+                                                                                   onkeyup="SwapTxt_option(event)"
+                                                                                   onclick="trid(event)" name="choice">
+                                                                            <a onclick="delchoice(event)"><i
+                                                                                    class="ft-minus-circle"></i></a>
                                                                         </td>
                                                                         <td>
-                                                                            <input type="checkbox">
+                                                                            <input type="checkbox"
+                                                                                   onchange="allowblank(event)" name="allowblank">
                                                                         </td>
                                                                         <td>
                                                                             <a><i class="ft-arrow-up"></i></a>
@@ -352,7 +359,8 @@
                                                                     </tbody>
                                                                 </table>
                                                                 <div style="margin-left: 10px;margin-bottom: 15px">
-                                                                    <a class="addchoice" onclick="addchoice(event)"><span>添加选项</span></a>
+                                                                    <a class="addchoice"
+                                                                       onclick="addchoice(event)"><span>添加选项</span></a>
                                                                 </div>
                                                                 <table class="table table-responsive-sm text-left"
                                                                        style="table-layout: fixed">
@@ -363,21 +371,23 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>
-                                                                            <input type="text">
+                                                                            <input type="text" name="answer">
+                                                                            <a><i class="ft-minus-circle"></i></a>
                                                                         </td>
                                                                         <td>
-                                                                            <input type="text">
+                                                                            <input type="text" name="score">
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
                                                             <div style="margin-left: 10px;margin-bottom: 15px">
-                                                                <a class="addchoice"><span>添加答案</span></a>
+                                                                <a class="addchoice"
+                                                                   onclick="addchoiceanswer(event)"><span>添加答案</span></a>
                                                             </div>
-                                                            <input type="submit"
+                                                            <input type="button"
                                                                    class="btn btn-outline-danger btn-lg  btn-round"
-                                                                   value="保存">
+                                                                   value="保存" onclick="submit_choice(event)">
                                                             <input type="button"
                                                                    class="btn btn-outline-danger btn-lg  btn-round"
                                                                    value="取消">
@@ -435,5 +445,21 @@
 <script src="{% static 'ztreejs/jquery.custom.js' %}"></script>
 <script src="{% static 'src/js/jquery.cookie.js' %}"></script>
 <script src="{% static 'src/js/questionaire.js' %}"></script>
+<script>
+    function submit_choice(e) {
+        e.preventDefault();
+        var a = $(e.target);
+        var form = a.closest('.form-horizontal');
+        console.log(form);
+        $.ajax({
+            type: 'GET',
+            data: form.serialize(),
+            url: '/administrator/questionaire_add',
+            success:function (data) {
+                console.log(data)
+            }
+        });
+    }
+</script>
 </body>
 </html>
