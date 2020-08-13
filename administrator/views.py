@@ -12,6 +12,7 @@ from django.core import serializers
 from administrator.models import TableEvaluationIndicator, TableQuestionContent
 from login.models import TableUser
 import time, xlrd, codecs, csv, os
+from collections import defaultdict
 
 
 def standard(request):
@@ -451,5 +452,40 @@ def questionaire(request):
 
 
 def questionaire_add(request):
-    print(request.GET['choice'])
+    print(request.POST)
+    a = request.POST
+    if 'required' in request.POST:
+        required = 'on'
+    else:
+        required = 'off'
+    if 'attachment' in request.POST:
+        attachment = 'on'
+    else:
+        attachment = 'off'
+    if 'importanswer' in request.POST:
+        importanswer = 'on'
+    else:
+        importanswer = 'off'
+    data = defaultdict(list)
+    data['title'] = request.POST['choicetitle']
+    for i in range(0,len(request.POST.getlist('choice'))):
+        data['answer'].append(request.POST.getlist('choice')[i])
+    scheme = defaultdict(list)
+    for i in range(0,len(request.POST.getlist('answer'))):
+        scheme[request.POST.getlist('answer')[i]] = request.POST.getlist('score')[i]
+    print(json.dumps(scheme))
+    question = {
+        "table_question_content_col_question_type": request.POST['questiontype'],
+        "table_question_content_col_question_class": request.POST['class'],
+        "table_question_content_col_question_required": required,
+        "table_question_content_col_question_attachment": attachment,
+        "table_question_content_col_indicator_id": request.POST['indicatorID'],
+        "table_question_content_col_question_number": request.POST['questionnumber'],
+        'table_question_content_col_question_importanswer': importanswer,
+        'table_question_content_col_markmethod': request.POST['markmethod'],
+        'table_question_content_col_marks': request.POST['points'],
+        'table_question_content_col_content': json.dumps(data),
+        'table_question_content_col_mark_scheme': json.dumps(scheme)
+    }
+    TableQuestionContent.objects.create(**question)
     return JsonResponse({'msg': 'success'})

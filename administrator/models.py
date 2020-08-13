@@ -1,6 +1,7 @@
 from django.db import models
 from supervisor.models import TableEvaluation
 
+
 # Create your models here.
 
 class TableEvaluationIndicator(models.Model):
@@ -33,15 +34,22 @@ class TableEvaluationIndicator(models.Model):
 
 class TableQuestionContent(models.Model):
     table_question_content_col_question_id = models.AutoField(db_column='Table_Question_Content_col_Question_id', primary_key=True)  # Field name made lowercase.
-    table_question_content_col_question_type = models.IntegerField(db_column='Table_Question_Content_col_Question_type',null=True)  # Field name made lowercase.
-    # table_question_content_col_dataset_id = models.IntegerField(db_column='Table_Question_Content_col_DataSet_id')  # Field name made lowercase.
+    table_question_content_col_question_type = models.CharField(db_column='Table_Question_Content_col_Question_type', max_length=256,null=True)  # Field name made lowercase.
+    table_question_content_col_question_class = models.CharField(db_column='Table_Question_Content_col_Question_class',max_length=256,
+                                                                   null=True)  # Field name made lowercase.
+    table_question_content_col_question_required = models.CharField(db_column='Table_Question_Content_col_Question_required',max_length=256,
+                                                                   null=True)  # Field name made lowercase.
+    table_question_content_col_question_attachment = models.CharField(db_column='Table_Question_Content_col_Question_attachment',max_length=256,
+                                                                   null=True)  # Field name made lowercase.
     table_question_content_col_indicator_id = models.IntegerField(db_column='Table_Question_Content_col_Indicator_id',null=True)  # Field name made lowercase.
     table_question_content_col_question_number = models.IntegerField(db_column='Table_Question_Content_col_Question_number',null=True)  # Field name made lowercase.
-    # table_question_content_col_label = models.IntegerField(db_column='Table_Question_Content_col_Label')  # Field name made lowercase.
-    table_question_content_col_auto = models.CharField(db_column='Table_Question_Content_col_Auto', max_length=1,null=True)  # Field name made lowercase.
-    # table_question_content_col_specialist = models.CharField(db_column='Table_Question_Content_col_Specialist', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    table_question_content_col_question_importanswer = models.CharField(db_column='Table_Question_Content_col_Question_Importanswer',max_length=256,
+                                                                   null=True)  # Field name made lowercase.
+    table_question_content_col_markmethod = models.CharField(db_column='Table_Question_Content_col_Markmethod',max_length=256,null=True)  # Field name made lowercase.
     table_question_content_col_marks = models.CharField(db_column='Table_Question_Content_col_Marks', max_length=50,null=True)  # Field name made lowercase.
-    table_question_content_col_content = models.TextField(db_column='Table_Question_Content_col_Content',null=True)  # Field name made lowercase.
+    table_question_content_col_content = models.JSONField(db_column='Table_Question_Content_col_Content',max_length=256,null=True)  # Field name made lowercase.
+    table_question_content_col_mark_scheme = models.JSONField(db_column='Table_Question_Content_col_Mark_scheme', max_length=256,
+                                                                   null=True)  # Field name made lowercase.
 
     class Meta:
         managed = True
