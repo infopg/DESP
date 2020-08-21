@@ -448,12 +448,12 @@ def download_indicator(request):
 
 def questionaire(request):
     a = request.GET.get('nodeID')
-    return render(request, 'standard/questionaire.html')
+    questionlist = TableQuestionContent.objects.filter(table_question_content_col_indicator_id = a).order_by('table_question_content_col_question_number')
+    print(questionlist)
+    return render(request, 'standard/questionaire.html', {'questionlist':questionlist})
 
 
 def questionaire_add(request):
-    print(request.POST)
-    a = request.POST
     if 'required' in request.POST:
         required = 'on'
     else:
@@ -489,3 +489,9 @@ def questionaire_add(request):
     }
     TableQuestionContent.objects.create(**question)
     return JsonResponse({'msg': 'success'})
+
+def questionaire_manage(request):
+    return render(request,'standard/manage.html')
+
+def answer_manage(request):
+    return render(request,'standard/answer.html')

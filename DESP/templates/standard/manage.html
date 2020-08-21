@@ -10,7 +10,7 @@
     <meta name="keywords"
           content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Page for administrator</title>
+    <title>Page for superuser</title>
     <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app-assets/img/ico/apple-icon-60.png' %}">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app-assets/img/ico/apple-icon-76.png' %}">
     <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app-assets/img/ico/apple-icon-120.png' %}">
@@ -30,15 +30,15 @@
     <link rel="stylesheet" type="text/css"
           href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
-    <link rel="stylesheet" href="{% static 'ztreecss/zTreeStyle/zTreeStyle.css' %}">
-    <link rel="stylesheet" href="{% static 'app-assets/css/questionaire.css' %}">
 </head>
-<body data-col="2-columns" class=" 2-columns">
+<body data-col="2-columns" class=" 2-columns ">
+
 <!-- ////////////////////////////////////////////////////////////////////////////-->
+
 <div class="wrapper nav-collapsed menu-collapsed">
 
 
-    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+       <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
         <div class="sidebar-header">
             <div class="logo clearfix"><a href="{% url 'administrator' %}" class="logo-text float-left">
                 <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
@@ -75,7 +75,7 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}"><i class="icon-magnet"></i><span
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
                             data-i18n=""
                             class="menu-title">工作进度</span></a>
                         <ul class="menu-content">
@@ -135,71 +135,57 @@
                 <div class="container-fluid"><!-- Base style table -->
                     <section id="base-style">
                         <div class="row">
-                            <div class="col-12 col-lg-3">
+                            <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <div class="card-title-wrap bar-success">
-                                            <h4 class="card-title">题型选择</h4>
+                                            <h4 class="card-title">欢迎</h4>
                                         </div>
                                     </div>
-                                    <div class="card-body">
-                                    </div>
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-12">
-                                                <ul class="nav-list">
-                                                    <li>
-                                                        <a id="choice"
-                                                           onclick="choice()"><span>选择题</span></a>
-                                                    </li>
-                                                    <li>
-                                                        <a id="blank"
-                                                           onclick="blankfilling()"><span>填空题</span></a>
-                                                    </li>
-                                                    <li>
-                                                        <a id="answer" onclick="answerfilling()"><span>简答题</span></a>
-                                                    </li>
-                                                    <li>
-                                                        <a id="matrix" onclick="matrixfilling()"><span>矩阵题</span></a>
-                                                    </li>
-                                                    <li>
-                                                        <a id="form" onclick="formfilling()"><span>表格题</span></a>
-                                                    </li>
-                                                    <li>
-                                                        <a id="attachment"
-                                                           onclick="attachmentfilling()"><span>附件题</span></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                    <div class="card-body collapse show">
+                                        <div class="card-block card-dashboard">
+                                            <p class="card-text"></p>
+                                            <table class="table table-striped table-bordered base-style">
+                                                <thead>
+                                                <tr>
+                                                    <th>机构ID</th>
+                                                    <th>机构名称</th>
+                                                    <th>机构用户</th>
+                                                    <th>机构管理员</th>
+                                                    <th>问卷状态</th>
+                                                    <th>填报进度</th>
+                                                    <th><button class="btn btn-default">发放</button>
+                                                    <button class="btn btn-default">查看</button>
+                                                    <button class="btn btn-default">发送邮件</button></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                   <th>机构ID</th>
+                                                    <th>机构名称</th>
+                                                    <th>机构用户</th>
+                                                    <th>机构管理员</th>
+                                                    <th>问卷状态</th>
+                                                    <th>填报进度</th>
+                                                    <th><button class="btn btn-default">发放</button>
+                                                    <button class="btn btn-default">查看</button>
+                                                    <button class="btn btn-default">发送邮件</button></th>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-9 col-sm-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="card-title-wrap bar-success">
-                                            <h4 class="card-title">问卷设置</h4>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-body">
-                                        <div class="card-block">
-
-
-                                            <div id="question_list">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
-
                     </section>
+                    <!--/ Base style table -->
                 </div>
             </div>
         </div>
+
         <footer class="footer footer-static footer-light">
             <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2018 <a href="#" id="pixinventLink"
                                                                                             target="_blank"
@@ -209,9 +195,7 @@
 
     </div>
 </div>
-<!-- BEGIN VENDOR JS-->
 <script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static 'ztreejs/jquery.ztree.all.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
@@ -229,15 +213,7 @@
 <!-- END CONVEX JS-->
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
-<script src="{% static 'ztreejs/jquery.ztree.core.js' %}"></script>
-<script type="text/javascript" src="{% static 'ztreejs/jquery.ztree.exhide.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'ztreejs/fuzzysearch.js' %}"></script>
-<!-- END PAGE LEVEL JS-->
-<script src="{% static 'ztreejs/csrf.js' %}"></script>
-<script src="{% static 'ztreejs/jquery.custom.js' %}"></script>
 <script src="{% static 'src/js/jquery.cookie.js' %}"></script>
-<script src="{% static 'src/js/questionaire.js' %}"></script>
-<script>
-</script>
+<!-- END PAGE LEVEL JS-->
 </body>
 </html>
