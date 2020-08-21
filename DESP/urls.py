@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'', include('login.urls')),
     url(r'supervisor', include('supervisor.urls')),
     url(r'administrator',include('administrator.urls')),
+
 ]

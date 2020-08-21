@@ -59,6 +59,7 @@
                             <li><a href="{% url 'questionaire_manage' %}" class="menu-item">问卷管理</a></li>
                             <li><a href="{% url 'answer_manage' %}" class="menu-item">答案管理</a></li>
                         </ul>
+
                     </li>
                     <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
                             data-i18n=""
@@ -136,7 +137,8 @@
                     <section id="base-style">
                         <div class="row">
                             <div class="col-12 col-lg-3">
-                                <div class="card">
+                                <div class="card" style="position:sticky; position: -webkit-sticky">
+
                                     <div class="card-header">
                                         <div class="card-title-wrap bar-success">
                                             <h4 class="card-title">题型选择</h4>
@@ -185,8 +187,6 @@
 
                                     <div class="card-body">
                                         <div class="card-block">
-
-
                                             <div id="question_list">
                                             </div>
                                         </div>

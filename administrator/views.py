@@ -12,7 +12,9 @@ from django.core import serializers
 from administrator.models import TableEvaluationIndicator, TableQuestionContent
 from login.models import TableUser
 import time, xlrd, codecs, csv, os
+
 from collections import defaultdict
+
 
 
 def standard(request):
@@ -495,3 +497,4 @@ def questionaire_manage(request):
 
 def answer_manage(request):
     return render(request,'standard/answer.html')
+

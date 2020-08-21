@@ -1,7 +1,6 @@
 from django.db import models
 from supervisor.models import TableEvaluation
 
-
 # Create your models here.
 
 class TableEvaluationIndicator(models.Model):
@@ -50,6 +49,7 @@ class TableQuestionContent(models.Model):
     table_question_content_col_content = models.JSONField(db_column='Table_Question_Content_col_Content',max_length=256,null=True)  # Field name made lowercase.
     table_question_content_col_mark_scheme = models.JSONField(db_column='Table_Question_Content_col_Mark_scheme', max_length=256,
                                                                    null=True)  # Field name made lowercase.
+
 
     class Meta:
         managed = True

@@ -4,6 +4,7 @@ $.ajaxSetup({
 
 
 function blankfilling() {
+
     var len = $(".div_question").length + 1;
     $('#question_list').append("                                               <div class=\"div_question\" id = " + len + ">\n" +
         "                                                        <form method=\"post\" class=\"form-horizontal\">\n" +
@@ -197,6 +198,7 @@ function answerfilling() {
     var questionlist = document.getElementById('question_list');
     var addanswer = $();
     addanswer.appendTo(questionlist)
+
 }
 
 function clearForm_choice(e) {
@@ -207,6 +209,7 @@ function clearForm_choice(e) {
     var form = bt.closest('form');
     form[0].reset();
 
+
 }
 
 function SwapTxt(e) {
@@ -215,6 +218,7 @@ function SwapTxt(e) {
     val = bt.parent().children().eq(1).val();
     if (bt.parent().prev().find('h5').eq(1).html() === '') {
         bt.parent().prev().find('h5').eq(1).html('Question' + ' ' + val)
+
     }
 }
 
@@ -230,6 +234,7 @@ function SwapTxt_option(e) {
     choice.closest('.div_question').find('.choice_list').children().eq(a).children('span').html(choice.val());
     if (choice.closest('.div_question').find('.choice_list').children().eq(a).children('span').html() === '') {
         choice.closest('.div_question').find('.choice_list').children().eq(a).children('span').html('Answer' + (a + 1))
+
     }
 }
 
@@ -243,6 +248,7 @@ function allowblank(e) {
     } else if (a.is(':checked') === false) {
         ul.children('a').remove();
         // ul.removeChild(ul.getElementsByTagName('a')[0])
+
     }
 }
 
@@ -263,6 +269,7 @@ function delchoice(e) {
     // table.deleteRow(tr);
 
 }
+
 
 
 
@@ -288,6 +295,7 @@ function addchoice(e) {
     var addli = $('<li class="mb-2">\n' +
         '                                                                        <input type="checkbox">\n' +
         '                                                                        <span>' + 'Answer' + (table.rows.length - 1) + '</span>' + '</li>');
+
     addli.appendTo(choicelist);
 }
 
@@ -342,6 +350,7 @@ function toggle_edit(event) {
     $(next).toggle();
 }
 
+
 function moveup(e) {
     var a = $(e.target).parent().parent().parent();
     var prev = a.prev();
@@ -349,10 +358,104 @@ function moveup(e) {
     if (a.index() > 1) {
         list.children().eq(a.index() - 1).insertBefore(list.children().eq(a.index() - 1).prev());
         a.insertBefore(prev);
+    }
+}
+function hide_edit(event){
+    var next = event.currentTarget.parentElement;
+    $(next).hide();
+}
+
+function matrix_title_split(event){
+    var add_ques = $('<tr>\n'+
+                                                                    '<th align="left"\n'+
+                                                                        'style="border-bottom: 1px solid #efefef;">选项\n'+
+                                                                    '</th>\n'+
+                                                                    '<td><a class="ft-circle"\n'+
+                                                                           'style="position: static"></a></td>\n'+
+                                                                    '<td><a class="ft-circle"\n'+
+                                                                           'style="position: static"></a></td>\n'+
+                                                                    '<td><a class="ft-circle"\n'+
+                                                                           'style="position: static"></a></td>\n'+
+                                                                    '<td><a class="ft-circle"\n'+
+                                                                           'style="position: static"></a></td>\n'+
+                                                                    '<td><a class="ft-circle"\n'+
+                                                                           'style="position: static"></a></td>\n'+
+                                                                '</tr>\n');
+    var text_edit = event.currentTarget;
+    var question_titles = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children;
+    var question_table = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1];
+    var lines = $(text_edit).val().split(/\n/);
+    console.log(lines[0]);
+    var choice_name = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].firstElementChild.children;
+    var item_length = choice_name.length - 1;
+    if (lines.length > question_titles.length){
+        $(question_titles[0]).clone().appendTo(question_table)
+    } else if (lines.length < question_titles.length){
+        $(question_titles[question_titles.length - 1]).remove();
+    } else {
+        for (var i = 0; i < lines.length; i++) {
+            question_titles[i].firstElementChild.innerHTML = lines[i];
+        }
+    }
+}
+
+function table_title_split(event){
+    var text_edit = event.currentTarget;
+    var question_table = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1];
+    var question_titles = question_table.children;
+    var add_ques = (Array.prototype.slice.call(question_titles))[0];
+    var lines = $(text_edit).val().split(/\n/);
+    if (lines.length > question_titles.length){
+        $(question_titles[0]).clone().appendTo(question_table);
+    } else if (lines.length < question_titles.length){
+        $(question_titles[question_titles.length - 1]).remove();
+    } else {
+        for (var i = 0; i < lines.length; i++) {
+            question_titles[i].firstElementChild.innerHTML = lines[i];//bug 空格同步
+        }
+    }
+}
+
+function table_choice_split(event){
+    var text_edit = event.currentTarget;
+    var question_titles = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children;
+    var testques = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1];
+    var choice_name = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].firstElementChild.children;
+    var question_table = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].closest('table');
+    var lines = $(text_edit).val().split(/\n/);
+    var add_choice = $('<td style="border-bottom:1px solid #efefef;"\n'+
+                                                                         "align='center'><textarea></textarea></td>')\n");
+    if (lines.length > (choice_name.length - 1)){
+        add_choice.appendTo(question_titles);
+        var Cell = $('<td align = "center"></td>')
+        for (var i = 0; i<lines.length;i++){
+            var thead =text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].children[0]
+            Cell.appendTo(thead)
+//            choice_name[i+1].innerHTML = lines[i]
+        }
+    } else if (lines.length < (choice_name.length - 1)){
+//        for (var i = 0; i < lines.length; i++){
+//            console.log($((question_titles[i]).children))
+//            $((question_titles[i]).children[choice_name.length - 1]).remove();
+//        }
+        var index = lines.length;
+        console.log(index);
+        console.log(question_table);
+        $(question_table).find('tr').each(function(){
+            var target = $(this);
+            var td = target.children();
+            console.log(td);
+            $(td[index+1]).remove();
+        })
+    }else{
+        for (var i = 0; i<lines.length;i++){
+            choice_name[i+1].innerHTML = lines[i];
+        }
 
     }
 
 }
+
 
 
 function movedown(e) {
@@ -374,5 +477,56 @@ function variableID(prefix) {
         formlist[i].setAttribute('id', testID)
     }
     return testID;
+}
+
+function addcolumn(event){
+    var e = event.currentTarget;
+    var table = e.closest('form').firstElementChild.children[1].firstElementChild;
+    var choice_add = e.parentElement.previousElementSibling.firstElementChild;
+    $(choice_add).append('<tr>\n'+
+                                                                    '<td>\n'+
+                                                                    '<input type="text" name="optionedit"\n'+'onkeyup="matrix_text_swap(event)" value="placeholder">\n'+
+                                                                        '<a><i class="ft-minus-circle" onclick="minuscolumn(event)"></i></a>\n'+
+                                                                    '</td>\n'+
+                                                                    '<td>\n'+
+                                                                        '<input name="allowblank" type="checkbox">\n'+
+                                                                    '</td>\n'+
+                                                                    '<td>\n'+
+                                                                        '<a onclick="move_up(event)"><i class="ft-arrow-up"></i></a>\n'+
+                                                                        '<a onclick="move_down(event)"><i class="ft-arrow-down"></i></a>\n'+
+                                                                    '</td>\n'+
+                                                                "</tr>')\n");
+    //console.log(table);
+    $(table).find('tr').each(function(){
+        var target = $(this);
+        if(target.parent().get(0) == table.firstElementChild){ //&& (target.parent() === $(table.children[0]))){
+            target.append('<td width="9.6%" align="center">placeholder</td>');
+        }else{
+            target.append('<td><a class="ft-circle" style="position: static"></a></td>');
+        }
+    })
+}
+
+function minuscolumn(event){
+    var e = event.currentTarget;
+    var table = e.closest('form').firstElementChild.children[1].firstElementChild;
+    console.log($(e).closest('.div_question').find('table')[1]); //下面的table
+    console.log($(e).closest('tr').index()); //要删第几行
+    var index = $(e).closest('tr').index();
+    $(e.closest('tr')).remove();
+    $(table).find('tr').each(function(){
+        var target = $(this);
+        var td = target.children();
+        console.log(td);
+        $(td[index]).remove();
+    })
+}
+
+function matrix_text_swap(event){
+    var e = event.currentTarget;
+    var table = e.closest('tbody');
+    var thead = e.closest('form').firstElementChild.children[1].firstElementChild.children[0].firstElementChild.children;
+    thead[$(e.closest('tr')).index()].innerHTML = $(e).val();
+
 }
 

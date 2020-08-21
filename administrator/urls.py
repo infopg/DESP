@@ -4,6 +4,7 @@ from django.urls import path
 from django.conf.urls import include, url, re_path
 from administrator.views import standard, delete, edit, timeliner, questionaire_add, questionaire_manage,answer_manage
 
+
 urlpatterns = [
     url('/standard', standard, name='standard'),
     url(r'/delete', name='delete', view=views.delete),
@@ -19,5 +20,6 @@ urlpatterns = [
     url('/timeliner', timeliner, name='timeliner'),
     url(r'/questionaire_manage$', questionaire_manage, name='questionaire_manage'),
     url(r'/answer_manage$', answer_manage, name='answer_manage')
+
 
 ]
