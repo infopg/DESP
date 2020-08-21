@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" class="loading">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description"
+          content="Convex admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <title>Page for administrator</title>
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app-assets/img/ico/apple-icon-60.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app-assets/img/ico/apple-icon-76.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app-assets/img/ico/apple-icon-120.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'app-assets/img/ico/apple-icon-152.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'app-assets/img/ico/favicon.ico' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'app-assets/img/ico/favicon-32.png' %}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
+          rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'ztreecss/zTreeStyle/zTreeStyle.css' %}">
+    <style type="text/css">
+        div#rMenu {
+            position: absolute;
+            visibility: hidden;
+            top: 0;
+            background-color: #e5ebff;
+            text-align: left;
+            padding: 3px;
+        }
+
+        div#rMenu a {
+            cursor: pointer;
+            list-style: none outside none;
+        }
+
+        .aMenu {
+            font-size: small;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body data-col="2-columns" class=" 2-columns ">
+
+<div class="modal fade" id="editForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">修改指标</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <form class="form-horizontal" id="editForm_Content"
+                              method="post"
+                              action="">{% csrf_token %}
+
+                            <table class="table table-responsive-md text-center" id="manageList">
+                                <thead>
+                                <tr>
+                                    <th style="display: none">id</th>
+                                    <th>指标</th>
+                                    <th>权重</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tb">
+
+                                </tbody>
+
+                                <tfoot id="tdfoot">
+
+                                <tr>
+                                    {#                                    <td style="display: none"></td>#}
+                                    {#                                    <td>总计</td>#}
+                                    {#                                    <td></td>#}
+                                    {#                                    <td></td>#}
+                                </tr>
+
+
+                                </tfoot>
+
+                            </table>
+                            <button class="btn btn-primary mb-2" onclick="return addrow();">添加</button>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"
+                                        onclick="submit_type=1">提交
+                                </button>
+                                <button class="btn btn-default pull-left"
+                                        data-dismiss="modal">关闭
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mymodal_update_indicator" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="UploadLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="UploadLabel">导入表格（.xlsx格式）</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="UpdateForm_Content_Indicator" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="modal-footer">
+                        <input type="file" id="fafafa">
+                        <input type="submit" id="file_upload">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+<div class="wrapper nav-collapsed menu-collapsed">
+
+
+    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="{% url 'administrator' %}" class="logo-text float-left">
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
+                <span class="text align-middle">CNIC</span></a><a id="sidebarToggle" href="javascript:;"
+                                                                  class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i
+                    data-toggle="collapsed" class="ft-circle toggle-icon"></i></a><a id="sidebarClose"
+                                                                                     href="javascript:;"
+                                                                                     class="nav-close d-block d-md-block d-lg-none d-xl-none"><i
+                    class="ft-circle"></i></a></div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-screen-desktop"></i><span
+                            data-i18n=""
+                            class="menu-title">数据采集</span></a>
+                    </li>
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">数据统计</span></a></li>
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">项目分类</span></a>
+                        <ul class="menu-content">
+                            {% for u in evalname %}
+                                <li>
+                                    <a href="{% url 'standard' %}?evalname={{ u.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ u.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">工作进度</span></a>
+                        <ul class="menu-content">
+                            {% for t in evalname %}
+                                <li>
+                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ t.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
+                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span></button>
+                <span class="d-lg-none navbar-right navbar-collapse-toggle"><a class="open-navbar-container"><i
+                        class="ft-more-vertical"></i></a></span><a id="navbar-fullscreen" href="javascript:;"
+                                                                   class="mr-2 display-inline-block apptogglefullscreen"><i
+                    class="ft-maximize blue-grey darken-4 toggleClass"></i>
+                <p class="d-none">fullscreen</p></a>
+
+            </div>
+            <div class="navbar-container">
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                                class="avatar avatar-online"><img id="navbar-avatar"
+                                                                  src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
+                                                                  alt="avatar"/></span>
+                            <p class="d-none">User Settings</p></a>
+                            <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
+                                <div class="arrow_box_right">
+                                    <a href="{% url 'logout' %}" class="dropdown-item"><i
+                                            class="ft-power mr-2"></i><span>Logout</span></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-panel">
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="container-fluid"><!-- Base style table -->
+                    <section id="base-style">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title-wrap bar-success">
+                                            <h4 class="card-title">欢迎</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">            {% if message %}
+                                        <div class="alert alert-warning">{{ message }}</div>
+                                    {% endif %}{% csrf_token %}</div>
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-12">
+                                                <p>
+                                                    <a class="btn mr-1 btn-round btn-secondary"
+                                                       href="{% url "indicator_export" %}?current_eval={{ current_eval }}">导出</a>
+
+                                                    <button type="button" class="btn mr-1 btn-secondary"
+                                                            data-toggle="modal"
+                                                            data-target="#mymodal_update_indicator">上传模板
+                                                    </button>
+                                                    <a class="btn mr-1 btn-secondary"
+                                                       href="{% url "download_indicator" %}">下载模板</a>
+
+                                                </p>
+                                                <div style="width: 600px">
+                                                    <input id="keyword" type="search" placeHolder="搜索关键字"/>
+                                                </div>
+                                                <div>
+                                                    <ul id="treeDemo" class="ztree"></ul>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--/ Base style table -->
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer footer-static footer-light">
+            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2018 <a href="#" id="pixinventLink"
+                                                                                            target="_blank"
+                                                                                            class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
+            </p>
+        </footer>
+
+    </div>
+</div>
+<div id="rMenu">
+    <a class="list-group-item aMenu" id="item_edit"
+       onclick="standard_edit()">管理指标</a>
+    <a class="list-group-item aMenu" id="item_ques"
+       onclick="standard_question()">编辑问卷</a>
+</div>
+<!-- BEGIN VENDOR JS-->
+<script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'ztreejs/jquery.ztree.all.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/prism.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/jquery.matchHeight-min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/screenfull.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/pace/pace.min.js' %}"></script>
+<!-- BEGIN VENDOR JS-->
+<!-- BEGIN PAGE VENDOR JS-->
+<script src="{% static 'app-assets/vendors/js/datatable/datatables.min.js' %}"></script>
+<!-- END PAGE VENDOR JS-->
+<!-- BEGIN CONVEX JS-->
+<script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+<script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+<!-- END CONVEX JS-->
+<!-- BEGIN PAGE LEVEL JS-->
+<script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
+<script src="{% static 'ztreejs/jquery.ztree.core.js' %}"></script>
+<script type="text/javascript" src="{% static 'ztreejs/jquery.ztree.exhide.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'ztreejs/fuzzysearch.js' %}"></script>
+<!-- END PAGE LEVEL JS-->
+<script src="{% static 'ztreejs/csrf.js' %}"></script>
+<script src="{% static 'ztreejs/jquery.custom.js' %}"></script>
+<script src="{% static 'src/js/jquery.cookie.js' %}"></script>
+<script>
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
+    });
+    // 页面加载时生成树
+    var setting = {
+
+        view: {
+            selectedMulti: false,
+            nameIsHTML: true
+        },
+        edit: {
+            enable: false,
+            editNameSelectAll: false
+        },
+        data: {
+            key: {
+                name: "name",
+                weight: "weight"
+            },
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId",
+            },
+            keep: {
+                parent: true
+            }
+
+        },
+        callback: {
+            onClick: onClick
+
+        }
+
+    };
+    var zTree = $.fn.zTree.init($("#treeDemo"), setting, {{ data|safe }});
+    zTree.expandAll(true);
+    fuzzySearch('treeDemo', '#keyword', null, true);
+
+    function standard_question() {
+        window.location.href = "{% url 'questionaire'  %}" + "?" + "nodeID" + "=" + standardID;
+    }
+
+    function addrow() {
+        var tables = document.getElementById('manageList');
+        var addtr = $("<tr class=\"newvalue\">" +
+            "<td style=\"display: none\"></td>" +
+            "<td contenteditable=\"true\"></td>" +
+            "<td contenteditable=\"true\"></td>" +
+            "<td><input type=\"button\" value=\"删除\" class=\"btn mr-1 btn-danger\" onclick=\"deletenull(this.id)\"></td>" +
+            "</tr>");
+        addtr.appendTo(tables);
+        var val_diff = document.getElementsByClassName('newvalue');
+        for (var j = val_diff.length - 1; j < val_diff.length; j++) {
+            val_diff[j].id = Math.random().toString(36).substr(2);
+            var total = 0;
+            var calcDiff = function (table, column) {
+                var trs = table.getElementsByTagName('tr');
+                {#var total = 0;#}
+                for (var i = 1; i < trs.length - 1; i++) {
+                    var td = trs[i].getElementsByTagName('td')[column];
+                    var t = parseFloat(td.innerHTML);
+                    if (t) total += t;
+                }
+                document.getElementById(val_diff[j].id).getElementsByTagName('td')[column].innerHTML = 100 - total;
+            };
+            calcDiff(document.getElementById('tb'), 2);
+        }
+
+        var links = document.getElementsByClassName('btn mr-1 btn-danger');
+        for (var i = 0; i < links.length; i++) {
+            links[i].id = i;
+        }
+
+
+        return false
+    }
+
+    function deletenull(e) {
+        document.getElementById(e).parentNode.parentNode.parentNode.removeChild(document.getElementById(e).parentNode.parentNode);
+    }
+
+    function standard_edit() {
+        $.ajax({
+            type: 'GET',
+            data: {
+                'edit_id': standardID
+            },
+            async: false,
+            url: "{% url "edit" %}",
+            dataType: 'json',
+            success: function (data) {
+                $("#manageList tbody").html("");
+                var tbody = document.getElementById('tb');
+                trow = getRow(eval(data.data)[0]);
+                trow.setAttribute('style', 'color: blue');
+                tbody.appendChild(trow);
+
+                function getRow(h) {
+                    var row = document.createElement('tr');
+
+                    var idCell = document.createElement('td');
+                    idCell.setAttribute('style', 'display: none');
+                    idCell.innerHTML = h.pk;
+                    row.appendChild(idCell);
+
+                    var nameCell = document.createElement('td');
+                    nameCell.setAttribute('contentEditable', 'false');
+                    nameCell.innerHTML = h.fields.table_evaluation_indicator_col_name;
+                    row.appendChild(nameCell);
+
+                    var weightCell = document.createElement('td');
+                    weightCell.innerHTML = h.fields.table_evaluation_indicator_col_weight;
+                    weightCell.setAttribute('contentEditable', 'false');
+                    row.appendChild(weightCell);
+
+                    var delCell = document.createElement('td');
+                    row.appendChild(delCell);
+                    return row
+                }
+
+                for (var i = 1; i < eval(data.data).length; i++) {
+                    var trow = getDataRow(eval(data.data)[i]);
+                    tbody.appendChild(trow);
+                }
+
+                function getDataRow(h) {
+                    var row = document.createElement('tr');
+
+                    var idCell = document.createElement('td');
+                    idCell.setAttribute('style', 'display: none');
+                    idCell.innerHTML = h.pk;
+                    row.appendChild(idCell);
+
+                    var nameCell = document.createElement('td');
+                    nameCell.setAttribute('contentEditable', 'true');
+                    nameCell.innerHTML = h.fields.table_evaluation_indicator_col_name;
+                    row.appendChild(nameCell);
+
+                    var weightCell = document.createElement('td');
+                    weightCell.innerHTML = h.fields.table_evaluation_indicator_col_weight;
+                    weightCell.setAttribute('contentEditable', 'true');
+                    row.appendChild(weightCell);
+
+                    var node = zTree.getNodeByParam("id", h.pk);
+                    if (node.children && node.children.length > 0) {
+                        var delCell = document.createElement('td');
+                        row.appendChild(delCell);
+                        return row
+                    } else {
+                        var delCell = document.createElement('td');
+                        row.appendChild(delCell);
+                        var btnDel = document.createElement('input');
+                        btnDel.setAttribute('type', 'button');
+                        btnDel.setAttribute('value', '删除');
+                        btnDel.setAttribute('class', 'btn mr-1 btn-secondary');
+
+                        //删除操作
+                        btnDel.onclick = function () {
+                            if (confirm("确定删除这一行嘛？")) {
+                                this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
+                                var deleteID = h.pk;
+                                $.ajax({
+                                    type: "post",
+                                    url: "{% url "delete" %}",
+                                    async: false,
+                                    data: {
+                                        delete_id: deleteID
+                                    },
+                                    dataType: "json",
+                                    success: function (data) {
+                                        standard_edit();
+                                        alert(data.message);
+                                    },
+                                    error: function (data) {
+                                        alert(data.message)
+                                    }
+                                });
+
+                            }
+                        };
+                        delCell.appendChild(btnDel);
+                        return row;
+
+                    }
+                }
+
+            }
+        });
+        $('#editForm').modal('show');
+    }
+
+    // 当点击tree节点时触发
+    function onClick(e, treeId, treeNode) {
+        standardname = treeNode.name;
+        standardID = treeNode.id;
+        parentstandID = treeNode.pId;
+        if (treeNode.type === 0) {
+            return;
+        }
+        showRMenustand(treeNode.pId, event.pageX, event.pageY);
+    }
+
+
+    function showRMenustand(type, x, y) {
+        var nodes = zTree.getSelectedNodes();
+        $("#rMenu").show();
+        if (nodes[0].children && nodes[0].children.length > 0) {
+            $("#item_ques").hide();
+        } else {
+            $("#item_eidt").show();
+            $("#item_ques").show();
+        }
+        $("#rMenu").css({"top": y + "px", "left": x + "px", "visibility": "visible", 'z-index': '50'}); //设置右键菜单的位置、可见
+        $("body").bind("mousedown", onBodyMouseDownstand);
+    }
+
+    function onBodyMouseDownstand(event) {
+        if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length > 0)) {
+            $("#rMenu").css({"visibility": "hidden"});
+        }
+    }
+
+
+    $('#editForm_Content').submit(function (event) {
+        event.preventDefault();
+        var data = [];
+        for (var i = 0; i < document.getElementById('manageList').rows.length - 1; i++) {
+            for (var j = 0; j < document.getElementById('manageList').rows[i].cells.length - 1; j++) {
+                if (!data[i]) {
+                    data[i] = [];
+                }
+                data[i][j] = document.getElementById('manageList').rows[i].cells[j].innerHTML;
+            }
+        }
+        console.log(data);
+        $.ajax({
+            type: "post",
+            url: "{% url "edit" %}",
+            data: {
+                'datalist': JSON.stringify(data)
+            },
+            dataType: "json",
+            success:
+                function (data) {
+                    window.location.reload();
+                    alert(data.message);
+                }
+            ,
+            error: function (data) {
+                alert(data.message)
+            }
+        });
+    });
+
+    $("#UpdateForm_Content_Indicator").submit(function () {
+        var file = $('input[type=file]')[0].files[0];
+        var formdata = new FormData();
+        var csrf = $('input[name=csrfmiddlewaretoken]').val();
+        formdata.append('file_obj_indicator', file);
+        formdata.append('csrfmiddlewaretoken', csrf);
+        $.ajax({
+            type: 'POST',
+            async: false,
+            data: formdata,
+            url: "{% url "upload_indicator" %}?current_eval={{ current_eval }}&current_admin={{ current_admin }}",
+            cache: false,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            header: {
+                'X-CSRFToken': $.cookie('csrftoken'),
+            },
+            success: function (data) {
+                window.location.reload();
+                alert(data.message);
+
+            },
+            error: function (data) {
+                alert('模板错误');
+
+            }
+        });
+        return false;
+    });
+</script>
+</body>
+</html>

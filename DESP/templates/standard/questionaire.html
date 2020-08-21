@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" class="loading">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description"
+          content="Convex admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Page for administrator</title>
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app-assets/img/ico/apple-icon-60.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app-assets/img/ico/apple-icon-76.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app-assets/img/ico/apple-icon-120.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'app-assets/img/ico/apple-icon-152.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'app-assets/img/ico/favicon.ico' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'app-assets/img/ico/favicon-32.png' %}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'ztreecss/zTreeStyle/zTreeStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'app-assets/css/questionaire.css' %}">
+</head>
+<body data-col="2-columns" class=" 2-columns">
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+<div class="modal fade" id="editForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">填空属性</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <div>当前问题：姓名：______ 年龄: _______ 电话: _______</div>
+                        <form class="form-horizontal" id="editForm_Content"
+                              method="post"
+                              action="">{% csrf_token %}
+
+                            <table class="table table-responsive-md text-center" id="manageList">
+                                <tbody id="tb">
+                                <tr>
+                                    <td style="display: none">id</td>
+                                    <td>填空</td>
+                                    <td>分值</td>
+                                    <td>答案</td>
+                                </tr>
+                                <tr>
+                                    <td>填空1</td>
+                                    <td><select>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select></td>
+                                    <td><a class="addchoice"><span>添加答案</span></a></td>
+                                </tr>
+                                <tr>
+                                    <td>填空2</td>
+                                    <td><select>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select></td>
+                                    <td><a class="addchoice"><span>添加答案</span></a></td>
+                                </tr>
+                                <tr>
+                                    <td>填空3</td>
+                                    <td><select>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select></td>
+                                    <td><a class="addchoice"><span>添加答案</span></a></td>
+                                </tr>
+                                </tbody>
+
+                                <tfoot id="tdfoot">
+
+                                <tr>
+                                    {#                                    <td style="display: none"></td>#}
+                                    {#                                    <td>总计</td>#}
+                                    {#                                    <td></td>#}
+                                    {#                                    <td></td>#}
+                                </tr>
+
+
+                                </tfoot>
+
+                            </table>
+                            <button class="btn btn-primary mb-2" onclick="return addrow();">添加</button>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"
+                                        onclick="submit_type=1">提交
+                                </button>
+                                <button class="btn btn-default pull-left"
+                                        data-dismiss="modal">关闭
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper nav-collapsed menu-collapsed">
+
+
+    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="{% url 'administrator' %}" class="logo-text float-left">
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
+                <span class="text align-middle">CNIC</span></a><a id="sidebarToggle" href="javascript:;"
+                                                                  class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i
+                    data-toggle="collapsed" class="ft-circle toggle-icon"></i></a><a id="sidebarClose"
+                                                                                     href="javascript:;"
+                                                                                     class="nav-close d-block d-md-block d-lg-none d-xl-none"><i
+                    class="ft-circle"></i></a></div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-screen-desktop"></i><span
+                            data-i18n=""
+                            class="menu-title">数据采集</span></a>
+                    </li>
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">数据统计</span></a></li>
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">项目分类</span></a>
+                        <ul class="menu-content">
+                            {% for u in evalname %}
+                                <li>
+                                    <a href="{% url 'standard' %}?evalname={{ u.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ u.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}"><i class="icon-magnet"></i><span
+                            data-i18n=""
+                            class="menu-title">工作进度</span></a>
+                        <ul class="menu-content">
+                            {% for t in evalname %}
+                                <li>
+                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ t.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
+                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span></button>
+                <span class="d-lg-none navbar-right navbar-collapse-toggle"><a class="open-navbar-container"><i
+                        class="ft-more-vertical"></i></a></span><a id="navbar-fullscreen" href="javascript:;"
+                                                                   class="mr-2 display-inline-block apptogglefullscreen"><i
+                    class="ft-maximize blue-grey darken-4 toggleClass"></i>
+                <p class="d-none">fullscreen</p></a>
+
+            </div>
+            <div class="navbar-container">
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                                class="avatar avatar-online"><img id="navbar-avatar"
+                                                                  src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
+                                                                  alt="avatar"/></span>
+                            <p class="d-none">User Settings</p></a>
+                            <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
+                                <div class="arrow_box_right">
+                                    <a href="{% url 'logout' %}" class="dropdown-item"><i
+                                            class="ft-power mr-2"></i><span>Logout</span></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-panel">
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="container-fluid"><!-- Base style table -->
+                    <section id="base-style">
+                        <div class="row">
+                            <div class="col-12 col-lg-3">
+                                <div class="card" style="position:sticky; position: -webkit-sticky">
+                                    <div class="card-header">
+                                        <div class="card-title-wrap bar-success">
+                                            <h4 class="card-title">题型选择</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-12">
+                                                <ul class="nav-list">
+                                                    <li>
+                                                        <a id="choice"
+                                                           onclick="choice()"><span>选择题</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a id="blank"
+                                                           onclick="blankfilling()"><span>填空题</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a id="answer" onclick="answerfilling()"><span>简答题</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a id="matrix" onclick="matrixfilling()"><span>矩阵题</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a id="form" onclick="formfilling()"><span>表格题</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a id="attachment"
+                                                           onclick="attachmentfilling()"><span>附件题</span></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9 col-sm-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title-wrap bar-success">
+                                            <h4 class="card-title">问卷设置</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="card-block">
+                                            <button onclick="test()" class="btn mr-1 btn-secondary">add</button>
+
+                                            <div id="question_list">
+
+                                                <div class="div_question">
+                                                    <form method="post" class="form-horizontal">{% csrf_token %}
+                                                        <div onclick="toggle_edit(event)">
+                                                            <div >
+                                                                <h5 style="display: inline">1.&nbsp;Question 1</h5>
+                                                            </div>
+                                                            <div>
+                                                                <ul class="choice_list">
+                                                                    <li class="mb-2">
+                                                                        <input type="checkbox">
+                                                                        <span>Answer1</span></li>
+                                                                    <li class="mb-2">
+                                                                        <input type="checkbox">
+                                                                        <span>Answer2</span></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <input style="display: none" name="questiontype" value="选择题">
+                                                        <textarea class="form-control"
+                                                                  onkeyup="SwapTxt(event)" name="choicetitle"></textarea>
+                                                            <div class="row" style="margin-top: 15px">
+                                                                <div class="col-md-9">
+                                                        <span><select class="form-control-sm" name="class">
+                                                            <option>单选</option>
+                                                            <option>多选</option>
+                                                        </select>
+                                                            </span>
+                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                            type="checkbox" name="required"><span>必答题</span></span>
+                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                            type="checkbox" name="attachment"><span>含附件上传</span></span>
+                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select
+                                                                            class="form-control-sm" name="markmethod">
+                                                            <option>自动打分</option>
+                                                            <option>手动打分</option>
+                                                        </select></span>
+                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                            type="checkbox" name="importanswer"><span>导入答案</span></span>
+                                                                </div>
+                                                            </div>
+                                                            <div style="margin-top: 15px">
+                                                                <table class="table table-responsive-sm text-left"
+                                                                       style="table-layout: fixed">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td>选项文字</td>
+                                                                        <td>允许填空</td>
+                                                                        <td>上移下移</td>
+                                                                    </tr>
+                                                                    <tr class="choiceedit">
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                   onkeyup="SwapTxt_option(event)"
+                                                                                   onclick="trid(event)" name="choice">
+                                                                            <a onclick="delchoice(event)"><i
+                                                                                    class="ft-minus-circle"></i></a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="checkbox"
+                                                                                   onchange="allowblank(event)" name="allowblank">
+                                                                        </td>
+                                                                        <td>
+                                                                            <a><i class="ft-arrow-up"></i></a>
+                                                                            <a><i class="ft-arrow-down"></i></a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="choiceedit">
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                   onkeyup="SwapTxt_option(event)"
+                                                                                   onclick="trid(event)" name="choice">
+                                                                            <a onclick="delchoice(event)"><i
+                                                                                    class="ft-minus-circle"></i></a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="checkbox"
+                                                                                   onchange="allowblank(event)" name="allowblank">
+                                                                        </td>
+                                                                        <td>
+                                                                            <a><i class="ft-arrow-up"></i></a>
+                                                                            <a><i class="ft-arrow-down"></i></a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <div style="margin-left: 10px;margin-bottom: 15px">
+                                                                    <a class="addchoice"
+                                                                       onclick="addchoice(event)"><span>添加选项</span></a>
+                                                                </div>
+                                                                <table class="table table-responsive-sm text-left"
+                                                                       style="table-layout: fixed">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td>正确答案</td>
+                                                                        <td>分值</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input type="text" name="answer">
+                                                                            <a><i class="ft-minus-circle"></i></a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text" name="score">
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div style="margin-left: 10px;margin-bottom: 15px">
+                                                                <a class="addchoice"
+                                                                   onclick="addchoiceanswer(event)"><span>添加答案</span></a>
+                                                            </div>
+                                                            <input type="button"
+                                                                   class="btn btn-outline-danger btn-lg  btn-round"
+                                                                   value="保存" onclick="submit_choice(event); hide_edit(event)">
+                                                            <input type="button"
+                                                                   class="btn btn-outline-danger btn-lg  btn-round"
+                                                                   value="取消">
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                                <div class="div_question">
+                                                    <form method ="post" class="form-horizontal">
+                                                    <div onclick="toggle_edit(event)" style="margin-top: 50px">
+                                                        <div>
+                                                            <h5 style="display:inline">4. Question 4</h5>
+                                                        </div>
+                                                        <div>
+                                                            <table class="table table-responsive-sm text-left">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <td width="9.6%" align="center">很不满意</td>
+                                                                    <td width="9.6%" align="center">不满意</td>
+                                                                    <td width="9.6%" align="center">一般</td>
+                                                                    <td width="9.6%" align="center">满意</td>
+                                                                    <td width="9.6%" align="center">很满意</td>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr class="matrix_test">
+                                                                    <th align="left"
+                                                                        style="border-bottom: 1px solid #efefef;">选项1
+                                                                    </th>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th align="left"
+                                                                        style="border-bottom: 1px solid #efefef;">选项2
+                                                                    </th>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div >
+                                                        <textarea class="form-control"
+                                                                  onkeyup="SwapTxt()" name="matrixtitle"></textarea>
+                                                        <div class="row" style="margin-top: 15px">
+                                                            <div class="col-md-9">
+                                                        <span><select class="form-control-sm" name="class">
+                                                            <option>单选</option>
+                                                            <option>多选</option>
+                                                        </select>
+                                                            </span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        name="required"
+                                                                        type="checkbox"><label>必答题</label></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        name="attachment"
+                                                                        type="checkbox"><label>含附件上传</label></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select
+                                                                        name="markmethod" class="form-control-sm">
+                                                            <option>自动打分</option>
+                                                            <option>手动打分</option>
+                                                        </select></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        name="answerimport"
+                                                                        type="checkbox"><label>导入答案</label></span>
+                                                            </div>
+                                                        </div>
+                                                        <div style="margin-top: 15px">
+
+                                                            <textarea onkeyup="matrix_title_split(event)" placeholder="请编辑选项" style="float: right; width: 700px;height: 100px" name="row"></textarea>
+                                                            <table class="table table-responsive-sm text-left"
+                                                                   style="width: 520px">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>选项文字</td>
+                                                                    <td>允许填空</td>
+                                                                    <td>上移下移</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text" name="optionedit"
+                                                                               onkeyup="matrix_text_swap(event)" value="很不满意">
+                                                                        <a><i class="ft-minus-circle" onclick="minuscolumn(event)"></i></a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="allowblank" type="checkbox">
+                                                                    </td>
+                                                                    <td>
+                                                                        <a onclick="move_up(event)"><i class="ft-arrow-up"></i></a>
+                                                                        <a onclick="move_down(event)"><i class="ft-arrow-down"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text" name="optionedit"
+                                                                               onkeyup="matrix_text_swap(event)" value="不满意">
+                                                                        <a><i class="ft-minus-circle" onclick="minuscolumn(event)"></i></a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="allowblank" type="checkbox">
+                                                                    </td>
+                                                                    <td>
+                                                                        <a onclick="move_up(event)"><i class="ft-arrow-up"></i></a>
+                                                                        <a onclick="move_down(event)"><i class="ft-arrow-down"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text" name="optionedit"
+                                                                               onkeyup="matrix_text_swap(event)" value="一般">
+                                                                        <a><i class="ft-minus-circle" onclick="minuscolumn(event)"></i></a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="allowblank" type="checkbox">
+                                                                    </td>
+                                                                    <td>
+                                                                        <a onclick="move_up(event)"><i class="ft-arrow-up"></i></a>
+                                                                        <a onclick="move_down(event)"><i class="ft-arrow-down"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text" name="optionedit"
+                                                                               onkeyup="matrix_text_swap(event)" value="满意">
+                                                                        <a><i class="ft-minus-circle" onclick="minuscolumn(event)"></i></a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="allowblank" type="checkbox">
+                                                                    </td>
+                                                                    <td>
+                                                                        <a onclick="move_up(event)"><i class="ft-arrow-up"></i></a>
+                                                                        <a onclick="move_down(event)"><i class="ft-arrow-down"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text" name="optionedit"
+                                                                               onkeyup="matrix_text_swap(event)" value="很满意">
+                                                                        <a><i class="ft-minus-circle" onclick="minuscolumn(event)"></i></a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="allowblank" type="checkbox">
+                                                                    </td>
+                                                                    <td>
+                                                                        <a onclick="move_up(event)"><i class="ft-arrow-up"></i></a>
+                                                                        <a onclick="move_down(event)"><i class="ft-arrow-down"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div style="margin-left: 10px;margin-bottom: 15px">
+                                                                <a class="addchoice" onclick="addcolumn(event)"><span>添加选项</span></a>
+                                                            </div>
+                                                            <table class="table table-responsive-sm text-left"
+                                                                   style="table-layout: fixed">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>正确答案</td>
+                                                                    <td>分值</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text">
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div style="margin-left: 10px;margin-bottom: 15px">
+                                                            <a class="addchoice"><span>添加答案</span></a>
+                                                        </div>
+                                                        <input type="submit"
+                                                               class="btn btn-outline-danger btn-lg  btn-round"
+                                                               value="保存" onclick="submit_choice(event); hide_edit(event)">
+                                                        <input type="button"
+                                                               class="btn btn-outline-danger btn-lg  btn-round"
+                                                               value="取消">
+                                                    </div>
+                                                        </form>
+                                                </div>
+
+                                                <div class="div_question">
+                                                    <div id="div_preview" style="margin-top: 50px">
+                                                        <div id="div_title">
+                                                            <h5 id="title">5. Question 5</h5>
+                                                        </div>
+                                                        <div id="div_content">
+                                                            <table class="table table-responsive-sm text-left">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <td align="center">百度</td>
+                                                                    <td align="center">谷歌</td>
+                                                                    <td align="center">搜狗</td>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr name="example">
+                                                                    <th align="left"
+                                                                        style="border-bottom: 1px solid #efefef;">选项1
+                                                                    </th>
+                                                                    <td style="border-bottom:1px solid #efefef;"
+                                                                        align='center'><textarea></textarea></td>
+                                                                    <td style="border-bottom:1px solid #efefef;"
+                                                                        align='center'><textarea></textarea></td>
+                                                                    <td style="border-bottom:1px solid #efefef;"
+                                                                        align='center'><textarea></textarea></td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <th align="left"
+                                                                        style="border-bottom: 1px solid #efefef;">选项2
+                                                                    </th>
+                                                                    <td style="border-bottom:1px solid #efefef;"
+                                                                        align='center'><textarea></textarea></td>
+                                                                    <td style="border-bottom:1px solid #efefef;"
+                                                                        align='center'><textarea></textarea></td>
+                                                                    <td style="border-bottom:1px solid #efefef;"
+                                                                        align='center'><textarea></textarea></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div id="questionedit">
+                                                        <textarea id="titleedit" class="form-control"
+                                                                  onkeyup="SwapTxt()"></textarea>
+                                                        <div class="row" style="margin-top: 15px">
+                                                            <div class="col-md-9">
+                                                        <span><select id="choicetype" class="form-control-sm">
+                                                            <option>表格填空题</option>
+                                                            <option>表格选择题</option>
+                                                        </select>
+                                                            </span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="required"
+                                                                        type="checkbox"><label>必答题</label></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="attachment"
+                                                                        type="checkbox"><label>含附件上传</label></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select
+                                                                        id="markmethod" class="form-control-sm">
+                                                            <option>自动打分</option>
+                                                            <option>手动打分</option>
+                                                        </select></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="answerimport"
+                                                                        type="checkbox"><label>导入答案</label></span>
+                                                            </div>
+                                                        </div>
+                                                        <div style="margin-top: 15px">
+                                                      <textarea onkeyup="table_title_split(event)"
+                                                              style="float: left; width: 450px;height: 100px">1.编辑&#013;&#010;2.编辑</textarea>
+                                                            <textarea onkeyup="table_choice_split(event)"
+                                                                    style="float: right; width: 450px;height: 100px"></textarea>
+
+                                                            <table class="table table-responsive-sm text-left"
+                                                                   style="table-layout: fixed">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>正确答案</td>
+                                                                    <td>分值</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text">
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div style="margin-left: 10px;margin-bottom: 15px">
+                                                            <a class="addchoice"><span>添加答案</span></a>
+                                                        </div>
+                                                        <input type="submit"
+                                                               class="btn btn-outline-danger btn-lg  btn-round"
+                                                               value="保存">
+                                                        <input type="button"
+                                                               class="btn btn-outline-danger btn-lg  btn-round"
+                                                               value="取消">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+        <footer class="footer footer-static footer-light">
+            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2018 <a href="#" id="pixinventLink"
+                                                                                            target="_blank"
+                                                                                            class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
+            </p>
+        </footer>
+
+    </div>
+</div>
+<!-- BEGIN VENDOR JS-->
+<script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'ztreejs/jquery.ztree.all.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/prism.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/jquery.matchHeight-min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/screenfull.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/pace/pace.min.js' %}"></script>
+<!-- BEGIN VENDOR JS-->
+<!-- BEGIN PAGE VENDOR JS-->
+<script src="{% static 'app-assets/vendors/js/datatable/datatables.min.js' %}"></script>
+<!-- END PAGE VENDOR JS-->
+<!-- BEGIN CONVEX JS-->
+<script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+<script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+<!-- END CONVEX JS-->
+<!-- BEGIN PAGE LEVEL JS-->
+<script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
+<script src="{% static 'ztreejs/jquery.ztree.core.js' %}"></script>
+<script type="text/javascript" src="{% static 'ztreejs/jquery.ztree.exhide.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'ztreejs/fuzzysearch.js' %}"></script>
+<!-- END PAGE LEVEL JS-->
+<script src="{% static 'ztreejs/csrf.js' %}"></script>
+<script src="{% static 'ztreejs/jquery.custom.js' %}"></script>
+<script src="{% static 'src/js/jquery.cookie.js' %}"></script>
+<script src="{% static 'src/js/questionaire.js' %}"></script>
+<script>
+    function submit_choice(e) {
+        e.preventDefault();
+        var a = $(e.target);
+        var form = a.closest('.form-horizontal');
+        console.log(form);
+        $.ajax({
+            type: 'GET',
+            data: form.serialize(),
+            url: '/administrator/questionaire_add',
+            success:function (data) {
+                console.log(data)
+            }
+        });
+    }
+</script>
+</body>
+</html>

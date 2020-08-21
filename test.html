@@ -1,0 +1,331 @@
+<div class="div_question">
+                                                    <div id="div_preview" style="margin-top: 50px">
+                                                        <div id="div_title">
+                                                            <h5 id="title">2. 姓名：______ 年龄：______
+                                                                电话: _______</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div id="questionedit">
+                                                        <textarea id="titleedit" class="form-control"
+                                                                  onkeyup="SwapTxt()"></textarea>
+                                                        <div class="row" style="margin-top: 15px">
+                                                            <div class="col-md-9">
+                                                                <span><input
+                                                                        id="required"
+                                                                        type="checkbox"><label>必答题</label></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="attachment"
+                                                                        type="checkbox"><label>含附件上传</label></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select
+                                                                        id="markmethod_blank" class="form-control-sm">
+                                                            <option>自动打分</option>
+                                                            <option>手动打分</option>
+                                                        </select></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="answerimport"
+                                                                        type="checkbox"><label>导入答案</label></span>
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                <a class="addchoice" id="blankanswer"
+                                                                   onclick="answershow()"><span>添加答案</span></a>
+                                                            </div>
+                                                        </div>
+                                                        <div style="margin-left: 10px;margin-bottom: 15px">
+                                                        </div>
+                                                        <input type="submit"
+                                                               class="btn btn-outline-danger btn-lg  btn-round"
+                                                               value="保存">
+                                                        <input type="button"
+                                                               class="btn btn-outline-danger btn-lg  btn-round"
+                                                               value="取消">
+                                                    </div>
+                                                </div>
+
+                                                <div class="div_question">
+                                                    <div id="div_preview" style="margin-top: 50px">
+                                                        <div id="div_title">
+                                                            <h5 id="title">3. Question 3</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div id="questionedit">
+                                                        <textarea id="titleedit" class="form-control"
+                                                                  onkeyup="SwapTxt()"></textarea>
+                                                        <div class="row" style="margin-top: 15px">
+                                                            <div class="col-md-9">
+                                                        <span>尺寸 高： <input>
+                                                            </span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格式： <select
+                                                                        id="edittype"
+                                                                        class="form-control-sm" value="无">
+                                                            <option>无</option>
+                                                            <option>数字</option>
+                                                            <option>文字</option>
+                                                        </select>
+                                                            </span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="required"
+                                                                        type="checkbox"><label>必答题</label></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="attachment"
+                                                                        type="checkbox"><label>含附件上传</label></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select
+                                                                        id="markmethod" class="form-control-sm">
+                                                            <option>自动打分</option>
+                                                            <option>手动打分</option>
+                                                        </select></span>
+                                                            </div>
+                                                        </div>
+                                                        <div style="margin-left: 10px;margin-bottom: 15px">
+                                                        </div>
+                                                        <input type="submit"
+                                                               class="btn btn-outline-danger btn-lg  btn-round"
+                                                               value="保存">
+                                                        <input type="button"
+                                                               class="btn btn-outline-danger btn-lg  btn-round"
+                                                               value="取消">
+                                                    </div>
+                                                </div>
+
+                                                <div class="div_question">
+                                                    <div id="div_preview" style="margin-top: 50px">
+                                                        <div id="div_title">
+                                                            <h5 id="title">4. Question 4</h5>
+                                                        </div>
+                                                        <div id="div_content">
+                                                            <table class="table table-responsive-sm text-left">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <td width="9.6%" align="center">很不满意</td>
+                                                                    <td width="9.6%" align="center">不满意</td>
+                                                                    <td width="9.6%" align="center">一般</td>
+                                                                    <td width="9.6%" align="center">满意</td>
+                                                                    <td width="9.6%" align="center">很满意</td>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <th align="left"
+                                                                        style="border-bottom: 1px solid #efefef;">选项1
+                                                                    </th>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th align="left"
+                                                                        style="border-bottom: 1px solid #efefef;">选项2
+                                                                    </th>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                    <td><a class="ft-circle"
+                                                                           style="position: static"></a></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div id="questionedit">
+                                                        <textarea id="titleedit" class="form-control"
+                                                                  onkeyup="SwapTxt()"></textarea>
+                                                        <div class="row" style="margin-top: 15px">
+                                                            <div class="col-md-9">
+                                                        <span><select id="choicetype" class="form-control-sm">
+                                                            <option>单选</option>
+                                                            <option>多选</option>
+                                                        </select>
+                                                            </span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="required"
+                                                                        type="checkbox"><label>必答题</label></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="attachment"
+                                                                        type="checkbox"><label>含附件上传</label></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select
+                                                                        id="markmethod" class="form-control-sm">
+                                                            <option>自动打分</option>
+                                                            <option>手动打分</option>
+                                                        </select></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="answerimport"
+                                                                        type="checkbox"><label>导入答案</label></span>
+                                                            </div>
+                                                        </div>
+                                                        <div style="margin-top: 15px">
+                                                            <textarea
+                                                                    style="float: right; width: 700px;height: 100px"></textarea>
+                                                            <table class="table table-responsive-sm text-left"
+                                                                   id="choiceedit" style="width: 520px">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>选项文字</td>
+                                                                    <td>允许填空</td>
+                                                                    <td>上移下移</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text" id="optionedit"
+                                                                               onkeyup="SwapTxt_option()">
+                                                                        <a onclick="addchoice()"><i
+                                                                                class="ft-plus-circle"></i></a>
+                                                                        <a><i class="ft-minus-circle"></i></a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input id="allowblank" type="checkbox">
+                                                                    </td>
+                                                                    <td>
+                                                                        <a><i class="ft-arrow-up"></i></a>
+                                                                        <a><i class="ft-arrow-down"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div style="margin-left: 10px;margin-bottom: 15px">
+                                                                <a class="addchoice"><span>添加选项</span></a>
+                                                            </div>
+                                                            <table class="table table-responsive-sm text-left"
+                                                                   style="table-layout: fixed">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>正确答案</td>
+                                                                    <td>分值</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text">
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div style="margin-left: 10px;margin-bottom: 15px">
+                                                            <a class="addchoice"><span>添加答案</span></a>
+                                                        </div>
+                                                        <input type="submit"
+                                                               class="btn btn-outline-danger btn-lg  btn-round"
+                                                               value="保存">
+                                                        <input type="button"
+                                                               class="btn btn-outline-danger btn-lg  btn-round"
+                                                               value="取消">
+                                                    </div>
+                                                </div>
+
+                                                <div class="div_question">
+                                                    <div id="div_preview" style="margin-top: 50px">
+                                                        <div id="div_title">
+                                                            <h5 id="title">5. Question 5</h5>
+                                                        </div>
+                                                        <div id="div_content">
+                                                            <table class="table table-responsive-sm text-left">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <td align="center">百度</td>
+                                                                    <td align="center">谷歌</td>
+                                                                    <td align="center">搜狗</td>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <th align="left"
+                                                                        style="border-bottom: 1px solid #efefef;">选项1
+                                                                    </th>
+                                                                    <td style="border-bottom:1px solid #efefef;"
+                                                                        align='center'><textarea></textarea></td>
+                                                                    <td style="border-bottom:1px solid #efefef;"
+                                                                        align='center'><textarea></textarea></td>
+                                                                    <td style="border-bottom:1px solid #efefef;"
+                                                                        align='center'><textarea></textarea></td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <th align="left"
+                                                                        style="border-bottom: 1px solid #efefef;">选项2
+                                                                    </th>
+                                                                    <td style="border-bottom:1px solid #efefef;"
+                                                                        align='center'><textarea></textarea></td>
+                                                                    <td style="border-bottom:1px solid #efefef;"
+                                                                        align='center'><textarea></textarea></td>
+                                                                    <td style="border-bottom:1px solid #efefef;"
+                                                                        align='center'><textarea></textarea></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div id="questionedit">
+                                                        <textarea id="titleedit" class="form-control"
+                                                                  onkeyup="SwapTxt()"></textarea>
+                                                        <div class="row" style="margin-top: 15px">
+                                                            <div class="col-md-9">
+                                                        <span><select id="choicetype" class="form-control-sm">
+                                                            <option>表格填空题</option>
+                                                            <option>表格选择题</option>
+                                                        </select>
+                                                            </span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="required"
+                                                                        type="checkbox"><label>必答题</label></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="attachment"
+                                                                        type="checkbox"><label>含附件上传</label></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select
+                                                                        id="markmethod" class="form-control-sm">
+                                                            <option>自动打分</option>
+                                                            <option>手动打分</option>
+                                                        </select></span>
+                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                                                                        id="answerimport"
+                                                                        type="checkbox"><label>导入答案</label></span>
+                                                            </div>
+                                                        </div>
+                                                        <div style="margin-top: 15px">
+                                                      <textarea
+                                                              style="float: left; width: 450px;height: 100px"></textarea>
+                                                            <textarea
+                                                                    style="float: right; width: 450px;height: 100px"></textarea>
+
+                                                            <table class="table table-responsive-sm text-left"
+                                                                   style="table-layout: fixed">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>正确答案</td>
+                                                                    <td>分值</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text">
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div style="margin-left: 10px;margin-bottom: 15px">
+                                                            <a class="addchoice"><span>添加答案</span></a>
+                                                        </div>
+                                                        <input type="submit"
+                                                               class="btn btn-outline-danger btn-lg  btn-round"
+                                                               value="保存">
+                                                        <input type="button"
+                                                               class="btn btn-outline-danger btn-lg  btn-round"
+                                                               value="取消">
+                                                    </div>
+                                                </div>
