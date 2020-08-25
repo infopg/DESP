@@ -2,7 +2,7 @@ from administrator import views
 from django.conf import settings
 from django.urls import path
 from django.conf.urls import include, url, re_path
-from administrator.views import standard, delete, edit, timeliner, questionaire_add, questionaire_manage,answer_manage
+from administrator.views import standard, delete, edit, timeliner, questionaire_add, questionaire_manage
 
 
 urlpatterns = [
@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'/questionaire$', views.questionaire, name='questionaire'),
     url('/timeliner', timeliner, name='timeliner'),
     url(r'/questionaire_manage$', questionaire_manage, name='questionaire_manage'),
-    url(r'/answer_manage$', answer_manage, name='answer_manage')
+
 
 
 ]

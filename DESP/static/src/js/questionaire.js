@@ -2,9 +2,66 @@ $.ajaxSetup({
     data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
 });
 
+function answerfilling() {
+    var len = $(".div_question").length + 1;
+    $('#question_list').append("                                      <div class=\"div_question\" id = " + len + ">\n" +
+        "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
+        "                                                    <div onclick = \"toggle_edit(event)\">\n" +
+        "                                                        <div>\n" +
+        "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+        "                                                            <h5 style=\"display: inline\">" + 'Question' + ' ' + len + " </h5>\n" +
+        "                                                            <button class=\"btn mr-1 btn-secondary\" onclick='delquestion(event)'>del</button>\n" +
+        "<textarea class=\'form-control\' name=\'answerarea\' disabled>答题区域</textarea>" +
+        "                                                        </div>\n" +
+        "                                                    </div>\n" +
+        "                                                    <div>\n" +
+        "                                                        <input style=\"display: none\" name=\"questiontype\" value=\'简答题\'>\n" +
+        "                                                        <input style=\"display: none\" name=\"questionnumber\" value= " + len + ">\n" +
+        "                                                        <input style=\"display: none\" name=\"indicatorID\" value=" + nodeID + ">\n" +
+        "<div class=\'row\' style='margin-top: 15px\'></div>" +
+        "                                                        <textarea class=\"form-control\"\n" +
+        "                                                                  onkeyup=\"SwapTxt(event)\" name=\"choicetitle\"></textarea>\n" +
+        "                                                        <div class=\"row\" style=\"margin-top: 15px\">\n" +
+        "                                                            <div class=\"col-md-9\">\n" +
+        "                                                        <span>尺寸 高： <input name=\"height\" size=\"10\" onkeyup=\'areaheight(event)\'>\n" +
+        "                                                            </span>\n" +
+        "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
+        "                                                                        name=\"required\"\n" +
+        "                                                                        type=\"checkbox\"><span>必答题</span></span>\n" +
+        "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
+        "                                                                        name=\"attachment\"\n" +
+        "                                                                        type=\"checkbox\"><span>含附件上传</span></span>\n" +
+        "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
+        "                                                                        name=\"markmethod\" class=\"form-control-sm\">\n" +
+        "                                                            <option>自动打分</option>\n" +
+        "                                                            <option>手动打分</option>\n" +
+        "                                                        </select></span>\n" +
+        "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
+        "                                                                                name=\"importanswer\"\n" +
+        "                                                                                type=\"checkbox\"><span>导入答案</span></span>\n" +
+        "                                                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>满分: </span>\n" +
+        "                                                                            <input type=\"text\" name=\"points\" size=\"10\">\n" +
+        "                                                                        </span>\n" +
+        "                                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n" +
+        "                                                            </div>\n" +
+        "                                                        </div>\n" +
+        "                                                        <div>\n" +
+        "                                                        <div style=\"margin-left: 10px;margin-bottom: 15px\">\n" +
+        "                                                        </div>\n" +
+        "                                                        <input type=\"submit\"\n" +
+        "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
+        "                                                               value=\"保存\" onclick=\"submit_choice(event)\">\n" +
+        "                                                        <input type=\"button\"\n" +
+        "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
+        "                                                               value=\"清空\" onclick='clearForm_blank(event)'>\n" +
+        "                                                    </div>\n" +
+        "                                                        </div>\n" +
+        "                                                        </form>\n" +
+        "                                                </div>")
+    variableID(10);
+}
 
 function blankfilling() {
-
     var len = $(".div_question").length + 1;
     $('#question_list').append("                                               <div class=\"div_question\" id = " + len + ">\n" +
         "                                                        <form method=\"post\" class=\"form-horizontal\">\n" +
@@ -48,7 +105,7 @@ function blankfilling() {
         "                                                        <input type=\"submit\"\n" +
         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
         "                                                               value=\"保存\" onclick=\"submit_choice(event)\">\n" +
-        "                                                        <input type=\"reset\" class=\"btn btn-outline-danger btn-lg  btn-round\" value=\"清空\">\n" +
+        "                                                        <input type=\"button\" class=\"btn btn-outline-danger btn-lg  btn-round\" value=\"清空\" onclick='clearForm_blank(event)'>\n" +
         "                                                            </div>\n" +
         "                                                    </div>\n" +
         "                                                            </form>\n" +
@@ -76,7 +133,219 @@ for (var i = 0; i < document.getElementsByName('indicatorID').length; i++) {
     document.getElementsByName('indicatorID')[i].value = nodeID;
 }
 
+function matrixfilling(){
+    var len = $(".div_question").length + 1;
+    $('#question_list').append("                                <div class=\"div_question\" id = " + len + ">\n" +
+        "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
+        "                                                        <div onclick=\"toggle_edit(event)\">\n" +
+        "                                                            <div>\n" +
+        "                                                                <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+        "                                                                <h5 style=\"display: inline\">" + 'Question' + ' ' + len + " </h5>\n" +
+        "                                                                <button class=\"btn mr-1 btn-secondary\"\n" +
+        "                                                                        onclick='delquestion(event)'></button>\n" +
+        "                                                            </div>\n" +
+        "                                                            <div>\n" +
+        "                                                                <table class=\"table table-responsive-sm text-left\">\n" +
+        "                                                                    <thead>\n" +
+        "                                                                    <tr>\n" +
+        "                                                                        <td></td>\n" +
+        "                                                                        <td>Col1</td>\n" +
+        "                                                                        <td>Col2</td>\n" +
+        "                                                                        <td>Col3</td>\n" +
+        "                                                                        <td>Col4</td>\n" +
+        "                                                                        <td>Col5</td>\n" +
+        "                                                                    </tr>\n" +
+        "                                                                    </thead>\n" +
+        "                                                                    <tbody>\n" +
+        "                                                                    <tr>\n" +
+        "                                                                        <td>Row1\n" +
+        "                                                                        </td>\n" +
+        "                                                                        <td><a class=\"ft-circle\"\n" +
+        "                                                                        ></a></td>\n" +
+        "                                                                        <td><a class=\"ft-circle\"\n" +
+        "                                                                        ></a></td>\n" +
+        "                                                                        <td><a class=\"ft-circle\"\n" +
+        "                                                                        ></a></td>\n" +
+        "                                                                        <td><a class=\"ft-circle\"\n" +
+        "                                                                        ></a></td>\n" +
+        "                                                                        <td><a class=\"ft-circle\"\n" +
+        "                                                                        ></a></td>\n" +
+        "                                                                    </tr>\n" +
+        "                                                                    <tr>\n" +
+        "                                                                        <td>Row2\n" +
+        "                                                                        </td>\n" +
+        "                                                                        <td><a class=\"ft-circle\"\n" +
+        "                                                                        ></a></td>\n" +
+        "                                                                        <td><a class=\"ft-circle\"\n" +
+        "                                                                        ></a></td>\n" +
+        "                                                                        <td><a class=\"ft-circle\"\n" +
+        "                                                                        ></a></td>\n" +
+        "                                                                        <td><a class=\"ft-circle\"\n" +
+        "                                                                        ></a></td>\n" +
+        "                                                                        <td><a class=\"ft-circle\"\n" +
+        "                                                                        ></a></td>\n" +
+        "                                                                    </tr>\n" +
+        "                                                                    </tbody>\n" +
+        "                                                                </table>\n" +
+        "                                                            </div>\n" +
+        "                                                        </div>\n" +
+        "                                                        <div>\n" +
+        "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
+        "                                                                   value=\"矩阵题\">\n" +
+        "<input style=\"display: none\" name=\"questionnumber\"\n" +
+        "                                                                   value= " + len + ">\n" +
+        "<input style=\'display: none\' name='\indicatorID\'\n value=" + nodeID + ">" +
+        "                                                        <textarea class=\"form-control\"\n" +
+        "                                                                  onkeyup=\"SwapTxt(event)\"\n" +
+        "                                                                  name=\"matrixtitle\"></textarea>\n" +
+        "                                                            <div class=\"row\" style=\"margin-top: 15px\">\n" +
+        "                                                                <div class=\"col-md-9\">\n" +
+        "                                                        <span><select class=\"form-control-sm\" name=\"class\">\n" +
+        "                                                            <option>单选</option>\n" +
+        "                                                            <option>多选</option>\n" +
+        "                                                        </select>\n" +
+        "                                                            </span>\n" +
+        "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
+        "                                                                            name=\"required\"\n" +
+        "                                                                            type=\"checkbox\"><span>必答题</span></span>\n" +
+        "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
+        "                                                                            name=\"attachment\"\n" +
+        "                                                                            type=\"checkbox\"><span>含附件上传</span></span>\n" +
+        "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
+        "                                                                            name=\"markmethod\" class=\"form-control-sm\">\n" +
+        "                                                            <option>自动打分</option>\n" +
+        "                                                            <option>手动打分</option>\n" +
+        "                                                        </select></span>\n" +
+        "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
+        "                                                                            name=\"answerimport\"\n" +
+        "                                                                            type=\"checkbox\"><span>导入答案</span></span>\n" +
+        "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>满分: </span><input type=\"text\" name=\"points\" size=\"10\"></span>\n" +
+        "                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n" +
+        "                                                                </div>\n" +
+        "                                                            </div>\n" +
+        "                                                            <div style=\"margin-top: 15px\">\n" +
+        "                                                                <div style=\"float: left; width: 50%\"><textarea onkeyup=\"matrix_title_split(event)\"\n" +
+        "                                                                          placeholder=\"编辑行\"\n" +
+        "                                                                          class=\"form-control\"\n" +
+        "                                                                   name=\"row\" style = \"width: 90%\"></textarea></div>\n" +
+        "                                                                <div style=\"float: left\"><table class=\"table table-responsive-sm text-left\">\n" +
+        "                                                                    <tbody>\n" +
+        "                                                                    <tr>\n" +
+        "                                                                        <td>选项文字</td>\n" +
+        "                                                                        <td>允许填空</td>\n" +
+        "                                                                        <td>上移下移</td>\n" +
+        "                                                                    </tr>\n" +
+        "                                                                    <tr>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <input type=\"text\" name=\"optionedit\"\n" +
+        "                                                                                   onkeyup=\"matrix_text_swap(event)\"\n" +
+        "                                                                                   value=\"Col1\">\n" +
+        "                                                                            <a><i class=\"ft-minus-circle\"\n" +
+        "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
+        "                                                                        </td>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <input name=\"allowblank\" type=\"checkbox\">\n" +
+        "                                                                        </td>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <a onclick=\"moveup(event)\"><i\n" +
+        "                                                                                    class=\"ft-arrow-up\"></i></a>\n" +
+        "                                                                            <a onclick=\"movedown(event)\"><i\n" +
+        "                                                                                    class=\"ft-arrow-down\"></i></a>\n" +
+        "                                                                        </td>\n" +
+        "                                                                    </tr>\n" +
+        "                                                                    <tr>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <input type=\"text\" name=\"optionedit\"\n" +
+        "                                                                                   onkeyup=\"matrix_text_swap(event)\"\n" +
+        "                                                                                   value=\"Col2\">\n" +
+        "                                                                            <a><i class=\"ft-minus-circle\"\n" +
+        "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
+        "                                                                        </td>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <input name=\"allowblank\" type=\"checkbox\">\n" +
+        "                                                                        </td>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <a onclick=\"moveup(event)\"><i\n" +
+        "                                                                                    class=\"ft-arrow-up\"></i></a>\n" +
+        "                                                                            <a onclick=\"movedown(event)\"><i\n" +
+        "                                                                                    class=\"ft-arrow-down\"></i></a>\n" +
+        "                                                                        </td>\n" +
+        "                                                                    </tr>\n" +
+        "                                                                    <tr>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <input type=\"text\" name=\"optionedit\"\n" +
+        "                                                                                   onkeyup=\"matrix_text_swap(event)\"\n" +
+        "                                                                                   value=\"Col3\">\n" +
+        "                                                                            <a><i class=\"ft-minus-circle\"\n" +
+        "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
+        "                                                                        </td>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <input name=\"allowblank\" type=\"checkbox\">\n" +
+        "                                                                        </td>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <a onclick=\"moveup(event)\"><i\n" +
+        "                                                                                    class=\"ft-arrow-up\"></i></a>\n" +
+        "                                                                            <a onclick=\"movedown(event)\"><i\n" +
+        "                                                                                    class=\"ft-arrow-down\"></i></a>\n" +
+        "                                                                        </td>\n" +
+        "                                                                    </tr>\n" +
+        "                                                                    <tr>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <input type=\"text\" name=\"optionedit\"\n" +
+        "                                                                                   onkeyup=\"matrix_text_swap(event)\"\n" +
+        "                                                                                   value=\"Col4\">\n" +
+        "                                                                            <a><i class=\"ft-minus-circle\"\n" +
+        "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
+        "                                                                        </td>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <input name=\"allowblank\" type=\"checkbox\">\n" +
+        "                                                                        </td>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <a onclick=\"moveup(event)\"><i\n" +
+        "                                                                                    class=\"ft-arrow-up\"></i></a>\n" +
+        "                                                                            <a onclick=\"movedown(event)\"><i\n" +
+        "                                                                                    class=\"ft-arrow-down\"></i></a>\n" +
+        "                                                                        </td>\n" +
+        "                                                                    </tr>\n" +
+        "                                                                    <tr>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <input type=\"text\" name=\"optionedit\"\n" +
+        "                                                                                   onkeyup=\"matrix_text_swap(event)\"\n" +
+        "                                                                                   value=\"Col5\">\n" +
+        "                                                                            <a><i class=\"ft-minus-circle\"\n" +
+        "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
+        "                                                                        </td>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <input name=\"allowblank\" type=\"checkbox\">\n" +
+        "                                                                        </td>\n" +
+        "                                                                        <td>\n" +
+        "                                                                            <a onclick=\"moveup(event)\"><i\n" +
+        "                                                                                    class=\"ft-arrow-up\"></i></a>\n" +
+        "                                                                            <a onclick=\"movedown(event)\"><i\n" +
+        "                                                                                    class=\"ft-arrow-down\"></i></a>\n" +
+        "                                                                        </td>\n" +
+        "                                                                    </tr>\n" +
+        "                                                                    </tbody>\n" +
+        "                                                                </table>\n" +
+        "                                                                     <div style=\"margin-left: 10px;margin-bottom: 15px\">\n" +
+        "                                                                    <a class=\"addchoice\"\n" +
+        "                                                                       onclick=\"addcolumn(event)\"><span>添加选项</span></a>\n" +
+        "                                                                </div>\n" +
+        "                                                                    </div>\n" +
+        "                                                            </div>\n" +
+        "                                                            <input type=\"submit\"\n" +
+        "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
+        "                                                                   value=\"保存\"\n" +
+        "                                                                   onclick=\"submit_choice(event); hide_edit(event)\">\n" +
+        "                                                            <input type=\"button\"\n" +
+        "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
+        "                                                                   value=\"清空\">\n" +
+        "                                                        </div>\n" +
+        "                                                    </form>\n" +
+        "                                                </div>");
+    variableID(10);
 
+}
 
 function choice() {
     var len = $(".div_question").length + 1;
@@ -126,7 +395,7 @@ function choice() {
         "                                                        </select></span>\n" +
         "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
         "                                                                            type=\"checkbox\" name=\"importanswer\"><span>导入答案</span></span>\n" +
-        "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>满分： </span><input type=\"text\" name=\"points\"></span>\n" +
+        "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>满分: </span><input type=\"text\" name=\"points\" size=\'10\'></span>\n" +
         "                                                                </div>\n" +
         "                                                            </div>\n" +
         "                                                            <div style=\"margin-top: 15px\">\n" +
@@ -184,8 +453,8 @@ function choice() {
         "                                                            <input type=\"button\"\n" +
         "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
         "                                                                   value=\"保存\" onclick=\"submit_choice(event)\">\n" +
-        "                                                            <input " +
-        "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
+        "                                                            <input type='button'" +
+        "                                                                   class=\"btn btn-outline-danger btn-lg btn-round\"\n" +
         "                                                                   value=\"清空\" onclick='clearForm_choice(event)'>\n" +
         "                                                        </div>\n" +
         "                                                    </form>\n" +
@@ -194,12 +463,6 @@ function choice() {
     variableID(10);
 }
 
-function answerfilling() {
-    var questionlist = document.getElementById('question_list');
-    var addanswer = $();
-    addanswer.appendTo(questionlist)
-
-}
 
 function clearForm_choice(e) {
     var bt = $(e.target);
@@ -207,9 +470,28 @@ function clearForm_choice(e) {
     var txt = bt.closest('.div_question').find('textarea');
     txt.parent().prev().find('h5').eq(1).html('Question' + ' ' + val);
     var form = bt.closest('form');
+    var choicelist = bt.closest('.div_question').find('.choice_list').children().length;
+    for (i = 0; i < choicelist; i++) {
+        bt.closest('.div_question').find('.choice_list').children().eq(i).children('span').html('Answer' + (i + 1))
+    }
     form[0].reset();
 
+}
 
+function areaheight(e) {
+    var bt = $(e.target);
+    var textarea = bt.closest('.div_question').find('textarea').eq(0);
+    textarea.attr('rows', bt.val())
+}
+
+
+function clearForm_blank(e) {
+    var bt = $(e.target);
+    var val = bt.parent().parent().children().eq(1).val();
+    var form = bt.closest('form');
+    var txt = bt.closest('.div_question').find('textarea');
+    txt.parent().prev().find('h5').eq(1).html('Question' + ' ' + val);
+    form[0].reset();
 }
 
 function SwapTxt(e) {
@@ -271,8 +553,6 @@ function delchoice(e) {
 }
 
 
-
-
 function addchoice(e) {
     var add = $(e.target);
     var table = add.closest(".div_question").find('table')[0];
@@ -325,7 +605,7 @@ function delquestion(e) {
         if ($("#" + (i - 1)).find('textarea').eq(0).val() === '') {
             $("#" + (i - 1)).find('h5').eq(1).html('Question' + ' ' + (i - 1));
         }
-        $("#" + (i - 1)).find($('[name = "questionnumber"]')).attr('value',i - 1);
+        $("#" + (i - 1)).find($('[name = "questionnumber"]')).attr('value', i - 1);
 
     }
 }
@@ -360,27 +640,28 @@ function moveup(e) {
         a.insertBefore(prev);
     }
 }
-function hide_edit(event){
+
+function hide_edit(event) {
     var next = event.currentTarget.parentElement;
     $(next).hide();
 }
 
-function matrix_title_split(event){
-    var add_ques = $('<tr>\n'+
-                                                                    '<th align="left"\n'+
-                                                                        'style="border-bottom: 1px solid #efefef;">选项\n'+
-                                                                    '</th>\n'+
-                                                                    '<td><a class="ft-circle"\n'+
-                                                                           'style="position: static"></a></td>\n'+
-                                                                    '<td><a class="ft-circle"\n'+
-                                                                           'style="position: static"></a></td>\n'+
-                                                                    '<td><a class="ft-circle"\n'+
-                                                                           'style="position: static"></a></td>\n'+
-                                                                    '<td><a class="ft-circle"\n'+
-                                                                           'style="position: static"></a></td>\n'+
-                                                                    '<td><a class="ft-circle"\n'+
-                                                                           'style="position: static"></a></td>\n'+
-                                                                '</tr>\n');
+function matrix_title_split(event) {
+    var add_ques = $('<tr>\n' +
+        '<th align="left"\n' +
+        'style="border-bottom: 1px solid #efefef;">选项\n' +
+        '</th>\n' +
+        '<td><a class="ft-circle"\n' +
+        'style="position: static"></a></td>\n' +
+        '<td><a class="ft-circle"\n' +
+        'style="position: static"></a></td>\n' +
+        '<td><a class="ft-circle"\n' +
+        'style="position: static"></a></td>\n' +
+        '<td><a class="ft-circle"\n' +
+        'style="position: static"></a></td>\n' +
+        '<td><a class="ft-circle"\n' +
+        'style="position: static"></a></td>\n' +
+        '</tr>\n');
     var text_edit = event.currentTarget;
     var question_titles = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children;
     var question_table = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1];
@@ -388,9 +669,9 @@ function matrix_title_split(event){
     console.log(lines[0]);
     var choice_name = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].firstElementChild.children;
     var item_length = choice_name.length - 1;
-    if (lines.length > question_titles.length){
+    if (lines.length > question_titles.length) {
         $(question_titles[0]).clone().appendTo(question_table)
-    } else if (lines.length < question_titles.length){
+    } else if (lines.length < question_titles.length) {
         $(question_titles[question_titles.length - 1]).remove();
     } else {
         for (var i = 0; i < lines.length; i++) {
@@ -399,15 +680,15 @@ function matrix_title_split(event){
     }
 }
 
-function table_title_split(event){
+function table_title_split(event) {
     var text_edit = event.currentTarget;
     var question_table = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1];
     var question_titles = question_table.children;
     var add_ques = (Array.prototype.slice.call(question_titles))[0];
     var lines = $(text_edit).val().split(/\n/);
-    if (lines.length > question_titles.length){
+    if (lines.length > question_titles.length) {
         $(question_titles[0]).clone().appendTo(question_table);
-    } else if (lines.length < question_titles.length){
+    } else if (lines.length < question_titles.length) {
         $(question_titles[question_titles.length - 1]).remove();
     } else {
         for (var i = 0; i < lines.length; i++) {
@@ -416,24 +697,24 @@ function table_title_split(event){
     }
 }
 
-function table_choice_split(event){
+function table_choice_split(event) {
     var text_edit = event.currentTarget;
     var question_titles = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children;
     var testques = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1];
     var choice_name = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].firstElementChild.children;
     var question_table = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].closest('table');
     var lines = $(text_edit).val().split(/\n/);
-    var add_choice = $('<td style="border-bottom:1px solid #efefef;"\n'+
-                                                                         "align='center'><textarea></textarea></td>')\n");
-    if (lines.length > (choice_name.length - 1)){
+    var add_choice = $('<td style="border-bottom:1px solid #efefef;"\n' +
+        "align='center'><textarea></textarea></td>')\n");
+    if (lines.length > (choice_name.length - 1)) {
         add_choice.appendTo(question_titles);
         var Cell = $('<td align = "center"></td>')
-        for (var i = 0; i<lines.length;i++){
-            var thead =text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].children[0]
+        for (var i = 0; i < lines.length; i++) {
+            var thead = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].children[0]
             Cell.appendTo(thead)
 //            choice_name[i+1].innerHTML = lines[i]
         }
-    } else if (lines.length < (choice_name.length - 1)){
+    } else if (lines.length < (choice_name.length - 1)) {
 //        for (var i = 0; i < lines.length; i++){
 //            console.log($((question_titles[i]).children))
 //            $((question_titles[i]).children[choice_name.length - 1]).remove();
@@ -441,21 +722,20 @@ function table_choice_split(event){
         var index = lines.length;
         console.log(index);
         console.log(question_table);
-        $(question_table).find('tr').each(function(){
+        $(question_table).find('tr').each(function () {
             var target = $(this);
             var td = target.children();
             console.log(td);
-            $(td[index+1]).remove();
+            $(td[index + 1]).remove();
         })
-    }else{
-        for (var i = 0; i<lines.length;i++){
-            choice_name[i+1].innerHTML = lines[i];
+    } else {
+        for (var i = 0; i < lines.length; i++) {
+            choice_name[i + 1].innerHTML = lines[i];
         }
 
     }
 
 }
-
 
 
 function movedown(e) {
@@ -479,42 +759,43 @@ function variableID(prefix) {
     return testID;
 }
 
-function addcolumn(event){
+function addcolumn(event) {
     var e = event.currentTarget;
     var table = e.closest('form').firstElementChild.children[1].firstElementChild;
     var choice_add = e.parentElement.previousElementSibling.firstElementChild;
-    $(choice_add).append('<tr>\n'+
-                                                                    '<td>\n'+
-                                                                    '<input type="text" name="optionedit"\n'+'onkeyup="matrix_text_swap(event)" value="placeholder">\n'+
-                                                                        '<a><i class="ft-minus-circle" onclick="minuscolumn(event)"></i></a>\n'+
-                                                                    '</td>\n'+
-                                                                    '<td>\n'+
-                                                                        '<input name="allowblank" type="checkbox">\n'+
-                                                                    '</td>\n'+
-                                                                    '<td>\n'+
-                                                                        '<a onclick="move_up(event)"><i class="ft-arrow-up"></i></a>\n'+
-                                                                        '<a onclick="move_down(event)"><i class="ft-arrow-down"></i></a>\n'+
-                                                                    '</td>\n'+
-                                                                "</tr>')\n");
+    $(choice_add).append('<tr>\n' +
+        '<td>\n' +
+        '<input type="text" name="optionedit"\n' + 'onkeyup="matrix_text_swap(event)" value="placeholder">\n' +
+        '<a><i class="ft-minus-circle" onclick="minuscolumn(event)"></i></a>\n' +
+        '</td>\n' +
+        '<td>\n' +
+        '<input name="allowblank" type="checkbox">\n' +
+        '</td>\n' +
+        '<td>\n' +
+        '<a onclick="move_up(event)"><i class="ft-arrow-up"></i></a>\n' +
+        '<a onclick="move_down(event)"><i class="ft-arrow-down"></i></a>\n' +
+        '</td>\n' +
+        "</tr>')\n");
+
     //console.log(table);
-    $(table).find('tr').each(function(){
+    $(table).find('tr').each(function () {
         var target = $(this);
-        if(target.parent().get(0) == table.firstElementChild){ //&& (target.parent() === $(table.children[0]))){
+        if (target.parent().get(0) == table.firstElementChild) { //&& (target.parent() === $(table.children[0]))){
             target.append('<td width="9.6%" align="center">placeholder</td>');
-        }else{
+        } else {
             target.append('<td><a class="ft-circle" style="position: static"></a></td>');
         }
     })
 }
 
-function minuscolumn(event){
+function minuscolumn(event) {
     var e = event.currentTarget;
     var table = e.closest('form').firstElementChild.children[1].firstElementChild;
     console.log($(e).closest('.div_question').find('table')[1]); //下面的table
     console.log($(e).closest('tr').index()); //要删第几行
     var index = $(e).closest('tr').index();
     $(e.closest('tr')).remove();
-    $(table).find('tr').each(function(){
+    $(table).find('tr').each(function () {
         var target = $(this);
         var td = target.children();
         console.log(td);
@@ -522,7 +803,7 @@ function minuscolumn(event){
     })
 }
 
-function matrix_text_swap(event){
+function matrix_text_swap(event) {
     var e = event.currentTarget;
     var table = e.closest('tbody');
     var thead = e.closest('form').firstElementChild.children[1].firstElementChild.children[0].firstElementChild.children;

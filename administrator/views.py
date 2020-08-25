@@ -495,6 +495,4 @@ def questionaire_add(request):
 def questionaire_manage(request):
     return render(request,'standard/manage.html')
 
-def answer_manage(request):
-    return render(request,'standard/answer.html')
 
