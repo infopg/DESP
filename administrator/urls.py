@@ -2,7 +2,7 @@ from administrator import views
 from django.conf import settings
 from django.urls import path
 from django.conf.urls import include, url, re_path
-from administrator.views import standard, delete, edit, timeliner, questionaire_add, questionaire_manage
+from administrator.views import standard, delete, edit, timeliner, choice_add, questionaire_manage, blank_add, answer_add, matrix_add,form_add
 
 
 urlpatterns = [
@@ -15,7 +15,11 @@ urlpatterns = [
     re_path(r'/timeliner_create$', views.timeliner_create, name='timeliner_create'),
     re_path(r'/timeliner_edit$', views.timeliner_edit, name='timeliner_edit'),
     re_path(r'/timeliner_delete$', views.timeliner_delete, name='timeliner_delete'),
-    url(r'/questionaire_add$', questionaire_add, name='questionaire_add'),
+    url(r'/choice_add$', choice_add, name='choice_add'),
+    url(r'/blank_add$', blank_add, name='blank_add'),
+    url(r'/answer_add$', answer_add, name='answer_add'),
+    url(r'/matrix_add$', matrix_add, name='matrix_add'),
+    url(r'/form_add$', form_add, name='form_add'),
     url(r'/questionaire$', views.questionaire, name='questionaire'),
     url('/timeliner', timeliner, name='timeliner'),
     url(r'/questionaire_manage$', questionaire_manage, name='questionaire_manage'),

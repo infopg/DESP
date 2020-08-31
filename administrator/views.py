@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import json
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -14,7 +16,6 @@ from login.models import TableUser
 import time, xlrd, codecs, csv, os
 
 from collections import defaultdict
-
 
 
 def standard(request):
@@ -450,12 +451,29 @@ def download_indicator(request):
 
 def questionaire(request):
     a = request.GET.get('nodeID')
-    questionlist = TableQuestionContent.objects.filter(table_question_content_col_indicator_id = a).order_by('table_question_content_col_question_number')
-    print(questionlist)
-    return render(request, 'standard/questionaire.html', {'questionlist':questionlist})
+    questionlist = TableQuestionContent.objects.filter(table_question_content_col_indicator_id=a).order_by(
+        'table_question_content_col_question_number')
+    data = [
+        {
+            'question_type': x.table_question_content_col_question_type,
+            'indicator_id': x.table_question_content_col_indicator_id,
+            'question_number': x.table_question_content_col_question_number,
+            'marks': x.table_question_content_col_marks,
+            'content': x.table_question_content_col_content,
+            # 'scheme': x.table_question_content_col_mark_scheme,
+            'markmethod': x.table_question_content_col_markmethod,
+            'attachment': x.table_question_content_col_question_attachment,
+            'class': x.table_question_content_col_question_class,
+            'import': x.table_question_content_col_question_importanswer,
+            'required': x.table_question_content_col_question_required
+        } for x in questionlist
+    ]
+    # 暂时未添加scheme
+
+    return render(request, 'standard/questionaire.html', {'data': data})
 
 
-def questionaire_add(request):
+def choice_add(request):
     if 'required' in request.POST:
         required = 'on'
     else:
@@ -468,31 +486,273 @@ def questionaire_add(request):
         importanswer = 'on'
     else:
         importanswer = 'off'
-    data = defaultdict(list)
+    data = {}
     data['title'] = request.POST['choicetitle']
-    for i in range(0,len(request.POST.getlist('choice'))):
-        data['answer'].append(request.POST.getlist('choice')[i])
-    scheme = defaultdict(list)
-    for i in range(0,len(request.POST.getlist('answer'))):
-        scheme[request.POST.getlist('answer')[i]] = request.POST.getlist('score')[i]
-    print(json.dumps(scheme))
-    question = {
-        "table_question_content_col_question_type": request.POST['questiontype'],
-        "table_question_content_col_question_class": request.POST['class'],
-        "table_question_content_col_question_required": required,
-        "table_question_content_col_question_attachment": attachment,
-        "table_question_content_col_indicator_id": request.POST['indicatorID'],
-        "table_question_content_col_question_number": request.POST['questionnumber'],
-        'table_question_content_col_question_importanswer': importanswer,
-        'table_question_content_col_markmethod': request.POST['markmethod'],
-        'table_question_content_col_marks': request.POST['points'],
-        'table_question_content_col_content': json.dumps(data),
-        'table_question_content_col_mark_scheme': json.dumps(scheme)
-    }
-    TableQuestionContent.objects.create(**question)
-    return JsonResponse({'msg': 'success'})
+    data['answer'] = request.POST.getlist('choice')
+    existquestion = TableQuestionContent.objects.filter(
+        table_question_content_col_indicator_id=request.POST['indicatorID']).values_list(
+        'table_question_content_col_question_number')
+    list = []
+    for i in range(0, len(existquestion)):
+        list.append(existquestion[i][0])
+    if int(request.POST['questionnumber']) in list:
+        question = {
+            "table_question_content_col_question_type": request.POST['questiontype'],
+            "table_question_content_col_question_class": request.POST['class'],
+            "table_question_content_col_question_required": required,
+            "table_question_content_col_question_attachment": attachment,
+            "table_question_content_col_indicator_id": request.POST['indicatorID'],
+            "table_question_content_col_question_number": request.POST['questionnumber'],
+            'table_question_content_col_question_importanswer': importanswer,
+            'table_question_content_col_markmethod': request.POST['markmethod'],
+            'table_question_content_col_marks': request.POST['points'],
+            'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
+            'table_question_content_col_mark_scheme': None
+        }
+        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
+            table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
+        return JsonResponse({'msg': 'success'})
+    else:
+        question = {
+            "table_question_content_col_question_type": request.POST['questiontype'],
+            "table_question_content_col_question_class": request.POST['class'],
+            "table_question_content_col_question_required": required,
+            "table_question_content_col_question_attachment": attachment,
+            "table_question_content_col_indicator_id": request.POST['indicatorID'],
+            "table_question_content_col_question_number": request.POST['questionnumber'],
+            'table_question_content_col_question_importanswer': importanswer,
+            'table_question_content_col_markmethod': request.POST['markmethod'],
+            'table_question_content_col_marks': request.POST['points'],
+            'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
+            'table_question_content_col_mark_scheme': None
+        }
+        TableQuestionContent.objects.create(**question)
+        return JsonResponse({'msg': 'success'})
+
+def blank_add(request):
+    if 'required' in request.POST:
+        required = 'on'
+    else:
+        required = 'off'
+    if 'attachment' in request.POST:
+        attachment = 'on'
+    else:
+        attachment = 'off'
+    if 'importanswer' in request.POST:
+        importanswer = 'on'
+    else:
+        importanswer = 'off'
+    data = {}
+    data['title'] = request.POST['choicetitle']
+    existquestion = TableQuestionContent.objects.filter(
+        table_question_content_col_indicator_id=request.POST['indicatorID']).values_list(
+        'table_question_content_col_question_number')
+    list = []
+    for i in range(0, len(existquestion)):
+        list.append(existquestion[i][0])
+    if int(request.POST['questionnumber']) in list:
+        question = {
+            "table_question_content_col_question_type": request.POST['questiontype'],
+            "table_question_content_col_question_class": '',
+            "table_question_content_col_question_required": required,
+            "table_question_content_col_question_attachment": attachment,
+            "table_question_content_col_indicator_id": request.POST['indicatorID'],
+            "table_question_content_col_question_number": request.POST['questionnumber'],
+            'table_question_content_col_question_importanswer': importanswer,
+            'table_question_content_col_markmethod': request.POST['markmethod'],
+            'table_question_content_col_marks': request.POST['points'],
+            'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
+            'table_question_content_col_mark_scheme': None
+        }
+        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
+            table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
+        return JsonResponse({'msg': 'success'})
+    else:
+        question = {
+            "table_question_content_col_question_type": request.POST['questiontype'],
+            "table_question_content_col_question_class": '',
+            "table_question_content_col_question_required": required,
+            "table_question_content_col_question_attachment": attachment,
+            "table_question_content_col_indicator_id": request.POST['indicatorID'],
+            "table_question_content_col_question_number": request.POST['questionnumber'],
+            'table_question_content_col_question_importanswer': importanswer,
+            'table_question_content_col_markmethod': request.POST['markmethod'],
+            'table_question_content_col_marks': request.POST['points'],
+            'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
+            'table_question_content_col_mark_scheme': None
+        }
+        TableQuestionContent.objects.create(**question)
+        return JsonResponse({'msg': 'success'})
+
+def answer_add(request):
+    if 'required' in request.POST:
+        required = 'on'
+    else:
+        required = 'off'
+    if 'attachment' in request.POST:
+        attachment = 'on'
+    else:
+        attachment = 'off'
+    if 'importanswer' in request.POST:
+        importanswer = 'on'
+    else:
+        importanswer = 'off'
+    data = {}
+    data['title'] = request.POST['choicetitle']
+    existquestion = TableQuestionContent.objects.filter(
+        table_question_content_col_indicator_id=request.POST['indicatorID']).values_list(
+        'table_question_content_col_question_number')
+    list = []
+    for i in range(0, len(existquestion)):
+        list.append(existquestion[i][0])
+    if int(request.POST['questionnumber']) in list:
+        question = {
+            "table_question_content_col_question_type": request.POST['questiontype'],
+            "table_question_content_col_question_class": request.POST['height'],
+            "table_question_content_col_question_required": required,
+            "table_question_content_col_question_attachment": attachment,
+            "table_question_content_col_indicator_id": request.POST['indicatorID'],
+            "table_question_content_col_question_number": request.POST['questionnumber'],
+            'table_question_content_col_question_importanswer': importanswer,
+            'table_question_content_col_markmethod': request.POST['markmethod'],
+            'table_question_content_col_marks': request.POST['points'],
+            'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
+            'table_question_content_col_mark_scheme': None
+        }
+        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
+            table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
+        return JsonResponse({'msg': 'success'})
+    else:
+        question = {
+            "table_question_content_col_question_type": request.POST['questiontype'],
+            "table_question_content_col_question_class": request.POST['height'],
+            "table_question_content_col_question_required": required,
+            "table_question_content_col_question_attachment": attachment,
+            "table_question_content_col_indicator_id": request.POST['indicatorID'],
+            "table_question_content_col_question_number": request.POST['questionnumber'],
+            'table_question_content_col_question_importanswer': importanswer,
+            'table_question_content_col_markmethod': request.POST['markmethod'],
+            'table_question_content_col_marks': request.POST['points'],
+            'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
+            'table_question_content_col_mark_scheme': None
+        }
+        TableQuestionContent.objects.create(**question)
+        return JsonResponse({'msg': 'success'})
+
+def matrix_add(request):
+    if 'required' in request.POST:
+        required = 'on'
+    else:
+        required = 'off'
+    if 'attachment' in request.POST:
+        attachment = 'on'
+    else:
+        attachment = 'off'
+    if 'importanswer' in request.POST:
+        importanswer = 'on'
+    else:
+        importanswer = 'off'
+    data = {}
+    data['title'] = request.POST['choicetitle']
+    data['column'] = request.POST.getlist('choice')
+    data['rows'] = str(request.POST['row']).splitlines()
+    existquestion = TableQuestionContent.objects.filter(
+        table_question_content_col_indicator_id=request.POST['indicatorID']).values_list(
+        'table_question_content_col_question_number')
+    list = []
+    for i in range(0, len(existquestion)):
+        list.append(existquestion[i][0])
+    if int(request.POST['questionnumber']) in list:
+        question = {
+            "table_question_content_col_question_type": request.POST['questiontype'],
+            "table_question_content_col_question_class": request.POST['class'],
+            "table_question_content_col_question_required": required,
+            "table_question_content_col_question_attachment": attachment,
+            "table_question_content_col_indicator_id": request.POST['indicatorID'],
+            "table_question_content_col_question_number": request.POST['questionnumber'],
+            'table_question_content_col_question_importanswer': importanswer,
+            'table_question_content_col_markmethod': request.POST['markmethod'],
+            'table_question_content_col_marks': request.POST['points'],
+            'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
+            'table_question_content_col_mark_scheme': None
+        }
+        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
+            table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
+        return JsonResponse({'msg': 'success'})
+    else:
+        question = {
+            "table_question_content_col_question_type": request.POST['questiontype'],
+            "table_question_content_col_question_class": request.POST['class'],
+            "table_question_content_col_question_required": required,
+            "table_question_content_col_question_attachment": attachment,
+            "table_question_content_col_indicator_id": request.POST['indicatorID'],
+            "table_question_content_col_question_number": request.POST['questionnumber'],
+            'table_question_content_col_question_importanswer': importanswer,
+            'table_question_content_col_markmethod': request.POST['markmethod'],
+            'table_question_content_col_marks': request.POST['points'],
+            'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
+            'table_question_content_col_mark_scheme': None
+        }
+        TableQuestionContent.objects.create(**question)
+        return JsonResponse({'msg': 'success'})
+
+def form_add(request):
+    print(request.POST)
+    if 'required' in request.POST:
+        required = 'on'
+    else:
+        required = 'off'
+    if 'attachment' in request.POST:
+        attachment = 'on'
+    else:
+        attachment = 'off'
+    if 'importanswer' in request.POST:
+        importanswer = 'on'
+    else:
+        importanswer = 'off'
+    data = {}
+    data['title'] = request.POST['choicetitle']
+    data['column'] = str(request.POST['column']).splitlines()
+    data['rows'] = str(request.POST['row']).splitlines()
+    existquestion = TableQuestionContent.objects.filter(
+        table_question_content_col_indicator_id=request.POST['indicatorID']).values_list(
+        'table_question_content_col_question_number')
+    list = []
+    for i in range(0, len(existquestion)):
+        list.append(existquestion[i][0])
+    if int(request.POST['questionnumber']) in list:
+        question = {
+            "table_question_content_col_question_type": request.POST['questiontype'],
+            "table_question_content_col_question_class": '',
+            "table_question_content_col_question_required": required,
+            "table_question_content_col_question_attachment": attachment,
+            "table_question_content_col_indicator_id": request.POST['indicatorID'],
+            "table_question_content_col_question_number": request.POST['questionnumber'],
+            'table_question_content_col_question_importanswer': importanswer,
+            'table_question_content_col_markmethod': request.POST['markmethod'],
+            'table_question_content_col_marks': request.POST['points'],
+            'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
+            'table_question_content_col_mark_scheme': None
+        }
+        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
+            table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
+        return JsonResponse({'msg': 'success'})
+    else:
+        question = {
+            "table_question_content_col_question_type": request.POST['questiontype'],
+            "table_question_content_col_question_class": '',
+            "table_question_content_col_question_required": required,
+            "table_question_content_col_question_attachment": attachment,
+            "table_question_content_col_indicator_id": request.POST['indicatorID'],
+            "table_question_content_col_question_number": request.POST['questionnumber'],
+            'table_question_content_col_question_importanswer': importanswer,
+            'table_question_content_col_markmethod': request.POST['markmethod'],
+            'table_question_content_col_marks': request.POST['points'],
+            'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
+            'table_question_content_col_mark_scheme': None
+        }
+        TableQuestionContent.objects.create(**question)
+        return JsonResponse({'msg': 'success'})
 
 def questionaire_manage(request):
-    return render(request,'standard/manage.html')
-
-
+    return render(request, 'standard/manage.html')

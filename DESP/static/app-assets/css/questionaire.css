@@ -13,5 +13,8 @@
 
 }
 
+.table tr{
+   width: auto  ! important;
+}
 
 

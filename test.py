@@ -1,2 +1,2 @@
-a=('43',)
-print(type(a))
+set={1,3}
+print(3 in set)

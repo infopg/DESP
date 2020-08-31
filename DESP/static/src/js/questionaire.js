@@ -48,16 +48,16 @@ function answerfilling() {
         "                                                        <div>\n" +
         "                                                        <div style=\"margin-left: 10px;margin-bottom: 15px\">\n" +
         "                                                        </div>\n" +
-        "                                                        <input type=\"submit\"\n" +
+        "                                                        <input type=\"button\"\n" +
         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
-        "                                                               value=\"保存\" onclick=\"submit_choice(event)\">\n" +
+        "                                                               value=\"保存\" onclick=\"submit_answer(event); hide_edit_blank(event)\">\n" +
         "                                                        <input type=\"button\"\n" +
         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
         "                                                               value=\"清空\" onclick='clearForm_blank(event)'>\n" +
         "                                                    </div>\n" +
         "                                                        </div>\n" +
         "                                                        </form>\n" +
-        "                                                </div>")
+        "                                                </div>");
     variableID(10);
 }
 
@@ -102,9 +102,9 @@ function blankfilling() {
         "                                                        <div>\n" +
         "                                                        <div style=\"margin-left: 10px;margin-bottom: 15px\">\n" +
         "                                                        </div>\n" +
-        "                                                        <input type=\"submit\"\n" +
+        "                                                        <input type=\"button\"\n" +
         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
-        "                                                               value=\"保存\" onclick=\"submit_choice(event)\">\n" +
+        "                                                               value=\"保存\" onclick=\"submit_blank(event); hide_edit_blank(event)\">\n" +
         "                                                        <input type=\"button\" class=\"btn btn-outline-danger btn-lg  btn-round\" value=\"清空\" onclick='clearForm_blank(event)'>\n" +
         "                                                            </div>\n" +
         "                                                    </div>\n" +
@@ -133,7 +133,98 @@ for (var i = 0; i < document.getElementsByName('indicatorID').length; i++) {
     document.getElementsByName('indicatorID')[i].value = nodeID;
 }
 
-function matrixfilling(){
+function formfilling(){
+     var len = $(".div_question").length + 1;
+     $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
+         "                                                     <form method=\"post\" class=\"form-horizontal\">\n" +
+         "                                                   <div onclick=\"toggle_edit(event)\">\n" +
+         "                                                        <div>\n" +
+         "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+         "                                                            <h5 style=\"display: inline\">" + 'Question' + ' ' + len + " </h5>\n" +
+         "                                                            <button class=\"btn mr-1 btn-secondary\" onclick='delquestion(event)'>del</button>\n" +
+         "                                                        </div>\n" +
+         "                                                         <div>\n" +
+         "                                                            <table class=\"table table-responsive-sm text-left\" style=\"table-layout: fixed;\">\n" +
+         "                                                                <thead>\n" +
+         "                                                                <tr>\n" +
+         "                                                                    <td></td>\n" +
+         "                                                                    <td>Col1</td>\n" +
+         "                                                                    <td>Col2</td>\n" +
+         "                                                                    <td>Col3</td>\n" +
+         "                                                                </tr>\n" +
+         "                                                                </thead>\n" +
+         "                                                                <tbody>\n" +
+         "                                                                <tr>\n" +
+         "                                                                    <td>Row1\n" +
+         "                                                                    </td>\n" +
+         "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
+         "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
+         "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
+         "\n" +
+         "                                                                </tr>\n" +
+         "                                                                <tr>\n" +
+         "                                                                    <td>Row2\n" +
+         "                                                                    </td>\n" +
+         "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
+         "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
+         "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
+         "                                                                </tr>\n" +
+         "                                                                </tbody>\n" +
+         "                                                            </table></div></div>\n" +
+         "\n" +
+         "                                                        <div>\n" +
+          "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
+        "                                                                   value=\"表格题\">\n" +
+        "<input style=\"display: none\" name=\"questionnumber\"\n" +
+        "                                                                   value= " + len + ">\n" +
+        "<input style=\'display: none\' name='\indicatorID\'\n value=" + nodeID + ">" +
+         "                                                        <textarea class=\"form-control\"\n" +
+         "                                                                  onkeyup=\"SwapTxt(event)\" name=\"choicetitle\"></textarea>\n" +
+         "                                                        <div class=\"row\" style=\"margin-top: 15px\">\n" +
+         "                                                            <div class=\"col-md-9\">\n" +
+         "                                                                <span><input\n" +
+         "                                                                        name=\"required\"\n" +
+         "                                                                        type=\"checkbox\"><span>必答题</span></span>\n" +
+         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
+         "                                                                        name=\"attachment\"\n" +
+         "                                                                        type=\"checkbox\"><span>含附件上传</span></span>\n" +
+         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
+         "                                                                        name=\"markmethod\" class=\"form-control-sm\">\n" +
+         "                                                            <option>自动打分</option>\n" +
+         "                                                            <option>手动打分</option>\n" +
+         "                                                        </select></span>\n" +
+         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
+         "                                                                        name=\"importanswer\"\n" +
+         "                                                                        type=\"checkbox\"><span>导入答案</span></span>\n" +
+         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>满分: </span><input type=\"text\" name=\"points\" size=\"10\"></span>\n" +
+         "                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n" +
+         "                                                            </div>\n" +
+         "                                                        </div>\n" +
+         "                                                        <div style=\"margin-top: 15px;display: flex;flex-direction: row\">\n" +
+         "                                                            <div style=\"float: left;width: 50%\">\n" +
+         "                                                      <textarea onkeyup=\"table_title_split(event)\"\n" +
+         "                                                              style=\" width: 90%;height:100% \" rows='10' name=\"row\"></textarea>\n" +
+         "                                                            </div>\n" +
+         "                                                            <div style=\"float: left;width: 50%\">\n" +
+         "                                                            <textarea onkeyup=\"table_choice_split(event)\"\n" +
+         "                                                                    style=\" width: 90%;height:100% \" rows='10' name=\"column\"></textarea></div>\n" +
+         "                                                        </div>\n" +
+         "                                                         <div style='clear: both'></div>\n" +
+         "                                                         <div style='margin-top: 15px'></div>\n" +
+         "                                                        <input type=\"button\"\n" +
+         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
+         "                                                               value=\"保存\" onclick=\"submit_form(event); hide_edit(event)\">\n" +
+         "                                                        <input type=\"button\"\n" +
+         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
+         "                                                               value=\"清空\">\n" +
+         "\n" +
+         "                                                </div>\n" +
+         "                                            </form>\n" +
+         "                                            </div>");
+     variableID(10);
+}
+
+function matrixfilling() {
     var len = $(".div_question").length + 1;
     $('#question_list').append("                                <div class=\"div_question\" id = " + len + ">\n" +
         "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
@@ -142,10 +233,10 @@ function matrixfilling(){
         "                                                                <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
         "                                                                <h5 style=\"display: inline\">" + 'Question' + ' ' + len + " </h5>\n" +
         "                                                                <button class=\"btn mr-1 btn-secondary\"\n" +
-        "                                                                        onclick='delquestion(event)'></button>\n" +
+        "                                                                        onclick='delquestion(event)'>del</button>\n" +
         "                                                            </div>\n" +
         "                                                            <div>\n" +
-        "                                                                <table class=\"table table-responsive-sm text-left\">\n" +
+        "                                                                <table class=\"table table-responsive-sm text-left\"  style=\"table-layout:fixed;\">\n" +
         "                                                                    <thead>\n" +
         "                                                                    <tr>\n" +
         "                                                                        <td></td>\n" +
@@ -197,7 +288,7 @@ function matrixfilling(){
         "<input style=\'display: none\' name='\indicatorID\'\n value=" + nodeID + ">" +
         "                                                        <textarea class=\"form-control\"\n" +
         "                                                                  onkeyup=\"SwapTxt(event)\"\n" +
-        "                                                                  name=\"matrixtitle\"></textarea>\n" +
+        "                                                                  name=\"choicetitle\"></textarea>\n" +
         "                                                            <div class=\"row\" style=\"margin-top: 15px\">\n" +
         "                                                                <div class=\"col-md-9\">\n" +
         "                                                        <span><select class=\"form-control-sm\" name=\"class\">\n" +
@@ -217,18 +308,21 @@ function matrixfilling(){
         "                                                            <option>手动打分</option>\n" +
         "                                                        </select></span>\n" +
         "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
-        "                                                                            name=\"answerimport\"\n" +
+        "                                                                            name=\"importanswer\"\n" +
         "                                                                            type=\"checkbox\"><span>导入答案</span></span>\n" +
         "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>满分: </span><input type=\"text\" name=\"points\" size=\"10\"></span>\n" +
         "                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n" +
         "                                                                </div>\n" +
         "                                                            </div>\n" +
-        "                                                            <div style=\"margin-top: 15px\">\n" +
-        "                                                                <div style=\"float: left; width: 50%\"><textarea onkeyup=\"matrix_title_split(event)\"\n" +
+        "                                                            <div style=\"margin-top: 15px;display: flex;flex-direction: row\">\n" +
+        "<div style='float: left;width:50%'>" +
+        "                                                                <textarea onkeyup=\"matrix_title_split(event)\"\n" +
         "                                                                          placeholder=\"编辑行\"\n" +
         "                                                                          class=\"form-control\"\n" +
-        "                                                                   name=\"row\" style = \"width: 90%\"></textarea></div>\n" +
-        "                                                                <div style=\"float: left\"><table class=\"table table-responsive-sm text-left\">\n" +
+        "                                                                   name=\"row\" style = \"width: 90%; height: 100%\"></textarea>\n" +
+        "</div>" +
+        "<div style='float: left;width: 50%'>" +
+        "                                                                <table class=\"table table-responsive-sm text-left\">\n" +
         "                                                                    <tbody>\n" +
         "                                                                    <tr>\n" +
         "                                                                        <td>选项文字</td>\n" +
@@ -237,9 +331,9 @@ function matrixfilling(){
         "                                                                    </tr>\n" +
         "                                                                    <tr>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <input type=\"text\" name=\"optionedit\"\n" +
+        "                                                                            <input type=\"text\" name=\"choice\"\n" +
         "                                                                                   onkeyup=\"matrix_text_swap(event)\"\n" +
-        "                                                                                   value=\"Col1\">\n" +
+        "                                                                                   >\n" +
         "                                                                            <a><i class=\"ft-minus-circle\"\n" +
         "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
         "                                                                        </td>\n" +
@@ -255,9 +349,9 @@ function matrixfilling(){
         "                                                                    </tr>\n" +
         "                                                                    <tr>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <input type=\"text\" name=\"optionedit\"\n" +
+        "                                                                            <input type=\"text\" name=\"choice\"\n" +
         "                                                                                   onkeyup=\"matrix_text_swap(event)\"\n" +
-        "                                                                                   value=\"Col2\">\n" +
+        "                                                                                   >\n" +
         "                                                                            <a><i class=\"ft-minus-circle\"\n" +
         "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
         "                                                                        </td>\n" +
@@ -273,9 +367,9 @@ function matrixfilling(){
         "                                                                    </tr>\n" +
         "                                                                    <tr>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <input type=\"text\" name=\"optionedit\"\n" +
+        "                                                                            <input type=\"text\" name=\"choice\"\n" +
         "                                                                                   onkeyup=\"matrix_text_swap(event)\"\n" +
-        "                                                                                   value=\"Col3\">\n" +
+        "                                                                                   >\n" +
         "                                                                            <a><i class=\"ft-minus-circle\"\n" +
         "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
         "                                                                        </td>\n" +
@@ -291,9 +385,9 @@ function matrixfilling(){
         "                                                                    </tr>\n" +
         "                                                                    <tr>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <input type=\"text\" name=\"optionedit\"\n" +
+        "                                                                            <input type=\"text\" name=\"choice\"\n" +
         "                                                                                   onkeyup=\"matrix_text_swap(event)\"\n" +
-        "                                                                                   value=\"Col4\">\n" +
+        "                                                                                  >\n" +
         "                                                                            <a><i class=\"ft-minus-circle\"\n" +
         "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
         "                                                                        </td>\n" +
@@ -309,9 +403,9 @@ function matrixfilling(){
         "                                                                    </tr>\n" +
         "                                                                    <tr>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <input type=\"text\" name=\"optionedit\"\n" +
+        "                                                                            <input type=\"text\" name=\"choice\"\n" +
         "                                                                                   onkeyup=\"matrix_text_swap(event)\"\n" +
-        "                                                                                   value=\"Col5\">\n" +
+        "                                                                                  >\n" +
         "                                                                            <a><i class=\"ft-minus-circle\"\n" +
         "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
         "                                                                        </td>\n" +
@@ -331,12 +425,14 @@ function matrixfilling(){
         "                                                                    <a class=\"addchoice\"\n" +
         "                                                                       onclick=\"addcolumn(event)\"><span>添加选项</span></a>\n" +
         "                                                                </div>\n" +
-        "                                                                    </div>\n" +
+        "</div>" +
+        "<div style='clear: both'></div>" +
         "                                                            </div>\n" +
-        "                                                            <input type=\"submit\"\n" +
+        "<div style='margin-top: 15px'></div>"+
+        "                                                            <input type=\"button\"\n" +
         "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
         "                                                                   value=\"保存\"\n" +
-        "                                                                   onclick=\"submit_choice(event); hide_edit(event)\">\n" +
+        "                                                                   onclick=\"submit_matrix(event); hide_edit(event)\">\n" +
         "                                                            <input type=\"button\"\n" +
         "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
         "                                                                   value=\"清空\">\n" +
@@ -346,6 +442,8 @@ function matrixfilling(){
     variableID(10);
 
 }
+
+
 
 function choice() {
     var len = $(".div_question").length + 1;
@@ -452,7 +550,7 @@ function choice() {
         "                                                            </div>\n" +
         "                                                            <input type=\"button\"\n" +
         "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
-        "                                                                   value=\"保存\" onclick=\"submit_choice(event)\">\n" +
+        "                                                                   value=\"保存\" onclick=\"submit_choice(event); hide_edit(event)\">\n" +
         "                                                            <input type='button'" +
         "                                                                   class=\"btn btn-outline-danger btn-lg btn-round\"\n" +
         "                                                                   value=\"清空\" onclick='clearForm_choice(event)'>\n" +
@@ -618,12 +716,73 @@ function submit_choice(e) {
     $.ajax({
         type: 'post',
         data: form.serialize(),
-        url: '/administrator/questionaire_add',
+        url: '/administrator/choice_add',
         success: function (data) {
             console.log(data)
         }
     });
 }
+
+function submit_blank(e) {
+    e.preventDefault();
+    var a = $(e.target);
+    var form = a.closest('.form-horizontal');
+    console.log(form);
+    $.ajax({
+        type: 'post',
+        data: form.serialize(),
+        url: '/administrator/blank_add',
+        success: function (data) {
+            console.log(data)
+        }
+    });
+}
+
+function submit_answer(e) {
+    e.preventDefault();
+    var a = $(e.target);
+    var form = a.closest('.form-horizontal');
+    console.log(form);
+    $.ajax({
+        type: 'post',
+        data: form.serialize(),
+        url: '/administrator/answer_add',
+        success: function (data) {
+            console.log(data)
+        }
+    });
+}
+
+function submit_matrix(e) {
+    e.preventDefault();
+    var a = $(e.target);
+    var form = a.closest('.form-horizontal');
+    console.log(form);
+    $.ajax({
+        type: 'post',
+        data: form.serialize(),
+        url: '/administrator/matrix_add',
+        success: function (data) {
+            console.log(data)
+        }
+    });
+}
+
+function submit_form(e) {
+    e.preventDefault();
+    var a = $(e.target);
+    var form = a.closest('.form-horizontal');
+    console.log(form);
+    $.ajax({
+        type: 'post',
+        data: form.serialize(),
+        url: '/administrator/form_add',
+        success: function (data) {
+            console.log(data)
+        }
+    });
+}
+
 
 function toggle_edit(event) {
     var next = event.currentTarget.nextElementSibling;
@@ -646,29 +805,18 @@ function hide_edit(event) {
     $(next).hide();
 }
 
+function hide_edit_blank(event){
+    var next = event.currentTarget.parentElement.parentElement;
+    $(next).hide()
+}
+
 function matrix_title_split(event) {
-    var add_ques = $('<tr>\n' +
-        '<th align="left"\n' +
-        'style="border-bottom: 1px solid #efefef;">选项\n' +
-        '</th>\n' +
-        '<td><a class="ft-circle"\n' +
-        'style="position: static"></a></td>\n' +
-        '<td><a class="ft-circle"\n' +
-        'style="position: static"></a></td>\n' +
-        '<td><a class="ft-circle"\n' +
-        'style="position: static"></a></td>\n' +
-        '<td><a class="ft-circle"\n' +
-        'style="position: static"></a></td>\n' +
-        '<td><a class="ft-circle"\n' +
-        'style="position: static"></a></td>\n' +
-        '</tr>\n');
     var text_edit = event.currentTarget;
-    var question_titles = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children;
-    var question_table = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1];
+    var question_titles = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children; //tbody里的tr
+    var question_table = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1]; //上面的tbody
     var lines = $(text_edit).val().split(/\n/);
-    console.log(lines[0]);
-    var choice_name = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].firstElementChild.children;
-    var item_length = choice_name.length - 1;
+    console.log(lines);
+
     if (lines.length > question_titles.length) {
         $(question_titles[0]).clone().appendTo(question_table)
     } else if (lines.length < question_titles.length) {
@@ -682,9 +830,8 @@ function matrix_title_split(event) {
 
 function table_title_split(event) {
     var text_edit = event.currentTarget;
-    var question_table = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1];
+    var question_table = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1];
     var question_titles = question_table.children;
-    var add_ques = (Array.prototype.slice.call(question_titles))[0];
     var lines = $(text_edit).val().split(/\n/);
     if (lines.length > question_titles.length) {
         $(question_titles[0]).clone().appendTo(question_table);
@@ -699,44 +846,34 @@ function table_title_split(event) {
 
 function table_choice_split(event) {
     var text_edit = event.currentTarget;
-    var question_titles = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children;
-    var testques = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1];
-    var choice_name = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].firstElementChild.children;
-    var question_table = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].closest('table');
+    var question_titles = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children; //上面的tr
+    var choice_name = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].firstElementChild.children; //thead里的td
+    var question_table = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].closest('table'); // 上面的table
     var lines = $(text_edit).val().split(/\n/);
-    var add_choice = $('<td style="border-bottom:1px solid #efefef;"\n' +
-        "align='center'><textarea></textarea></td>')\n");
+    var add_choice = $('<td><textarea disabled style=\'width: 100%\'></textarea></td>');
     if (lines.length > (choice_name.length - 1)) {
         add_choice.appendTo(question_titles);
-        var Cell = $('<td align = "center"></td>')
+        var Cell = $('<td></td>');
         for (var i = 0; i < lines.length; i++) {
-            var thead = text_edit.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].children[0]
+            var thead = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].children[0];
             Cell.appendTo(thead)
-//            choice_name[i+1].innerHTML = lines[i]
         }
     } else if (lines.length < (choice_name.length - 1)) {
-//        for (var i = 0; i < lines.length; i++){
-//            console.log($((question_titles[i]).children))
-//            $((question_titles[i]).children[choice_name.length - 1]).remove();
-//        }
         var index = lines.length;
-        console.log(index);
-        console.log(question_table);
         $(question_table).find('tr').each(function () {
             var target = $(this);
             var td = target.children();
-            console.log(td);
-            $(td[index + 1]).remove();
+            for(i = index + 1; i <= td.length; i++){
+                $(td[i]).remove();
+            }
         })
     } else {
         for (var i = 0; i < lines.length; i++) {
             choice_name[i + 1].innerHTML = lines[i];
         }
-
     }
 
 }
-
 
 function movedown(e) {
     var a = $(e.target).parent().parent().parent();
@@ -772,8 +909,8 @@ function addcolumn(event) {
         '<input name="allowblank" type="checkbox">\n' +
         '</td>\n' +
         '<td>\n' +
-        '<a onclick="move_up(event)"><i class="ft-arrow-up"></i></a>\n' +
-        '<a onclick="move_down(event)"><i class="ft-arrow-down"></i></a>\n' +
+        '<a onclick="moveup(event)"><i class="ft-arrow-up"></i></a>\n' +
+        '<a onclick="movedown(event)"><i class="ft-arrow-down"></i></a>\n' +
         '</td>\n' +
         "</tr>')\n");
 
@@ -781,9 +918,9 @@ function addcolumn(event) {
     $(table).find('tr').each(function () {
         var target = $(this);
         if (target.parent().get(0) == table.firstElementChild) { //&& (target.parent() === $(table.children[0]))){
-            target.append('<td width="9.6%" align="center">placeholder</td>');
+            target.append('<td>placeholder</td>');
         } else {
-            target.append('<td><a class="ft-circle" style="position: static"></a></td>');
+            target.append('<td><a class="ft-circle"></a></td>');
         }
     })
 }
@@ -810,4 +947,7 @@ function matrix_text_swap(event) {
     thead[$(e.closest('tr')).index()].innerHTML = $(e).val();
 
 }
+function attachmentfilling() {
 
+
+}
