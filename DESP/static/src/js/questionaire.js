@@ -6,7 +6,7 @@ function answerfilling() {
     var len = $(".div_question").length + 1;
     $('#question_list').append("                                      <div class=\"div_question\" id = " + len + ">\n" +
         "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
-        "                                                    <div onclick = \"toggle_edit(event)\">\n" +
+        "                                                    <div onclick = \"toggle_edit(event)\" class='toggle'>\n" +
         "                                                        <div>\n" +
         "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
         "                                                            <h5 style=\"display: inline\">" + 'Question' + ' ' + len + " </h5>\n" +
@@ -65,7 +65,7 @@ function blankfilling() {
     var len = $(".div_question").length + 1;
     $('#question_list').append("                                               <div class=\"div_question\" id = " + len + ">\n" +
         "                                                        <form method=\"post\" class=\"form-horizontal\">\n" +
-        "                                                            <div onclick=\"toggle_edit(event)\">\n" +
+        "                                                            <div onclick=\"toggle_edit(event)\" class = 'toggle'>\n" +
         "                                                        <div>\n" +
         "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
         "                                                            <h5 style=\"display: inline\">" + 'Question' + ' ' + len + " </h5>\n" +
@@ -133,107 +133,107 @@ for (var i = 0; i < document.getElementsByName('indicatorID').length; i++) {
     document.getElementsByName('indicatorID')[i].value = nodeID;
 }
 
-function formfilling(){
-     var len = $(".div_question").length + 1;
-     $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
-         "                                                     <form method=\"post\" class=\"form-horizontal\">\n" +
-         "                                                   <div onclick=\"toggle_edit(event)\">\n" +
-         "                                                        <div>\n" +
-         "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
-         "                                                            <h5 style=\"display: inline\">" + 'Question' + ' ' + len + " </h5>\n" +
-         "                                                            <button class=\"btn mr-1 btn-secondary\" onclick='delquestion(event)'>del</button>\n" +
-         "                                                        </div>\n" +
-         "                                                         <div>\n" +
-         "                                                            <table class=\"table table-responsive-sm text-left\" style=\"table-layout: fixed;\">\n" +
-         "                                                                <thead>\n" +
-         "                                                                <tr>\n" +
-         "                                                                    <td></td>\n" +
-         "                                                                    <td>Col1</td>\n" +
-         "                                                                    <td>Col2</td>\n" +
-         "                                                                    <td>Col3</td>\n" +
-         "                                                                </tr>\n" +
-         "                                                                </thead>\n" +
-         "                                                                <tbody>\n" +
-         "                                                                <tr>\n" +
-         "                                                                    <td>Row1\n" +
-         "                                                                    </td>\n" +
-         "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
-         "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
-         "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
-         "\n" +
-         "                                                                </tr>\n" +
-         "                                                                <tr>\n" +
-         "                                                                    <td>Row2\n" +
-         "                                                                    </td>\n" +
-         "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
-         "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
-         "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
-         "                                                                </tr>\n" +
-         "                                                                </tbody>\n" +
-         "                                                            </table></div></div>\n" +
-         "\n" +
-         "                                                        <div>\n" +
-          "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
+function formfilling() {
+    var len = $(".div_question").length + 1;
+    $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
+        "                                                     <form method=\"post\" class=\"form-horizontal\">\n" +
+        "                                                   <div onclick=\"toggle_edit(event)\" class = 'toggle'>\n" +
+        "                                                        <div>\n" +
+        "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+        "                                                            <h5 style=\"display: inline\">" + 'Question' + ' ' + len + " </h5>\n" +
+        "                                                            <button class=\"btn mr-1 btn-secondary\" onclick='delquestion(event)'>del</button>\n" +
+        "                                                        </div>\n" +
+        "                                                         <div>\n" +
+        "                                                            <table class=\"table table-responsive-sm text-left\" style=\"table-layout: fixed;\">\n" +
+        "                                                                <thead>\n" +
+        "                                                                <tr>\n" +
+        "                                                                    <td></td>\n" +
+        "                                                                    <td>Col1</td>\n" +
+        "                                                                    <td>Col2</td>\n" +
+        "                                                                    <td>Col3</td>\n" +
+        "                                                                </tr>\n" +
+        "                                                                </thead>\n" +
+        "                                                                <tbody>\n" +
+        "                                                                <tr>\n" +
+        "                                                                    <td>Row1\n" +
+        "                                                                    </td>\n" +
+        "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
+        "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
+        "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
+        "\n" +
+        "                                                                </tr>\n" +
+        "                                                                <tr>\n" +
+        "                                                                    <td>Row2\n" +
+        "                                                                    </td>\n" +
+        "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
+        "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
+        "                                                                    <td><textarea disabled style='width: 100%'></textarea></td>\n" +
+        "                                                                </tr>\n" +
+        "                                                                </tbody>\n" +
+        "                                                            </table></div></div>\n" +
+        "\n" +
+        "                                                        <div>\n" +
+        "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
         "                                                                   value=\"表格题\">\n" +
         "<input style=\"display: none\" name=\"questionnumber\"\n" +
         "                                                                   value= " + len + ">\n" +
         "<input style=\'display: none\' name='\indicatorID\'\n value=" + nodeID + ">" +
-         "                                                        <textarea class=\"form-control\"\n" +
-         "                                                                  onkeyup=\"SwapTxt(event)\" name=\"choicetitle\"></textarea>\n" +
-         "                                                        <div class=\"row\" style=\"margin-top: 15px\">\n" +
-         "                                                            <div class=\"col-md-9\">\n" +
-         "                                                                <span><input\n" +
-         "                                                                        name=\"required\"\n" +
-         "                                                                        type=\"checkbox\"><span>必答题</span></span>\n" +
-         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
-         "                                                                        name=\"attachment\"\n" +
-         "                                                                        type=\"checkbox\"><span>含附件上传</span></span>\n" +
-         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
-         "                                                                        name=\"markmethod\" class=\"form-control-sm\">\n" +
-         "                                                            <option>自动打分</option>\n" +
-         "                                                            <option>手动打分</option>\n" +
-         "                                                        </select></span>\n" +
-         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
-         "                                                                        name=\"importanswer\"\n" +
-         "                                                                        type=\"checkbox\"><span>导入答案</span></span>\n" +
-         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>满分: </span><input type=\"text\" name=\"points\" size=\"10\"></span>\n" +
-         "                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n" +
-         "                                                            </div>\n" +
-         "                                                        </div>\n" +
-         "                                                        <div style=\"margin-top: 15px;display: flex;flex-direction: row\">\n" +
-         "                                                            <div style=\"float: left;width: 50%\">\n" +
-         "                                                      <textarea onkeyup=\"table_title_split(event)\"\n" +
-         "                                                              style=\" width: 90%;height:100% \" rows='10' name=\"row\"></textarea>\n" +
-         "                                                            </div>\n" +
-         "                                                            <div style=\"float: left;width: 50%\">\n" +
-         "                                                            <textarea onkeyup=\"table_choice_split(event)\"\n" +
-         "                                                                    style=\" width: 90%;height:100% \" rows='10' name=\"column\"></textarea></div>\n" +
-         "                                                        </div>\n" +
-         "                                                         <div style='clear: both'></div>\n" +
-         "                                                         <div style='margin-top: 15px'></div>\n" +
-         "                                                        <input type=\"button\"\n" +
-         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
-         "                                                               value=\"保存\" onclick=\"submit_form(event); hide_edit(event)\">\n" +
-         "                                                        <input type=\"button\"\n" +
-         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
-         "                                                               value=\"清空\">\n" +
-         "\n" +
-         "                                                </div>\n" +
-         "                                            </form>\n" +
-         "                                            </div>");
-     variableID(10);
+        "                                                        <textarea class=\"form-control\"\n" +
+        "                                                                  onkeyup=\"SwapTxt(event)\" name=\"choicetitle\"></textarea>\n" +
+        "                                                        <div class=\"row\" style=\"margin-top: 15px\">\n" +
+        "                                                            <div class=\"col-md-9\">\n" +
+        "                                                                <span><input\n" +
+        "                                                                        name=\"required\"\n" +
+        "                                                                        type=\"checkbox\"><span>必答题</span></span>\n" +
+        "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
+        "                                                                        name=\"attachment\"\n" +
+        "                                                                        type=\"checkbox\"><span>含附件上传</span></span>\n" +
+        "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
+        "                                                                        name=\"markmethod\" class=\"form-control-sm\">\n" +
+        "                                                            <option>自动打分</option>\n" +
+        "                                                            <option>手动打分</option>\n" +
+        "                                                        </select></span>\n" +
+        "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
+        "                                                                        name=\"importanswer\"\n" +
+        "                                                                        type=\"checkbox\"><span>导入答案</span></span>\n" +
+        "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>满分: </span><input type=\"text\" name=\"points\" size=\"10\"></span>\n" +
+        "                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n" +
+        "                                                            </div>\n" +
+        "                                                        </div>\n" +
+        "                                                        <div style=\"margin-top: 15px;display: flex;flex-direction: row\">\n" +
+        "                                                            <div style=\"float: left;width: 50%\">\n" +
+        "                                                      <textarea onkeyup=\"table_title_split(event)\"\n" +
+        "                                                              style=\" width: 90%;height:100% \" rows='10' name=\"row\"></textarea>\n" +
+        "                                                            </div>\n" +
+        "                                                            <div style=\"float: left;width: 50%\">\n" +
+        "                                                            <textarea onkeyup=\"table_choice_split(event)\"\n" +
+        "                                                                    style=\" width: 90%;height:100% \" rows='10' name=\"column\"></textarea></div>\n" +
+        "                                                        </div>\n" +
+        "                                                         <div style='clear: both'></div>\n" +
+        "                                                         <div style='margin-top: 15px'></div>\n" +
+        "                                                        <input type=\"button\"\n" +
+        "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
+        "                                                               value=\"保存\" onclick=\"submit_form(event); hide_edit(event)\">\n" +
+        "                                                        <input type=\"button\"\n" +
+        "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
+        "                                                               value=\"清空\" onclick='clearForm_matrix(event)'>\n" +
+        "\n" +
+        "                                                </div>\n" +
+        "                                            </form>\n" +
+        "                                            </div>");
+    variableID(10);
 }
 
 function matrixfilling() {
     var len = $(".div_question").length + 1;
     $('#question_list').append("                                <div class=\"div_question\" id = " + len + ">\n" +
         "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
-        "                                                        <div onclick=\"toggle_edit(event)\">\n" +
+        "                                                        <div onclick=\"toggle_edit(event)\" class = 'toggle'>\n" +
         "                                                            <div>\n" +
         "                                                                <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
         "                                                                <h5 style=\"display: inline\">" + 'Question' + ' ' + len + " </h5>\n" +
-        "                                                                <button class=\"btn mr-1 btn-secondary\"\n" +
-        "                                                                        onclick='delquestion(event)'>del</button>\n" +
+        "                                                                <input type=\'button\' class=\"btn mr-1 btn-secondary\"\n" +
+        "                                                                        onclick='delquestion(event)' value=\'del\'>\n" +
         "                                                            </div>\n" +
         "                                                            <div>\n" +
         "                                                                <table class=\"table table-responsive-sm text-left\"  style=\"table-layout:fixed;\">\n" +
@@ -322,12 +322,12 @@ function matrixfilling() {
         "                                                                   name=\"row\" style = \"width: 90%; height: 100%\"></textarea>\n" +
         "</div>" +
         "<div style='float: left;width: 50%'>" +
-        "                                                                <table class=\"table table-responsive-sm text-left\">\n" +
+        "                                                                <table class=\"table table-responsive-sm text-left\"  style=\"table-layout: fixed\">\n" +
         "                                                                    <tbody>\n" +
         "                                                                    <tr>\n" +
         "                                                                        <td>选项文字</td>\n" +
-        "                                                                        <td>允许填空</td>\n" +
-        "                                                                        <td>上移下移</td>\n" +
+        "                                                                        <td>追加填空</td>\n" +
+        "                                                                        <td>移动</td>\n" +
         "                                                                    </tr>\n" +
         "                                                                    <tr>\n" +
         "                                                                        <td>\n" +
@@ -338,12 +338,12 @@ function matrixfilling() {
         "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <input name=\"allowblank\" type=\"checkbox\">\n" +
+        "                                                                            <input name=\"allowblank\" type=\"button\" class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,'matrix')\">\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <a onclick=\"moveup(event)\"><i\n" +
+        "                                                                            <a onclick=\"moveleft(event)\"><i\n" +
         "                                                                                    class=\"ft-arrow-up\"></i></a>\n" +
-        "                                                                            <a onclick=\"movedown(event)\"><i\n" +
+        "                                                                            <a onclick=\"moveright(event)\"><i\n" +
         "                                                                                    class=\"ft-arrow-down\"></i></a>\n" +
         "                                                                        </td>\n" +
         "                                                                    </tr>\n" +
@@ -356,12 +356,12 @@ function matrixfilling() {
         "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <input name=\"allowblank\" type=\"checkbox\">\n" +
+        "                                                                            <input name=\"allowblank\" type=\"button\" class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,'matrix')\">\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <a onclick=\"moveup(event)\"><i\n" +
+        "                                                                            <a onclick=\"moveleft(event)\"><i\n" +
         "                                                                                    class=\"ft-arrow-up\"></i></a>\n" +
-        "                                                                            <a onclick=\"movedown(event)\"><i\n" +
+        "                                                                            <a onclick=\"moveright(event)\"><i\n" +
         "                                                                                    class=\"ft-arrow-down\"></i></a>\n" +
         "                                                                        </td>\n" +
         "                                                                    </tr>\n" +
@@ -374,12 +374,12 @@ function matrixfilling() {
         "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <input name=\"allowblank\" type=\"checkbox\">\n" +
+        "                                                                            <input name=\"allowblank\" type=\"button\" class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,'matrix')\">\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <a onclick=\"moveup(event)\"><i\n" +
+        "                                                                            <a onclick=\"moveleft(event)\"><i\n" +
         "                                                                                    class=\"ft-arrow-up\"></i></a>\n" +
-        "                                                                            <a onclick=\"movedown(event)\"><i\n" +
+        "                                                                            <a onclick=\"moveright(event)\"><i\n" +
         "                                                                                    class=\"ft-arrow-down\"></i></a>\n" +
         "                                                                        </td>\n" +
         "                                                                    </tr>\n" +
@@ -392,12 +392,12 @@ function matrixfilling() {
         "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <input name=\"allowblank\" type=\"checkbox\">\n" +
+        "                                                                           <input name=\"allowblank\" type=\"button\" class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,'matrix')\">\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <a onclick=\"moveup(event)\"><i\n" +
+        "                                                                            <a onclick=\"moveleft(event)\"><i\n" +
         "                                                                                    class=\"ft-arrow-up\"></i></a>\n" +
-        "                                                                            <a onclick=\"movedown(event)\"><i\n" +
+        "                                                                            <a onclick=\"moveright(event)\"><i\n" +
         "                                                                                    class=\"ft-arrow-down\"></i></a>\n" +
         "                                                                        </td>\n" +
         "                                                                    </tr>\n" +
@@ -410,12 +410,12 @@ function matrixfilling() {
         "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <input name=\"allowblank\" type=\"checkbox\">\n" +
+        "                                                                            <input name=\"allowblank\" type=\"button\" class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,'matrix')\">\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <a onclick=\"moveup(event)\"><i\n" +
+        "                                                                            <a onclick=\"moveleft(event)\"><i\n" +
         "                                                                                    class=\"ft-arrow-up\"></i></a>\n" +
-        "                                                                            <a onclick=\"movedown(event)\"><i\n" +
+        "                                                                            <a onclick=\"moveright(event)\"><i\n" +
         "                                                                                    class=\"ft-arrow-down\"></i></a>\n" +
         "                                                                        </td>\n" +
         "                                                                    </tr>\n" +
@@ -428,14 +428,14 @@ function matrixfilling() {
         "</div>" +
         "<div style='clear: both'></div>" +
         "                                                            </div>\n" +
-        "<div style='margin-top: 15px'></div>"+
+        "<div style='margin-top: 15px'></div>" +
         "                                                            <input type=\"button\"\n" +
         "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
         "                                                                   value=\"保存\"\n" +
         "                                                                   onclick=\"submit_matrix(event); hide_edit(event)\">\n" +
         "                                                            <input type=\"button\"\n" +
         "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
-        "                                                                   value=\"清空\">\n" +
+        "                                                                   value=\"清空\" onclick='clearForm_matrix(event)'>\n" +
         "                                                        </div>\n" +
         "                                                    </form>\n" +
         "                                                </div>");
@@ -444,15 +444,14 @@ function matrixfilling() {
 }
 
 
-
 function choice() {
     var len = $(".div_question").length + 1;
     $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
         "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
-        "                                                        <div onclick=\"toggle_edit(event)\">\n" +
+        "                                                        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
         "                                                            <div>\n" +
         "<h5 style=\'display: inline\'>" + len + '.' + ' ' + "</h5>" +
-        "                                                                <h5 style=\"display: inline\">" + 'Question' + ' ' + len + ' </h5>\n' + "<button class=\"btn mr-1 btn-secondary\" onclick=\'delquestion(event)\' >del</button>" +
+        "                                                                <h5 style=\"display: inline\">" + 'Question' + ' ' + len + ' </h5>\n' + "<input type=\'button\' class=\"btn mr-1 btn-secondary\" onclick=\'delquestion(event)\' value=\'del\' ></input>" +
         "                                                            </div>\n" +
         "                                                            <div>\n" +
         "                                                                <ul class=\"choice_list\">\n" +
@@ -514,9 +513,9 @@ function choice() {
         "                                                                                    class=\"ft-minus-circle\"></i></a>\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <input type=\"checkbox\"\n" +
-        "                                                                                   onchange=\"allowblank(event)\"\n" +
-        "                                                                                   name=\"blank\">\n" +
+        "                                                                            <input type=\"button\"\n" +
+        "                                                                                   class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,'choice')\"\n" +
+        "                                                                                   name=\"allowblank\">\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
         "                                                                            <a onclick=\"moveup(event)\"><i class=\"ft-arrow-up\"></i></a>\n" +
@@ -532,9 +531,9 @@ function choice() {
         "                                                                                    class=\"ft-minus-circle\"></i></a>\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
-        "                                                                            <input type=\"checkbox\"\n" +
-        "                                                                                   onchange=\"allowblank(event)\"\n" +
-        "                                                                                   name=\"blank\">\n" +
+        "                                                                            <input type=\"button\"\n" +
+        "                                                                                   class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,'choice')\"\n" +
+        "                                                                                   name=\"allowblank\">\n" +
         "                                                                        </td>\n" +
         "                                                                        <td>\n" +
         "                                                                            <a onclick=\"moveup(event)\"><i class=\"ft-arrow-up\"></i></a>\n" +
@@ -576,6 +575,24 @@ function clearForm_choice(e) {
 
 }
 
+function clearForm_matrix(event) {
+    var bt = $(event.target);
+    val = bt.parent().children().eq(1).val();
+    var txt = bt.closest('.div_question').find('textarea');
+    txt.parent().prev().find('h5').eq(1).html('Question' + ' ' + val);
+    var form = bt.closest('form');
+    var rowlength = bt.closest('.div_question').find('table').eq(0).find('tbody').children().length;
+    var collength = bt.closest('.div_question').find('table').eq(0).find('thead').children().children().length;
+    for (i = 0; i < rowlength; i++) {
+        bt.closest('.div_question').find('table').eq(0).find('tbody').children().eq(i).children().eq(0).html('Row' + (i + 1))
+    }
+    for (i = 0; i < collength; i++) {
+        bt.closest('.div_question').find('table').eq(0).find('thead').children().children().eq(i + 1).html('Col' + (i + 1))
+    }
+    form[0].reset();
+}
+
+
 function areaheight(e) {
     var bt = $(e.target);
     var textarea = bt.closest('.div_question').find('textarea').eq(0);
@@ -614,7 +631,6 @@ function SwapTxt_option(e) {
     choice.closest('.div_question').find('.choice_list').children().eq(a).children('span').html(choice.val());
     if (choice.closest('.div_question').find('.choice_list').children().eq(a).children('span').html() === '') {
         choice.closest('.div_question').find('.choice_list').children().eq(a).children('span').html('Answer' + (a + 1))
-
     }
 }
 
@@ -661,7 +677,7 @@ function addchoice(e) {
         '                                                                            <a onclick="delchoice(event)"><i class="ft-minus-circle"></i></a>\n' +
         '                                                                        </td>\n' +
         '                                                                        <td>\n' +
-        '                                                                            <input type="checkbox" onchange="allowblank(event)" name="blank">\n' +
+        '                                                                            <input type="button" class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,\'choice\')\" name="allowblank">\n' +
         '                                                                        </td>\n' +
         '                                                                        <td>\n' +
         '                                                                            <a onclick="moveup(event)"><i class="ft-arrow-up"></i></a>\n' +
@@ -789,7 +805,6 @@ function toggle_edit(event) {
     $(next).toggle();
 }
 
-
 function moveup(e) {
     var a = $(e.target).parent().parent().parent();
     var prev = a.prev();
@@ -805,9 +820,20 @@ function hide_edit(event) {
     $(next).hide();
 }
 
-function hide_edit_blank(event){
+function hide_edit_blank(event) {
     var next = event.currentTarget.parentElement.parentElement;
     $(next).hide()
+}
+
+function synchronize_matrix(event) {
+    var question_titles = event.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children; //tbody里的tr
+    var lines = $(event).val().split(/\n/);
+    for (var i = 0; i < lines.length; i++) {
+        question_titles[i].firstElementChild.innerHTML = lines[i];
+        if (lines[i] === '') {
+            question_titles[i].firstElementChild.innerHTML = 'Row' + (i + 1)
+        }
+    }
 }
 
 function matrix_title_split(event) {
@@ -815,62 +841,97 @@ function matrix_title_split(event) {
     var question_titles = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children; //tbody里的tr
     var question_table = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1]; //上面的tbody
     var lines = $(text_edit).val().split(/\n/);
-    console.log(lines);
-
     if (lines.length > question_titles.length) {
-        $(question_titles[0]).clone().appendTo(question_table)
+        var a = lines.length;
+        $("<tr>\n" +
+            "                                                                        <td>" + 'Row' + a + "</td>\n" +
+            "                                                                    </tr>").appendTo(question_table);
+        column_length = $(event.currentTarget).closest('.div_question').find('thead').children().children().length;
+        var target = $(question_titles).last();
+        for (i = 0; i < column_length - 1; i++) {
+            target.append("<td><a class=\"ft-circle\"></a></td>\n")
+        }
+        synchronize_matrix(text_edit);
     } else if (lines.length < question_titles.length) {
         $(question_titles[question_titles.length - 1]).remove();
+        synchronize_matrix(text_edit);
     } else {
-        for (var i = 0; i < lines.length; i++) {
-            question_titles[i].firstElementChild.innerHTML = lines[i];
+        synchronize_matrix(text_edit);
+    }
+}
+
+function synchronize_table(event) {
+    var question_titles = event.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children; //tbody里的tr
+    var lines = $(event).val().split(/\n/);
+    for (var i = 0; i < lines.length; i++) {
+        question_titles[i].firstElementChild.innerHTML = lines[i];
+        if (lines[i] === '') {
+            question_titles[i].firstElementChild.innerHTML = 'Row' + (i + 1)
         }
     }
 }
 
 function table_title_split(event) {
     var text_edit = event.currentTarget;
-    var question_table = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1];
-    var question_titles = question_table.children;
+    var question_table = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1]; //tbody
+    var question_titles = question_table.children; //tbody里的tr
     var lines = $(text_edit).val().split(/\n/);
     if (lines.length > question_titles.length) {
-        $(question_titles[0]).clone().appendTo(question_table);
+        var a = lines.length;
+        $("<tr>\n" +
+            "                                                                        <td>" + 'Row' + a + "</td>\n" +
+            "                                                                    </tr>").appendTo(question_table);
+        column_length = $(event.currentTarget).closest('.div_question').find('thead').children().children().length;
+        var target = $(question_titles).last();
+        for (i = 0; i < column_length - 1; i++) {
+            target.append("<td><textarea disabled style='width: 100%'></textarea></td>\n")
+        }
+        synchronize_table(text_edit);
     } else if (lines.length < question_titles.length) {
         $(question_titles[question_titles.length - 1]).remove();
+        synchronize_table(text_edit);
     } else {
-        for (var i = 0; i < lines.length; i++) {
-            question_titles[i].firstElementChild.innerHTML = lines[i];//bug 空格同步
+        synchronize_table(text_edit);
+    }
+}
+
+function synchronize_table_col(event) {
+    var question_titles = event.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].children[0];//tbody里的tr
+    var lines = $(event).val().split(/\n/);
+    for (var i = 0; i < lines.length; i++) {
+        question_titles.children[i + 1].innerHTML = lines[i];
+        if (lines[i] === '') {
+            question_titles.children[i + 1].innerHTML = 'Col' + (i + 1)
         }
     }
 }
 
 function table_choice_split(event) {
     var text_edit = event.currentTarget;
-    var question_titles = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children; //上面的tr
+    var question_titles = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].children; //tbody的tr
     var choice_name = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].firstElementChild.children; //thead里的td
     var question_table = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[1].closest('table'); // 上面的table
     var lines = $(text_edit).val().split(/\n/);
     var add_choice = $('<td><textarea disabled style=\'width: 100%\'></textarea></td>');
     if (lines.length > (choice_name.length - 1)) {
+        a = lines.length;
         add_choice.appendTo(question_titles);
-        var Cell = $('<td></td>');
-        for (var i = 0; i < lines.length; i++) {
-            var thead = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].children[0];
-            Cell.appendTo(thead)
-        }
+        var Cell = $('<td>' + 'Col' + a + '</td>');
+        var thead = text_edit.parentElement.parentElement.parentElement.previousElementSibling.children[1].firstElementChild.children[0].children[0]; //thead里的tr
+        Cell.appendTo(thead);
+        synchronize_table_col(text_edit);
     } else if (lines.length < (choice_name.length - 1)) {
         var index = lines.length;
         $(question_table).find('tr').each(function () {
             var target = $(this);
             var td = target.children();
-            for(i = index + 1; i <= td.length; i++){
+            for (i = index + 1; i < td.length; i++) {
                 $(td[i]).remove();
             }
-        })
+        });
+        synchronize_table_col(text_edit);
     } else {
-        for (var i = 0; i < lines.length; i++) {
-            choice_name[i + 1].innerHTML = lines[i];
-        }
+        synchronize_table_col(text_edit);
     }
 
 }
@@ -885,7 +946,6 @@ function movedown(e) {
 
     }
 }
-
 
 function variableID(prefix) {
     formlist = document.getElementsByClassName('form-horizontal');
@@ -902,42 +962,87 @@ function addcolumn(event) {
     var choice_add = e.parentElement.previousElementSibling.firstElementChild;
     $(choice_add).append('<tr>\n' +
         '<td>\n' +
-        '<input type="text" name="optionedit"\n' + 'onkeyup="matrix_text_swap(event)" value="placeholder">\n' +
+        '<input type="text" name="choice"\n' + 'onkeyup="matrix_text_swap(event)">\n' +
         '<a><i class="ft-minus-circle" onclick="minuscolumn(event)"></i></a>\n' +
         '</td>\n' +
         '<td>\n' +
-        '<input name="allowblank" type="checkbox">\n' +
+        '<input name=\"allowblank\" type=\"button\" class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,\'matrix\')\">\n' +
         '</td>\n' +
         '<td>\n' +
-        '<a onclick="moveup(event)"><i class="ft-arrow-up"></i></a>\n' +
-        '<a onclick="movedown(event)"><i class="ft-arrow-down"></i></a>\n' +
+        '<a onclick="moveleft(event)"><i class="ft-arrow-up"></i></a>\n' +
+        '<a onclick="moveright(event)"><i class="ft-arrow-down"></i></a>\n' +
         '</td>\n' +
         "</tr>')\n");
-
     //console.log(table);
     $(table).find('tr').each(function () {
         var target = $(this);
+        var length = $(table).find('thead').children().children().length;
         if (target.parent().get(0) == table.firstElementChild) { //&& (target.parent() === $(table.children[0]))){
-            target.append('<td>placeholder</td>');
+            target.append('<td>' + 'Col' + length + '</td>');
         } else {
             target.append('<td><a class="ft-circle"></a></td>');
         }
     })
 }
 
+function moveleft(event) {
+    a = $(event.target);
+    index = a.closest('tr').index();
+    column = $(event.target).closest('.div_question').find('table')[0].rows[0].cells[index];
+    console.log($(column).prev());
+    if (index > 1) {
+        $(column).insertBefore($(column).prev());
+        $(a.closest('tr')).insertBefore($(a.closest('tr')).prev());
+    }
+}
+
+function moveright(event) {
+    a = $(event.target);
+    index = a.closest('tr').index();
+    column = $(event.target).closest('.div_question').find('table')[0].rows[0].cells[index];
+    next = a.parent().parent().parent().next();
+    if (next) {
+        $(column).insertAfter($(column).next());
+        $(a.closest('tr')).insertAfter($(a.closest('tr')).next());
+    }
+}
+
+
+function addblank(event, type) {
+    questiontype = type;
+    a = $(event.target);
+    blank = a.closest('tr').find('input[name="choice"]');
+    blank.val(blank.val() + '___');
+    if (questiontype === 'matrix') {
+        var thead = a.closest('form').find('thead');
+        thead.children().children().eq(a.closest('tr').index())[0].innerHTML = blank.val();
+    }
+    else if(questiontype === 'choice'){
+        a.closest('.div_question').find('.choice_list').children().eq(a.closest('tr').index() - 1).find('span').html(blank.val())
+    }
+}
+
 function minuscolumn(event) {
     var e = event.currentTarget;
     var table = e.closest('form').firstElementChild.children[1].firstElementChild;
-    console.log($(e).closest('.div_question').find('table')[1]); //下面的table
-    console.log($(e).closest('tr').index()); //要删第几行
+    // console.log($(e).closest('.div_question').find('table')[1]); //下面的table
+    // console.log($(e).closest('tr').index()); //要删第几行
     var index = $(e).closest('tr').index();
-    $(e.closest('tr')).remove();
+    var length = $(e).closest('tbody').children().length;
+    for (i = index + 1; i <= length - 1; i++) {
+        if ($(e).closest('tbody').children().eq(i).find("input[name='choice']")[0].value === '') {
+            // console.log($(table).find('thead').children().children().eq(i));
+            $(table).find('thead').children().children().eq(i).html('Col' + (i - 1))
+        }
+    }
     $(table).find('tr').each(function () {
         var target = $(this);
         var td = target.children();
-        console.log(td);
+        // console.log(td);
         $(td[index]).remove();
-    })
+    });
+    $(e.closest('tr')).remove();
+
 }
 
 function matrix_text_swap(event) {
@@ -945,9 +1050,11 @@ function matrix_text_swap(event) {
     var table = e.closest('tbody');
     var thead = e.closest('form').firstElementChild.children[1].firstElementChild.children[0].firstElementChild.children;
     thead[$(e.closest('tr')).index()].innerHTML = $(e).val();
-
+    if($(e).val() === ''){
+        thead[$(e.closest('tr')).index()].innerHTML = 'Col' + $(e.closest('tr')).index()
+    }
 }
-function attachmentfilling() {
 
+function attachmentfilling() {
 
 }

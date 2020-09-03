@@ -143,8 +143,7 @@
                     <section id="base-style">
                         <div class="row">
                             <div class="col-12 col-lg-3">
-                                <div class="card" style="position:sticky; position: -webkit-sticky">
-
+                                <div class="card" style="position: -webkit-sticky; position: sticky; top: 0">
                                     <div class="card-header">
                                         <div class="card-title-wrap bar-success">
                                             <h4 class="card-title">题型选择</h4>
@@ -194,8 +193,8 @@
                                     <div class="card-body">
                                         <div class="card-block">
                                             <div id="question_list">
-                                                {#                                                <input type="file" class="filepond" multiple data-allow-reorder="true"#}
-                                                {#                                                       data-max-file-size="3MB" data-max-files="3">#}
+                                                                                                <input type="file" class="filepond" multiple data-allow-reorder="true"
+                                                                                                       data-max-file-size="3MB" data-max-files="3">
                                             </div>
                                         </div>
                                     </div>
@@ -293,7 +292,7 @@
     FilePond.create(inputElement)
 </script>
 <script>
-    var q = {{ data|safe}};
+    var q = {{ data|safe }};
     console.log(q);
     for (var i = 0; i < q.length; i++) {
         var attachment = q[i]['attachment'];
@@ -311,7 +310,7 @@
             var len = $(".div_question").length + 1;
             $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
                 "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                        <div onclick=\"toggle_edit(event)\">\n" +
+                "                                                        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
                 "                                                            <div>\n" +
                 "<h5 style=\'display: inline\'>" + len + '.' + ' ' + "</h5>" +
                 "                                                                <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + ' </h5>\n' + "<button class=\"btn mr-1 btn-secondary\" onclick=\'delquestion(event)\' >del</button>" +
@@ -436,7 +435,7 @@
             var len = $(".div_question").length + 1;
             $('#question_list').append("                                               <div class=\"div_question\" id = " + len + ">\n" +
                 "                                                        <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                            <div onclick=\"toggle_edit(event)\">\n" +
+                "                                                            <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
                 "                                                        <div>\n" +
                 "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
                 "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
@@ -507,7 +506,7 @@
             var len = $(".div_question").length + 1;
             $('#question_list').append("                                      <div class=\"div_question\" id = " + len + ">\n" +
                 "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                    <div onclick = \"toggle_edit(event)\">\n" +
+                "                                                    <div onclick = \"toggle_edit(event)\" class='toggle'>\n" +
                 "                                                        <div>\n" +
                 "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
                 "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
@@ -585,7 +584,7 @@
             var len = $(".div_question").length + 1;
             $('#question_list').append("                                <div class=\"div_question\" id = " + len + ">\n" +
                 "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                        <div onclick=\"toggle_edit(event)\">\n" +
+                "                                                        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
                 "                                                            <div>\n" +
                 "                                                                <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
                 "                                                                <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
@@ -731,7 +730,7 @@
             var len = $(".div_question").length + 1;
             $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
                 "                                                     <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                   <div onclick=\"toggle_edit(event)\">\n" +
+                "                                                   <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
                 "                                                        <div>\n" +
                 "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
                 "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + "  </h5>\n" +
@@ -838,6 +837,10 @@
             $('.div_question').last().find("textarea[name='column']").val(JSON.parse(q[i]['content'])['column']);
         } else if (q[i]['question_type'] === '附件题'){
 
+        }
+
+        for (i = 0; i < $('.toggle').length; i++) {
+            $('.toggle').eq(i).next().toggle();
         }
 
 
