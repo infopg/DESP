@@ -1,9 +1,8 @@
-from administrator import views
-from django.conf import settings
-from django.urls import path
-from django.conf.urls import include, url, re_path
-from administrator.views import standard, delete, edit, timeliner, choice_add, questionaire_manage, blank_add, answer_add, matrix_add,form_add
+from django.conf.urls import url, re_path
 
+from administrator import views
+from administrator.views import standard, timeliner, choice_add, questionaire_manage, blank_add, answer_add, matrix_add, \
+    form_add,accumulation
 
 urlpatterns = [
     url('/standard', standard, name='standard'),
@@ -23,6 +22,7 @@ urlpatterns = [
     url(r'/questionaire$', views.questionaire, name='questionaire'),
     url('/timeliner', timeliner, name='timeliner'),
     url(r'/questionaire_manage$', questionaire_manage, name='questionaire_manage'),
+    url(r'/accumulation$', accumulation, name='accumulation')
 
 
 

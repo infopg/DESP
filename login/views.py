@@ -137,11 +137,6 @@ def logout(request):
     return redirect('/')
 
 
-def related_files(request):
-    pass
-    return render(request, 'login/related_files.html')
-
-
 class ForgetPwdView(View):
     def get(self, request):
         forget_form = ForgetForm()

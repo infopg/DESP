@@ -754,5 +754,9 @@ def form_add(request):
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
 
+def accumulation(request):
+    print(request.POST)
+
+
 def questionaire_manage(request):
     return render(request, 'standard/manage.html')

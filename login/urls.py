@@ -5,7 +5,6 @@ from django.conf.urls import include, url
 from login.views import ForgetPwdView,ResetView,ModifyView
 
 urlpatterns = [
-    url(r'related_files', views.related_files),
     path('', views.login, name='login'),
     path('forget', ForgetPwdView.as_view(),name='forget_pwd'),
     path('reset/<str:active_code>', ResetView.as_view(), name='reset'),

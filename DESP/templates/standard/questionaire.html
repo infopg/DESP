@@ -36,10 +36,49 @@
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
           rel="stylesheet">
-    <link href="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css" rel="stylesheet">
 
 </head>
 <body data-col="2-columns" class=" 2-columns">
+<div class="modal fade" data-model-name="accumulation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">设置计分模型</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <table class="table table-responsive-md text-center">
+                            <thead>
+                            <tr>
+                                <th>选项</th>
+                                <th>得分</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                        <button class="btn btn-primary mb-2" onclick="addrow(event)">添加</button>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary"
+                                    onclick="schemeedit(event)">提交
+                            </button>
+                            <button class="btn btn-default pull-left"
+                                    data-dismiss="modal">关闭
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 <div class="wrapper nav-collapsed menu-collapsed">
 
@@ -58,7 +97,7 @@
         <div class="sidebar-content">
             <div class="nav-container">
                 <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-screen-desktop"></i><span
+                    <li class="has-sub nav-item"><a href="#"><i class="ft-file-text"></i><span
                             data-i18n=""
                             class="menu-title">数据采集</span></a>
                         <ul class="menu-content">
@@ -66,10 +105,10 @@
                         </ul>
 
                     </li>
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                    <li class="has-sub nav-item"><a href="#"><i class="ft-folder"></i><span
                             data-i18n=""
                             class="menu-title">数据统计</span></a></li>
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                    <li class="has-sub nav-item"><a href="#"><i class="ft-menu"></i><span
                             data-i18n=""
                             class="menu-title">项目分类</span></a>
                         <ul class="menu-content">
@@ -81,7 +120,7 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}"><i class="icon-magnet"></i><span
+                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}"><i class="icon-calendar"></i><span
                             data-i18n=""
                             class="menu-title">工作进度</span></a>
                         <ul class="menu-content">
@@ -135,6 +174,25 @@
             </div>
         </div>
     </nav>
+    <div class='modal fade' id='filling' role='dialog' tabindex="-1" aria-hidden='true'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h4 class='modal-title' id='filling-title'></h4>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
+                <div class='modal-body' id='filling-body'>
+                </div>
+                <div class='modal-footer'>
+                    <button type='button' class='btn grey btn-outline-secondary' data-dismiss='modal'>关闭</button>
+                    <button type='button' class='btn btn-outline-primary'>保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="main-panel">
         <div class="main-content">
@@ -193,8 +251,7 @@
                                     <div class="card-body">
                                         <div class="card-block">
                                             <div id="question_list">
-                                                                                                <input type="file" class="filepond" multiple data-allow-reorder="true"
-                                                                                                       data-max-file-size="3MB" data-max-files="3">
+                                                <input type="file" class="filepond" multiple data-max-files="3">
                                             </div>
                                         </div>
                                     </div>
@@ -208,7 +265,7 @@
             </div>
         </div>
         <footer class="footer footer-static footer-light">
-            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2018 <a href="#" id="pixinventLink"
+            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; CNIC <a href="#" id="pixinventLink"
                                                                                             target="_blank"
                                                                                             class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
             </p>
@@ -248,26 +305,12 @@
 <script src="{% static 'src/js/questionaire.js' %}"></script>
 <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.js"></script>
-<!--FilePondPluginFileValidateSize 插件js-->
-<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-<!--FilePondPluginFileValidateType 插件js-->
-<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-<!--FilePondPluginImageCrop 插件js-->
-<script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
-<!--FilePondPluginImageExifOrientation 插件js-->
-<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
 <script>
     // querySelector() 方法返回文档中匹配指定 CSS 选择器的一个元素。
     var inputElement = document.querySelector('input[type="file"]');
 
     FilePond.registerPlugin(
         FilePondPluginImagePreview,
-        FilePondPluginImageEdit,
-        FilePondPluginFileValidateSize,
-        FilePondPluginImageCrop,
-        FilePondPluginFileValidateType,
-        FilePondPluginImageExifOrientation
     );
 
     FilePond.setOptions({
@@ -842,8 +885,6 @@
         for (i = 0; i < $('.toggle').length; i++) {
             $('.toggle').eq(i).next().toggle();
         }
-
-
     }
 </script>
 <script>

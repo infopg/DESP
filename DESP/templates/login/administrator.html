@@ -65,8 +65,31 @@
                     {#                            </li>#}
                     {#                        </ul>#}
                     {#                    </li>#}
-
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                                        <li class="has-sub nav-item"><a href="#"><i class="ft-menu"></i><span
+                            data-i18n=""
+                            class="menu-title">项目管理</span></a>
+                        <ul class="menu-content">
+                            {% for u in evalname %}
+                                <li>
+                                    <a href="{% url 'standard' %}?evalname={{ u.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ u.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-calendar"></i><span
+                            data-i18n=""
+                            class="menu-title">项目进度</span></a>
+                        <ul class="menu-content">
+                            {% for t in evalname %}
+                                <li>
+                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ t.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="has-sub nav-item"><a href="#"><i class="ft-file-text"></i><span
 
                             data-i18n=""
                             class="menu-title">数据采集</span></a>
@@ -84,33 +107,9 @@
                         </ul>
 
                     </li>
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                    <li class="has-sub nav-item"><a href="#"><i class="ft-folder"></i><span
                             data-i18n=""
                             class="menu-title">数据统计</span></a></li>
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
-                            data-i18n=""
-                            class="menu-title">项目分类</span></a>
-                        <ul class="menu-content">
-                            {% for u in evalname %}
-                                <li>
-                                    <a href="{% url 'standard' %}?evalname={{ u.table_evaluation_col_name }}&admin={{ admin }}"
-                                       class="menu-item">{{ u.table_evaluation_col_name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
-                            data-i18n=""
-                            class="menu-title">工作进度</span></a>
-                        <ul class="menu-content">
-                            {% for t in evalname %}
-                                <li>
-                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_evaluation_col_name }}&admin={{ admin }}"
-                                       class="menu-item">{{ t.table_evaluation_col_name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -765,7 +764,7 @@
         </div>
 
         <footer class="footer footer-static footer-light">
-            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2018 <a href="#" id="pixinventLink"
+            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; CNIC <a href="#" id="pixinventLink"
                                                                                             target="_blank"
                                                                                             class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
             </p>

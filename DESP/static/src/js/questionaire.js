@@ -2,6 +2,11 @@ $.ajaxSetup({
     data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
 });
 
+// codes works on all bootstrap modal windows in application
+$('.modal').on('hidden.bs.modal', function (e) {
+    $(this).find('tbody').empty();
+});
+
 function answerfilling() {
     var len = $(".div_question").length + 1;
     $('#question_list').append("                                      <div class=\"div_question\" id = " + len + ">\n" +
@@ -79,6 +84,8 @@ function blankfilling() {
         "                                                        <input style=\"display: none\" name=\"indicatorID\" value=" + nodeID + ">\n" +
         "                                                        <textarea class=\"form-control\"\n" +
         "                                                                  onkeyup=\"SwapTxt(event)\" name=\"choicetitle\"></textarea>\n" +
+        "                                                        <textarea class=\"form-control\"\n" +
+        "                                                                  name=\"question\"></textarea>\n" +
         "                                                        <div class=\"row\" style=\"margin-top: 15px\">\n" +
         "                                                            <div class=\"col-md-9\">\n" +
         "                                                                <span><input\n" +
@@ -88,10 +95,12 @@ function blankfilling() {
         "                                                                        name=\"attachment\"\n" +
         "                                                                        type=\"checkbox\"><span>含附件上传</span></span>\n" +
         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
-        "                                                                        name=\"markmethod\" class=\"form-control-sm\">\n" +
-        "                                                            <option>自动打分</option>\n" +
+        "                                                                        name=\"markmethod\" class=\"form-control-sm\" onchange=\"markrule(this)\">\n" +
+        "                                                            <option>自动打分-文字型</option>\n" +
+        "                                                            <option>自动打分-数字型</option>\n" +
         "                                                            <option>手动打分</option>\n" +
-        "                                                        </select></span>\n" +
+        "                                                        </select><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span\n" +
+        "                                                                data-toggle='modal' data-target='#filling' onclick=\"marksetting(event)\">设置</span></span></span>\n" +
         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
         "                                                                        name=\"importanswer\"\n" +
         "                                                                        type=\"checkbox\"><span>导入答案</span></span>\n" +
@@ -113,6 +122,30 @@ function blankfilling() {
     variableID(10);
 
 }
+
+function markrule(sel) {
+    selected = sel.options[sel.options.selectedIndex].text
+    $sel = $(sel)
+    if (selected.toString().indexOf("自动打分") != -1) {
+        $sel.next().show()
+    } else {
+        $sel.next().hide()
+    }
+}
+
+function marksetting(e) {
+    var sp = $(e.target)
+    index = sp.parent().parent().parent().parent().parent().prev().find('h5').eq(0).text()
+    title = sp.parent().parent().parent().parent().parent().prev().find('h5').eq(1).text()
+    question = sp.parent().parent().parent().parent().parent().find('textarea').eq(1).val()
+    $('#filling-title').text(index + title)
+    html = question.replaceAll('__', '<select>' +
+        '<option value="0">数字型</option>' +
+        '<option value="1">文字型</option>' +
+        '</select>')
+    $('#filling-body').html(html)
+}
+
 
 function GetRequest() {
     var url = location.search; //获取url中"?"符后的字串
@@ -486,10 +519,14 @@ function choice() {
         "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
         "                                                                            type=\"checkbox\" name=\"attachment\"><span>含附件上传</span></span>\n" +
         "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
-        "                                                                            class=\"form-control-sm\" name=\"markmethod\">\n" +
-        "                                                            <option>自动打分</option>\n" +
-        "                                                            <option>手动打分</option>\n" +
+        "                                                                            class=\"form-control-sm\" name=\"markmethod\" onchange=\'option_value(event)\'>\n" +
+        "                                                            <option value='0'>手动打分</option>\n" +
+        "                                                            <option value='1'>自动打分----逐项累计</option>\n" +
+        "                                                            <option value='2'>自动打分----固定选项</option>\n" +
+        "                                                            <option value='3'>自动打分----按选项数</option>\n" +
         "                                                        </select></span>\n" +
+        "                                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+        "                                                        <a name=\"choicemark\" onclick='choice_mark(event)' class='choice_mark' style='display:none;'><span>设置计分规则</span></a></span>" +
         "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
         "                                                                            type=\"checkbox\" name=\"importanswer\"><span>导入答案</span></span>\n" +
         "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>满分: </span><input type=\"text\" name=\"points\" size=\'10\'></span>\n" +
@@ -560,6 +597,86 @@ function choice() {
     variableID(10);
 }
 
+function option_value(event) {
+    a = $(event.target);
+    value = a.find('option:selected').val();
+    if (value != 0) {
+        $(event.target).closest('.div_question').find("a[name='choicemark']").show()
+    } else {
+        $(event.target).closest('.div_question').find("a[name='choicemark']").hide();
+    }
+}
+
+function addrow(event) {
+    table = $(event.target).prev();
+    var addtr = $("<tr>" +
+        "<td contenteditable='false'></td>" +
+        "<td contenteditable=\"true\">0</td>" +
+        "<td><input type=\"button\" value=\"删除\" class=\"btn mr-1 btn-danger\" onclick=\"deleteRow(event)\"></td>" +
+        "</tr>");
+    addtr.appendTo(table);
+}
+
+function deleteRow(event) {
+    Row = $(event.target);
+    index = Row.closest('tr').index();
+    table = Row.closest('table');
+    table[0].deleteRow(index);
+}
+
+function choice_mark(event) {
+    value = $(event.target).closest('.div_question').find('option:selected').eq(1).val();
+    indicatorID = $(event.target).closest('.div_question').find('input[name="indicatorID"]').val();
+    questionnumber = $(event.target).closest('.div_question').find('input[name="questionnumber"]').val();
+    console.log(indicatorID);
+    if (value === '1') {
+        choicelist = $(event.target).closest('.div_question').find('input[name="choice"]');
+        arr = [];
+        for (i = 0; i < choicelist.length; i++) {
+            arr.push(choicelist.eq(i).val());
+            $("div[data-model-name='accumulation']").find('tbody').append("<tr>\n" +
+                "                                <td contenteditable=\"false\">" + arr[i] + "</td>\n" +
+                "                                <td contenteditable=\"true\">0</td>\n" +
+                "                                <td>\n" +
+                "                                    <input type=\"button\" value=\"删除\" class=\"btn mr-1 btn-danger\" onclick=\"deleteRow(event)\">\n" +
+                "                                </td>\n" +
+                "                            </tr>");
+        }
+        $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+            "value= " + questionnumber + ">\n" +
+            "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">");
+        $("div[data-model-name='accumulation']").modal('show');
+    }
+}
+
+function schemeedit(event) {
+    table = $(event.target).parent().parent().children().eq(0);
+    indicatorID = table.find('input[name="indicatorID"]').val();
+    questionnumber = table.find('input[name="questionnumber"]').val();
+    accumulation = [];
+    for (var i = 0; i < table[0].rows.length - 1; i++) {
+        for (var j = 0; j < table[0].rows[i].cells.length - 1; j++) {
+            if (!accumulation[i]) {
+                accumulation[i] = [];
+            }
+            accumulation[i][j] = table[0].rows[i].cells[j].innerHTML;
+        }
+    }
+    console.log(accumulation);
+    $.ajax({
+        type: 'post',
+        data: {
+            indicatorID: indicatorID,
+            questionnumber: questionnumber,
+            datalist: JSON.stringify(accumulation)
+        },
+        dataType: 'json',
+        url: "/administrator/accumulation",
+        success: function () {
+            alert('修改成功')
+        }
+    })
+}
 
 function clearForm_choice(e) {
     var bt = $(e.target);

@@ -157,7 +157,7 @@
         <div class="sidebar-content">
             <div class="nav-container">
                 <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-screen-desktop"></i><span
+                    <li class="has-sub nav-item"><a href="#"><i class="ft-file-text"></i><span
                             data-i18n=""
                             class="menu-title">数据采集</span></a>
                         <ul class="menu-content">
@@ -165,10 +165,10 @@
                         </ul>
 
                     </li>
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                    <li class="has-sub nav-item"><a href="#"><i class="ft-folder"></i><span
                             data-i18n=""
                             class="menu-title">数据统计</span></a></li>
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                    <li class="has-sub nav-item"><a href="#"><i class="ft-menu"></i><span
                             data-i18n=""
                             class="menu-title">项目分类</span></a>
                         <ul class="menu-content">
@@ -180,7 +180,7 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-magnet"></i><span
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-calendar"></i><span
                             data-i18n=""
                             class="menu-title">工作进度</span></a>
                         <ul class="menu-content">
@@ -252,7 +252,7 @@
                                     {% endif %}{% csrf_token %}</div>
                                     <div class="card-block">
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-12">
+                                            <div class="col-md-4 col-sm-4 col-12">
                                                 <p>
                                                     <a class="btn mr-1 btn-round btn-secondary"
                                                        href="{% url "indicator_export" %}?current_eval={{ current_eval }}">导出</a>
@@ -273,6 +273,7 @@
                                                 </div>
 
                                             </div>
+                                            <div class="col-md-6 col-sm-6 col-12" id="preview"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -286,7 +287,7 @@
         </div>
 
         <footer class="footer footer-static footer-light">
-            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2018 <a href="#" id="pixinventLink"
+            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; CNIC <a href="#" id="pixinventLink"
                                                                                             target="_blank"
                                                                                             class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
             </p>
@@ -401,8 +402,6 @@
         for (var i = 0; i < links.length; i++) {
             links[i].id = i;
         }
-
-
         return false
     }
 
@@ -428,7 +427,6 @@
 
                 function getRow(h) {
                     var row = document.createElement('tr');
-
                     var idCell = document.createElement('td');
                     idCell.setAttribute('style', 'display: none');
                     idCell.innerHTML = h.pk;
@@ -511,7 +509,6 @@
                         };
                         delCell.appendChild(btnDel);
                         return row;
-
                     }
                 }
 
@@ -529,6 +526,17 @@
             return;
         }
         showRMenustand(treeNode.pId, event.pageX, event.pageY);
+        $("#preview").load("questionaire?nodeID=" + standardID, function () {
+            var questions = document.getElementsByClassName('div_question')
+            var html = ""
+            for (let i = 0; i < questions.length; i++) {
+                html += questions[i].innerHTML
+            }
+            html = html.replace(/div style/g, "div style='display: none;'")
+            html = html.replace(/toggle_edit\(event\)/g, "")
+            html = html.replace(/<button class="btn mr-1 btn-secondary" onclick="delquestion\(event\)">del<\/button>/g, "")
+            document.getElementById('preview').innerHTML = html
+        })
     }
 
 
