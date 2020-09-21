@@ -21,6 +21,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin', admin.site.urls),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('logout', views.logout,name='logout'),
     path('supervisor', views.supervisor,name='supervisor'),
     path('administrator', views.administrator,name='administrator'),
@@ -31,5 +32,6 @@ urlpatterns = [
     url(r'', include('login.urls')),
     url(r'supervisor', include('supervisor.urls')),
     url(r'administrator',include('administrator.urls')),
+    url(r'user', include('user.urls')),
 
 ]
