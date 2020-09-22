@@ -31,7 +31,6 @@
           href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
     <link rel="stylesheet" href="{% static 'ztreecss/zTreeStyle/zTreeStyle.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/dropzone.min.css' %}">
     <link rel="stylesheet" href="{% static 'app-assets/css/questionaire.css' %}">
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
@@ -97,6 +96,32 @@
         <div class="sidebar-content">
             <div class="nav-container">
                 <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+                    <li class="has-sub nav-item"><a href="#"><i class="ft-menu"></i><span
+                            data-i18n=""
+                            class="menu-title">项目管理</span></a>
+                        <ul class="menu-content">
+                            {% for u in evalname %}
+                                <li>
+                                    <a href="{% url 'standard' %}?evalname={{ u.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ u.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-calendar"></i><span
+                            data-i18n=""
+                            class="menu-title">项目进度</span></a>
+                        <ul class="menu-content">
+                            {% for t in evalname %}
+                                <li>
+                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ t.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
                     <li class="has-sub nav-item"><a href="#"><i class="ft-file-text"></i><span
                             data-i18n=""
                             class="menu-title">数据采集</span></a>
@@ -108,30 +133,6 @@
                     <li class="has-sub nav-item"><a href="#"><i class="ft-folder"></i><span
                             data-i18n=""
                             class="menu-title">数据统计</span></a></li>
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-menu"></i><span
-                            data-i18n=""
-                            class="menu-title">项目分类</span></a>
-                        <ul class="menu-content">
-                            {% for u in evalname %}
-                                <li>
-                                    <a href="{% url 'standard' %}?evalname={{ u.table_evaluation_col_name }}&admin={{ admin }}"
-                                       class="menu-item">{{ u.table_evaluation_col_name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}"><i class="icon-calendar"></i><span
-                            data-i18n=""
-                            class="menu-title">工作进度</span></a>
-                        <ul class="menu-content">
-                            {% for t in evalname %}
-                                <li>
-                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_evaluation_col_name }}&admin={{ admin }}"
-                                       class="menu-item">{{ t.table_evaluation_col_name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -280,7 +281,6 @@
 <script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/prism.min.js' %}"></script>
-<script src="{% static 'app-assets/vendors/js/dropzone.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/jquery.matchHeight-min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/screenfull.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/pace/pace.min.js' %}"></script>
@@ -291,7 +291,6 @@
 <!-- BEGIN CONVEX JS-->
 <script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
 <script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
-<script src="{% static 'app-assets/js/dropzone.js' %}"></script>
 <!-- END CONVEX JS-->
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
@@ -310,7 +309,7 @@
     var inputElement = document.querySelector('input[type="file"]');
 
     FilePond.registerPlugin(
-        FilePondPluginImagePreview,
+        FilePondPluginImagePreview
     );
 
     FilePond.setOptions({
@@ -649,8 +648,8 @@
                 "                                                        <div>\n" +
                 "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
                 "                                                                   value=" + question_type + ">\n" +
-                "<input style=\"display: none\" name=" + question_number + "\n" +
-                "                                                                   value= " + len + ">\n" +
+                "<input style=\"display: none\" name=\"questionnumber\"\n" +
+                "                                                                   value= " + question_number + ">\n" +
                 "<input style=\'display: none\' name='indicatorID\'\n value=" + indicator_id + ">" +
                 "                                                        <textarea class=\"form-control\"\n" +
                 "                                                                  onkeyup=\"SwapTxt(event)\"\n" +
@@ -793,8 +792,8 @@
                 "                                                        <div>\n" +
                 "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
                 "                                                                   value=" + question_type + ">\n" +
-                "<input style=\"display: none\" name=" + question_number + "\n" +
-                "                                                                   value= " + len + ">\n" +
+                "<input style=\"display: none\" name=\"questionnumber\"\n" +
+                "                                                                   value= " + question_number + ">\n" +
                 "<input style=\'display: none\' name='indicatorID\'\n value=" + indicator_id + ">" +
                 "                                                        <textarea class=\"form-control\"\n" +
                 "                                                                  onkeyup=\"SwapTxt(event)\" name=\"choicetitle\">" + JSON.parse(q[i]['content'])['title'] + "</textarea>\n" +
@@ -862,7 +861,6 @@
             }
             $('.div_question').last().find("input[name='points']").val(marks);
 
-            console.log(q[i]);
             for (var x = 0; x < JSON.parse(q[i]['content'])['column'].length; x++) {
                 $('.div_question').last().find('table').eq(0).children('thead').children().eq(0).append(" <td>" + JSON.parse(q[i]['content'])['column'][x] + "</td>\n")
             }
@@ -881,10 +879,9 @@
         } else if (q[i]['question_type'] === '附件题'){
 
         }
-
-        for (i = 0; i < $('.toggle').length; i++) {
+    }
+    for (i = 0; i < $('.toggle').length; i++) {
             $('.toggle').eq(i).next().toggle();
-        }
     }
 </script>
 <script>

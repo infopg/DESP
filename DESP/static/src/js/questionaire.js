@@ -642,6 +642,7 @@ function choice_mark(event) {
                 "                                </td>\n" +
                 "                            </tr>");
         }
+
         $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
             "value= " + questionnumber + ">\n" +
             "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">");
@@ -662,7 +663,6 @@ function schemeedit(event) {
             accumulation[i][j] = table[0].rows[i].cells[j].innerHTML;
         }
     }
-    console.log(accumulation);
     $.ajax({
         type: 'post',
         data: {

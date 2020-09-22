@@ -10,7 +10,7 @@
     <meta name="keywords"
           content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Page for superuser</title>
+    <title>Page for administrator</title>
     <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app-assets/img/ico/apple-icon-60.png' %}">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app-assets/img/ico/apple-icon-76.png' %}">
     <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app-assets/img/ico/apple-icon-120.png' %}">
@@ -38,7 +38,7 @@
 <div class="wrapper nav-collapsed menu-collapsed">
 
 
-       <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
         <div class="sidebar-header">
             <div class="logo clearfix"><a href="{% url 'administrator' %}" class="logo-text float-left">
                 <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
@@ -52,20 +52,9 @@
         <div class="sidebar-content">
             <div class="nav-container">
                 <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-file-text"></i><span
-                            data-i18n=""
-                            class="menu-title">数据采集</span></a>
-                        <ul class="menu-content">
-                            <li><a href="{% url 'questionaire_manage' %}" class="menu-item">问卷管理</a></li>
-
-                        </ul>
-                    </li>
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-folder"></i><span
-                            data-i18n=""
-                            class="menu-title">数据统计</span></a></li>
                     <li class="has-sub nav-item"><a href="#"><i class="ft-menu"></i><span
                             data-i18n=""
-                            class="menu-title">项目分类</span></a>
+                            class="menu-title">项目管理</span></a>
                         <ul class="menu-content">
                             {% for u in evalname %}
                                 <li>
@@ -75,9 +64,10 @@
                             {% endfor %}
                         </ul>
                     </li>
+
                     <li class="has-sub nav-item"><a href="#"><i class="icon-calendar"></i><span
                             data-i18n=""
-                            class="menu-title">工作进度</span></a>
+                            class="menu-title">项目进度</span></a>
                         <ul class="menu-content">
                             {% for t in evalname %}
                                 <li>
@@ -87,6 +77,18 @@
                             {% endfor %}
                         </ul>
                     </li>
+
+                    <li class="has-sub nav-item"><a href="#"><i class="ft-file-text"></i><span
+                            data-i18n=""
+                            class="menu-title">数据采集</span></a>
+                        <ul class="menu-content">
+                            <li><a href="{% url 'questionaire_manage' %}" class="menu-item">问卷管理</a></li>
+                        </ul>
+
+                    </li>
+                    <li class="has-sub nav-item"><a href="#"><i class="ft-folder"></i><span
+                            data-i18n=""
+                            class="menu-title">数据统计</span></a></li>
                 </ul>
             </div>
         </div>
@@ -141,6 +143,8 @@
                                         <div class="card-title-wrap bar-success">
                                             <h4 class="card-title">欢迎</h4>
                                         </div>
+                                        <input type="button" class="btn mr-1 btn-secondary" onclick="location.href ='{% url 'export_answer' %}'" value="导出问卷答案模板">
+                                        <button type="button" class="btn mr-1 btn-secondary" onclick="import_answer()">导入答案</button>
                                     </div>
                                     <div class="card-body collapse show">
                                         <div class="card-block card-dashboard">
@@ -150,28 +154,27 @@
                                                 <tr>
                                                     <th>机构ID</th>
                                                     <th>机构名称</th>
-                                                    <th>机构用户</th>
+                                                    <th>评估体系</th>
                                                     <th>机构管理员</th>
                                                     <th>问卷状态</th>
                                                     <th>填报进度</th>
-                                                    <th><button class="btn btn-default">发放</button>
-                                                    <button class="btn btn-default">查看</button>
-                                                    <button class="btn btn-default">发送邮件</button></th>
+                                                    <th>操作
+                                                    </th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
-                                                   <th>机构ID</th>
+                                                    <th>机构ID</th>
                                                     <th>机构名称</th>
                                                     <th>机构用户</th>
                                                     <th>机构管理员</th>
                                                     <th>问卷状态</th>
                                                     <th>填报进度</th>
-                                                    <th><button class="btn btn-default">发放</button>
-                                                    <button class="btn btn-default">查看</button>
-                                                    <button class="btn btn-default">发送邮件</button></th>
+                                                    <th>
+                                                        操作
+                                                    </th>
                                                 </tr>
                                                 </tfoot>
                                             </table>
@@ -214,6 +217,7 @@
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
 <script src="{% static 'src/js/jquery.cookie.js' %}"></script>
+<script src="{% static 'src/js/questionaire_management.js' %}"></script>
 <!-- END PAGE LEVEL JS-->
 </body>
 </html>
