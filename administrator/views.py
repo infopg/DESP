@@ -760,3 +760,10 @@ def accumulation(request):
 
 def questionaire_manage(request):
     return render(request, 'standard/manage.html')
+
+def export_answer(request):  #导出答案部分
+   pass
+
+def import_answer(request):  #导入答案部分
+    pass
+
