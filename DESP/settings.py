@@ -48,8 +48,9 @@ INSTALLED_APPS = [
     'captcha',
     'supervisor',
     'administrator',
+    'user',
 
-
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
