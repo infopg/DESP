@@ -5,8 +5,11 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
-
+from rest_framework import viewsets
 from rest_framework import status
+from rest_framework import mixins
+
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 # class QuestionContentView(APIView):
@@ -19,13 +22,12 @@ from rest_framework import status
 #         return Response(serializer.data)
 
 
-class QuestionContentView(generics.ListAPIView):
+class QuestionContentViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
-    question_contents = TableQuestionContent.objects.all()[:10]
+    queryset = TableQuestionContent.objects.all()[:10]
     serializer_class = QuestionContentSerializer
 
-    def get_queryset(self):
-        """
-        返回所有的问卷内容
-        """
-        return self.question_contents
+    # def get_queryset(self):
+    #
+    #     return TableQuestionContent.objects.filter(table_question_content_col_question_id__gt=10)
+

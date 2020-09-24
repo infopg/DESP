@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'administrator',
     'user',
 
-    'rest_framework'
+    'rest_framework',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
