@@ -619,7 +619,8 @@ function addrow(event) {
 
 function deleteRow(event) {
     Row = $(event.target);
-    index = Row.closest('tr').index();
+    var trs = Row.closest('table').find('tr');
+    index = trs.index(Row.closest('tr'));
     table = Row.closest('table');
     table[0].deleteRow(index);
 }
@@ -628,7 +629,6 @@ function choice_mark(event) {
     value = $(event.target).closest('.div_question').find('option:selected').eq(1).val();
     indicatorID = $(event.target).closest('.div_question').find('input[name="indicatorID"]').val();
     questionnumber = $(event.target).closest('.div_question').find('input[name="questionnumber"]').val();
-    console.log(indicatorID);
     if (value === '1') {
         choicelist = $(event.target).closest('.div_question').find('input[name="choice"]');
         arr = [];
@@ -655,7 +655,7 @@ function schemeedit(event) {
     indicatorID = table.find('input[name="indicatorID"]').val();
     questionnumber = table.find('input[name="questionnumber"]').val();
     accumulation = [];
-    for (var i = 0; i < table[0].rows.length - 1; i++) {
+    for (var i = 0; i < table[0].rows.length; i++) {
         for (var j = 0; j < table[0].rows[i].cells.length - 1; j++) {
             if (!accumulation[i]) {
                 accumulation[i] = [];
@@ -663,6 +663,7 @@ function schemeedit(event) {
             accumulation[i][j] = table[0].rows[i].cells[j].innerHTML;
         }
     }
+    accumulation.splice(0, 1);
     $.ajax({
         type: 'post',
         data: {
@@ -673,7 +674,7 @@ function schemeedit(event) {
         dataType: 'json',
         url: "/administrator/accumulation",
         success: function () {
-            alert('修改成功')
+            alert('设置成功')
         }
     })
 }
@@ -841,6 +842,18 @@ function delquestion(e) {
     }
 }
 
+function questionaire_submit() {
+    $('form').each(function () {
+        $.ajax({
+            type: 'post',
+            data: $(this).serialize(),
+            url: '/administrator/questionaire_submit',
+            success: function (data) {
+                console.log(data)
+            }
+        });
+    })
+}
 function submit_choice(e) {
     e.preventDefault();
     var a = $(e.target);
@@ -1134,7 +1147,7 @@ function addblank(event, type) {
         var thead = a.closest('form').find('thead');
         thead.children().children().eq(a.closest('tr').index())[0].innerHTML = blank.val();
     }
-    else if(questiontype === 'choice'){
+    else if (questiontype === 'choice') {
         a.closest('.div_question').find('.choice_list').children().eq(a.closest('tr').index() - 1).find('span').html(blank.val())
     }
 }
@@ -1167,7 +1180,7 @@ function matrix_text_swap(event) {
     var table = e.closest('tbody');
     var thead = e.closest('form').firstElementChild.children[1].firstElementChild.children[0].firstElementChild.children;
     thead[$(e.closest('tr')).index()].innerHTML = $(e).val();
-    if($(e).val() === ''){
+    if ($(e).val() === '') {
         thead[$(e.closest('tr')).index()].innerHTML = 'Col' + $(e.closest('tr')).index()
     }
 }

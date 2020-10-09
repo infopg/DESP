@@ -756,13 +756,19 @@ def form_add(request):
 
 def accumulation(request):
     print(request.POST)
+    indicatorID = request.POST['indicatorID']
+    questionnumber = request.POST['questionnumber']
+    scheme = request.POST['datalist']
+
 
 
 def questionaire_manage(request):
     return render(request, 'standard/manage.html')
 
+def questionaire_submit(request):
+    print(request.POST)
 def export_answer(request):  #导出答案部分
-   pass
+    pass
 
 def import_answer(request):  #导入答案部分
     pass
