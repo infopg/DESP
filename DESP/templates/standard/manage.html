@@ -143,8 +143,8 @@
                                         <div class="card-title-wrap bar-success">
                                             <h4 class="card-title">欢迎</h4>
                                         </div>
-                                        <input type="button" class="btn mr-1 btn-secondary" onclick="location.href ='{% url 'export_answer' %}'" value="导出问卷答案模板">
-                                        <button type="button" class="btn mr-1 btn-secondary" onclick="import_answer()">导入答案</button>
+                                        {#                                        <input type="button" class="btn mr-1 btn-secondary" onclick="location.href ='{% url 'export_answer' %}'" value="导出问卷答案模板">#}
+                                        {#                                        <button type="button" class="btn mr-1 btn-secondary" onclick="import_answer()">导入答案</button>#}
                                     </div>
                                     <div class="card-body collapse show">
                                         <div class="card-block card-dashboard">
@@ -172,9 +172,7 @@
                                                     <th>机构管理员</th>
                                                     <th>问卷状态</th>
                                                     <th>填报进度</th>
-                                                    <th>
-                                                        操作
-                                                    </th>
+                                                    <th>操作</th>
                                                 </tr>
                                                 </tfoot>
                                             </table>

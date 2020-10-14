@@ -55,7 +55,7 @@ function answerfilling() {
         "                                                        </div>\n" +
         "                                                        <input type=\"button\"\n" +
         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
-        "                                                               value=\"保存\" onclick=\"submit_answer(event); hide_edit_blank(event)\">\n" +
+        "                                                               value=\"保存\" onclick=\"hide_edit_blank(event)\">\n" +
         "                                                        <input type=\"button\"\n" +
         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
         "                                                               value=\"清空\" onclick='clearForm_blank(event)'>\n" +
@@ -113,7 +113,7 @@ function blankfilling() {
         "                                                        </div>\n" +
         "                                                        <input type=\"button\"\n" +
         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
-        "                                                               value=\"保存\" onclick=\"submit_blank(event); hide_edit_blank(event)\">\n" +
+        "                                                               value=\"保存\" onclick=\"hide_edit_blank(event)\">\n" +
         "                                                        <input type=\"button\" class=\"btn btn-outline-danger btn-lg  btn-round\" value=\"清空\" onclick='clearForm_blank(event)'>\n" +
         "                                                            </div>\n" +
         "                                                    </div>\n" +
@@ -246,7 +246,7 @@ function formfilling() {
         "                                                         <div style='margin-top: 15px'></div>\n" +
         "                                                        <input type=\"button\"\n" +
         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
-        "                                                               value=\"保存\" onclick=\"submit_form(event); hide_edit(event)\">\n" +
+        "                                                               value=\"保存\" onclick=\"hide_edit(event)\">\n" +
         "                                                        <input type=\"button\"\n" +
         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
         "                                                               value=\"清空\" onclick='clearForm_matrix(event)'>\n" +
@@ -465,7 +465,7 @@ function matrixfilling() {
         "                                                            <input type=\"button\"\n" +
         "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
         "                                                                   value=\"保存\"\n" +
-        "                                                                   onclick=\"submit_matrix(event); hide_edit(event)\">\n" +
+        "                                                                   onclick=\"hide_edit(event)\">\n" +
         "                                                            <input type=\"button\"\n" +
         "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
         "                                                                   value=\"清空\" onclick='clearForm_matrix(event)'>\n" +
@@ -586,7 +586,7 @@ function choice() {
         "                                                            </div>\n" +
         "                                                            <input type=\"button\"\n" +
         "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
-        "                                                                   value=\"保存\" onclick=\"submit_choice(event); hide_edit(event)\">\n" +
+        "                                                                   value=\"保存\" onclick=\"hide_edit(event)\">\n" +
         "                                                            <input type='button'" +
         "                                                                   class=\"btn btn-outline-danger btn-lg btn-round\"\n" +
         "                                                                   value=\"清空\" onclick='clearForm_choice(event)'>\n" +
@@ -690,7 +690,6 @@ function clearForm_choice(e) {
         bt.closest('.div_question').find('.choice_list').children().eq(i).children('span').html('Answer' + (i + 1))
     }
     form[0].reset();
-
 }
 
 function clearForm_matrix(event) {
@@ -826,109 +825,64 @@ function csrf() {
 
 
 function delquestion(e) {
-    var len = $(".div_question").length;
-    var index = parseInt($(e.target).closest('.div_question').attr('id'));
-    $("#" + index).remove();
-    for (var i = index + 1, j = index; i <= len; i++, j++) {
-        var cloneElement = $('#' + i).clone();
-        $("#" + (i - 1)).replaceWith(cloneElement);
-        $("#" + i).attr('id', i - 1);
-        $("#" + (i - 1)).find('h5').eq(0).html((i - 1) + '.' + ' ');
-        if ($("#" + (i - 1)).find('textarea').eq(0).val() === '') {
-            $("#" + (i - 1)).find('h5').eq(1).html('Question' + ' ' + (i - 1));
-        }
-        $("#" + (i - 1)).find($('[name = "questionnumber"]')).attr('value', i - 1);
-
-    }
-}
-
-function questionaire_submit() {
-    $('form').each(function () {
+    var r = confirm('您确定要删除此题吗？');
+    if(r === true) {
+        var len = $(".div_question").length;
+        var index = parseInt($(e.target).closest('.div_question').attr('id'));
         $.ajax({
-            type: 'post',
-            data: $(this).serialize(),
-            url: '/administrator/questionaire_submit',
-            success: function (data) {
+            type:'post',
+            data:{
+                'index': index,
+                'nodeID': nodeID
+            },
+            url: '/administrator/question_delete',
+
+            success: function (data){
                 console.log(data)
             }
         });
-    })
-}
-function submit_choice(e) {
-    e.preventDefault();
-    var a = $(e.target);
-    var form = a.closest('.form-horizontal');
-    console.log(form);
-    $.ajax({
-        type: 'post',
-        data: form.serialize(),
-        url: '/administrator/choice_add',
-        success: function (data) {
-            console.log(data)
+        $("#" + index).remove();
+        for (var i = index + 1, j = index; i <= len; i++, j++) {
+            var cloneElement = $('#' + i).clone();
+            $("#" + (i - 1)).replaceWith(cloneElement);
+            $("#" + i).attr('id', i - 1);
+            $("#" + (i - 1)).find('h5').eq(0).html((i - 1) + '.' + ' ');
+            if ($("#" + (i - 1)).find('textarea').eq(0).val() === '' | $("#" + (i - 1)).find('textarea').eq(0).val() === '答题区域') {
+                $("#" + (i - 1)).find('h5').eq(1).html('Question' + ' ' + (i - 1));
+            }
+            $("#" + (i - 1)).find($('[name = "questionnumber"]')).attr('value', i - 1);
         }
-    });
+    }
+
 }
 
-function submit_blank(e) {
-    e.preventDefault();
-    var a = $(e.target);
-    var form = a.closest('.form-horizontal');
-    console.log(form);
-    $.ajax({
-        type: 'post',
-        data: form.serialize(),
-        url: '/administrator/blank_add',
-        success: function (data) {
-            console.log(data)
-        }
-    });
+function questionaire_submit() {
+    if ($('form').length) {
+        $('form').each(function () {
+            $.ajax({
+                type: 'post',
+                data: $(this).serialize(),
+                url: '/administrator/questionaire_submit',
+                success: function (data) {
+                    console.log(data)
+                }
+            });
+        });
+        alert('设置成功');
+    }
+    else {
+        $.ajax({
+            type: 'post',
+            url: '/administrator/questionaire_delete',
+            data:{
+                'nodeID': nodeID
+            },
+            success: function (data){
+                alert('删除成功')
+            }
+        })
+    }
 }
-
-function submit_answer(e) {
-    e.preventDefault();
-    var a = $(e.target);
-    var form = a.closest('.form-horizontal');
-    console.log(form);
-    $.ajax({
-        type: 'post',
-        data: form.serialize(),
-        url: '/administrator/answer_add',
-        success: function (data) {
-            console.log(data)
-        }
-    });
-}
-
-function submit_matrix(e) {
-    e.preventDefault();
-    var a = $(e.target);
-    var form = a.closest('.form-horizontal');
-    console.log(form);
-    $.ajax({
-        type: 'post',
-        data: form.serialize(),
-        url: '/administrator/matrix_add',
-        success: function (data) {
-            console.log(data)
-        }
-    });
-}
-
-function submit_form(e) {
-    e.preventDefault();
-    var a = $(e.target);
-    var form = a.closest('.form-horizontal');
-    console.log(form);
-    $.ajax({
-        type: 'post',
-        data: form.serialize(),
-        url: '/administrator/form_add',
-        success: function (data) {
-            console.log(data)
-        }
-    });
-}
-
 
 function toggle_edit(event) {
     var next = event.currentTarget.nextElementSibling;

@@ -453,6 +453,10 @@ def questionaire(request):
     a = request.GET.get('nodeID')
     questionlist = TableQuestionContent.objects.filter(table_question_content_col_indicator_id=a).order_by(
         'table_question_content_col_question_number')
+    administrator = request.session['user_name']
+    evalname = TableEvaluation.objects.filter(
+        Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
+        'table_evaluation_col_name')
     data = [
         {
             'question_type': x.table_question_content_col_question_type,
@@ -470,10 +474,11 @@ def questionaire(request):
     ]
     # 暂时未添加scheme
 
-    return render(request, 'standard/questionaire.html', {'data': data})
+    return render(request, 'standard/questionaire.html', {'data': data, 'evalname': evalname})
 
 
 def choice_add(request):
+    print(request.POST)
     if 'required' in request.POST:
         required = 'on'
     else:
@@ -528,6 +533,7 @@ def choice_add(request):
         }
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
+
 
 def blank_add(request):
     if 'required' in request.POST:
@@ -584,6 +590,7 @@ def blank_add(request):
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
 
+
 def answer_add(request):
     if 'required' in request.POST:
         required = 'on'
@@ -638,6 +645,7 @@ def answer_add(request):
         }
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
+
 
 def matrix_add(request):
     if 'required' in request.POST:
@@ -695,6 +703,7 @@ def matrix_add(request):
         }
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
+
 
 def form_add(request):
     print(request.POST)
@@ -754,6 +763,7 @@ def form_add(request):
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
 
+
 def accumulation(request):
     print(request.POST)
     indicatorID = request.POST['indicatorID']
@@ -761,15 +771,53 @@ def accumulation(request):
     scheme = request.POST['datalist']
 
 
-
 def questionaire_manage(request):
-    return render(request, 'standard/manage.html')
+    administrator = request.session['user_name']
+    evalname = TableEvaluation.objects.filter(
+        Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
+        'table_evaluation_col_name')
+    return render(request, 'standard/manage.html', {'evalname': evalname})
+
 
 def questionaire_submit(request):
     print(request.POST)
-def export_answer(request):  #导出答案部分
+    if request.POST['questiontype'] == '选择题':
+        choice_add(request)
+    elif request.POST['questiontype'] == '填空题':
+        blank_add(request)
+    elif request.POST['questiontype'] == '简答题':
+        answer_add(request)
+    elif request.POST['questiontype'] == '矩阵题':
+        matrix_add(request)
+    elif request.POST['questiontype'] == '表格题':
+        form_add(request)
+    return JsonResponse({'msg': 'success'})
+
+
+def question_delete(request):
+    print(request.POST)
+    index = request.POST['index']
+    nodeID = request.POST['nodeID']
+    TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=nodeID) & Q(
+        table_question_content_col_question_number=index)).delete()
+    length = TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=nodeID)).count()
+    print(length)
+    # print(TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=nodeID))[0])
+    for i in range(0, length):
+        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=nodeID))[i].update(
+            table_question_content_col_question_number= i + 1)
+    return JsonResponse({'msg': '删除成功！'})
+
+
+def questionaire_delete(request):
+    nodeID = request.POST['nodeID']
+    TableQuestionContent.objects.filter(table_question_content_col_indicator_id=nodeID).delete()
+    return JsonResponse({'msg': '删除成功!'})
+
+
+def export_answer(request):  # 导出答案部分
     pass
 
-def import_answer(request):  #导入答案部分
-    pass
 
+def import_answer(request):  # 导入答案部分
+    pass
