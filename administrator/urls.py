@@ -2,7 +2,8 @@ from django.conf.urls import url, re_path
 
 from administrator import views
 from administrator.views import standard, timeliner, choice_add, questionaire_manage, blank_add, answer_add, matrix_add, \
-    form_add, accumulation, export_answer, import_answer,questionaire_submit,questionaire_delete,question_delete
+    form_add, accumulation, export_answer, import_answer, questionaire_submit, questionaire_delete, question_delete, \
+    scheme_show
 
 urlpatterns = [
     url('/standard', standard, name='standard'),
@@ -28,4 +29,5 @@ urlpatterns = [
     url(r'/export_answer$', export_answer, name='export_answer'),
     url(r'/import_answer$', import_answer, name='import_answer'),
     url(r'/accumulation$', accumulation, name='accumulation'),
+    url(r'scheme_show$', scheme_show, name='scheme_show')
 ]
