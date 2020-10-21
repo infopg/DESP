@@ -1,0 +1,364 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html style="height: 100%">
+
+<head>
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>关于我们</title>
+
+    <style type="text/css">
+	    * {
+            margin: 0%;
+            padding: 0%;
+        }
+	
+        .page{
+            margin-top:0%;
+            margin-right: 0%;
+            position:fixed;
+            width:100%;
+            top:0%;
+            left:0%;
+            height:5.57vh;
+            background:#e3e3e3;
+            z-index: 900;
+            float:top;
+            box-shadow: 0px 0px 20px #c9c9c9;
+        }
+
+        .logo{
+            margin-top: 0.2%;
+            margin-left: 4%;
+            vertical-align:middle;
+            position:absolute;
+            float:left;
+            height:5vh;
+            width:10vw;
+        }
+
+        .page ul{
+            list-style: none;
+            float:right;
+            margin-right: 1%;
+            margin-top:0%;
+            width:100%;
+            position:absolute;
+            height:5.57vh;
+        }
+
+        .page ul li {
+            float: right;
+            line-height: 6vh;
+            text-align: center;
+            height:5.57vh;
+            width:8.5vw;
+        }
+
+        .page ul li a {
+            text-decoration: none;
+            color: #575757ec;
+            font-size:2vh;
+            display: block;
+            font-weight:bolder;
+            height:5.57vh;
+        }
+
+        .page ul li a:hover {
+            color: #fff;
+            background: #759aa0;
+		    width:100%;
+        }
+
+        .page ul li ul {
+            position: absolute;
+            display: none;
+            height:auto;
+		    width:74vw;
+        }
+
+        .page ul li ul li {
+            float: none;
+            text-align: center;
+            width:8.5vw;
+        }
+
+        .page ul li ul li a {
+            width: 8.5vw;
+            color: #575757;
+            background: #dbdbdb;
+        }
+
+        .page ul li ul li a:hover {
+            background-color: #759aa0;
+		    width:100%;
+        }
+
+        .page ul li:hover ul {
+            display: block;
+        }
+
+        .page ul li:hover ul li ul{
+		    display:none;
+    	}
+	    .page ul li:hover ul li:hover ul{
+            display:block;
+            position: absolute;
+            top:9%;
+            left: 11.5%;
+        }
+
+	    .page ul li ul li ul li a {
+            width: 10vw;
+		    color: #575757;
+		    background: #dbdbdb;
+        }
+
+	    .page ul li:hover ul li:hover ul li{
+		    width:10vw;
+		    line-height: 6vh;
+	    }
+
+	    .table{
+            margin-top:4%;
+            margin-left:5%;
+            margin-right:0%;
+            float:center;
+        }
+        .table2{
+            margin-top:3%;
+            margin-left:5%;
+            margin-right:0%;
+            float:center;
+        }
+        .table3{
+            margin-top:3%;
+            margin-left:5%;
+            margin-right:0%;
+            float:center;
+        }
+        .table4{
+            margin-top:3%;
+            margin-left:5%;
+            margin-right:0%;
+            text-align: center;
+        }
+        .caption{
+            margin-top:0%;
+            margin-left:4%;
+            color: #e3e3e3;
+            font-size: 115%;
+        }
+        .objects{
+            margin-top:1%;
+            margin-left:2%;
+            float:center;
+            z-index: 899
+        }
+        .title{
+            color: #e3e3e3;
+            margin-top:0%;
+            margin-bottom:2%;
+            font-size: 1.8vmax;
+            text-align: center;
+        }
+        .content{
+            color: #e3e3e3;
+            margin-top:1%;
+            font-size: 1.2vmax;
+            line-height: 200%;
+        }
+        .content2{
+            color: #e3e3e3;
+            margin-top:2%;
+            font-size: 1vmax;
+            text-align: left;
+            margin-right:10%;
+            margin-left:2%;
+            line-height: 200%;
+        }
+        .mid_content{
+            color: #e3e3e3;
+            margin-top:2%;
+            font-size: 1vmax;
+            text-align: left;
+            margin-right:2%;
+            margin-left:2%;
+            line-height: 200%;
+        }
+
+        .img{
+            margin-top:5%;
+        }
+
+        .mid{
+            width:90%;
+            border: 3px solid #ff7853;
+            margin-left: 5%;
+            height:18vh;
+            text-align: left;
+            margin-top: 1%;
+            border-radius:0.6em;
+        }
+	    .bottom{
+            background: #6e6e6e;
+            border-radius:0.6em;
+            margin-bottom: 1%;
+            margin-left: 0%;
+            position: relative;
+            height:10vh;
+        }
+
+	    .info{
+            position: absolute;
+            margin-top:0.5%;
+            margin-left:2%;
+            line-height: 180%;
+            color:#ebebeb;
+            font-size: 0.8vmax;
+        }
+
+    </style>
+
+</head>
+
+
+<script type="text/javascript" src="{% static 'app-assets/js/eharts.js' %}"></script>
+<script type="text/javascript" src="{% static 'app-assets/js/china.js' %}"></script>
+<script type="text/javascript" src="{% static 'app-assets/js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'app-assets/js/dark.js' %}"></script>
+<script type="text/javascript" src="{% static 'app-assets/js/app_res_share_bar1.js' %}"></script>
+<script type="text/javascript" src="{% static 'app-assets/js/app_res_share_pie.js' %}"></script>
+
+
+<body bgcolor="#333333" style="height: 100%; margin: 0">
+
+    <div class="page">
+        <!--左上角中科院logo-->
+        <!--<div class="logo">-->
+        <!--</div>-->
+        <div><img class="logo" src="{% static 'app-assets/img/OldPlatform/logo2.png' %}"></div>
+        <!--右上角导航栏及其下拉菜单-->
+        <ul>
+            <li><a href = "{% url 'Aboutus' %}">关于我们</a></li>
+            <li><a href = "{% url 'login' %}">登陆系统</a></li>
+            <li><a href = "{% url 'abstract' %}">评估概述</a></li>
+        </ul>
+    </div>
+
+    <table class="table" border="0" align="left" width = 90% height=25%>
+	    <tr>
+			<th colspan = "6" width = 50%>
+			<!--插入文字-->
+		    	<div class = "objects" align="left">
+                    <h1 class = "title">&#160 中科院评估分析服务</h1>
+
+				    <p class = "content">
+					    &#12288&#12288 中科院的评估分析服务始于中科院为院属几百家研究单位提供服务的信息化评估项目，
+					    至今已有十余年历史。中科院的评估分析服务支撑了中科院和各类机构的各种评估和咨询服务，
+					    为各类机构提供信息分析咨询服务千余次。通过该服务帮助各类机构完美的解决了从信息的采集、
+					    分析研究和数据展示到通过分析结果发现问题并推动工作发展的良好效果。
+					    依托中科院丰富的人才资源组建的小核心大网络的工作和专家团队，
+					    工作人员及专家团队囊括了各领域各学科的顶尖优秀人才。
+                            如需相关服务或技术支持请联系：
+					        电话：010-58813945
+					        邮箱：infopg@cnic.cn
+				    </p>
+                </div>
+		    </th>
+        </tr>
+    </table>
+
+    <table class="table2" border="0" align="left" width = 90% height=15%>
+	    <tr>
+		    <th width = 10%>
+				<img class="img" src="{% static 'app-assets/img/OldPlatform/data.png' %}" width="80%" />
+		    </th>
+
+		    <th width = 23%>
+				<p class = "content2">
+                    全方位采集海量数据采集：开放系统接口/互联网抓取/文件交换/线上填报/互联网调查。自动采集分析/生成数据结果。
+                </p>
+		    </th>
+
+		    <th width = 10%>
+				<img class="img" src="{% static 'app-assets/img/OldPlatform/intel.png' %}" width="80%" />
+			</th>
+	
+			<th width = 24%>
+                <p class = "content2">
+                    基于中科院全方位专家团队库并结合人工智能分析平台的数据研究，多维度多层次的数据可视化展示。
+                </p>
+			</th>
+		
+			<th width = 10%>
+                <img class="img" src="{% static 'app-assets/img/OldPlatform/dimention.png' %}" width="80%" />
+            </th>
+		
+            <th width = 23%>
+                <p class = "content2">
+                    科学的设计理念，深入的评测体系研究，丰富的评测体系及问卷设计经验。
+                </p>
+            </th>
+
+	    </tr>
+    </table>
+
+    <table class="table3" border="0" align="left" width = 90% height=15%>
+		<tr>
+			<th width = 33%>
+                <div class = 'mid'>
+                    <p class = 'mid_content'> 自动化的信息采集和处理，针对不同数据源的数据采集/清洗/处理/研究/分发的全流程自动化平台，将复杂的评估指标体系制定、流程管理、数据管理数据统计和问卷分发简单化流程化。</p>
+                </div>
+			</th>
+			
+			<th width = 34%>
+                <div class = 'mid'>
+                    <p class = 'mid_content'> 基于大数据和智能技术构建的的可定制化网络工作平台可为各类提供实时的评估分析服务，并可根据服务要求快速定制专业评估服务平台和数据模型</p>
+                </div>
+			</th>
+				
+			<th width = 33%>
+                <div class = 'mid'>
+                    <p class = 'mid_content'> 实时展现的数据分析结果，可通过数据可视化的功能组件全方位多维度的进行展示。数据分结果可借助专家库和人工智能分析平台进行定性的分析研究。</p>
+                </div>
+			</th>
+
+		</tr>
+	</table>
+
+    <br>
+	<br>
+	<br>
+
+	<table border="0" align="center" width = 20% height=15% style="margin: auto">
+        <tr>
+            <td width = 50%>
+                <a href="http://121.43.68.40/exposure/jiucuo.html?site_code=bm48000002&url=http%3A%2F%2Fwww.cas.cn%2F"><img src="{% static 'app-assets/img/OldPlatform/jiucuo.png' %}"></a>
+            </td>
+					
+            <td width = 50% >
+                <a href="http://bszs.conac.cn/sitename?method=show&id=08D02A84B89B2FB3E053022819ACFCA1"><img src="{% static 'app-assets/img/OldPlatform/blue.png' %}."></a>
+            </td>
+		
+        </tr>
+	</table>
+	
+	<table class="table4" align = 'center' style="margin: auto"  color='#ebebeb'>
+        <tr>
+            <th width = 100%  align = 'center' color='#ebebeb'>
+                <div style="color:#ebebeb">
+                    <!--<center><img src="./img/jiucuo.png"><img src="./img/blue.png"></center>-->
+                    1996 - 2019 中国科学院 版权所有 <a href="http://beian.miit.gov.cn/" style="color:blue" >京ICP备05002875号</a> 京公网安备110402500047号 <a href="http://www.cas.cn/lx/201410/t20141017_4226181.shtml" style="color:blue" >联系我们</a></br>
+                    地址：北京市三里河路52号 邮编：100864</br>
+                </div>
+            </th>
+        </tr>
+    </table>
+	
+</body>
+
+</html>

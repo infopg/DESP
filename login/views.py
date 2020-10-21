@@ -192,3 +192,9 @@ class ModifyView(View):
 
 def Modifydone(request):
     return render(request, 'login/modifydone.html')
+
+def abstract(request):
+    return render(request, 'login/abstract.html')
+
+def Aboutus(request):
+    return render(request, 'login/Aboutus.html')

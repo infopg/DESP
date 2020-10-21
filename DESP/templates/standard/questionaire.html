@@ -63,10 +63,55 @@
                             <tfoot>
                             </tfoot>
                         </table>
-                        <button class="btn btn-primary mb-2" onclick="addrow(event)">添加</button>
+                        <button class="btn btn-primary mb-2" onclick="addrow(event,'choice')">添加</button>
                         <div class="modal-footer">
                             <button class="btn btn-primary"
                                     onclick="schemeedit(event)">提交
+                            </button>
+                            <button class="btn btn-default pull-left"
+                                    data-dismiss="modal">关闭
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+<div class="modal fade" data-model-name="blank_number">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">设置计分模型</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <table class="table table-responsive-md text-center">
+                            <thead>
+                            <tr>
+                                <th>已设置的空格</th>
+                                <th>得分</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                        <span><input type='checkbox' name='zero'><span>是否含0</span></span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span><select name='order'>
+                            <option>升序</option>
+                            <option>降序</option>
+                        </select></span>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary"
+                                    onclick="schemeedit_blank(event)">提交
                             </button>
                             <button class="btn btn-default pull-left"
                                     data-dismiss="modal">关闭
@@ -175,24 +220,6 @@
             </div>
         </div>
     </nav>
-    <div class='modal fade' id='filling' role='dialog' tabindex="-1" aria-hidden='true'>
-        <div class='modal-dialog' role='document'>
-            <div class='modal-content'>
-                <div class='modal-header'>
-                    <h4 class='modal-title' id='filling-title'></h4>
-                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                        <span aria-hidden='true'>&times;</span>
-                    </button>
-                </div>
-                <div class='modal-body' id='filling-body'>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn grey btn-outline-secondary' data-dismiss='modal'>关闭</button>
-                    <button type='button' class='btn btn-outline-primary'>保存</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <div class="main-panel">
@@ -336,6 +363,7 @@
     FilePond.create(inputElement)
 </script>
 <script>
+    //刷新前提醒保存 不然会有none
     var q = {{ data|safe }};
     console.log(q);
     for (var i = 0; i < q.length; i++) {
