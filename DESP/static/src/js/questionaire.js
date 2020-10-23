@@ -7,6 +7,8 @@ $('.modal').on('hidden.bs.modal', function (e) {
     $(this).find('tbody').empty();
 });
 
+
+
 function answerfilling() {
     var len = $(".div_question").length + 1;
     $('#question_list').append("                                      <div class=\"div_question\" id = " + len + ">\n" +
@@ -38,7 +40,6 @@ function answerfilling() {
         "                                                                        type=\"checkbox\"><span>含附件上传</span></span>\n" +
         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
         "                                                                        name=\"markmethod\" class=\"form-control-sm\">\n" +
-        "                                                            <option>自动打分</option>\n" +
         "                                                            <option>手动打分</option>\n" +
         "                                                        </select></span>\n" +
         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
@@ -139,8 +140,9 @@ function blank_mark(event) {
     value = $(event.target).closest('.div_question').find('option:selected').eq(0).val();
     indicatorID = $(event.target).closest('.div_question').find('input[name="indicatorID"]').val();
     questionnumber = $(event.target).closest('.div_question').find('input[name="questionnumber"]').val();
-    var reg = /[\s\S*]___+/;
+    var reg = /[\s\S*][___]+/; //改进一下？用户自己输入的短下划线不应视作一个空
     console.log(text.split(reg));
+    number = text.split(reg).length - 1;
     $.ajax({
         url: '/administrator/scheme_show',
         type: 'post',
@@ -152,47 +154,122 @@ function blank_mark(event) {
             if (data.msg === 'Created') {
                 question = eval(data.data)[0].fields.table_question_content_col_mark_scheme;
                 scheme = eval("(" + question + ")");
+                console.log(scheme);
                 if (value === data.markmethod) {
-                    for (i = 0; i < scheme.length; i++) {
-                        $("div[data-model-name='accumulation']").find('tbody').append("<tr>\n" +
+                    if (data.markmethod === '自动打分-数字型') {
+                        for (i = 0; i < scheme.length - 2; i++) {
+                            $("div[data-model-name='blank_number']").find('tbody').append("<tr>\n" +
                             "                                <td contenteditable=\"true\">" + scheme[i][0] + "</td>\n" +
                             "                                <td contenteditable=\"true\">" + scheme[i][1] + "</td>\n" +
-                            "                                <td>\n" +
-                            "                                    <input type=\"button\" value=\"删除\" class=\"btn mr-1 btn-danger\" onclick=\"deleteRow(event)\">\n" +
-                            "                                </td>\n" +
                             "                            </tr>");
+                        }
+                        $("div[data-model-name='blank_number']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+                            "value= " + questionnumber + ">\n" +
+                            "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
+                            "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                        if (scheme[scheme.length - 2][1] === true) {
+                            $("div[data-model-name='blank_number']").find("input[name='zero']")[0].checked = true
+                        } else if (scheme[scheme.length - 2][1] === false) {
+                            $("div[data-model-name='blank_number']").find("input[name='zero']")[0].checked = false
+                        }
+                        if (scheme[scheme.length - 1][1] === '升序') {
+                            $("div[data-model-name='blank_number']").find("select[name='order']")[0][0].selected = true
+                        } else if (scheme[scheme.length - 1][1] === '降序') {
+                            $("div[data-model-name='blank_number']").find("select[name='order']")[0][1].selected = true;
+                        }
+                        $("div[data-model-name='blank_number']").modal('show');
+                    } else if (data.markmethod === '自动打分-文字型') {
+                        for (i = 0; i < scheme.length - 3; i++) {
+                            $("div[data-model-name='blank_word']").find('tbody').append("<tr>\n" +
+                                "                                <td contenteditable=\"true\">" + scheme[i][0] + "</td>\n" +
+                                "                                <td contenteditable=\"true\">" + scheme[i][1] + "</td>\n" +
+                                "                            </tr>");
+                        }
+                        $("div[data-model-name='blank_word']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+                            "value= " + questionnumber + ">\n" +
+                            "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
+                            "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                        if (scheme[scheme.length - 3][1] === true) {
+                            $("div[data-model-name='blank_word']").find("input[name='word_empty']")[0].checked = true
+                        } else if (scheme[scheme.length - 3][1] === false) {
+                            $("div[data-model-name='blank_word']").find("input[name='word_empty']")[0].checked = false
+                        }
+                        if (scheme[scheme.length - 1][1] === true) {
+                            $("div[data-model-name='blank_word']").find("input[name='anyanswer']")[0].checked = true
+                        } else if (scheme[scheme.length - 1][1] === false) {
+                            $("div[data-model-name='blank_word']").find("input[name='anyanswer']")[0].checked = false
+                        }
+                        $("div[data-model-name='blank_word']").find("input[name='keywords']").val(scheme[scheme.length - 2][1]);
+                        $("div[data-model-name='blank_word']").modal('show');
                     }
-                    $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
-                        "value= " + questionnumber + ">\n" +
-                        "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
-                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
-                    $("div[data-model-name='accumulation']").modal('show');
                 } else {
-                    $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
-                        "value= " + questionnumber + ">\n" +
-                        "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
-                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
-                    $("div[data-model-name='accumulation']").modal('show');
+                    if (value === '自动打分-数字型') {
+                        for (i = 0; i < number; i++) {
+                            $("div[data-model-name='blank_number']").find('tbody').append("<tr>\n" +
+                                "                                <td contenteditable=\"false\">" + "第" + (i + 1) + "空" + "</td>\n" +
+                                "                                <td contenteditable=\"true\">" + 0 + "</td>\n" +
+                                "                            </tr>");
+                        }
+                        $("div[data-model-name='blank_number']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+                            "value= " + questionnumber + ">\n" +
+                            "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
+                            "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                        $("div[data-model-name='blank_number']").modal('show');
+                    } else if (value === '自动打分-文字型') {
+                        for (i = 0; i < number; i++) {
+                            $("div[data-model-name='blank_word']").find('tbody').append("<tr>\n" +
+                                "                                <td contenteditable=\"false\">" + "第" + (i + 1) + "空" + "</td>\n" +
+                                "                                <td contenteditable=\"true\">" + 0 + "</td>\n" +
+                                "                            </tr>");
+                        }
+                        $("div[data-model-name='blank_word']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+                            "value= " + questionnumber + ">\n" +
+                            "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
+                            "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                        $("div[data-model-name='blank_word']").modal('show');
+                    }
                 }
             } else if (data.msg === 'Notcreatedyet') {
-                $("div[data-model-name='blank_number']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
-                    "value= " + questionnumber + ">\n" +
-                    "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
-                    "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
-                $("div[data-model-name='blank_number']").modal('show');
+                if (value === '自动打分-数字型') {
+                    for (i = 0; i < number; i++) {
+                        $("div[data-model-name='blank_number']").find('tbody').append("<tr>\n" +
+                            "                                <td contenteditable=\"false\">" + "第" + (i + 1) + "空" + "</td>\n" +
+                            "                                <td contenteditable=\"true\">" + 0 + "</td>\n" +
+                            "                            </tr>");
+                    }
+                    $("div[data-model-name='blank_number']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+                        "value= " + questionnumber + ">\n" +
+                        "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
+                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                    $("div[data-model-name='blank_number']").modal('show');
+                } else if (value === '自动打分-文字型') {
+                    for (i = 0; i < number; i++) {
+                        $("div[data-model-name='blank_word']").find('tbody').append("<tr>\n" +
+                            "                                <td contenteditable=\"false\">" + "第" + (i + 1) + "空" + "</td>\n" +
+                            "                                <td contenteditable=\"true\">" + 0 + "</td>\n" +
+                            "                            </tr>");
+                    }
+                    $("div[data-model-name='blank_word']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+                        "value= " + questionnumber + ">\n" +
+                        "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
+                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                    $("div[data-model-name='blank_word']").modal('show');
+                }
             }
         }
     })
 }
 
-function schemeedit_blank(event) {
+function schemeedit_blanknumber(event) {
     table = $(event.target).parent().parent().children().eq(0);
     indicatorID = table.find('input[name="indicatorID"]').val();
     questionnumber = table.find('input[name="questionnumber"]').val();
     markmethod = table.find('input[name="markmethod"]').val();
+    zero = $(event.target).parent().parent().find('input[name="zero"]').eq(0).is(':checked');
+    order = $(event.target).parent().parent().find('select[name="order"]').val();
     accumulation = [];
     for (var i = 0; i < table[0].rows.length; i++) {
-        for (var j = 0; j < table[0].rows[i].cells.length - 1; j++) {
+        for (var j = 0; j < table[0].rows[i].cells.length; j++) {
             if (!accumulation[i]) {
                 accumulation[i] = [];
             }
@@ -200,6 +277,10 @@ function schemeedit_blank(event) {
         }
     }
     accumulation.splice(0, 1);
+    zeroarray = ['是否含0', zero];
+    orderarray = ['顺序', order];
+    accumulation.push(zeroarray);
+    accumulation.push(orderarray);
     $.ajax({
         type: 'post',
         data: {
@@ -216,6 +297,45 @@ function schemeedit_blank(event) {
     })
 } //填空题打分方式的提交
 
+function schemeedit_blankword(event) {
+    table = $(event.target).parent().parent().children().eq(0);
+    indicatorID = table.find('input[name="indicatorID"]').val();
+    questionnumber = table.find('input[name="questionnumber"]').val();
+    markmethod = table.find('input[name="markmethod"]').val();
+    word_empty = $(event.target).parent().parent().find('input[name="word_empty"]').eq(0).is(':checked');
+    keyword = $(event.target).parent().parent().find('input[name="keywords"]').val();
+    anyanswer = $(event.target).parent().parent().find('input[name="anyanswer"]').eq(0).is(':checked');
+    accumulation = [];
+    for (var i = 0; i < table[0].rows.length; i++) {
+        for (var j = 0; j < table[0].rows[i].cells.length; j++) {
+            if (!accumulation[i]) {
+                accumulation[i] = [];
+            }
+            accumulation[i][j] = table[0].rows[i].cells[j].innerHTML;
+        }
+    }
+    accumulation.splice(0, 1);
+    emptyarray = ['答案为空', word_empty];
+    keywordarray = ['顺序', keyword];
+    anyanswerarray = ['任意答案', anyanswer];
+    accumulation.push(emptyarray);
+    accumulation.push(keywordarray);
+    accumulation.push(anyanswerarray);
+    $.ajax({
+        type: 'post',
+        data: {
+            indicatorID: indicatorID,
+            questionnumber: questionnumber,
+            datalist: JSON.stringify(accumulation),
+            markmethod: markmethod
+        },
+        dataType: 'json',
+        url: "/administrator/accumulation",
+        success: function () {
+            alert('设置成功');
+        }
+    })
+}
 
 function GetRequest() {
     var url = location.search; //获取url中"?"符后的字串
@@ -293,7 +413,6 @@ function formfilling() {
         "                                                                        type=\"checkbox\"><span>含附件上传</span></span>\n" +
         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
         "                                                                        name=\"markmethod\" class=\"form-control-sm\">\n" +
-        "                                                            <option>自动打分</option>\n" +
         "                                                            <option>手动打分</option>\n" +
         "                                                        </select></span>\n" +
         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
@@ -407,7 +526,6 @@ function matrixfilling() {
         "                                                                            type=\"checkbox\"><span>含附件上传</span></span>\n" +
         "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
         "                                                                            name=\"markmethod\" class=\"form-control-sm\">\n" +
-        "                                                            <option>自动打分</option>\n" +
         "                                                            <option>手动打分</option>\n" +
         "                                                        </select></span>\n" +
         "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +

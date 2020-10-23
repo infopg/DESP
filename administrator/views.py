@@ -7,7 +7,6 @@ import os
 import time
 import xlrd
 from decimal import *
-
 from django.core import serializers
 # Create your views here.
 from django.db.models import Q
@@ -567,7 +566,6 @@ def blank_add(request):
             'table_question_content_col_markmethod': request.POST['markmethod'],
             'table_question_content_col_marks': request.POST['points'],
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
-            'table_question_content_col_mark_scheme': None
         }
         TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
             table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)

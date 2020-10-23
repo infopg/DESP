@@ -111,7 +111,51 @@
                         </select></span>
                         <div class="modal-footer">
                             <button class="btn btn-primary"
-                                    onclick="schemeedit_blank(event)">提交
+                                    onclick="schemeedit_blanknumber(event)">提交
+                            </button>
+                            <button class="btn btn-default pull-left"
+                                    data-dismiss="modal">关闭
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+<div class="modal fade" data-model-name="blank_word">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">设置计分模型</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <table class="table table-responsive-md text-center">
+                            <thead>
+                            <tr>
+                                <th>已设置的空格</th>
+                                <th>得分</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                        <span><input type='checkbox' name='word_empty'><span>答案为空是否给分</span></span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span>按关键词给分: </span><span><input name='keywords' style="width: 30%;"></span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span><input type='checkbox' name='anyanswer' style="float: left"><span style="float: left">任何答案都给分</span></span>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary"
+                                    onclick="schemeedit_blankword(event)">提交
                             </button>
                             <button class="btn btn-default pull-left"
                                     data-dismiss="modal">关闭
@@ -363,6 +407,22 @@
     FilePond.create(inputElement)
 </script>
 <script>
+    var is_confirm = true;
+    (function () {
+        // 关闭窗口时弹出确认提示
+        $(window).bind('beforeunload', function () {
+            // 只有在标识变量is_confirm不为false时，才弹出确认提示
+            if (window.is_confirm !== false) {
+                return "您可能有数据没有保存";
+            }
+        });
+        // mouseleave mouseover事件也可以注册在body、外层容器等元素上
+        $(window).bind('mouseover mouseleave', function (event) {
+            is_confirm = event.type == 'mouseleave';
+        });
+    })();
+</script>
+<script>
     //刷新前提醒保存 不然会有none
     var q = {{ data|safe }};
     console.log(q);
@@ -377,7 +437,6 @@
         var question_number = q[i]['question_number'];
         var question_type = q[i]['question_type'];
         var required = q[i]['required'];
-        {#var scheme = q[i]['scheme'];#}
         if (q[i]['question_type'] === '选择题') {
             var len = $(".div_question").length + 1;
             $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
@@ -473,10 +532,14 @@
             } else {
                 $('.div_question').last().find("input[name='attachment']")[0].checked = false
             }
-            if (markmethod === '自动打分') {
+            if (markmethod === '手动打分') {
                 $('.div_question').last().find('select')[1][0].selected = true
-            } else {
+            } else if (markmethod === '自动打分----逐项累计') {
                 $('.div_question').last().find('select')[1][1].selected = true
+            } else if (markmethod === '自动打分----固定选项') {
+                $('.div_question').last().find('select')[1][2].selected = true
+            } else if (markmethod === '自动打分----按选项数') {
+                $('.div_question').last().find('select')[1][3].selected = true
             }
             if (importanswer === 'on') {
                 $('.div_question').last().find("input[name='importanswer']")[0].checked = true
@@ -495,9 +558,9 @@
                     "                                                                                    class=\"ft-minus-circle\"></i></a>\n" +
                     "                                                                        </td>\n" +
                     "                                                                        <td>\n" +
-                    "                                                                            <input type=\"checkbox\"\n" +
-                    "                                                                                   onchange=\"allowblank(event)\"\n" +
-                    "                                                                                   name=\"blank\">\n" +
+                    "                                                                            <input type=\"button\"\n" +
+                    "                                                                                   class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,'choice')\"\n" +
+                    "                                                                                   name=\"allowblank\">\n" +
                     "                                                                        </td>\n" +
                     "                                                                        <td>\n" +
                     "                                                                            <a onclick=\"moveup(event)\"><i class=\"ft-arrow-up\"></i></a>\n" +
@@ -533,10 +596,17 @@
                 "                                                                        name=\"attachment\"\n" +
                 "                                                                        type=\"checkbox\"><span>含附件上传</span></span>\n" +
                 "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
-                "                                                                        name=\"markmethod\" class=\"form-control-sm\">\n" +
-                "                                                            <option>自动打分</option>\n" +
+                "                                                                        name=\"markmethod\" class=\"form-control-sm\" onchange=\"markrule(event)\">\n" +
                 "                                                            <option>手动打分</option>\n" +
+                "                                                            <option>自动打分-文字型</option>\n" +
+                "                                                            <option>自动打分-数字型</option>\n" +
                 "                                                        </select></span>\n" +
+                "                                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                "                                                        <a name=\"blankmark\" onclick='blank_mark(event)' class='blank_mark' style='display: none'><span>设置计分规则</span></a></span>" +
+                "                                                                       <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"button\"\n" +
+                "                                                                                   class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,'blank')\"\n" +
+                "                                                                                   ></span>\n" +
+
                 "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
                 "                                                                        name=\"importanswer\"\n" +
                 "                                                                        type=\"checkbox\"><span>导入答案</span></span>\n" +
@@ -566,9 +636,11 @@
             } else {
                 $('.div_question').last().find("input[name='attachment']")[0].checked = false
             }
-            if (markmethod === '自动打分') {
+            if (markmethod === '手动打分') {
                 $('.div_question').last().find('select')[0][0].selected = true
-            } else {
+            } else if (markmethod === '自动打分-数字型') {
+                $('.div_question').last().find('select')[0][2].selected = true
+            } else if (markmethod === '自动打分-文字型') {
                 $('.div_question').last().find('select')[0][1].selected = true
             }
             if (importanswer === 'on') {
@@ -608,7 +680,6 @@
                 "                                                                        type=\"checkbox\"><span>含附件上传</span></span>\n" +
                 "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
                 "                                                                        name=\"markmethod\" class=\"form-control-sm\">\n" +
-                "                                                            <option>自动打分</option>\n" +
                 "                                                            <option>手动打分</option>\n" +
                 "                                                        </select></span>\n" +
                 "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
@@ -644,11 +715,7 @@
             } else {
                 $('.div_question').last().find("input[name='attachment']")[0].checked = false
             }
-            if (markmethod === '自动打分') {
-                $('.div_question').last().find('select')[0][0].selected = true
-            } else {
-                $('.div_question').last().find('select')[0][1].selected = true
-            }
+            $('.div_question').last().find('select')[0][0].selected = true
             if (importanswer === 'on') {
                 $('.div_question').last().find("input[name='importanswer']")[0].checked = true
             } else {
@@ -663,8 +730,8 @@
                 "                                                            <div>\n" +
                 "                                                                <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
                 "                                                                <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
-                "                                                                <button class=\"btn mr-1 btn-secondary\"\n" +
-                "                                                                        onclick='delquestion(event)'>del</button>\n" +
+                "                                                                <input type=\'button\' class=\"btn mr-1 btn-secondary\"\n" +
+                "                                                                        onclick='delquestion(event)' value=\'del\'>\n" +
                 "                                                            </div>\n" +
                 "                                                            <div>\n" +
                 "                                                                <table class=\"table table-responsive-sm text-left\"  style=\"table-layout:fixed;\">\n" +
@@ -702,7 +769,6 @@
                 "                                                                            type=\"checkbox\"><span>含附件上传</span></span>\n" +
                 "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
                 "                                                                            name=\"markmethod\" class=\"form-control-sm\">\n" +
-                "                                                            <option>自动打分</option>\n" +
                 "                                                            <option>手动打分</option>\n" +
                 "                                                        </select></span>\n" +
                 "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
@@ -720,7 +786,7 @@
                 "                                                                   name=\"row\" style = \"width: 90%; height: 100%\"></textarea>\n" +
                 "</div>" +
                 "<div style='float: left;width: 50%'>" +
-                "                                                                <table class=\"table table-responsive-sm text-left\">\n" +
+                "                                                                <table class=\"table table-responsive-sm text-left\"   style=\"table-layout: fixed\">\n" +
                 "                                                                    <tbody>\n" +
                 "                                                                    <tr>\n" +
                 "                                                                        <td>选项文字</td>\n" +
@@ -743,7 +809,7 @@
                 "                                                                   onclick=\"hide_edit(event)\">\n" +
                 "                                                            <input type=\"button\"\n" +
                 "                                                                   class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
-                "                                                                   value=\"清空\">\n" +
+                "                                                                   value=\"清空\" onclick='clearForm_matrix(event)'>\n" +
                 "                                                        </div>\n" +
                 "                                                    </form>\n" +
                 "                                                </div>");
@@ -758,11 +824,7 @@
             } else {
                 $('.div_question').last().find("input[name='attachment']")[0].checked = false
             }
-            if (markmethod === '自动打分') {
-                $('.div_question').last().find('select')[0][0].selected = true
-            } else {
-                $('.div_question').last().find('select')[0][1].selected = true
-            }
+            $('.div_question').last().find('select')[0][0].selected = true
             if (importanswer === 'on') {
                 $('.div_question').last().find("input[name='importanswer']")[0].checked = true
             } else {
@@ -791,12 +853,12 @@
                     "                                                                                  onclick=\"minuscolumn(event)\"></i></a>\n" +
                     "                                                                        </td>\n" +
                     "                                                                        <td>\n" +
-                    "                                                                            <input name=\"allowblank\" type=\"checkbox\">\n" +
+                    "                                                                            <input name=\"allowblank\" type=\"button\" class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,'matrix')\"\n" +
                     "                                                                        </td>\n" +
                     "                                                                        <td>\n" +
-                    "                                                                            <a onclick=\"moveup(event)\"><i\n" +
+                    "                                                                            <a onclick=\"moveleft(event)\"><i\n" +
                     "                                                                                    class=\"ft-arrow-up\"></i></a>\n" +
-                    "                                                                            <a onclick=\"movedown(event)\"><i\n" +
+                    "                                                                            <a onclick=\"moveright(event)\"><i\n" +
                     "                                                                                    class=\"ft-arrow-down\"></i></a>\n" +
                     "                                                                        </td>\n" +
                     "                                                                    </tr>\n")
@@ -840,7 +902,6 @@
                 "                                                                        type=\"checkbox\"><span>含附件上传</span></span>\n" +
                 "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
                 "                                                                        name=\"markmethod\" class=\"form-control-sm\">\n" +
-                "                                                            <option>自动打分</option>\n" +
                 "                                                            <option>手动打分</option>\n" +
                 "                                                        </select></span>\n" +
                 "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
@@ -866,7 +927,7 @@
                 "                                                               value=\"保存\" onclick=\"hide_edit(event)\">\n" +
                 "                                                        <input type=\"button\"\n" +
                 "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
-                "                                                               value=\"清空\">\n" +
+                "                                                               value=\"清空\"  onclick='clearForm_matrix(event)'>\n" +
                 "\n" +
                 "                                                </div>\n" +
                 "                                            </form>\n" +
@@ -882,11 +943,7 @@
             } else {
                 $('.div_question').last().find("input[name='attachment']")[0].checked = false
             }
-            if (markmethod === '自动打分') {
-                $('.div_question').last().find('select')[0][0].selected = true
-            } else {
-                $('.div_question').last().find('select')[0][1].selected = true
-            }
+            $('.div_question').last().find('select')[0][0].selected = true;
             if (importanswer === 'on') {
                 $('.div_question').last().find("input[name='importanswer']")[0].checked = true
             } else {
