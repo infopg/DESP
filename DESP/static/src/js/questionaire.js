@@ -84,8 +84,6 @@ function blankfilling() {
         "                                                        <input style=\"display: none\" name=\"indicatorID\" value=" + nodeID + ">\n" +
         "                                                        <textarea class=\"form-control\"\n" +
         "                                                                  onkeyup=\"SwapTxt(event)\" name=\"choicetitle\"></textarea>\n" +
-        "                                                        <textarea class=\"form-control\"\n" +
-        "                                                                  name=\"question\"></textarea>\n" +
         "                                                        <div class=\"row\" style=\"margin-top: 15px\">\n" +
         "                                                            <div class=\"col-md-9\">\n" +
         "                                                                <span><input\n" +
@@ -95,12 +93,16 @@ function blankfilling() {
         "                                                                        name=\"attachment\"\n" +
         "                                                                        type=\"checkbox\"><span>含附件上传</span></span>\n" +
         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
-        "                                                                        name=\"markmethod\" class=\"form-control-sm\" onchange=\"markrule(this)\">\n" +
+        "                                                                        name=\"markmethod\" class=\"form-control-sm\" onchange=\"markrule(event)\">\n" +
+        "                                                            <option>手动打分</option>\n" +
         "                                                            <option>自动打分-文字型</option>\n" +
         "                                                            <option>自动打分-数字型</option>\n" +
-        "                                                            <option>手动打分</option>\n" +
-        "                                                        </select><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span\n" +
-        "                                                                data-toggle='modal' data-target='#filling' onclick=\"marksetting(event)\">设置</span></span></span>\n" +
+        "                                                        </select></span>\n" +
+        "                                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+        "                                                        <a name=\"blankmark\" onclick='blank_mark(event)' class='blank_mark' style='display: none'><span>设置计分规则</span></a></span>" +
+        "                                                                       <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"button\"\n" +
+        "                                                                                   class=\"btn mr-1 btn-info\" value=\'增加填空符\' onclick=\"addblank(event,'blank')\"\n" +
+        "                                                                                   ></span>\n" +
         "                                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
         "                                                                        name=\"importanswer\"\n" +
         "                                                                        type=\"checkbox\"><span>导入答案</span></span>\n" +
@@ -114,37 +116,105 @@ function blankfilling() {
         "                                                        <input type=\"button\"\n" +
         "                                                               class=\"btn btn-outline-danger btn-lg  btn-round\"\n" +
         "                                                               value=\"保存\" onclick=\"hide_edit_blank(event)\">\n" +
-        "                                                        <input type=\"button\" class=\"btn btn-outline-danger btn-lg  btn-round\" value=\"清空\" onclick='clearForm_blank(event)'>\n" +
+        "                                                         <input type=\"button\" class=\"btn btn-outline-danger btn-lg  btn-round\" value=\"清空\" onclick='clearForm_blank(event)'>\n" +
         "                                                            </div>\n" +
         "                                                    </div>\n" +
         "                                                            </form>\n" +
         "                                                </div>");
     variableID(10);
-
 }
 
-function markrule(sel) {
-    selected = sel.options[sel.options.selectedIndex].text
-    $sel = $(sel)
-    if (selected.toString().indexOf("自动打分") != -1) {
-        $sel.next().show()
+function markrule(event) {
+    a = $(event.target);
+    value = a.find('option:selected').val();
+    if (value != '手动打分') {
+        $(event.target).closest('.div_question').find("a[name='blankmark']").show()
     } else {
-        $sel.next().hide()
+        $(event.target).closest('.div_question').find("a[name='blankmark']").hide();
     }
 }
 
-function marksetting(e) {
-    var sp = $(e.target)
-    index = sp.parent().parent().parent().parent().parent().prev().find('h5').eq(0).text()
-    title = sp.parent().parent().parent().parent().parent().prev().find('h5').eq(1).text()
-    question = sp.parent().parent().parent().parent().parent().find('textarea').eq(1).val()
-    $('#filling-title').text(index + title)
-    html = question.replaceAll('__', '<select>' +
-        '<option value="0">数字型</option>' +
-        '<option value="1">文字型</option>' +
-        '</select>')
-    $('#filling-body').html(html)
+function blank_mark(event) {
+    text = $(event.target).closest('.div_question').find('textarea').eq(0).val();
+    value = $(event.target).closest('.div_question').find('option:selected').eq(0).val();
+    indicatorID = $(event.target).closest('.div_question').find('input[name="indicatorID"]').val();
+    questionnumber = $(event.target).closest('.div_question').find('input[name="questionnumber"]').val();
+    var reg = /[\s\S*]___+/;
+    console.log(text.split(reg));
+    $.ajax({
+        url: '/administrator/scheme_show',
+        type: 'post',
+        data: {
+            'indicatorID': indicatorID,
+            'questionnumber': questionnumber
+        },
+        success: function (data) {
+            if (data.msg === 'Created') {
+                question = eval(data.data)[0].fields.table_question_content_col_mark_scheme;
+                scheme = eval("(" + question + ")");
+                if (value === data.markmethod) {
+                    for (i = 0; i < scheme.length; i++) {
+                        $("div[data-model-name='accumulation']").find('tbody').append("<tr>\n" +
+                            "                                <td contenteditable=\"true\">" + scheme[i][0] + "</td>\n" +
+                            "                                <td contenteditable=\"true\">" + scheme[i][1] + "</td>\n" +
+                            "                                <td>\n" +
+                            "                                    <input type=\"button\" value=\"删除\" class=\"btn mr-1 btn-danger\" onclick=\"deleteRow(event)\">\n" +
+                            "                                </td>\n" +
+                            "                            </tr>");
+                    }
+                    $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+                        "value= " + questionnumber + ">\n" +
+                        "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
+                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                    $("div[data-model-name='accumulation']").modal('show');
+                } else {
+                    $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+                        "value= " + questionnumber + ">\n" +
+                        "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
+                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                    $("div[data-model-name='accumulation']").modal('show');
+                }
+            } else if (data.msg === 'Notcreatedyet') {
+                $("div[data-model-name='blank_number']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+                    "value= " + questionnumber + ">\n" +
+                    "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
+                    "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                $("div[data-model-name='blank_number']").modal('show');
+            }
+        }
+    })
 }
+
+function schemeedit_blank(event) {
+    table = $(event.target).parent().parent().children().eq(0);
+    indicatorID = table.find('input[name="indicatorID"]').val();
+    questionnumber = table.find('input[name="questionnumber"]').val();
+    markmethod = table.find('input[name="markmethod"]').val();
+    accumulation = [];
+    for (var i = 0; i < table[0].rows.length; i++) {
+        for (var j = 0; j < table[0].rows[i].cells.length - 1; j++) {
+            if (!accumulation[i]) {
+                accumulation[i] = [];
+            }
+            accumulation[i][j] = table[0].rows[i].cells[j].innerHTML;
+        }
+    }
+    accumulation.splice(0, 1);
+    $.ajax({
+        type: 'post',
+        data: {
+            indicatorID: indicatorID,
+            questionnumber: questionnumber,
+            datalist: JSON.stringify(accumulation),
+            markmethod: markmethod
+        },
+        dataType: 'json',
+        url: "/administrator/accumulation",
+        success: function () {
+            alert('设置成功');
+        }
+    })
+} //填空题打分方式的提交
 
 
 function GetRequest() {
@@ -520,10 +590,10 @@ function choice() {
         "                                                                            type=\"checkbox\" name=\"attachment\"><span>含附件上传</span></span>\n" +
         "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
         "                                                                            class=\"form-control-sm\" name=\"markmethod\" onchange=\'option_value(event)\'>\n" +
-        "                                                            <option value='0'>手动打分</option>\n" +
-        "                                                            <option value='1'>自动打分----逐项累计</option>\n" +
-        "                                                            <option value='2'>自动打分----固定选项</option>\n" +
-        "                                                            <option value='3'>自动打分----按选项数</option>\n" +
+        "                                                            <option>手动打分</option>\n" +
+        "                                                            <option>自动打分----逐项累计</option>\n" +
+        "                                                            <option>自动打分----固定选项</option>\n" +
+        "                                                            <option>自动打分----按选项数</option>\n" +
         "                                                        </select></span>\n" +
         "                                                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
         "                                                        <a name=\"choicemark\" onclick='choice_mark(event)' class='choice_mark' style='display:none;'><span>设置计分规则</span></a></span>" +
@@ -600,21 +670,26 @@ function choice() {
 function option_value(event) {
     a = $(event.target);
     value = a.find('option:selected').val();
-    if (value != 0) {
+    if (value != '手动打分') {
         $(event.target).closest('.div_question').find("a[name='choicemark']").show()
     } else {
         $(event.target).closest('.div_question').find("a[name='choicemark']").hide();
     }
 }
 
-function addrow(event) {
-    table = $(event.target).prev();
-    var addtr = $("<tr>" +
-        "<td contenteditable='false'></td>" +
+
+function addrow(event, type) {
+    questiontype = type;
+    if (questiontype === 'choice') {
+        table = $(event.target).prev();
+        var addtr = $("<tr>" +
+        "<td contenteditable='true'></td>" +
         "<td contenteditable=\"true\">0</td>" +
         "<td><input type=\"button\" value=\"删除\" class=\"btn mr-1 btn-danger\" onclick=\"deleteRow(event)\"></td>" +
         "</tr>");
-    addtr.appendTo(table);
+        addtr.appendTo(table);
+    }
+
 }
 
 function deleteRow(event) {
@@ -629,31 +704,57 @@ function choice_mark(event) {
     value = $(event.target).closest('.div_question').find('option:selected').eq(1).val();
     indicatorID = $(event.target).closest('.div_question').find('input[name="indicatorID"]').val();
     questionnumber = $(event.target).closest('.div_question').find('input[name="questionnumber"]').val();
-    if (value === '1') {
-        choicelist = $(event.target).closest('.div_question').find('input[name="choice"]');
-        arr = [];
-        for (i = 0; i < choicelist.length; i++) {
-            arr.push(choicelist.eq(i).val());
-            $("div[data-model-name='accumulation']").find('tbody').append("<tr>\n" +
-                "                                <td contenteditable=\"false\">" + arr[i] + "</td>\n" +
-                "                                <td contenteditable=\"true\">0</td>\n" +
-                "                                <td>\n" +
-                "                                    <input type=\"button\" value=\"删除\" class=\"btn mr-1 btn-danger\" onclick=\"deleteRow(event)\">\n" +
-                "                                </td>\n" +
-                "                            </tr>");
+    console.log(questionnumber);
+    $.ajax({
+        url: '/administrator/scheme_show',
+        type: 'post',
+        data: {
+            'indicatorID': indicatorID,
+            'questionnumber': questionnumber
+        },
+        success: function (data) {
+            console.log(data.markmethod);
+            if (data.msg === 'Created') {
+                question = eval(data.data)[0].fields.table_question_content_col_mark_scheme;
+                scheme = eval("(" + question + ")");
+                if (value === data.markmethod) {
+                    for (i = 0; i < scheme.length; i++) {
+                        $("div[data-model-name='accumulation']").find('tbody').append("<tr>\n" +
+                            "                                <td contenteditable=\"true\">" + scheme[i][0] + "</td>\n" +
+                            "                                <td contenteditable=\"true\">" + scheme[i][1] + "</td>\n" +
+                            "                                <td>\n" +
+                            "                                    <input type=\"button\" value=\"删除\" class=\"btn mr-1 btn-danger\" onclick=\"deleteRow(event)\">\n" +
+                            "                                </td>\n" +
+                            "                            </tr>");
+                    }
+                    $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+                        "value= " + questionnumber + ">\n" +
+                        "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
+                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                    $("div[data-model-name='accumulation']").modal('show');
+                } else {
+                    $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+                        "value= " + questionnumber + ">\n" +
+                        "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
+                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                    $("div[data-model-name='accumulation']").modal('show');
+                }
+            } else if (data.msg === 'Notcreatedyet') {
+                $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
+                    "value= " + questionnumber + ">\n" +
+                    "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
+                    "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                $("div[data-model-name='accumulation']").modal('show');
+            }
         }
-
-        $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
-            "value= " + questionnumber + ">\n" +
-            "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">");
-        $("div[data-model-name='accumulation']").modal('show');
-    }
+    })
 }
 
 function schemeedit(event) {
     table = $(event.target).parent().parent().children().eq(0);
     indicatorID = table.find('input[name="indicatorID"]').val();
     questionnumber = table.find('input[name="questionnumber"]').val();
+    markmethod = table.find('input[name="markmethod"]').val();
     accumulation = [];
     for (var i = 0; i < table[0].rows.length; i++) {
         for (var j = 0; j < table[0].rows[i].cells.length - 1; j++) {
@@ -669,12 +770,13 @@ function schemeedit(event) {
         data: {
             indicatorID: indicatorID,
             questionnumber: questionnumber,
-            datalist: JSON.stringify(accumulation)
+            datalist: JSON.stringify(accumulation),
+            markmethod: markmethod
         },
         dataType: 'json',
         url: "/administrator/accumulation",
         success: function () {
-            alert('设置成功')
+            alert('设置成功');
         }
     })
 }
@@ -751,20 +853,6 @@ function SwapTxt_option(e) {
     }
 }
 
-function allowblank(e) {
-    var a = $(e.target);
-    var tr = a.parent().parent().index();
-    var ul = a.closest('.div_question').find('.choice_list').children().eq(tr - 1);
-    blank = $('<a>___________</a>');
-    if (a.is(':checked')) {
-        blank.appendTo(ul)
-    } else if (a.is(':checked') === false) {
-        ul.children('a').remove();
-        // ul.removeChild(ul.getElementsByTagName('a')[0])
-
-    }
-}
-
 function delchoice(e) {
     var table = $(e.target).closest('.div_question').find('table')[0]; //对应的table
     var tr = $(e.target).parent().parent().parent().index(); //删的是第几行
@@ -826,19 +914,18 @@ function csrf() {
 
 function delquestion(e) {
     var r = confirm('您确定要删除此题吗？');
-    if(r === true) {
+    if (r === true) {
         var len = $(".div_question").length;
         var index = parseInt($(e.target).closest('.div_question').attr('id'));
         $.ajax({
-            type:'post',
-            data:{
+            type: 'post',
+            data: {
                 'index': index,
                 'nodeID': nodeID
             },
             url: '/administrator/question_delete',
-
-            success: function (data){
-                console.log(data)
+            success: function (data) {
+                alert('删除成功');
             }
         });
         $("#" + index).remove();
@@ -864,21 +951,23 @@ function questionaire_submit() {
                 data: $(this).serialize(),
                 url: '/administrator/questionaire_submit',
                 success: function (data) {
-                    console.log(data)
+                    console.log(data);
+                    window.location.reload();
                 }
             });
         });
         alert('设置成功');
-    }
-    else {
+    } else {
         $.ajax({
             type: 'post',
             url: '/administrator/questionaire_delete',
-            data:{
+            data: {
                 'nodeID': nodeID
             },
-            success: function (data){
-                alert('删除成功')
+            success: function (data) {
+                alert('删除成功');
+                window.location.reload();
+
             }
         })
     }
@@ -1100,9 +1189,12 @@ function addblank(event, type) {
     if (questiontype === 'matrix') {
         var thead = a.closest('form').find('thead');
         thead.children().children().eq(a.closest('tr').index())[0].innerHTML = blank.val();
-    }
-    else if (questiontype === 'choice') {
+    } else if (questiontype === 'choice') {
         a.closest('.div_question').find('.choice_list').children().eq(a.closest('tr').index() - 1).find('span').html(blank.val())
+    } else if (questiontype === 'blank') {
+        text = a.closest('.div_question').find('textarea').eq(0);
+        text.val(text.val() + '___');
+        text.parent().prev().find('h5').eq(1).html(text.val());
     }
 }
 

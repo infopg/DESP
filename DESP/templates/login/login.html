@@ -113,31 +113,31 @@
     <script src="{% static 'app-assets/vendors/js/jquery.matchHeight-min.js' %}"></script>
     <script src="{% static 'app-assets/vendors/js/screenfull.min.js' %}"></script>
     <script src="{% static 'app-assets/vendors/js/pace/pace.min.js' %}"></script>
-
+    <!-- BEGIN VENDOR JS-->
     <!-- BEGIN PAGE VENDOR JS-->
+    <!-- END PAGE VENDOR JS-->
     <!-- BEGIN CONVEX JS-->
     <script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
     <script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
-
     <script>
-        //点击刷新验证码
-        $(function () {
-            $('.captcha').css({
-                'cursor': 'pointer'
-            });
-            // ajax刷新
-            $('.captcha').click(function () {
-                console.log('click');
-                $.get("{% url 'captcha-refresh' %}",
-                    function (result) {
-                        $('.captcha').attr('src', result['image_url']);
-                        $('#id_captcha_0').val(result['key'])
-                    });
-            });
-        })
-    </script>
+     //点击刷新验证码
+    $(function () {
+        $('.captcha').css({
+            'cursor': 'pointer'
+        });
+        // ajax刷新
+        $('.captcha').click(function () {
+            console.log('click');
+            $.get("{% url 'captcha-refresh' %}",
+                function (result) {
+                    $('.captcha').attr('src', result['image_url']);
+                    $('#id_captcha_0').val(result['key'])
+                });
+        });
+    })
+</script>
     <!-- END CONVEX JS-->
+    <!-- BEGIN PAGE LEVEL JS-->
     <!-- END PAGE LEVEL JS-->
-
   </body>
 </html>

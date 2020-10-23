@@ -162,7 +162,7 @@
                                                     </th>
                                                 </tr>
                                                 </thead>
-                                                <tbody id = tbodytest>
+                                                <tbody id = tbody>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
@@ -222,7 +222,7 @@
 <script>
     var e_d = {{ eval_data|safe }};
     for(var i = 0; i < e_d.length; i++) {
-        $("#tbodytest").append("" +
+        $("#tbody").append("" +
             "<tr>" +
             "<td>" + e_d[i]['org_id'] + "</td>" +
             "<td>" + e_d[i]['org_name'] + "</td>" +
@@ -232,3 +232,4 @@
     }
 
 </script>
+

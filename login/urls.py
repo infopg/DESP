@@ -6,7 +6,6 @@ from login.views import ForgetPwdView,ResetView,ModifyView
 
 urlpatterns = [
     path('', views.abstract, name='abstract'),
-
     path('login', views.login, name='login'),
     path('forget', ForgetPwdView.as_view(),name='forget_pwd'),
     path('reset/<str:active_code>', ResetView.as_view(), name='reset'),

@@ -1,26 +1,25 @@
 from __future__ import unicode_literals
 
+import codecs
+import csv
 import json
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.shortcuts import HttpResponseRedirect, Http404, HttpResponse, render
-import pdb
+import os
+import time
+import xlrd
 from decimal import *
-from supervisor.models import TableEvaluation
+
+from django.core import serializers
 # Create your views here.
 from django.db.models import Q
+from django.http import JsonResponse
+from django.shortcuts import HttpResponse, render
+
 from administrator import models
-from django.core import serializers
 from administrator.models import TableEvaluationIndicator, TableQuestionContent
 from login.models import TableUser
-import time, xlrd, codecs, csv, os
-
-#测试区
-from supervisor.models import TableOrganization
 from supervisor.models import TableEvaluation
-#
+from supervisor.models import TableOrganization
 
-from collections import defaultdict
 
 
 def standard(request):
@@ -212,7 +211,6 @@ def indicator_export(request):
 
 
 
-## 时间线部分
 def timeliner(request):
     # pdb.set_trace()
     administrator = request.session['user_name']
@@ -477,8 +475,6 @@ def questionaire(request):
             'required': x.table_question_content_col_question_required
         } for x in questionlist
     ]
-    # 暂时未添加scheme
-
     return render(request, 'standard/questionaire.html', {'data': data, 'evalname': evalname})
 
 
@@ -517,7 +513,6 @@ def choice_add(request):
             'table_question_content_col_markmethod': request.POST['markmethod'],
             'table_question_content_col_marks': request.POST['points'],
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
-            'table_question_content_col_mark_scheme': None
         }
         TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
             table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
@@ -774,6 +769,21 @@ def accumulation(request):
     indicatorID = request.POST['indicatorID']
     questionnumber = request.POST['questionnumber']
     scheme = request.POST['datalist']
+    markmethod = request.POST['markmethod']
+    if TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
+            table_question_content_col_question_number=questionnumber)).exists():
+        print(TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
+            table_question_content_col_question_number=questionnumber)))
+        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
+            table_question_content_col_question_number=questionnumber)).update(
+            table_question_content_col_mark_scheme=scheme, table_question_content_col_markmethod=markmethod)
+    else:
+        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
+            table_question_content_col_question_number=questionnumber)).create(
+            table_question_content_col_mark_scheme=scheme, table_question_content_col_indicator_id=indicatorID,
+            table_question_content_col_question_number=questionnumber, table_question_content_col_markmethod=markmethod)
+    return JsonResponse({'msg': 'success'})
+
 
 
 def questionaire_manage(request):
@@ -816,11 +826,14 @@ def question_delete(request):
     TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=nodeID) & Q(
         table_question_content_col_question_number=index)).delete()
     length = TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=nodeID)).count()
-    print(length)
-    # print(TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=nodeID))[0])
+    list = []
     for i in range(0, length):
-        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=nodeID))[i].update(
-            table_question_content_col_question_number= i + 1)
+        list.append(i + 1)
+    for obj, questionnumber in zip(
+            TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=nodeID)).order_by(
+                'table_question_content_col_question_number'), list):
+        obj.table_question_content_col_question_number = questionnumber
+        obj.save()
     return JsonResponse({'msg': '删除成功！'})
 
 
@@ -828,6 +841,21 @@ def questionaire_delete(request):
     nodeID = request.POST['nodeID']
     TableQuestionContent.objects.filter(table_question_content_col_indicator_id=nodeID).delete()
     return JsonResponse({'msg': '删除成功!'})
+
+def scheme_show(request):
+    indicatorID = request.POST['indicatorID']
+    questionnumber = request.POST['questionnumber']
+    if TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
+            table_question_content_col_question_number=questionnumber)).exists():
+        scheme = TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
+            table_question_content_col_question_number=questionnumber))
+        markmethod = TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
+            table_question_content_col_question_number=questionnumber)).values_list('table_question_content_col_markmethod')[0][0]
+        data = serializers.serialize('json', scheme)
+        return JsonResponse({'data': data, 'msg': 'Created', 'markmethod': markmethod})
+    else:
+        return JsonResponse({'msg': 'Notcreatedyet'})
+
 
 
 def export_answer(request):  # 导出答案部分

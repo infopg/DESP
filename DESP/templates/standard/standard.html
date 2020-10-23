@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 {% load static %}
 <html lang="en" class="loading">
 <head>
@@ -531,9 +531,9 @@
         }
         showRMenustand(treeNode.pId, event.pageX, event.pageY);
         $("#preview").load("questionaire?nodeID=" + standardID, function () {
-            $('.pace').last().remove();
-            var questions = document.getElementsByClassName('div_question');
+            $('.pace').last().remove(); //点击节点后侧边栏失效？
             var html = "";
+            var questions = document.getElementsByClassName('div_question');
             for (var i = 0; i < questions.length; i++) {
                 html += questions[i].innerHTML
             }
@@ -551,7 +551,7 @@
         if (nodes[0].children && nodes[0].children.length > 0) {
             $("#item_ques").hide();
         } else {
-            $("#item_eidt").show();
+            $("#item_edit").show();
             $("#item_ques").show();
         }
         $("#rMenu").css({"top": y + "px", "left": x + "px", "visibility": "visible", 'z-index': '50'}); //设置右键菜单的位置、可见

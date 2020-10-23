@@ -280,7 +280,6 @@ def user_edit(request):
 
 
 def user_create(request):
-    # pdb.set_trace()
     global user_type_id
     if request.method == 'POST':
         user_name = request.POST.get('create_name')

@@ -63,7 +63,7 @@
                             <tfoot>
                             </tfoot>
                         </table>
-                        <button class="btn btn-primary mb-2" onclick="addrow(event)">添加</button>
+                        <button class="btn btn-primary mb-2" onclick="addrow(event,'choice')">添加</button>
                         <div class="modal-footer">
                             <button class="btn btn-primary"
                                     onclick="schemeedit(event)">提交
@@ -79,6 +79,53 @@
     </div>
 </div>
 <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+<div class="modal fade" data-model-name="blank_number">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">设置计分模型</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active">
+                        <table class="table table-responsive-md text-center">
+                            <thead>
+                            <tr>
+                                <th>已设置的空格</th>
+                                <th>得分</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                        <span><input type='checkbox' name='zero'><span>是否含0</span></span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span><select name='order'>
+                            <option>升序</option>
+                            <option>降序</option>
+                        </select></span>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary"
+                                    onclick="schemeedit_blank(event)">提交
+                            </button>
+                            <button class="btn btn-default pull-left"
+                                    data-dismiss="modal">关闭
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+
 <div class="wrapper nav-collapsed menu-collapsed">
 
 
@@ -175,24 +222,6 @@
             </div>
         </div>
     </nav>
-    <div class='modal fade' id='filling' role='dialog' tabindex="-1" aria-hidden='true'>
-        <div class='modal-dialog' role='document'>
-            <div class='modal-content'>
-                <div class='modal-header'>
-                    <h4 class='modal-title' id='filling-title'></h4>
-                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                        <span aria-hidden='true'>&times;</span>
-                    </button>
-                </div>
-                <div class='modal-body' id='filling-body'>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn grey btn-outline-secondary' data-dismiss='modal'>关闭</button>
-                    <button type='button' class='btn btn-outline-primary'>保存</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <div class="main-panel">
@@ -252,9 +281,10 @@
                                     <div class="card-body">
                                         <div class="card-block">
                                             <div id="question_list">
-{#                                                <input type="file" class="filepond" multiple data-max-files="3">#}
+                                                {#                                                <input type="file" class="filepond" multiple data-max-files="3">#}
                                             </div>
-                                            <input type="button" class="btn btn-warning btn-lg btn-block" value="完成编辑" onclick="questionaire_submit()">
+                                            <input type="button" class="btn btn-warning btn-lg btn-block" value="完成编辑"
+                                                   onclick="questionaire_submit()">
                                         </div>
                                     </div>
                                 </div>
@@ -335,6 +365,7 @@
     FilePond.create(inputElement)
 </script>
 <script>
+    //刷新前提醒保存 不然会有none
     var q = {{ data|safe }};
     console.log(q);
     for (var i = 0; i < q.length; i++) {
@@ -351,7 +382,7 @@
         {#var scheme = q[i]['scheme'];#}
         if (q[i]['question_type'] === '选择题') {
             var len = $(".div_question").length + 1;
-            $('#question_list').append("                                                    <div class=\"div_question\" id = " + len + ">\n" +
+            $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
                 "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
                 "                                                        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
                 "                                                            <div>\n" +
@@ -385,12 +416,15 @@
                 "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
                 "                                                                            type=\"checkbox\" name=\"attachment\"><span>含附件上传</span></span>\n" +
                 "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select\n" +
-                "                                                                            class=\"form-control-sm\" name=\"markmethod\">\n" +
-                "                                                            <option>自动打分</option>\n" +
+                "                                                                            class=\"form-control-sm\" name=\"markmethod\" onchange=\"option_value(event)\">\n" +
                 "                                                            <option>手动打分</option>\n" +
+                "                                                            <option>自动打分----逐项累计</option>\n" +
+                "                                                            <option>自动打分----固定选项</option>\n" +
+                "                                                            <option>自动打分----按选项数</option>\n" +
                 "                                                        </select></span>\n" +
-                "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input\n" +
-                "                                                                            type=\"checkbox\" name=\"importanswer\"><span>导入答案</span></span>\n" +
+                "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                "                                                        <a name=\"choicemark\" onclick='choice_mark(event)' class='choice_mark' style='display:none;'><span>设置计分规则</span></a></span>" +
+                "                                                                           <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"checkbox\" name=\"importanswer\"><span>导入答案</span></span>\n" +
                 "                                                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>满分: </span><input type=\"text\" name=\"points\" size=\'10\'></span>\n" +
                 "                                                                </div>\n" +
                 "                                                            </div>\n" +
@@ -769,7 +803,7 @@
                     "                                                                        </td>\n" +
                     "                                                                    </tr>\n")
             }
-        }else if (q[i]['question_type'] === '表格题') {
+        } else if (q[i]['question_type'] === '表格题') {
             var len = $(".div_question").length + 1;
             $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
                 "                                                     <form method=\"post\" class=\"form-horizontal\">\n" +
@@ -877,12 +911,12 @@
             }
             $('.div_question').last().find("textarea[name='row']").val(JSON.parse(q[i]['content'])['rows']); //换行问题
             $('.div_question').last().find("textarea[name='column']").val(JSON.parse(q[i]['content'])['column']);
-        } else if (q[i]['question_type'] === '附件题'){
+        } else if (q[i]['question_type'] === '附件题') {
 
         }
     }
     for (i = 0; i < $('.toggle').length; i++) {
-            $('.toggle').eq(i).next().toggle();
+        $('.toggle').eq(i).next().toggle();
     }
 </script>
 <script>
