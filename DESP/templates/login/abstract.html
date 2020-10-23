@@ -1,0 +1,273 @@
+{% load static %}
+<!DOCTYPE html>
+<html style="height: 100%" >
+
+
+<head>
+    <meta name="renderer" content="webkit">
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <!-- 表示根据设备的大小调整页面显示的宽度-->
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <title>2020年信息化评估报告-评估概述</title>
+
+    <style type="text/css">
+        * {
+            margin: 0%;
+            padding: 0%;
+        }
+	
+	    .page{
+		    margin-top:0%;
+		    margin-right: 0%;
+		    position:fixed;
+		    width:100%;
+		    top:0%;
+		    left:0%;
+		    height:5.57vh;
+		    background:#e3e3e3;
+		    z-index: 900;
+		    float:top;
+		    box-shadow: 0px 0px 20px #c9c9c9;
+        }
+
+	    .logo{
+            margin-top: 0.2%;
+            margin-left: 4%;
+            vertical-align:middle;
+            position:absolute;
+            float:left;
+            height:5vh;
+            width:10vw;
+        }
+
+        .page ul{
+            list-style: none;
+            float:right;
+            margin-right: 1%;
+            margin-top:0%;
+            width:100%;
+            position:absolute;
+            height:5.57vh;
+        }
+
+        .page ul li {
+            float: right;
+            line-height: 6vh;
+            text-align: center;
+            height:5.57vh;
+            width:8.5vw;
+        }
+
+        .page ul li a {
+            text-decoration: none;
+            color: #575757ec;
+            font-size:2vh;
+            display: block;
+            font-weight:bolder;
+            height:5.57vh;
+        }
+
+        .page ul li a:hover {
+            color: #fff;
+            background: #759aa0;
+            width:100%;
+        }
+
+        .page ul li ul {
+            position: absolute;
+            display: none;
+            height:auto;
+            width:74vw;
+        }
+
+        .page ul li ul li {
+            float: none;
+            text-align: center;
+		    width:8.5vw;
+        }
+
+        .page ul li ul li a {
+            width: 8.5vw;
+		    color: #575757;
+		    background: #dbdbdb;
+        }
+
+        .page ul li ul li a:hover {
+            background-color: #759aa0;
+		    width:100%;
+        }
+
+        .page ul li:hover ul {
+            display: block;
+        }
+
+        .page ul li:hover ul li ul{
+		    display:none;
+    	}
+	    .page ul li:hover ul li:hover ul{
+		    display:block;
+		    position: absolute;
+		    top:9%;
+		    left: 11.5%;
+	    }
+
+	    .page ul li ul li ul li a {
+            width: 10vw;
+		    color: #575757;
+		    background: #dbdbdb;
+        }
+
+        .page ul li:hover ul li:hover ul li{
+		    width:10vw;
+	    	line-height: 6vh;
+	    }
+
+	    .table{
+            margin-top:5%;
+            margin-left:0%;
+            margin-right:0%;
+            float:center;
+        }
+
+        .caption{
+            margin-top:0%;
+            margin-left:4%;
+            color: #e3e3e3;
+            font-size: 1.2vmax;
+        }
+        .objects{
+            margin-top:1%;
+            margin-left:2%;
+            float:center;
+            width:80%;
+            z-index: 899;
+        }
+        .title{
+            color: #e3e3e3;
+            margin-top:0%;
+            margin-bottom:6%;
+            font-size: 2.8vmax;
+        }
+        .content{
+            color: #e3e3e3;
+            margin-top:6%;
+            font-size: 1.4vmax;
+        }
+        #sunburst{
+		    top:1%;
+		    float:center;
+    	}
+
+    </style>
+
+</head>
+
+
+<script type="text/javascript" src="{% static 'app-assets/js/echarts.js' %}"></script>
+<script type="text/javascript" src="{% static 'app-assets/js/dark.js' %}"></script>
+<script type="text/javascript" src="{% static 'app-assets/js/abs_sunburst.js' %}"></script>
+<script type="text/javascript" src="{% static 'app-assets/js/over_yjs_bar.js' %}"></script>
+<script type="text/javascript" src="{% static 'app-assets/js/abstract.js' %}"></script>
+
+
+<body bgcolor="#333333" style="height: 100%; margin: 0">
+
+    <div class="page" >
+        <!--左上角中科院logo-->
+        <!--<div class="logo">-->
+        <!--</div>-->
+        <div><img class="logo" src="{% static 'app-assets/img/OldPlatform/logo2.png' %}"></div>
+        <!--右上角导航栏及其下拉菜单-->
+        <ul>
+            <li><a href = "{% url 'Aboutus' %}">关于我们</a></li>
+
+            <li><a href = "{% url 'login' %}">登陆系统</a></li>
+
+            <li><a href = "{% url 'abstract' %}">评估概述</a></li>
+        </ul>
+				
+    </div>
+
+	<!--网页内容，添加表-->
+	
+    <table class="table" border="0" align="left" width = 100% height = 88%>
+		<tr>
+		    <th width = 50% height = 100%>
+                <!--插入旭日图-->
+                <div id = 'sunburst' style = "height:80%; width:100%"></div>
+				<p class = "caption">
+						信息化评估指标体系&#12288&#12288
+				</p>
+			</th>
+
+		    <th width = 50% height = 100%>
+				<!--插入文字-->
+				<div class = "objects" align="left">
+					
+					<h1 class = "title">
+						 <center>2020年度<br>中国科学院信息化评估</center>
+					</h1>
+
+					<p class = "content">
+						&#12288&#12288 2020年信息化评估对象是全院__名在职员工（在编人员___人，在读研究生___人）所属的院属单位。其中包括：研究单位___家、分院___家、支撑单位___家（包括院属大学2所及公共支撑单位1家）。
+					</p>
+				
+					<p class = "content">
+						&#12288&#12288 中国科学院信息化评估采集数据来源包括院属单位提供的信息、各类信息系统和网络采集的信息，如ARP系统、网站群、科技云、教育云、将继续教育系统、机构知识库管理系统等。
+					</p>
+				
+					<p class = "content">
+						&#12288&#12288 评估信息采集时间范围为2020年_月_日至___年_月_日。
+					</p>
+
+				</div>
+			</th>
+		</tr>
+
+	</table>
+
+	<script type="text/javascript">
+	
+	hei = document.body.clientWidth
+    //初始化并画出旭日图
+	var myChart1 = echarts.init(document.getElementById('sunburst'));
+    sun(myChart1, hei);
+
+	var getExplorer = (function () {
+	    var explorer = window.navigator.userAgent,
+            compare = function (s) { return (explorer.indexOf(s) >= 0); },
+            ie11 = (function () { return ("ActiveXObject" in window) })();
+            if (compare("MSIE") || ie11) { return 'ie'; }
+            else if (compare("Firefox") && !ie11) { return 'Firefox'; }
+            else if (compare("Chrome") && !ie11) {
+                if (explorer.indexOf("Edge") > -1) {
+                    return 'Edge';
+                } else {
+                    return 'Chrome';
+                }
+            }
+            else if (compare("Opera") && !ie11) { return 'Opera'; }
+            else if (compare("Safari") && !ie11) { return 'Safari'; }
+ 
+    })()
+
+	window.onload=function(){
+        var body=document.getElementsByTagName("body")[0];
+        if(typeof body.style.WebkitAnimation !="undefined"){}
+        else{
+            alert("检测到当前浏览器未使用Webkit内核，请更换内核或浏览器以便正常浏览！\n（推荐使用Google Chrome、火狐、或Safari浏览器）");
+        }
+        if (getExplorer == 'ie') {
+            alert('检测到当前浏览器内核为IE内核，请更换内核或浏览器以便正常浏览！\n（推荐使用Google Chrome、火狐、或Safari浏览器）');
+		}
+		if (getExplorer == 'Edge') {
+            alert('检测到当前浏览器为Edge，请更换内核或浏览器以便正常浏览！\n（推荐使用Google Chrome、火狐、或Safari浏览器）');
+		}
+    }
+
+
+</script>
+</body>
+</html>
