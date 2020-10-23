@@ -17,6 +17,8 @@ from administrator import models
 from administrator.models import TableEvaluationIndicator, TableQuestionContent
 from login.models import TableUser
 from supervisor.models import TableEvaluation
+from supervisor.models import TableOrganization
+
 
 
 def standard(request):
@@ -207,7 +209,6 @@ def indicator_export(request):
     return response
 
 
-## 时间线部分
 
 def timeliner(request):
     # pdb.set_trace()
@@ -782,12 +783,23 @@ def accumulation(request):
     return JsonResponse({'msg': 'success'})
 
 
+
 def questionaire_manage(request):
     administrator = request.session['user_name']
     evalname = TableEvaluation.objects.filter(
-        Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
-        'table_evaluation_col_name')
-    return render(request, 'standard/manage.html', {'evalname': evalname})
+        Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用'))
+    eval_data = [
+        {
+            'org_id': TableOrganization.objects.filter(
+                Q(table_organization_col_name=project.table_evaluation_col_organization)).values_list('table_organization_col_id')[0][0],
+            'org_name': project.table_evaluation_col_organization,
+            'project_name': project.table_evaluation_col_name,
+            'project_admin': project.table_evaluation_col_administrator
+        } for project in evalname
+    ]
+    # print(eval_data)
+    return render(request, 'standard/manage.html', {'eval_data': eval_data, 'evalname': evalname})
+
 
 
 def questionaire_submit(request):
@@ -828,7 +840,6 @@ def questionaire_delete(request):
     TableQuestionContent.objects.filter(table_question_content_col_indicator_id=nodeID).delete()
     return JsonResponse({'msg': '删除成功!'})
 
-
 def scheme_show(request):
     indicatorID = request.POST['indicatorID']
     questionnumber = request.POST['questionnumber']
@@ -842,6 +853,7 @@ def scheme_show(request):
         return JsonResponse({'data': data, 'msg': 'Created', 'markmethod': markmethod})
     else:
         return JsonResponse({'msg': 'Notcreatedyet'})
+
 
 
 def export_answer(request):  # 导出答案部分

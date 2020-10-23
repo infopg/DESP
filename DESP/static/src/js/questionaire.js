@@ -795,6 +795,7 @@ function option_value(event) {
     }
 }
 
+
 function addrow(event, type) {
     questiontype = type;
     if (questiontype === 'choice') {
@@ -806,6 +807,7 @@ function addrow(event, type) {
         "</tr>");
         addtr.appendTo(table);
     }
+
 }
 
 function deleteRow(event) {
@@ -1083,6 +1085,7 @@ function questionaire_submit() {
             success: function (data) {
                 alert('删除成功');
                 window.location.reload();
+
             }
         })
     }

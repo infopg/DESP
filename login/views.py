@@ -198,3 +198,4 @@ def abstract(request):
 
 def Aboutus(request):
     return render(request, 'login/Aboutus.html')
+

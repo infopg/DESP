@@ -5,6 +5,7 @@ from administrator.views import standard, timeliner, choice_add, questionaire_ma
     form_add, accumulation, export_answer, import_answer, questionaire_submit, questionaire_delete, question_delete, \
     scheme_show
 
+
 urlpatterns = [
     url('/standard', standard, name='standard'),
     url(r'/delete', name='delete', view=views.delete),

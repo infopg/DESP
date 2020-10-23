@@ -162,7 +162,7 @@
                                                     </th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id = tbody>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
@@ -219,3 +219,17 @@
 <!-- END PAGE LEVEL JS-->
 </body>
 </html>
+<script>
+    var e_d = {{ eval_data|safe }};
+    for(var i = 0; i < e_d.length; i++) {
+        $("#tbody").append("" +
+            "<tr>" +
+            "<td>" + e_d[i]['org_id'] + "</td>" +
+            "<td>" + e_d[i]['org_name'] + "</td>" +
+            "<td>" + e_d[i]['project_name'] + "</td>" +
+            "<td>" + e_d[i]['project_admin'] + "</td>" +
+            "</tr>");
+    }
+
+</script>
+

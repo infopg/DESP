@@ -12,5 +12,4 @@ urlpatterns = [
     path('modify', ModifyView.as_view(), name='modify'),
     path('modifydone',views.Modifydone),
     path('Aboutus', views.Aboutus, name='Aboutus'),
-
 ]
