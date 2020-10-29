@@ -5,8 +5,9 @@ import csv
 import json
 import os
 import time
-import xlrd
 from decimal import *
+
+import xlrd
 from django.core import serializers
 # Create your views here.
 from django.db.models import Q
@@ -37,6 +38,7 @@ def standard(request):
                 'open': 1,
             } for x in mList
         ]
+        # questionaire_preview =
         administrator = request.session['user_name']
         evalname = TableEvaluation.objects.filter(
             Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
@@ -477,6 +479,10 @@ def questionaire(request):
             'required': x.table_question_content_col_question_required
         } for x in questionlist
     ]
+    for question in data:
+        for key in question:
+            if question[key] == None:
+                question[key] = ''
     return render(request, 'standard/questionaire.html', {'data': data, 'evalname': evalname})
 
 
@@ -503,6 +509,9 @@ def choice_add(request):
     list = []
     for i in range(0, len(existquestion)):
         list.append(existquestion[i][0])
+    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id= request.POST['indicatorID'])
+    evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
+    evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     if int(request.POST['questionnumber']) in list:
         question = {
             "table_question_content_col_question_type": request.POST['questiontype'],
@@ -515,6 +524,7 @@ def choice_add(request):
             'table_question_content_col_markmethod': request.POST['markmethod'],
             'table_question_content_col_marks': request.POST['points'],
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
+            'table_question_content_col_evalname': evalname_object
         }
         TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
             table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
@@ -531,7 +541,8 @@ def choice_add(request):
             'table_question_content_col_markmethod': request.POST['markmethod'],
             'table_question_content_col_marks': request.POST['points'],
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
-            'table_question_content_col_mark_scheme': None
+            'table_question_content_col_mark_scheme': None,
+            'table_question_content_col_evalname': evalname_object
         }
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
@@ -550,6 +561,9 @@ def blank_add(request):
         importanswer = 'on'
     else:
         importanswer = 'off'
+    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id= request.POST['indicatorID'])
+    evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
+    evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     data = {}
     data['title'] = request.POST['choicetitle']
     existquestion = TableQuestionContent.objects.filter(
@@ -570,6 +584,7 @@ def blank_add(request):
             'table_question_content_col_markmethod': request.POST['markmethod'],
             'table_question_content_col_marks': request.POST['points'],
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
+            'table_question_content_col_evalname': evalname_object
         }
         TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
             table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
@@ -586,7 +601,8 @@ def blank_add(request):
             'table_question_content_col_markmethod': request.POST['markmethod'],
             'table_question_content_col_marks': request.POST['points'],
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
-            'table_question_content_col_mark_scheme': None
+            'table_question_content_col_mark_scheme': None,
+            'table_question_content_col_evalname': evalname_object
         }
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
@@ -605,6 +621,9 @@ def answer_add(request):
         importanswer = 'on'
     else:
         importanswer = 'off'
+    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id= request.POST['indicatorID'])
+    evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
+    evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     data = {}
     data['title'] = request.POST['choicetitle']
     existquestion = TableQuestionContent.objects.filter(
@@ -625,7 +644,8 @@ def answer_add(request):
             'table_question_content_col_markmethod': request.POST['markmethod'],
             'table_question_content_col_marks': request.POST['points'],
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
-            'table_question_content_col_mark_scheme': None
+            'table_question_content_col_mark_scheme': None,
+            'table_question_content_col_evalname': evalname_object
         }
         TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
             table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
@@ -642,7 +662,8 @@ def answer_add(request):
             'table_question_content_col_markmethod': request.POST['markmethod'],
             'table_question_content_col_marks': request.POST['points'],
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
-            'table_question_content_col_mark_scheme': None
+            'table_question_content_col_mark_scheme': None,
+            'table_question_content_col_evalname': evalname_object
         }
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
@@ -665,6 +686,9 @@ def matrix_add(request):
     data['title'] = request.POST['choicetitle']
     data['column'] = request.POST.getlist('choice')
     data['rows'] = str(request.POST['row']).splitlines()
+    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id= request.POST['indicatorID'])
+    evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
+    evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     existquestion = TableQuestionContent.objects.filter(
         table_question_content_col_indicator_id=request.POST['indicatorID']).values_list(
         'table_question_content_col_question_number')
@@ -683,7 +707,8 @@ def matrix_add(request):
             'table_question_content_col_markmethod': request.POST['markmethod'],
             'table_question_content_col_marks': request.POST['points'],
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
-            'table_question_content_col_mark_scheme': None
+            'table_question_content_col_mark_scheme': None,
+            'table_question_content_col_evalname': evalname_object
         }
         TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
             table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
@@ -700,7 +725,8 @@ def matrix_add(request):
             'table_question_content_col_markmethod': request.POST['markmethod'],
             'table_question_content_col_marks': request.POST['points'],
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
-            'table_question_content_col_mark_scheme': None
+            'table_question_content_col_mark_scheme': None,
+            'table_question_content_col_evalname': evalname_object
         }
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
@@ -720,6 +746,9 @@ def form_add(request):
         importanswer = 'on'
     else:
         importanswer = 'off'
+    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id= request.POST['indicatorID'])
+    evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
+    evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     data = {}
     data['title'] = request.POST['choicetitle']
     data['column'] = str(request.POST['column']).splitlines()
@@ -742,7 +771,8 @@ def form_add(request):
             'table_question_content_col_markmethod': request.POST['markmethod'],
             'table_question_content_col_marks': request.POST['points'],
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
-            'table_question_content_col_mark_scheme': None
+            'table_question_content_col_mark_scheme': None,
+            'table_question_content_col_evalname': evalname_object
         }
         TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
             table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
@@ -759,7 +789,8 @@ def form_add(request):
             'table_question_content_col_markmethod': request.POST['markmethod'],
             'table_question_content_col_marks': request.POST['points'],
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
-            'table_question_content_col_mark_scheme': None
+            'table_question_content_col_mark_scheme': None,
+            'table_question_content_col_evalname': evalname_object
         }
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
@@ -771,18 +802,21 @@ def accumulation(request):
     questionnumber = request.POST['questionnumber']
     scheme = request.POST['datalist']
     markmethod = request.POST['markmethod']
+    questiontype = request.POST['questiontype']
     if TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
             table_question_content_col_question_number=questionnumber)).exists():
         print(TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
             table_question_content_col_question_number=questionnumber)))
         TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
             table_question_content_col_question_number=questionnumber)).update(
-            table_question_content_col_mark_scheme=scheme, table_question_content_col_markmethod=markmethod)
+            table_question_content_col_mark_scheme=scheme, table_question_content_col_markmethod=markmethod,
+            table_question_content_col_question_type=questiontype)
     else:
         TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
             table_question_content_col_question_number=questionnumber)).create(
             table_question_content_col_mark_scheme=scheme, table_question_content_col_indicator_id=indicatorID,
-            table_question_content_col_question_number=questionnumber, table_question_content_col_markmethod=markmethod)
+            table_question_content_col_question_number=questionnumber, table_question_content_col_markmethod=markmethod,
+            table_question_content_col_question_type=questiontype)
     return JsonResponse({'msg': 'success'})
 
 

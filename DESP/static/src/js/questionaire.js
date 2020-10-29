@@ -140,6 +140,7 @@ function blank_mark(event) {
     value = $(event.target).closest('.div_question').find('option:selected').eq(0).val();
     indicatorID = $(event.target).closest('.div_question').find('input[name="indicatorID"]').val();
     questionnumber = $(event.target).closest('.div_question').find('input[name="questionnumber"]').val();
+    questiontype = $(event.target).closest('.div_question').find('input[name="questiontype"]').val();
     var reg = /[\s\S*][___]+/; //改进一下？用户自己输入的短下划线不应视作一个空
     console.log(text.split(reg));
     number = text.split(reg).length - 1;
@@ -148,7 +149,7 @@ function blank_mark(event) {
         type: 'post',
         data: {
             'indicatorID': indicatorID,
-            'questionnumber': questionnumber
+            'questionnumber': questionnumber,
         },
         success: function (data) {
             if (data.msg === 'Created') {
@@ -166,7 +167,8 @@ function blank_mark(event) {
                         $("div[data-model-name='blank_number']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
                             "value= " + questionnumber + ">\n" +
                             "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
-                            "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                            "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">" +
+                            "<input style=\'display: none\' name=\'questiontype\'\n value=" + questiontype + ">");
                         if (scheme[scheme.length - 2][1] === true) {
                             $("div[data-model-name='blank_number']").find("input[name='zero']")[0].checked = true
                         } else if (scheme[scheme.length - 2][1] === false) {
@@ -188,7 +190,8 @@ function blank_mark(event) {
                         $("div[data-model-name='blank_word']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
                             "value= " + questionnumber + ">\n" +
                             "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
-                            "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                            "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">" +
+                            "<input style=\'display: none\' name=\'questiontype\'\n value=" + questiontype + ">");
                         if (scheme[scheme.length - 3][1] === true) {
                             $("div[data-model-name='blank_word']").find("input[name='word_empty']")[0].checked = true
                         } else if (scheme[scheme.length - 3][1] === false) {
@@ -213,7 +216,8 @@ function blank_mark(event) {
                         $("div[data-model-name='blank_number']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
                             "value= " + questionnumber + ">\n" +
                             "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
-                            "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                            "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">" +
+                            "<input style=\'display: none\' name=\'questiontype\'\n value=" + questiontype + ">");
                         $("div[data-model-name='blank_number']").modal('show');
                     } else if (value === '自动打分-文字型') {
                         for (i = 0; i < number; i++) {
@@ -225,7 +229,8 @@ function blank_mark(event) {
                         $("div[data-model-name='blank_word']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
                             "value= " + questionnumber + ">\n" +
                             "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
-                            "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                            "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">" +
+                            "<input style=\'display: none\' name=\'questiontype\'\n value=" + questiontype + ">");
                         $("div[data-model-name='blank_word']").modal('show');
                     }
                 }
@@ -240,7 +245,8 @@ function blank_mark(event) {
                     $("div[data-model-name='blank_number']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
                         "value= " + questionnumber + ">\n" +
                         "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
-                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">" +
+                        "<input style=\'display: none\' name=\'questiontype\'\n value=" + questiontype + ">");
                     $("div[data-model-name='blank_number']").modal('show');
                 } else if (value === '自动打分-文字型') {
                     for (i = 0; i < number; i++) {
@@ -252,7 +258,8 @@ function blank_mark(event) {
                     $("div[data-model-name='blank_word']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
                         "value= " + questionnumber + ">\n" +
                         "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
-                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">" +
+                        "<input style=\'display: none\' name=\'questiontype\'\n value=" + questiontype + ">");
                     $("div[data-model-name='blank_word']").modal('show');
                 }
             }
@@ -265,6 +272,7 @@ function schemeedit_blanknumber(event) {
     indicatorID = table.find('input[name="indicatorID"]').val();
     questionnumber = table.find('input[name="questionnumber"]').val();
     markmethod = table.find('input[name="markmethod"]').val();
+    questiontype = table.find('input[name="questiontype"]').val();
     zero = $(event.target).parent().parent().find('input[name="zero"]').eq(0).is(':checked');
     order = $(event.target).parent().parent().find('select[name="order"]').val();
     accumulation = [];
@@ -287,7 +295,8 @@ function schemeedit_blanknumber(event) {
             indicatorID: indicatorID,
             questionnumber: questionnumber,
             datalist: JSON.stringify(accumulation),
-            markmethod: markmethod
+            markmethod: markmethod,
+            questiontype: questiontype
         },
         dataType: 'json',
         url: "/administrator/accumulation",
@@ -302,6 +311,7 @@ function schemeedit_blankword(event) {
     indicatorID = table.find('input[name="indicatorID"]').val();
     questionnumber = table.find('input[name="questionnumber"]').val();
     markmethod = table.find('input[name="markmethod"]').val();
+    questiontype = table.find('input[name="questiontype"]').val();
     word_empty = $(event.target).parent().parent().find('input[name="word_empty"]').eq(0).is(':checked');
     keyword = $(event.target).parent().parent().find('input[name="keywords"]').val();
     anyanswer = $(event.target).parent().parent().find('input[name="anyanswer"]').eq(0).is(':checked');
@@ -327,7 +337,8 @@ function schemeedit_blankword(event) {
             indicatorID: indicatorID,
             questionnumber: questionnumber,
             datalist: JSON.stringify(accumulation),
-            markmethod: markmethod
+            markmethod: markmethod,
+            questiontype: questiontype
         },
         dataType: 'json',
         url: "/administrator/accumulation",
@@ -822,13 +833,14 @@ function choice_mark(event) {
     value = $(event.target).closest('.div_question').find('option:selected').eq(1).val();
     indicatorID = $(event.target).closest('.div_question').find('input[name="indicatorID"]').val();
     questionnumber = $(event.target).closest('.div_question').find('input[name="questionnumber"]').val();
+    questiontype = $(event.target).closest('.div_question').find('input[name="questiontype"]').val();
     console.log(questionnumber);
     $.ajax({
         url: '/administrator/scheme_show',
         type: 'post',
         data: {
             'indicatorID': indicatorID,
-            'questionnumber': questionnumber
+            'questionnumber': questionnumber,
         },
         success: function (data) {
             console.log(data.markmethod);
@@ -848,20 +860,23 @@ function choice_mark(event) {
                     $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
                         "value= " + questionnumber + ">\n" +
                         "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
-                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">" +
+                        "<input style=\'display: none\' name=\'questiontype\'\n value=" + questiontype + ">");
                     $("div[data-model-name='accumulation']").modal('show');
                 } else {
                     $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
                         "value= " + questionnumber + ">\n" +
                         "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
-                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                        "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">" +
+                        "<input style=\'display: none\' name=\'questiontype\'\n value=" + questiontype + ">");
                     $("div[data-model-name='accumulation']").modal('show');
                 }
             } else if (data.msg === 'Notcreatedyet') {
                 $("div[data-model-name='accumulation']").find('tbody').append("<input style=\"display: none\" name=\"questionnumber\"\n" +
                     "value= " + questionnumber + ">\n" +
                     "<input style=\'display: none\' name='\indicatorID\'\n value=" + indicatorID + ">" +
-                    "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">");
+                    "<input style=\'display: none\' name ='\markmethod\' value=" + value + ">" +
+                    "<input style=\'display: none\' name=\'questiontype\'\n value=" + questiontype + ">");
                 $("div[data-model-name='accumulation']").modal('show');
             }
         }
@@ -873,6 +888,7 @@ function schemeedit(event) {
     indicatorID = table.find('input[name="indicatorID"]').val();
     questionnumber = table.find('input[name="questionnumber"]').val();
     markmethod = table.find('input[name="markmethod"]').val();
+    questiontype = table.find('input[name="questiontype"]').val();
     accumulation = [];
     for (var i = 0; i < table[0].rows.length; i++) {
         for (var j = 0; j < table[0].rows[i].cells.length - 1; j++) {
@@ -889,7 +905,8 @@ function schemeedit(event) {
             indicatorID: indicatorID,
             questionnumber: questionnumber,
             datalist: JSON.stringify(accumulation),
-            markmethod: markmethod
+            markmethod: markmethod,
+            questiontype: questiontype
         },
         dataType: 'json',
         url: "/administrator/accumulation",

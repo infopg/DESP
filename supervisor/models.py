@@ -23,6 +23,7 @@ class TableOrganization(models.Model):
     #                                                null=True)  # Field name made lowercase.
     table_organization_col_field = models.CharField(db_column='Table_Organization_col_Field', max_length=50, blank=True,
                                                     null=True)  # Field name made lowercase.
+    table_organization_col_unicode = models.CharField(db_column='Table_Organization_col_Unicode', max_length=50, null=True)
 
     class Meta:
         managed = True
@@ -46,8 +47,6 @@ class TableEvaluation(models.Model):
                                                          max_length=50)  # Field name made lowercase.
     table_evaluation_col_deliver = models.CharField(db_column='Table_Evaluation_col_Deliver', max_length=50, null=True)
     table_evaluation_col_mark = models.CharField(db_column='Table_Evaluation_col_Mark', null=True, max_length=128)
-    table_organization_col_indicator_name = models.CharField(db_column='Table_Organization_col_Indicator_Name',
-                                                             max_length=50, null=True)  # Field name made Lowercase
 
     class Meta:
         managed = True
