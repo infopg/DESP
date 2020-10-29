@@ -504,7 +504,7 @@
         if (treeNode.type === 0) {
             return;
         }
-        showRMenu(treeNode.pId, event.clientX, event.clientY);
+        showRMenu(treeNode.pId, event.pageX, event.pageY);
         {#alert(event.clientX)#}
     }
 
@@ -640,6 +640,7 @@
             success: function (data) {
                 window.location = 'institute';
                 alert.success(data.message);
+                console.log(data.message)
 
             },
             error: function (data) {

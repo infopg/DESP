@@ -276,7 +276,9 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-12" id="preview"></div>
+                                            <div class="col-md-6 col-sm-6 col-12" id="preview">
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -521,6 +523,9 @@
         $('#editForm').modal('show');
     }
 
+    function preview(){
+
+    }
     // 当点击tree节点时触发
     function onClick(e, treeId, treeNode) {
         standardname = treeNode.name;
@@ -530,18 +535,17 @@
             return;
         }
         showRMenustand(treeNode.pId, event.pageX, event.pageY);
-        $("#preview").load("questionaire?nodeID=" + standardID, function () {
-            $('.pace').last().remove(); //点击节点后侧边栏失效？
-            var html = "";
-            var questions = document.getElementsByClassName('div_question');
-            for (var i = 0; i < questions.length; i++) {
-                html += questions[i].innerHTML
-            }
-            html = html.replace(/div style/g, "div style='display: none;'");
-            html = html.replace(/toggle_edit\(event\)/g, "");
-            html = html.replace(/<button class="btn mr-1 btn-secondary" onclick="delquestion\(event\)">del<\/button>/g, "");
-            document.getElementById('preview').innerHTML = html;
-        })
+        {#$("#preview").load("questionaire?nodeID=" + standardID, function () {#}
+        {#    $('.pace').last().remove(); //点击节点后侧边栏失效？#}
+        {#    var html = "";#}
+        {#    var questions = document.getElementsByClassName('div_question');#}
+        {#    for (var i = 0; i < questions.length; i++) {#}
+        {#        html += questions[i].innerHTML#}
+        {#    }#}
+        {#    html = html.replace(/div style/g, "div style='display: none;'");#}
+        {#    html = html.replace(/toggle_edit\(event\)/g, "");#}
+        {#    html = html.replace(/<button class="btn mr-1 btn-secondary" onclick="delquestion\(event\)">del<\/button>/g, "");#}
+        {#    document.getElementById('preview').innerHTML = html;})#}
     }
 
 

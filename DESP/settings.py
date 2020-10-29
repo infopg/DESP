@@ -94,9 +94,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Data_evaluation',
-        'USER': 'AppCon',
-        'PASSWORD': '58812189Cnic',
-        'HOST': '123.57.80.72',
+        'USER': 'casdev',
+        'PASSWORD': 'iepDev<Cas&001',
+        'HOST': '10.10.11.39',
         'PORT': '3306',
     }
 

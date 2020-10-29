@@ -49,7 +49,7 @@ class TableQuestionContent(models.Model):
     table_question_content_col_content = models.JSONField(db_column='Table_Question_Content_col_Content',max_length=256,null=True)  # Field name made lowercase.
     table_question_content_col_mark_scheme = models.JSONField(db_column='Table_Question_Content_col_Mark_scheme', max_length=256,
                                                                    null=True)  # Field name made lowercase.
-    table_question_content_col_eval= models.ForeignKey('TableEvaluationIndicator',on_delete=models.CASCADE,null=True)
+    table_question_content_col_evalname = models.ForeignKey('supervisor.TableEvaluation',on_delete=models.CASCADE, db_constraint=False, null=True)
 
     class Meta:
         managed = True

@@ -547,7 +547,6 @@ def download_user(request):
     return response
 
 def user_export(request):
-
     response = HttpResponse(content_type='text/csv')
     response.write(codecs.BOM_UTF8)
     response['Content-Disposition'] = "attachment;filename=user_list.csv"
@@ -585,7 +584,6 @@ def excel_import_organization(filename):
     table = data.sheet_by_name(by_name)  # 表单名称
     n_rows = table.nrows  # 行数
     row_dict = {}
-
     for row_num in range(1, n_rows):
             row = table.row_values(row_num)  # 获得每行的字段
             # seq = [row[0], row[1], row[2], row[3]]
