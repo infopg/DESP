@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+{% load static %}
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+     <meta http-equiv="expires" content="Fri, 22 Aug 2021 00:52:49 GMT" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+     <meta name="description" content=" data visualization">
+    <meta name="keywords" content="CAS,CNIC,数据可视化,信息化评估">
+    <meta name="author" content="fengguorui">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+     <script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/prism.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/jquery.matchHeight-min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/pace/pace.min.js' %}"></script>
+<script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+<script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'css/demo.css' %}" type="text/css">
+
+</head>
+<body>
+
+<div class="wrapper nav-collapsed menu-collapsed">
+     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                 <div id=loading style="background:#6A5ACD;border:1px dashed #E6E6FA;color:#E6E6FA; position:absolute; left:1150px; top:15px; width:210px; height:25px; z-index:1">
+页面正在载入中,请稍候......</div>
+                <script>
+function closeDiv()
+{
+　　document.getElementById('loading').style.visibility='hidden';
+}</script>
+                <body>请选择您想要比较的项目：</body>
+                 <a class="btn mr-1 btn-round btn-primary" href="{%url 'comparison'%}">2009-2019总分及排名概览</a>
+                <a class="btn mr-1 btn-round btn-info" href="{%url 'comparison2'%}">每年度各项指标得分</a>
+                <a class="btn mr-1 btn-round btn-warning" href="{%url 'comparison3'%}">网络、存储和计算资源总量</a>
+                <a class="btn mr-1 btn-round btn-success" href="{%url 'comparison4'%}">最新评估情况</a>
+                 <a class="btn mr-1 btn-round btn-secondary" href="{%url 'comparison5'%}">员工及培训状况</a>
+
+
+
+
+
+            </div>
+
+        </div>
+    </nav>
+
+ <div class="main-panel">
+        <div class="main-content">
+    <div class="content-wrapper">
+      <div class="container-fluid">
+ <div class="col-sm-12">
+                            <h2 class="content-header">2009-2019年信息化评估数据个性化对比：最新评估情况</h2>
+                            <p class="content-sub-header">请选择两家需要比较的单位 ：</p>
+                        </div>
+
+
+<div style="height: 100% ; width: 50%; float:left">
+<select name="select" class="choose" >
+
+<option value="1">上海光学精密机械研究所</option>
+<option value="2">上海天文台</option>
+<option value="3">上海巴斯德研究所</option>
+<option value="4">上海应用物理研究所</option>
+    <option value="5">上海微系统与信息技术研究所</option>
+<option value="6">上海技术物理研究所</option>
+<option value="7">上海有机化学研究所</option>
+<option value="8">上海硅酸盐研究所</option>
+    <option value="9">上海药物研究所</option>
+<option value="10">上海营养与健康研究所</option>
+<option value="11">上海高等研究院</option>
+<option value="12">东北地理与农业生态研究所</option>
+    <option value="13">亚热带农业生态研究所</option>
+<option value="14">信息工程研究所</option>
+<option value="15">光电技术研究所</option>
+<option value="16">兰州化学物理研究所</option>
+    <option value="17">分子植物科学卓越创新中心</option>
+<option value="18">分子细胞科学卓越创新中心</option>
+<option value="19">力学研究所</option>
+<option value="20">动物研究所</option>
+    <option value="21">化学研究所</option>
+<option value="22">北京基因组研究所</option>
+<option value="23">北京综合研究中心</option>
+<option value="24">半导体研究所</option>
+    <option value="25">华南植物园</option>
+<option value="26">南京土壤研究所</option>
+<option value="27">南京地理与湖泊研究所</option>
+<option value="28">南京地质古生物研究所</option>
+    <option value="29">南海海洋研究所</option>
+<option value="30">古脊椎动物与古人类研究所</option>
+<option value="31">合肥物质科学研究院</option>
+<option value="32">国家天文台</option>
+    <option value="33">国家授时中心</option>
+<option value="34">国家空间科学中心</option>
+<option value="35">国家纳米科学中心</option>
+<option value="36">地球化学研究所</option>
+    <option value="37">地球环境研究所</option>
+<option value="38">地理科学与资源研究所</option>
+<option value="39">地质与地球物理研究所</option>
+<option value="40">城市环境研究所</option>
+    <option value="41">声学研究所</option>
+<option value="42">大气物理研究所</option>
+<option value="43">大连化学物理研究所</option>
+<option value="44">天津工业生物技术研究所</option>
+    <option value="45">宁波材料技术与工程研究所</option>
+<option value="46">山西煤炭化学研究所</option>
+<option value="47">工程热物理研究所</option>
+<option value="48">广州地球化学研究所</option>
+    <option value="49">广州生物医药与健康研究院</option>
+<option value="50">广州能源研究所</option>
+<option value="51">微小卫星创新研究院</option>
+<option value="52">微生物研究所</option>
+    <option value="53">微电子研究所</option>
+<option value="54">心理研究所</option>
+<option value="55">成都山地灾害与环境研究所</option>
+<option value="56">成都生物研究所</option>
+    <option value="57">数学与系统科学研究院</option>
+<option value="58">新疆理化技术研究所</option>
+<option value="59">新疆生态与地理研究所</option>
+<option value="60">昆明动物研究所</option>
+    <option value="61">昆明植物研究所</option>
+<option value="62">植物研究所</option>
+<option value="63">武汉岩土力学研究所</option>
+<option value="64">武汉植物园</option>
+    <option value="65">武汉病毒研究所</option>
+<option value="66">水生生物研究所</option>
+<option value="67">沈阳应用生态研究所</option>
+<option value="68">沈阳自动化研究所</option>
+    <option value="69">海洋研究所</option>
+<option value="70">深圳先进技术研究院</option>
+<option value="71">深海科学与工程研究所</option>
+<option value="72">烟台海岸带研究所</option>
+    <option value="73">物理研究所</option>
+<option value="74">理化技术研究所</option>
+<option value="75">理论物理研究所</option>
+<option value="76">生态环境研究中心</option>
+    <option value="77">生物物理研究所</option>
+<option value="78">电工研究所</option>
+<option value="79">福建物质结构研究所</option>
+<option value="80">科技战略咨询研究院</option>
+    <option value="81">空天信息创新研究院</option>
+<option value="82">空间应用工程与技术中心</option>
+<option value="83">精密测量科学与技术创新研究院</option>
+<option value="84">紫金山天文台</option>
+    <option value="85">脑科学与智能技术卓越创新中心</option>
+<option value="86">自动化研究所</option>
+<option value="87">自然科学史研究所</option>
+<option value="88">苏州生物医学工程技术研究所</option>
+    <option value="89">苏州纳米技术与纳米仿生研究所</option>
+<option value="90">西北生态环境资源研究院</option>
+<option value="91">西双版纳热带植物园</option>
+<option value="92">西安光学精密机械研究所</option>
+    <option value="93">计算技术研究所</option>
+<option value="94">软件研究所</option>
+<option value="95">过程工程研究所</option>
+<option value="96">近代物理研究所</option>
+    <option value="97">遗传与发育生物学研究所</option>
+<option value="98">重庆绿色智能技术研究院</option>
+<option value="99">金属研究所</option>
+<option value="100">长春光学精密机械与物理研究所</option>
+    <option value="101">长春应用化学研究所</option>
+<option value="102">青岛生物能源与过程研究所</option>
+<option value="103">青藏高原研究所</option>
+<option value="104">高能物理研究所</option>
+</select>
+        <div class="showVie" >
+            <!--左边栏所有选项和索引关系的对应 -->
+<ul>
+<li><div id = 'word1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word2' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word3' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word4' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word5' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word6' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word7' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word8' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word9' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word10' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word11' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word12' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word13' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word14' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word15' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word16' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word17' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word18' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word19' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word20' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word21' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word22' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word23' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word24' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word25' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word26' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word27' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word28' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word29' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word30' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word31' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word32' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word33' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word34' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word35' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word36' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word37' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word38' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word39' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word40' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word41' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word42' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word43' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word44' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word45' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word46' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word47' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word48' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word49' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word50' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word51' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word52' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word53' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word54' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word55' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word56' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word57' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word58' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word59' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word60' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word61' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word62' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word63' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word64' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word65' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word66' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word67' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word68' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word69' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word70' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word71' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word72' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word73' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word74' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word75' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word76' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word77' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word78' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word79' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word80' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word81' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word82' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word83' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word84' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word85' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word86' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word87' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word88' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word89' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word90' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word91' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word92' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word93' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word94' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word95' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word96' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word97' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word98' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word99' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word100' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word101' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word102' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word103' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word104' align="left" style="height: 100% ; width: 85%"></div></li>
+
+
+</ul>
+
+
+</div>
+
+
+
+</div>
+
+<div style="height: 100% ; width: 50%; float:right" >
+<select name="select" class="choose1" >
+<option value="1">上海光学精密机械研究所</option>
+<option value="2">上海天文台</option>
+<option value="3">上海巴斯德研究所</option>
+<option value="4">上海应用物理研究所</option>
+    <option value="5">上海微系统与信息技术研究所</option>
+<option value="6">上海技术物理研究所</option>
+<option value="7">上海有机化学研究所</option>
+<option value="8">上海硅酸盐研究所</option>
+    <option value="9">上海药物研究所</option>
+<option value="10">上海营养与健康研究所</option>
+<option value="11">上海高等研究院</option>
+<option value="12">东北地理与农业生态研究所</option>
+    <option value="13">亚热带农业生态研究所</option>
+<option value="14">信息工程研究所</option>
+<option value="15">光电技术研究所</option>
+<option value="16">兰州化学物理研究所</option>
+    <option value="17">分子植物科学卓越创新中心</option>
+<option value="18">分子细胞科学卓越创新中心</option>
+<option value="19">力学研究所</option>
+<option value="20">动物研究所</option>
+    <option value="21">化学研究所</option>
+<option value="22">北京基因组研究所</option>
+<option value="23">北京综合研究中心</option>
+<option value="24">半导体研究所</option>
+    <option value="25">华南植物园</option>
+<option value="26">南京土壤研究所</option>
+<option value="27">南京地理与湖泊研究所</option>
+<option value="28">南京地质古生物研究所</option>
+    <option value="29">南海海洋研究所</option>
+<option value="30">古脊椎动物与古人类研究所</option>
+<option value="31">合肥物质科学研究院</option>
+<option value="32">国家天文台</option>
+    <option value="33">国家授时中心</option>
+<option value="34">国家空间科学中心</option>
+<option value="35">国家纳米科学中心</option>
+<option value="36">地球化学研究所</option>
+    <option value="37">地球环境研究所</option>
+<option value="38">地理科学与资源研究所</option>
+<option value="39">地质与地球物理研究所</option>
+<option value="40">城市环境研究所</option>
+    <option value="41">声学研究所</option>
+<option value="42">大气物理研究所</option>
+<option value="43">大连化学物理研究所</option>
+<option value="44">天津工业生物技术研究所</option>
+    <option value="45">宁波材料技术与工程研究所</option>
+<option value="46">山西煤炭化学研究所</option>
+<option value="47">工程热物理研究所</option>
+<option value="48">广州地球化学研究所</option>
+    <option value="49">广州生物医药与健康研究院</option>
+<option value="50">广州能源研究所</option>
+<option value="51">微小卫星创新研究院</option>
+<option value="52">微生物研究所</option>
+    <option value="53">微电子研究所</option>
+<option value="54">心理研究所</option>
+<option value="55">成都山地灾害与环境研究所</option>
+<option value="56">成都生物研究所</option>
+    <option value="57">数学与系统科学研究院</option>
+<option value="58">新疆理化技术研究所</option>
+<option value="59">新疆生态与地理研究所</option>
+<option value="60">昆明动物研究所</option>
+    <option value="61">昆明植物研究所</option>
+<option value="62">植物研究所</option>
+<option value="63">武汉岩土力学研究所</option>
+<option value="64">武汉植物园</option>
+    <option value="65">武汉病毒研究所</option>
+<option value="66">水生生物研究所</option>
+<option value="67">沈阳应用生态研究所</option>
+<option value="68">沈阳自动化研究所</option>
+    <option value="69">海洋研究所</option>
+<option value="70">深圳先进技术研究院</option>
+<option value="71">深海科学与工程研究所</option>
+<option value="72">烟台海岸带研究所</option>
+    <option value="73">物理研究所</option>
+<option value="74">理化技术研究所</option>
+<option value="75">理论物理研究所</option>
+<option value="76">生态环境研究中心</option>
+    <option value="77">生物物理研究所</option>
+<option value="78">电工研究所</option>
+<option value="79">福建物质结构研究所</option>
+<option value="80">科技战略咨询研究院</option>
+    <option value="81">空天信息创新研究院</option>
+<option value="82">空间应用工程与技术中心</option>
+<option value="83">精密测量科学与技术创新研究院</option>
+<option value="84">紫金山天文台</option>
+    <option value="85">脑科学与智能技术卓越创新中心</option>
+<option value="86">自动化研究所</option>
+<option value="87">自然科学史研究所</option>
+<option value="88">苏州生物医学工程技术研究所</option>
+    <option value="89">苏州纳米技术与纳米仿生研究所</option>
+<option value="90">西北生态环境资源研究院</option>
+<option value="91">西双版纳热带植物园</option>
+<option value="92">西安光学精密机械研究所</option>
+    <option value="93">计算技术研究所</option>
+<option value="94">软件研究所</option>
+<option value="95">过程工程研究所</option>
+<option value="96">近代物理研究所</option>
+    <option value="97">遗传与发育生物学研究所</option>
+<option value="98">重庆绿色智能技术研究院</option>
+<option value="99">金属研究所</option>
+<option value="100">长春光学精密机械与物理研究所</option>
+    <option value="101">长春应用化学研究所</option>
+<option value="102">青岛生物能源与过程研究所</option>
+<option value="103">青藏高原研究所</option>
+<option value="104">高能物理研究所</option>
+
+
+</select>
+    <div class="showView1" >
+
+<ul>
+<li><div id = 'word1-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word2-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word3-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word4-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word5-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word6-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word7-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word8-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word9-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word10-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word11-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word12-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word13-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word14-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word15-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word16-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word17-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word18-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word19-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word20-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word21-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word22-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word23-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word24-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word25-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word26-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word27-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word28-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word29-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word30-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word31-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word32-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word33-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word34-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word35-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word36-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word37-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word38-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word39-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word40-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word41-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word42-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word43-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word44-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word45-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word46-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word47-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word48-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word49-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word50-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word51-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word52-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word53-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word54-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word55-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word56-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word57-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word58-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word59-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word60-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word61-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word62-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word63-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word64-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word65-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word66-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word67-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word68-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word69-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word70-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word71-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word72-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word73-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word74-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word75-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word76-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word77-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word78-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word79-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word80-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word81-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word82-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word83-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word84-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word85-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word86-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word87-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word88-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word89-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word90-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word91-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word92-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word93-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word94-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word95-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word96-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word97-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word98-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word99-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word100-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word101-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word102-1' align="left" style="height: 100% ; width: 85%"></div></li>
+<li><div id = 'word103-1' align="left" style="height: 100% ; width: 85%"></div></li>
+    <li><div id = 'word104-1' align="left" style="height: 100% ; width: 85%"></div></li>
+
+
+</li>
+
+</ul>
+
+</div>
+
+</div></div></div></div></div>
+
+
+
+<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+<script>
+$('.showVie ul li').eq(0).show().siblings().hide();
+$('.choose').on('change', function (){
+var index = $(this).val() - 1;
+$('.showVie ul li').eq(index).show().siblings().hide();
+})
+</script>
+<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+<script>
+$('.showView1 ul li').eq(0).show().siblings().hide();
+$('.choose1').on('change', function (){
+var index = $(this).val() - 1;
+$('.showView1 ul li').eq(index).show().siblings().hide();
+})
+</script>
+
+
+
+
+
+<script type="text/javascript">
+
+		hei = document.body.clientWidth
+        var myChart1 = echarts.init(document.getElementById('sunburst'));
+  sun(myChart1, hei);
+
+    sunrise.setOption(option);
+    setTimeout(function () {
+        window.onresize = function () {
+
+            sunrise.resize();
+
+        }
+    })
+
+</script>
+
+
+  <!--引用文字描述js文件  -->
+    <script type="text/javascript" src="{% static 'js/yjs_words.js' %}"></script>
+
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word2'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word3'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word4'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word5'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word6'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word7'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word8'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word9'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word10'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word11'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word12'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word13'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word14'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word15'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word16'));
+  word(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word17'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word18'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word19'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word20'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word21'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word22'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word23'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word24'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word25'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word26'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word27'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word28'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word29'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word30'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word31'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word32'));
+  word(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word33'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word34'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word35'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word36'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word37'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word38'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word39'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word40'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word41'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word42'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word43'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word44'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word45'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word46'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word47'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word48'));
+  word(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word49'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word50'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word51'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word52'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word53'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word54'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word55'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word56'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word57'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word58'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word59'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word60'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word61'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word62'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word63'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word64'));
+  word(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word65'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word66'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word67'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word68'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word69'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word70'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word71'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word72'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word73'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word74'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word75'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word76'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word77'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word78'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word79'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word80'));
+  word(myChart1, hei);
+</script>
+ <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word81'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word82'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word83'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word84'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word85'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word86'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word87'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word88'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word89'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word90'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word91'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word92'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word93'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word94'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word95'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word96'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word97'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word98'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word99'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word100'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word101'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word102'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word103'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word104'));
+  word(myChart1, hei);
+</script>
+
+
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word1-1'));
+  word(myChart1, hei);
+</script>
+ <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word2-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word3-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word4-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word5-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word6-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word7-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word8-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word9-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word10-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word11-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word12-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word13-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word14-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word15-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word16-1'));
+  word(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word17-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word18-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word19-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word20-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word21-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word22-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word23-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word24-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word25-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word26-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word27-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word28-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word29-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word30-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word31-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word32-1'));
+  word(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word33-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word34-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word35-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word36-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word37-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word38-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word39-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word40-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word41-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word42-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word43-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word44-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word45-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word46-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word47-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word48-1'));
+  word(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word49-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word50-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word51-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word52-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word53-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word54-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word55-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word56-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word57-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word58-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word59-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word60-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word61-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word62-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word63-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word64-1'));
+  word(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word65-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word66-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word67-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word68-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word69-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word70-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word71-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word72-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word73-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word74-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word75-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word76-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word77-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word78-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word79-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word80-1'));
+  word(myChart1, hei);
+</script>
+ <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word81-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word82-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word83-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word84-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word85-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word86-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word87-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word88-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word89-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word90-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word91-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word92-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word93-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word94-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word95-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word96-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word97-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word98-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word99-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word100-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word101-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word102-1'));
+  word(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word103-1'));
+  word(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('word104-1'));
+  word(myChart1, hei);
+</script>
+
+
+
+
+
+    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="{% static 'index.html" class="logo-text float-left' %}"></a>
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/>
+                </div>
+
+                <a id="sidebarToggle" href="javascript:;"
+                   class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i data-toggle="collapsed"
+                                                                               class="ft-circle toggle-icon"></i></a><a
+                        id="sidebarClose" href="javascript:;"
+                        class="nav-close d-block d-md-block d-lg-none d-xl-none"><i class="ft-circle"></i></a></div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+
+                    <li class="has-sub nav-item"><a href="{% static '#' %}"><i class="icon-pie-chart"></i><span
+                            data-i18n="" class="menu-title">数据可视化</span></a>
+                        <ul class="menu-content">
+                            <li ><a href="{% url 'stack19' %}" class="menu-item">总均分及各项指标</a>
+                            </li>
+                           <li><a href="{% url 'institute19' %}" class="menu-item">各单位成绩分析</a>
+                            </li>
+                            <li class="active"><a href="{% url 'comparison' %}" class="menu-item">个性化数据对比</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+
+        </div>
+<script>
+　　closeDiv()
+</script>
+</body>
+</html>
+
+
+
+

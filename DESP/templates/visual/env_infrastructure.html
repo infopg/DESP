@@ -1,0 +1,350 @@
+﻿<!DOCTYPE html>
+{% load static %}
+<html lang="en" class="loading">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description"
+          content="Convex admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Page for administrator</title>
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app-assets/img/ico/apple-icon-60.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app-assets/img/ico/apple-icon-76.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app-assets/img/ico/apple-icon-120.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'app-assets/img/ico/apple-icon-152.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'app-assets/img/ico/favicon.ico' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'app-assets/img/ico/favicon-32.png' %}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+</head>
+<body data-col="2-columns" class=" 2-columns">
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+<div class="wrapper nav-collapsed menu-collapsed">
+
+
+    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="#" class="logo-text float-left">
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
+                <span class="text align-middle">CNIC</span></a><a id="sidebarToggle" href="javascript:;"
+                                                                  class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i
+                    data-toggle="collapsed" class="ft-circle toggle-icon"></i></a><a id="sidebarClose"
+                                                                                     href="javascript:;"
+                                                                                     class="nav-close d-block d-md-block d-lg-none d-xl-none"><i
+                    class="ft-circle"></i></a></div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-pie-chart"></i><span data-i18n="" class="menu-title">数据分析</span></a>
+                        <ul class="menu-content">
+                            <li class='has-sub'><a href = "#" class="menu-item">总体情况</a>
+						        <ul class="menu-content">
+							        <li><a href="{% url 'overview_research' %}" class="menu-item">研究单位</a></li>
+							        <li><a href ="{% url 'overview_institute' %}" class="menu-item">分院</a></li>
+						            <li><a href ="{% url 'overview_system' %}"class="menu-item">分院系统</a></li>
+						        </ul>
+					        </li>
+                            <li class='has-sub'> <a href = "#" class="menu-item">网络安全</a>
+						        <ul class="menu-content">
+							        <li><a href = "{% url 'network_manage' %}"class="menu-item">管理</a></li>
+							        <li><a href = "{% url 'network_tech' %}" class="menu-item">技术保障</a></li>
+						        </ul>
+					        </li>
+                            <li class='has-sub'><a href = "#" class="menu-item">信息化应用</a>
+						        <ul class="menu-content">
+							        <li class='has-sub'><a href = "#" class="menu-item">科研信息化 </a>
+								        <ul class="menu-content">
+                                            <li><a href = "{% url 'app_research_data' %}" class="menu-item">科学数据应用</a></li>
+                                            <li><a href = "{% url 'app_research_calculate' %}"  class="menu-item">科学计算应用</a></li>
+                                            <li><a href = "{% url 'app_research_cloud' %}" class="menu-item">云计算应用</a></li>
+                                            <li><a href = "{% url 'app_research_share' %}"  class="menu-item">开放共享应用</a></li>
+								        </ul>
+							        </li>
+                                <li><a href = "{% url 'app_manage' %}"  class="menu-item">管理信息化</a></li>
+                                <li><a href = "{% url 'app_education' %}"  class="menu-item">教育信息化</a></li>
+                                <li><a href = "{% url 'app_science' %}"  class="menu-item">科学传播</a></li>
+						        </ul>
+					        </li>
+                            <li class='has-sub'><a href = "#" class="menu-item">基础环境</a>
+						        <ul class="menu-content">
+                                    <li><a href = "{% url 'env_management' %}" class="menu-item">管理与运行</a></li>
+                                    <li><a href = "{% url 'env_infrastructure' %}" class="menu-item">基础设施</a></li>
+                                    <li><a href = "{% url 'env_resource' %}" class="menu-item">资源</a></li>
+						        </ul>
+					        </li>
+                            <li><a href="{% url 'details_comparison' %}" class="menu-item">详细情况及对比</a></li>
+                            <li><a href = "http://xxhpg.cas.cn/views/download.jsp"target="_blank" class="menu-item">报告下载</a></li> 
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
+                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span></button>
+                <span class="d-lg-none navbar-right navbar-collapse-toggle"><a class="open-navbar-container"><i
+                        class="ft-more-vertical"></i></a></span><a id="navbar-fullscreen" href="javascript:;"
+                                                                   class="mr-2 display-inline-block apptogglefullscreen"><i
+                    class="ft-maximize blue-grey darken-4 toggleClass"></i>
+                <p class="d-none">fullscreen</p></a>
+
+            </div>
+            <div class="navbar-container">
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                                class="avatar avatar-online"><img id="navbar-avatar"
+                                                                  src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
+                                                                  alt="avatar"/></span>
+                            <p class="d-none">User Settings</p></a>
+                            <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
+                                <div class="arrow_box_right">
+                                    <a href="#" class="dropdown-item"><i
+                                            class="ft-power mr-2"></i><span>Logout</span></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-panel">
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="container-fluid"><!-- Base style table -->
+                    <section id="base-style">
+                        <div class="row">
+                          
+                            <div class="col-12">
+                                <div class="card" style='height:60rem'>
+                                    <div class="card-header">
+                                        <div class="card-title-wrap bar-success">
+                                            <h2 class="card-title">基础设施</h2>
+                                        </div>
+                                    </div>
+                                    <div class="card-block">
+                                        <table class="table" border="0" align="left" width = 100% height = 43%>
+		<tr>
+				<th width = 50% height = 100%>
+						<div class = 'select'>
+								<input class = 'button' type="button" id="actb1" name="actb" value="  网络接入带宽对比  " 
+									onClick="b1()" />
+								<input class = 'button' type="button" id="actb2" name="actb" value="  研究单位超级计算总能力年度对比  " 
+									onClick="b2()" />
+								<input class = 'button' type="button" id="actb3" name="actb" value="  研究单位自建存储环境  " 
+									onClick="b3()" /> 
+							</div>
+	
+						<div id="bar" style="width: 95%; height:90%;"></div>
+					
+				</th>		
+
+			<th width = 50% height = 100%>
+					
+						<div id="gau" style="width: 70%; height:90%;"></div>
+			</th>
+		</tr>
+		
+	</table>
+
+	<table class="table2" border="0" align="left" width = 100% height = 40%>
+			<tr>
+				<th width = 50% height = 100%>
+						<div class = 'select2'>
+							<input class = 'button' type="button"  id="actp1" name="actp" value="  科技网接入带宽使用率  " 
+									checked onClick="p1()" /> 
+								<input class = 'button' type="button" id="actp2" name="actp" value="  研究单位园区无线网覆盖率  " 
+									onClick="p2()" /> 
+								<input class = 'button' type="button" id="actp3" name="actp" value="  研究单位IPv6出口流量  " 
+									onClick="p3()" /> 
+							</div>
+							<div id="pie" style="width: 100%; height:90%;"></div>
+							
+				</th>		
+
+
+				<th width = 50% height = 100%>
+						<div class = 'select3'>
+								<input class = 'button' type="button" id="actf1" name="actf" value="  研究单位云计算服务使用情况  " 
+									onClick="f1()" />
+								<input class = 'button' type="button" id="actf2" name="actf" value="  研究单位网络监控运维情况  " 
+									onClick="f2()" />
+								<input class = 'button' type="button" id="actf3" name="actf" value="  研究单位主交换机国产情况  " 
+									onClick="f3()" />
+								
+						</div>
+
+						<div id="fall" style="width: 95%; height:90%;"></div>
+
+
+				</th>
+				
+			</tr>
+			
+		</table>
+
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <footer class="footer footer-static footer-light">
+            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2020<a href="#" id="pixinventLink"
+                                                                                            target="_blank"
+                                                                                            class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
+            </p>
+        </footer>
+
+    </div>
+</div>
+<!-- BEGIN VENDOR JS-->
+    <script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+    <script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+    <script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+    <script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+    <script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{% static 'lib/echarts/echarts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/echarts/china.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/echarts/jquery.js' %}"></script>
+    <!--引用雷达图、柱形图、的地图的.js文件-->
+    <script type="text/javascript" src="{% static 'src/js/env_ins_bar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/env_ins_gauge.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/env_ins_pie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/env_ins_fall.js' %}"></script>	
+    <script type="text/javascript">
+        hei = document.body.clientWidth
+
+		var myBar = echarts.init(document.getElementById('bar'));
+		bar1(myBar,hei);
+
+		var myGauge = echarts.init(document.getElementById('gau'));
+		gauge(myGauge,hei);
+
+		var myPie = echarts.init(document.getElementById('pie'));
+		pie1(myPie,hei);
+
+		var myFall = echarts.init(document.getElementById('fall'));
+		fall3(myFall,hei);
+		
+		setTimeout(function (){
+        	window.onresize = function () {
+						myFall.resize();
+						myBar.resize();
+						myPie.resize();
+						myGauge.resize();
+        }
+		})
+		
+
+		function b1(){
+			myBar.clear();
+			bar1(myBar,hei);
+		}
+
+		function b2(){
+			myBar.clear();	
+			bar2(myBar,hei);
+		}
+
+		function b3(){
+			myBar.clear();
+			bar3(myBar,hei);
+		}
+
+
+		function p1(){
+			myPie.clear();
+			pie1(myPie,hei);
+		}
+
+		function p2(){
+			myPie.clear();	
+			pie2(myPie,hei);
+		}
+
+		function p3(){
+			myPie.clear();
+			pie3(myPie,hei);
+		}
+
+
+		function f1(){
+			myFall.clear();
+								
+					fall3(myFall,hei);
+		}
+		function f2(){
+			myFall.clear();
+								
+					fall2(myFall,hei);
+		}
+
+		function f3(){
+			myFall.clear();
+								
+					fall1(myFall,hei);
+		}
+
+    </script>
+    <style type="text/css">
+        * {
+            margin: 0%;
+            padding: 0%;
+        }
+
+        .table{
+            margin-top:5%;
+            margin-left:0%;
+            margin-right:0%;
+            float:center;
+        
+
+        }
+
+       	#gau{
+			margin-top: 1%;
+			margin-left: 9%;
+		}
+
+		#bar{
+			margin-left: 3%;
+		}
+
+		#pie{
+			margin-left: 0%;
+		}
+    </style>
+  </body>
+</html>

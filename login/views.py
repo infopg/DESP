@@ -115,7 +115,7 @@ def administrator(request):
 def user(request):
     if not request.session.get('is_login', None) or request.session['permission'] != 3:
         return redirect('/')
-    return render(request, 'login/user.html')
+    return render(request, 'user/user.html')
 
 
 def expert(request):
@@ -198,4 +198,3 @@ def abstract(request):
 
 def Aboutus(request):
     return render(request, 'login/Aboutus.html')
-

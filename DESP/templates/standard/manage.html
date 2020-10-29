@@ -222,14 +222,45 @@
 <script>
     var e_d = {{ eval_data|safe }};
     for(var i = 0; i < e_d.length; i++) {
+        var questionaire = i + 1024;
+        var id_org_id = i + 20000;
+        var id_org_name = i + 30000;
+        var id_project_name = i + 40000;
+        var id_project_admin = i + 50000;
         $("#tbody").append("" +
             "<tr>" +
-            "<td>" + e_d[i]['org_id'] + "</td>" +
-            "<td>" + e_d[i]['org_name'] + "</td>" +
-            "<td>" + e_d[i]['project_name'] + "</td>" +
-            "<td>" + e_d[i]['project_admin'] + "</td>" +
+            "<td id ="+ id_org_id +">" + e_d[i]['org_id'] + "</td>" +
+            "<td id ="+ id_org_name +">" + e_d[i]['org_name'] + "</td>" +
+            "<td id ="+ id_project_name +">" + e_d[i]['project_name'] + "</td>" +
+            "<td id ="+ id_project_admin +">" + e_d[i]['project_admin'] + "</td>" +
+            "<td>" + "<button id=" + i + " onclick='Change_Status(" + i + ")'> 已启用 </button>" + "</td>" +
+            "<td>" + "进度 %" + "</td>" +
+            "<td>" + "<button id=" + questionaire + " onclick='to_questionaire(" + id_project_name + "," + id_project_admin + ")'>查看</button>" + "&emsp;&emsp;" +
+                     "<button id='FaFang'>发送邮件</button>" + "&emsp;&emsp;" +
+                     "<button id='DaoRu'>导出</button>" + "&emsp;&emsp;" +
+                     "<button id='DaoChu'>导入</button>" + "&emsp;&emsp;" +
+            "</td>" +
             "</tr>");
     }
 
+    function to_questionaire(x,y){
+        {#var text1 = document.getElementById(x).innerHTML;#}
+        {#var text2 = document.getElementById(y).innerHTML;#}
+        window.location.href = "{% url 'standard' %}?evalname={{ '2020评估项目' }} &admin={{ 'qzc' }}";
+
+    }
+
 </script>
+<script>
+    function Change_Status(x) {
+        var x1 = "已启用";
+        var x2 = "已停用";
+        if(document.getElementById(x).innerHTML===x1){
+            document.getElementById(x).innerHTML=x2;
+        }else {
+            document.getElementById(x).innerHTML=x1;
+        }
+    }
+</script>
+
 

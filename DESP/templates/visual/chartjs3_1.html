@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html style="height: 100%">
+<head>
+    <META HTTP-EQUIV="Set-Cookie" CONTENT="cookievalue=xxx;expires=Wednesday, 21-Oct-21 16:14:21 GMT; path=/">
+    <meta http-equiv="Cache-control" content="no-cache,max-age=12000, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="Wed, 20 Jun 2021 22:33:00 GMT" />
+    <meta name="description" content=" data visualization">
+    <meta name="keywords" content="CAS,CNIC,数据可视化,信息化评估">
+    <meta charset="utf-8">
+    <meta name="author" content="fengguorui">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+<script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'css/demo.css' %}" type="text/css">
+
+</head>
+<body>
+
+<div class="wrapper nav-collapsed menu-collapsed">
+     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div id=loading style="background:#6A5ACD;border:1px dashed #E6E6FA;color:#E6E6FA; position:absolute; left:1150px; top:15px; width:210px; height:25px; z-index:1">
+页面正在载入中,请稍候......</div>
+                <body>请选择您想要比较的项目：</body>
+                <a class="btn mr-1 btn-round btn-success" href="{%url 'comparison'%}">2009-2019总分及排名概览</a>
+                <a class="btn mr-1 btn-round btn-success" href="{%url 'comparison_new'%}">comparison new</a>
+                <a class="btn mr-1 btn-round btn-info" href="{%url 'comparison2'%}">每年度各项指标得分</a>
+                <a class="btn mr-1 btn-round btn-warning" href="{%url 'comparison3'%}">网络、存储和计算资源总量</a>
+                <a class="btn mr-1 btn-round btn-danger" href="{%url 'comparison4'%}">最新评估情况</a>
+                <a class="btn mr-1 btn-round btn-secondary" href="{%url 'comparison5'%}">员工及培训状况</a>
+            </div>
+
+        </div>
+    </nav>
+
+ <div class="main-panel">
+        <div class="main-content">
+    <div class="content-wrapper">
+      <div class="container-fluid">
+ <div class="col-sm-12">
+                            <h2 class="content-header">2009-2019年信息化评估数据个性化对比：2009-2019总分及排名概览</h2>
+
+     <p class="content-sub-header">请选择两家需要比较的单位 ：</p>
+                        </div>
+
+          
+
+<script>
+function closeDiv()
+{
+　　document.getElementById('loading').style.visibility='hidden';
+}
+</script>
+
+
+
+
+<div style="height: 100% ; width: 50%; float:left">
+<select name="select" class="choose" >
+
+<option value="1">上海光学精密机械研究所</option>
+<option value="2">上海天文台</option>
+<option value="3">上海巴斯德研究所</option>
+<option value="4">上海应用物理研究所</option>
+<option value="5">上海微系统与信息技术研究所</option>
+<option value="6">上海技术物理研究所</option>
+<option value="7">上海有机化学研究所</option>
+<option value="8">上海硅酸盐研究所</option>
+<option value="9">上海药物研究所</option>
+<option value="10">上海营养与健康研究所</option>
+<option value="11">上海高等研究院</option>
+<option value="12">东北地理与农业生态研究所</option>
+<option value="13">亚热带农业生态研究所</option>
+<option value="14">信息工程研究所</option>
+<option value="15">光电技术研究所</option>
+<option value="16">兰州化学物理研究所</option>
+<option value="17">分子植物科学卓越创新中心</option>
+<option value="18">分子细胞科学卓越创新中心</option>
+<option value="19">力学研究所</option>
+<option value="20">动物研究所</option>
+<option value="21">化学研究所</option>
+<option value="22">北京基因组研究所</option>
+<option value="23">北京综合研究中心</option>
+<option value="24">半导体研究所</option>
+<option value="25">华南植物园</option>
+<option value="26">南京土壤研究所</option>
+<option value="27">南京地理与湖泊研究所</option>
+<option value="28">南京地质古生物研究所</option>
+<option value="29">南海海洋研究所</option>
+<option value="30">古脊椎动物与古人类研究所</option>
+<option value="31">合肥物质科学研究院</option>
+<option value="32">国家天文台</option>
+<option value="33">国家授时中心</option>
+<option value="34">国家空间科学中心</option>
+<option value="35">国家纳米科学中心</option>
+<option value="36">地球化学研究所</option>
+<option value="37">地球环境研究所</option>
+<option value="38">地理科学与资源研究所</option>
+<option value="39">地质与地球物理研究所</option>
+<option value="40">城市环境研究所</option>
+<option value="41">声学研究所</option>
+<option value="42">大气物理研究所</option>
+<option value="43">大连化学物理研究所</option>
+<option value="44">天津工业生物技术研究所</option>
+<option value="45">宁波材料技术与工程研究所</option>
+<option value="46">山西煤炭化学研究所</option>
+<option value="47">工程热物理研究所</option>
+<option value="48">广州地球化学研究所</option>
+<option value="49">广州生物医药与健康研究院</option>
+<option value="50">广州能源研究所</option>
+<option value="51">微小卫星创新研究院</option>
+<option value="52">微生物研究所</option>
+<option value="53">微电子研究所</option>
+<option value="54">心理研究所</option>
+<option value="55">成都山地灾害与环境研究所</option>
+<option value="56">成都生物研究所</option>
+<option value="57">数学与系统科学研究院</option>
+<option value="58">新疆理化技术研究所</option>
+<option value="59">新疆生态与地理研究所</option>
+<option value="60">昆明动物研究所</option>
+<option value="61">昆明植物研究所</option>
+<option value="62">植物研究所</option>
+<option value="63">武汉岩土力学研究所</option>
+<option value="64">武汉植物园</option>
+<option value="65">武汉病毒研究所</option>
+<option value="66">水生生物研究所</option>
+<option value="67">沈阳应用生态研究所</option>
+<option value="68">沈阳自动化研究所</option>
+<option value="69">海洋研究所</option>
+<option value="70">深圳先进技术研究院</option>
+<option value="71">深海科学与工程研究所</option>
+<option value="72">烟台海岸带研究所</option>
+<option value="73">物理研究所</option>
+<option value="74">理化技术研究所</option>
+<option value="75">理论物理研究所</option>
+<option value="76">生态环境研究中心</option>
+<option value="77">生物物理研究所</option>
+<option value="78">电工研究所</option>
+<option value="79">福建物质结构研究所</option>
+<option value="80">科技战略咨询研究院</option>
+<option value="81">空天信息创新研究院</option>
+<option value="82">空间应用工程与技术中心</option>
+<option value="83">精密测量科学与技术创新研究院</option>
+<option value="84">紫金山天文台</option>
+<option value="85">脑科学与智能技术卓越创新中心</option>
+<option value="86">自动化研究所</option>
+<option value="87">自然科学史研究所</option>
+<option value="88">苏州生物医学工程技术研究所</option>
+<option value="89">苏州纳米技术与纳米仿生研究所</option>
+<option value="90">西北生态环境资源研究院</option>
+<option value="91">西双版纳热带植物园</option>
+<option value="92">西安光学精密机械研究所</option>
+<option value="93">计算技术研究所</option>
+<option value="94">软件研究所</option>
+<option value="95">过程工程研究所</option>
+<option value="96">近代物理研究所</option>
+<option value="97">遗传与发育生物学研究所</option>
+<option value="98">重庆绿色智能技术研究院</option>
+<option value="99">金属研究所</option>
+<option value="100">长春光学精密机械与物理研究所</option>
+<option value="101">长春应用化学研究所</option>
+<option value="102">青岛生物能源与过程研究所</option>
+<option value="103">青藏高原研究所</option>
+<option value="104">高能物理研究所</option>
+</select>
+        <div class="showVie" >
+            <!--左边栏所有选项和索引关系的对应 -->
+<ul>
+<li><canvas id="line1" height="550" width="550"></canvas></li>
+<li><canvas id="line2" height="550" width="550"></canvas></li>
+<li><canvas id="line3" height="550" width="550"></canvas></li>
+<li><canvas id="line4" height="550" width="550"></canvas></li>
+<li><canvas id="line5" height="550" width="550"></canvas></li>
+<li><canvas id="line6" height="550" width="550"></canvas></li>
+<li><canvas id="line7" height="550" width="550"></canvas></li>
+<li><canvas id="line8" height="550" width="550"></canvas></li>
+    <li><canvas id="line9" height="550" width="550"></canvas></li>
+<li><canvas id="line10" height="550" width="550"></canvas></li>
+<li><canvas id="line11" height="550" width="550"></canvas></li>
+<li><canvas id="line12" height="550" width="550"></canvas></li>
+<li><canvas id="line13" height="550" width="550"></canvas></li>
+<li><canvas id="line14" height="550" width="550"></canvas></li>
+<li><canvas id="line15" height="550" width="550"></canvas></li>
+<li><canvas id="line16" height="550" width="550"></canvas></li>
+    <li><canvas id="line17" height="550" width="550"></canvas></li>
+<li><canvas id="line18" height="550" width="550"></canvas></li>
+<li><canvas id="line19" height="550" width="550"></canvas></li>
+<li><canvas id="line20" height="550" width="550"></canvas></li>
+<li><canvas id="line21" height="550" width="550"></canvas></li>
+<li><canvas id="line22" height="550" width="550"></canvas></li>
+<li><canvas id="line23" height="550" width="550"></canvas></li>
+<li><canvas id="line24" height="550" width="550"></canvas></li>
+    <li><canvas id="line25" height="550" width="550"></canvas></li>
+<li><canvas id="line26" height="550" width="550"></canvas></li>
+<li><canvas id="line27" height="550" width="550"></canvas></li>
+<li><canvas id="line28" height="550" width="550"></canvas></li>
+<li><canvas id="line29" height="550" width="550"></canvas></li>
+<li><canvas id="line30" height="550" width="550"></canvas></li>
+<li><canvas id="line31" height="550" width="550"></canvas></li>
+<li><canvas id="line32" height="550" width="550"></canvas></li>
+    <li><canvas id="line33" height="550" width="550"></canvas></li>
+<li><canvas id="line34" height="550" width="550"></canvas></li>
+<li><canvas id="line35" height="550" width="550"></canvas></li>
+<li><canvas id="line36" height="550" width="550"></canvas></li>
+<li><canvas id="line37" height="550" width="550"></canvas></li>
+<li><canvas id="line38" height="550" width="550"></canvas></li>
+<li><canvas id="line39" height="550" width="550"></canvas></li>
+<li><canvas id="line40" height="550" width="550"></canvas></li>
+    <li><canvas id="line41" height="550" width="550"></canvas></li>
+<li><canvas id="line42" height="550" width="550"></canvas></li>
+<li><canvas id="line43" height="550" width="550"></canvas></li>
+<li><canvas id="line44" height="550" width="550"></canvas></li>
+<li><canvas id="line45" height="550" width="550"></canvas></li>
+<li><canvas id="line46" height="550" width="550"></canvas></li>
+<li><canvas id="line47" height="550" width="550"></canvas></li>
+<li><canvas id="line48" height="550" width="550"></canvas></li>
+    <li><canvas id="line49" height="550" width="550"></canvas></li>
+<li><canvas id="line50" height="550" width="550"></canvas></li>
+<li><canvas id="line51" height="550" width="550"></canvas></li>
+<li><canvas id="line52" height="550" width="550"></canvas></li>
+<li><canvas id="line53" height="550" width="550"></canvas></li>
+<li><canvas id="line54" height="550" width="550"></canvas></li>
+<li><canvas id="line55" height="550" width="550"></canvas></li>
+<li><canvas id="line56" height="550" width="550"></canvas></li>
+    <li><canvas id="line57" height="550" width="550"></canvas></li>
+<li><canvas id="line58" height="550" width="550"></canvas></li>
+<li><canvas id="line59" height="550" width="550"></canvas></li>
+<li><canvas id="line60" height="550" width="550"></canvas></li>
+<li><canvas id="line61" height="550" width="550"></canvas></li>
+<li><canvas id="line62" height="550" width="550"></canvas></li>
+<li><canvas id="line63" height="550" width="550"></canvas></li>
+<li><canvas id="line64" height="550" width="550"></canvas></li>
+    <li><canvas id="line65" height="550" width="550"></canvas></li>
+<li><canvas id="line66" height="550" width="550"></canvas></li>
+<li><canvas id="line67" height="550" width="550"></canvas></li>
+<li><canvas id="line68" height="550" width="550"></canvas></li>
+<li><canvas id="line69" height="550" width="550"></canvas></li>
+<li><canvas id="line70" height="550" width="550"></canvas></li>
+<li><canvas id="line71" height="550" width="550"></canvas></li>
+<li><canvas id="line72" height="550" width="550"></canvas></li>
+    <li><canvas id="line73" height="550" width="550"></canvas></li>
+<li><canvas id="line74" height="550" width="550"></canvas></li>
+<li><canvas id="line75" height="550" width="550"></canvas></li>
+<li><canvas id="line76" height="550" width="550"></canvas></li>
+<li><canvas id="line77" height="550" width="550"></canvas></li>
+<li><canvas id="line78" height="550" width="550"></canvas></li>
+<li><canvas id="line79" height="550" width="550"></canvas></li>
+<li><canvas id="line80" height="550" width="550"></canvas></li>
+    <li><canvas id="line81" height="550" width="550"></canvas></li>
+<li><canvas id="line82" height="550" width="550"></canvas></li>
+<li><canvas id="line83" height="550" width="550"></canvas></li>
+<li><canvas id="line84" height="550" width="550"></canvas></li>
+<li><canvas id="line85" height="550" width="550"></canvas></li>
+<li><canvas id="line86" height="550" width="550"></canvas></li>
+<li><canvas id="line87" height="550" width="550"></canvas></li>
+<li><canvas id="line88" height="550" width="550"></canvas></li>
+    <li><canvas id="line89" height="550" width="550"></canvas></li>
+<li><canvas id="line90" height="550" width="550"></canvas></li>
+<li><canvas id="line91" height="550" width="550"></canvas></li>
+<li><canvas id="line92" height="550" width="550"></canvas></li>
+<li><canvas id="line93" height="550" width="550"></canvas></li>
+<li><canvas id="line94" height="550" width="550"></canvas></li>
+<li><canvas id="line95" height="550" width="550"></canvas></li>
+<li><canvas id="line96" height="550" width="550"></canvas></li>
+    <li><canvas id="line97" height="550" width="550"></canvas></li>
+<li><canvas id="line98" height="550" width="550"></canvas></li>
+<li><canvas id="line99" height="550" width="550"></canvas></li>
+<li><canvas id="line100" height="550" width="550"></canvas></li>
+<li><canvas id="line101" height="550" width="550"></canvas></li>
+<li><canvas id="line102" height="550" width="550"></canvas></li>
+<li><canvas id="line103" height="550" width="550"></canvas></li>
+<li><canvas id="line104" height="550" width="550"></canvas></li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div style="height: 100% ; width: 50%; float:right" >
+<input type="text" name="institution" list="datalist">
+<datalist name="select" class="choose1" id= "datalist">
+<option value="1">上海光学精密机械研究所</option>
+<option value="2">上海天文台</option>
+<option value="3">上海巴斯德研究所</option>
+<option value="4">上海应用物理研究所</option>
+<option value="5">上海微系统与信息技术研究所</option>
+<option value="6">上海技术物理研究所</option>
+<option value="7">上海有机化学研究所</option>
+<option value="8">上海硅酸盐研究所</option>
+<option value="9">上海药物研究所</option>
+<option value="10">上海营养与健康研究所</option>
+<option value="11">上海高等研究院</option>
+<option value="12">东北地理与农业生态研究所</option>
+<option value="13">亚热带农业生态研究所</option>
+<option value="14">信息工程研究所</option>
+<option value="15">光电技术研究所</option>
+<option value="16">兰州化学物理研究所</option>
+<option value="17">分子植物科学卓越创新中心</option>
+<option value="18">分子细胞科学卓越创新中心</option>
+<option value="19">力学研究所</option>
+<option value="20">动物研究所</option>
+<option value="21">化学研究所</option>
+<option value="22">北京基因组研究所</option>
+<option value="23">北京综合研究中心</option>
+<option value="24">半导体研究所</option>
+<option value="25">华南植物园</option>
+<option value="26">南京土壤研究所</option>
+<option value="27">南京地理与湖泊研究所</option>
+<option value="28">南京地质古生物研究所</option>
+<option value="29">南海海洋研究所</option>
+<option value="30">古脊椎动物与古人类研究所</option>
+<option value="31">合肥物质科学研究院</option>
+<option value="32">国家天文台</option>
+<option value="33">国家授时中心</option>
+<option value="34">国家空间科学中心</option>
+<option value="35">国家纳米科学中心</option>
+<option value="36">地球化学研究所</option>
+<option value="37">地球环境研究所</option>
+<option value="38">地理科学与资源研究所</option>
+<option value="39">地质与地球物理研究所</option>
+<option value="40">城市环境研究所</option>
+<option value="41">声学研究所</option>
+<option value="42">大气物理研究所</option>
+<option value="43">大连化学物理研究所</option>
+<option value="44">天津工业生物技术研究所</option>
+<option value="45">宁波材料技术与工程研究所</option>
+<option value="46">山西煤炭化学研究所</option>
+<option value="47">工程热物理研究所</option>
+<option value="48">广州地球化学研究所</option>
+<option value="49">广州生物医药与健康研究院</option>
+<option value="50">广州能源研究所</option>
+<option value="51">微小卫星创新研究院</option>
+<option value="52">微生物研究所</option>
+    <option value="53">微电子研究所</option>
+<option value="54">心理研究所</option>
+<option value="55">成都山地灾害与环境研究所</option>
+<option value="56">成都生物研究所</option>
+    <option value="57">数学与系统科学研究院</option>
+<option value="58">新疆理化技术研究所</option>
+<option value="59">新疆生态与地理研究所</option>
+<option value="60">昆明动物研究所</option>
+    <option value="61">昆明植物研究所</option>
+<option value="62">植物研究所</option>
+<option value="63">武汉岩土力学研究所</option>
+<option value="64">武汉植物园</option>
+    <option value="65">武汉病毒研究所</option>
+<option value="66">水生生物研究所</option>
+<option value="67">沈阳应用生态研究所</option>
+<option value="68">沈阳自动化研究所</option>
+    <option value="69">海洋研究所</option>
+<option value="70">深圳先进技术研究院</option>
+<option value="71">深海科学与工程研究所</option>
+<option value="72">烟台海岸带研究所</option>
+    <option value="73">物理研究所</option>
+<option value="74">理化技术研究所</option>
+<option value="75">理论物理研究所</option>
+<option value="76">生态环境研究中心</option>
+    <option value="77">生物物理研究所</option>
+<option value="78">电工研究所</option>
+<option value="79">福建物质结构研究所</option>
+<option value="80">科技战略咨询研究院</option>
+    <option value="81">空天信息创新研究院</option>
+<option value="82">空间应用工程与技术中心</option>
+<option value="83">精密测量科学与技术创新研究院</option>
+<option value="84">紫金山天文台</option>
+    <option value="85">脑科学与智能技术卓越创新中心</option>
+<option value="86">自动化研究所</option>
+<option value="87">自然科学史研究所</option>
+<option value="88">苏州生物医学工程技术研究所</option>
+    <option value="89">苏州纳米技术与纳米仿生研究所</option>
+<option value="90">西北生态环境资源研究院</option>
+<option value="91">西双版纳热带植物园</option>
+<option value="92">西安光学精密机械研究所</option>
+    <option value="93">计算技术研究所</option>
+<option value="94">软件研究所</option>
+<option value="95">过程工程研究所</option>
+<option value="96">近代物理研究所</option>
+    <option value="97">遗传与发育生物学研究所</option>
+<option value="98">重庆绿色智能技术研究院</option>
+<option value="99">金属研究所</option>
+<option value="100">长春光学精密机械与物理研究所</option>
+    <option value="101">长春应用化学研究所</option>
+<option value="102">青岛生物能源与过程研究所</option>
+<option value="103">青藏高原研究所</option>
+<option value="104">高能物理研究所</option>
+
+
+</datalist>
+    <div class="showView1" >
+   <!--右边栏所有选项和索引关系的对应 -->
+<ul>
+    <li><canvas id="line1-1" height="550" width="550"></canvas></li>
+<li><canvas id="line2-1" height="550" width="550"></canvas></li>
+<li><canvas id="line3-1" height="550" width="550"></canvas></li>
+<li><canvas id="line4-1" height="550" width="550"></canvas></li>
+<li><canvas id="line5-1" height="550" width="550"></canvas></li>
+<li><canvas id="line6-1" height="550" width="550"></canvas></li>
+<li><canvas id="line7-1" height="550" width="550"></canvas></li>
+<li><canvas id="line8-1" height="550" width="550"></canvas></li>
+    <li><canvas id="line9-1" height="550" width="550"></canvas></li>
+<li><canvas id="line10-1" height="550" width="550"></canvas></li>
+<li><canvas id="line11-1" height="550" width="550"></canvas></li>
+<li><canvas id="line12-1" height="550" width="550"></canvas></li>
+<li><canvas id="line13-1" height="550" width="550"></canvas></li>
+<li><canvas id="line14-1" height="550" width="550"></canvas></li>
+<li><canvas id="line15-1" height="550" width="550"></canvas></li>
+<li><canvas id="line16-1" height="550" width="550"></canvas></li>
+    <li><canvas id="line17-1" height="550" width="550"></canvas></li>
+<li><canvas id="line18-1" height="550" width="550"></canvas></li>
+<li><canvas id="line19-1" height="550" width="550"></canvas></li>
+<li><canvas id="line20-1" height="550" width="550"></canvas></li>
+<li><canvas id="line21-1" height="550" width="550"></canvas></li>
+<li><canvas id="line22-1" height="550" width="550"></canvas></li>
+<li><canvas id="line23-1" height="550" width="550"></canvas></li>
+<li><canvas id="line24-1" height="550" width="550"></canvas></li>
+    <li><canvas id="line25-1" height="550" width="550"></canvas></li>
+<li><canvas id="line26-1" height="550" width="550"></canvas></li>
+<li><canvas id="line27-1" height="550" width="550"></canvas></li>
+<li><canvas id="line28-1" height="550" width="550"></canvas></li>
+<li><canvas id="line29-1" height="550" width="550"></canvas></li>
+<li><canvas id="line30-1" height="550" width="550"></canvas></li>
+<li><canvas id="line31-1" height="550" width="550"></canvas></li>
+<li><canvas id="line32-1" height="550" width="550"></canvas></li>
+    <li><canvas id="line33-1" height="550" width="550"></canvas></li>
+<li><canvas id="line34-1" height="550" width="550"></canvas></li>
+<li><canvas id="line35-1" height="550" width="550"></canvas></li>
+<li><canvas id="line36-1" height="550" width="550"></canvas></li>
+<li><canvas id="line37-1" height="550" width="550"></canvas></li>
+<li><canvas id="line38-1" height="550" width="550"></canvas></li>
+<li><canvas id="line39-1" height="550" width="550"></canvas></li>
+<li><canvas id="line40-1" height="550" width="550"></canvas></li>
+    <li><canvas id="line41-1" height="550" width="550"></canvas></li>
+<li><canvas id="line42-1" height="550" width="550"></canvas></li>
+<li><canvas id="line43-1" height="550" width="550"></canvas></li>
+<li><canvas id="line44-1" height="550" width="550"></canvas></li>
+<li><canvas id="line45-1" height="550" width="550"></canvas></li>
+<li><canvas id="line46-1" height="550" width="550"></canvas></li>
+<li><canvas id="line47-1" height="550" width="550"></canvas></li>
+<li><canvas id="line48-1" height="550" width="550"></canvas></li>
+    <li><canvas id="line49-1" height="550" width="550"></canvas></li>
+<li><canvas id="line50-1" height="550" width="550"></canvas></li>
+<li><canvas id="line51-1" height="550" width="550"></canvas></li>
+<li><canvas id="line52-1" height="550" width="550"></canvas></li>
+<li><canvas id="line53-1" height="550" width="550"></canvas></li>
+<li><canvas id="line54-1" height="550" width="550"></canvas></li>
+<li><canvas id="line55-1" height="550" width="550"></canvas></li>
+<li><canvas id="line56-1" height="550" width="550"></canvas></li>
+    <li><canvas id="line57-1" height="550" width="550"></canvas></li>
+<li><canvas id="line58-1" height="550" width="550"></canvas></li>
+<li><canvas id="line59-1" height="550" width="550"></canvas></li>
+<li><canvas id="line60-1" height="550" width="550"></canvas></li>
+<li><canvas id="line61-1" height="550" width="550"></canvas></li>
+<li><canvas id="line62-1" height="550" width="550"></canvas></li>
+<li><canvas id="line63-1" height="550" width="550"></canvas></li>
+<li><canvas id="line64-1" height="550" width="550"></canvas></li>
+    <li><canvas id="line65-1" height="550" width="550"></canvas></li>
+<li><canvas id="line66-1" height="550" width="550"></canvas></li>
+<li><canvas id="line67-1" height="550" width="550"></canvas></li>
+<li><canvas id="line68-1" height="550" width="550"></canvas></li>
+<li><canvas id="line69-1" height="550" width="550"></canvas></li>
+<li><canvas id="line70-1" height="550" width="550"></canvas></li>
+<li><canvas id="line71-1" height="550" width="550"></canvas></li>
+<li><canvas id="line72-1" height="550" width="550"></canvas></li>
+    <li><canvas id="line73-1" height="550" width="550"></canvas></li>
+<li><canvas id="line74-1" height="550" width="550"></canvas></li>
+<li><canvas id="line75-1" height="550" width="550"></canvas></li>
+<li><canvas id="line76-1" height="550" width="550"></canvas></li>
+<li><canvas id="line77-1" height="550" width="550"></canvas></li>
+<li><canvas id="line78-1" height="550" width="550"></canvas></li>
+<li><canvas id="line79-1" height="550" width="550"></canvas></li>
+<li><canvas id="line80-1" height="550" width="550"></canvas></li>
+    <li><canvas id="line81-1" height="550" width="550"></canvas></li>
+<li><canvas id="line82-1" height="550" width="550"></canvas></li>
+<li><canvas id="line83-1" height="550" width="550"></canvas></li>
+<li><canvas id="line84-1" height="550" width="550"></canvas></li>
+<li><canvas id="line85-1" height="550" width="550"></canvas></li>
+<li><canvas id="line86-1" height="550" width="550"></canvas></li>
+<li><canvas id="line87-1" height="550" width="550"></canvas></li>
+<li><canvas id="line88-1" height="550" width="550"></canvas></li>
+    <li><canvas id="line89-1" height="550" width="550"></canvas></li>
+<li><canvas id="line90-1" height="550" width="550"></canvas></li>
+<li><canvas id="line91-1" height="550" width="550"></canvas></li>
+<li><canvas id="line92-1" height="550" width="550"></canvas></li>
+<li><canvas id="line93-1" height="550" width="550"></canvas></li>
+<li><canvas id="line94-1" height="550" width="550"></canvas></li>
+<li><canvas id="line95-1" height="550" width="550"></canvas></li>
+<li><canvas id="line96-1" height="550" width="550"></canvas></li>
+    <li><canvas id="line97-1" height="550" width="550"></canvas></li>
+<li><canvas id="line98-1" height="550" width="550"></canvas></li>
+<li><canvas id="line99-1" height="550" width="550"></canvas></li>
+<li><canvas id="line100-1" height="550" width="550"></canvas></li>
+<li><canvas id="line101-1" height="550" width="550"></canvas></li>
+<li><canvas id="line102-1" height="550" width="550"></canvas></li>
+<li><canvas id="line103-1" height="550" width="550"></canvas></li>
+<li><canvas id="line104-1" height="550" width="550"></canvas></li>
+</ul>
+
+</div>
+
+</div></div></div></div></div>
+
+
+
+<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+<script>
+$('.showVie ul li').eq(0).show().siblings().hide();
+$('.choose').on('change', function (){
+var index = $(this).val() - 1;
+$('.showVie ul li').eq(index).show().siblings().hide();
+})
+</script>
+<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+<script>
+$('.showView1 ul li').eq(0).show().siblings().hide();
+$('.choose1').on('change', function (){
+var index = $(this).val() - 1;
+$('.showView1 ul li').eq(index).show().siblings().hide();
+})
+</script>
+
+
+ <!--引用折线图js文件  -->
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker4.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker5.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker6.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker7.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker8.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker9.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker10.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker11.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker12.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker13.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker14.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker15.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker16.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker17.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker18.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker19.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker20.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker21.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker22.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker23.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker24.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker25.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker26.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker27.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker28.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker29.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker30.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker31.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker32.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker33.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker34.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker35.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker36.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker37.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker38.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker39.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker40.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker41.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker42.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker43.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker44.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker45.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker46.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker47.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker48.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker49.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker50.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker51.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker52.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker53.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker54.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker55.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker56.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker57.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker58.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker59.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker60.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker61.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker62.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker63.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker64.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker65.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker66.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker67.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker68.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker69.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker70.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker71.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker72.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker73.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker74.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker75.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker76.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker77.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker78.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker79.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker80.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker81.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker82.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker83.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker84.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker85.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker86.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker87.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker88.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker89.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker90.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker91.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker92.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker93.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker94.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker95.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker96.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker97.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker98.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker99.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker100.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker101.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker102.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker103.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_line/linemarker104.js' %}"></script>
+
+
+    <!--按照id来对应所有调用js文件的函数  -->
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line1'));
+  line1(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line2'));
+  line2(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line3'));
+  line3(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line4'));
+  line4(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line5'));
+  line5(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line6'));
+  line6(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line7'));
+  line7(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line8'));
+  line8(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line9'));
+  line9(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line10'));
+  line10(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line11'));
+  line11(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line12'));
+  line12(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line13'));
+  line13(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line14'));
+  line14(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line15'));
+  line15(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line16'));
+  line16(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line17'));
+  line17(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line18'));
+  line18(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line19'));
+  line19(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line20'));
+  line20(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line21'));
+  line21(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line22'));
+  line22(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line23'));
+  line23(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line24'));
+  line24(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line25'));
+  line25(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line26'));
+  line26(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line27'));
+  line27(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line28'));
+  line28(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line29'));
+  line29(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line30'));
+  line30(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line31'));
+  line31(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line32'));
+  line32(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line33'));
+  line33(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line34'));
+  line34(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line35'));
+  line35(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line36'));
+  line36(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line37'));
+  line37(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line38'));
+  line38(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line39'));
+  line39(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line40'));
+  line40(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line41'));
+  line41(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line42'));
+  line42(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line43'));
+  line43(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line44'));
+  line44(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line45'));
+  line45(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line46'));
+  line46(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line47'));
+  line47(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line48'));
+  line48(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line49'));
+  line49(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line50'));
+  line50(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line51'));
+  line51(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line52'));
+  line52(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line53'));
+  line53(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line54'));
+  line54(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line55'));
+  line55(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line56'));
+  line56(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line57'));
+  line57(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line58'));
+  line58(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line59'));
+  line59(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line60'));
+  line60(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line61'));
+  line61(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line62'));
+  line62(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line63'));
+  line63(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line64'));
+  line64(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line65'));
+  line65(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line66'));
+  line66(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line67'));
+  line67(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line68'));
+  line68(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line69'));
+  line69(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line70'));
+  line70(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line71'));
+  line71(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line72'));
+  line72(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line73'));
+  line73(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line74'));
+  line74(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line75'));
+  line75(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line76'));
+  line76(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line77'));
+  line77(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line78'));
+  line78(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line79'));
+  line79(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line80'));
+  line80(myChart1, hei);
+</script>
+ <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line81'));
+  line81(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line82'));
+  line82(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line83'));
+  line83(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line84'));
+  line84(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line85'));
+  line85(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line86'));
+  line86(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line87'));
+  line87(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line88'));
+  line88(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line89'));
+  line89(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line90'));
+  line90(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line91'));
+  line91(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line92'));
+  line92(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line93'));
+  line93(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line94'));
+  line94(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line95'));
+  line95(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line96'));
+  line96(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line97'));
+  line97(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line98'));
+  line98(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line99'));
+  line99(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line100'));
+  line100(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line101'));
+  line101(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line102'));
+  line102(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line103'));
+  line103(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line104'));
+  line104(myChart1, hei);
+</script>
+
+
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line1-1'));
+  line1(myChart1, hei);
+</script>
+ <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line2-1'));
+  line2(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line3-1'));
+  line3(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line4-1'));
+  line4(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line5-1'));
+  line5(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line6-1'));
+  line6(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line7-1'));
+  line7(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line8-1'));
+  line8(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line9-1'));
+  line9(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line10-1'));
+  line10(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line11-1'));
+  line11(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line12-1'));
+  line12(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line13-1'));
+  line13(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line14-1'));
+  line14(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line15-1'));
+  line15(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line16-1'));
+  line16(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line17-1'));
+  line17(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line18-1'));
+  line18(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line19-1'));
+  line19(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line20-1'));
+  line20(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line21-1'));
+  line21(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line22-1'));
+  line22(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line23-1'));
+  line23(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line24-1'));
+  line24(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line25-1'));
+  line25(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line26-1'));
+  line26(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line27-1'));
+  line27(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line28-1'));
+  line28(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line29-1'));
+  line29(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line30-1'));
+  line30(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line31-1'));
+  line31(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line32-1'));
+  line32(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line33-1'));
+  line33(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line34-1'));
+  line34(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line35-1'));
+  line35(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line36-1'));
+  line36(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line37-1'));
+  line37(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line38-1'));
+  line38(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line39-1'));
+  line39(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line40-1'));
+  line40(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line41-1'));
+  line41(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line42-1'));
+  line42(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line43-1'));
+  line43(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line44-1'));
+  line44(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line45-1'));
+  line45(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line46-1'));
+  line46(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line47-1'));
+  line47(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line48-1'));
+  line48(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line49-1'));
+  line49(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line50-1'));
+  line50(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line51-1'));
+  line51(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line52-1'));
+  line52(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line53-1'));
+  line53(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line54-1'));
+  line54(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line55-1'));
+  line55(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line56-1'));
+  line56(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line57-1'));
+  line57(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line58-1'));
+  line58(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line59-1'));
+  line59(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line60-1'));
+  line60(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line61-1'));
+  line61(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line62-1'));
+  line62(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line63-1'));
+  line63(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line64-1'));
+  line64(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line65-1'));
+  line65(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line66-1'));
+  line66(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line67-1'));
+  line67(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line68-1'));
+  line68(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line69-1'));
+  line69(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line70-1'));
+  line70(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line71-1'));
+  line71(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line72-1'));
+  line72(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line73-1'));
+  line73(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line74-1'));
+  line74(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line75-1'));
+  line75(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line76-1'));
+  line76(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line77-1'));
+  line77(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line78-1'));
+  line78(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line79-1'));
+  line79(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line80-1'));
+  line80(myChart1, hei);
+</script>
+ <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line81-1'));
+  line81(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line82-1'));
+  line82(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line83-1'));
+  line83(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line84-1'));
+  line84(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line85-1'));
+  line85(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line86-1'));
+  line86(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line87-1'));
+  line87(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line88-1'));
+  line88(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line89-1'));
+  line89(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line90-1'));
+  line90(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line91-1'));
+  line91(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line92-1'));
+  line92(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line93-1'));
+  line93(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line94-1'));
+  line94(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line95-1'));
+  line95(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line96-1'));
+  line96(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line97-1'));
+  line97(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line98-1'));
+  line98(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line99-1'));
+  line99(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line100-1'));
+  line100(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line101-1'));
+  line101(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line102-1'));
+  line102(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line103-1'));
+  line103(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('line104-1'));
+  line104(myChart1, hei);
+</script>
+
+
+     <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="{% static 'index.html" class="logo-text float-left' %}"></a>
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/>
+                </div>
+
+                <a id="sidebarToggle" href="javascript:;"
+                   class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i data-toggle="collapsed" class="ft-circle toggle-icon"></i></a>
+                <a id="sidebarClose" href="javascript:;"
+                        class="nav-close d-block d-md-block d-lg-none d-xl-none"><i class="ft-circle"></i></a>
+            </div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+
+                    <li class="has-sub nav-item"><a href="{% static '#' %}"><i class="icon-pie-chart"></i><span
+                            data-i18n="" class="menu-title">数据可视化</span></a>
+                        <ul class="menu-content">
+                            <li ><a href="{% url 'stack19' %}" class="menu-item">总均分及各项指标</a>
+                            </li>
+                           <li><a href="{% url 'institute19' %}" class="menu-item">各单位成绩分析</a>
+                            </li>
+                            <li class="active"><a href="{% url 'comparison' %}" class="menu-item">个性化数据对比</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+
+        </div>
+
+
+ <script>
+　　closeDiv()
+</script>
+
+</body>
+
+</html>
+
+
+
+
+
+

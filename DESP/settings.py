@@ -94,9 +94,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Data_evaluation',
-        'USER': 'AppCon',
-        'PASSWORD': '58812189Cnic',
-        'HOST': '123.57.80.72',
+        # 'USER': 'AppCon',
+        # 'PASSWORD': '58812189Cnic',
+        # 'HOST': '123.57.80.72',
+        # 'PORT': '3306',
+        'USER': 'casdev',
+        'PASSWORD': 'iepDev<Cas&001',
+        'HOST': '10.10.11.39',
         'PORT': '3306',
     }
 
@@ -141,3 +145,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     'DESP/static', ]
 APPEND_SLASH = False
+
+ALLOWED_HOSTS = [
+    '10.10.11.40',
+    '127.0.0.1',
+    'localhost'
+]

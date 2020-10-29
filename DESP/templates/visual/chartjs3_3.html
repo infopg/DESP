@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html style="height: 100%">
+<head>
+    <META HTTP-EQUIV="Set-Cookie" CONTENT="cookievalue=xxx;expires=Wednesday, 21-Oct-21 16:14:21 GMT; path=/">
+    <meta http-equiv="Cache-control" content="no-cache,max-age=12000, must-revalidate,no-store">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="Wed, 20 Jun 2021 22:33:00 GMT" />
+    <meta http-equiv="Cache" content="no-cache">
+    <meta charset="utf-8">
+     <meta name="description" content=" data visualization">
+    <meta name="keywords" content="CAS,CNIC,数据可视化,信息化评估">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description"
+          content="Convex admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="fengguorui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+     <script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/prism.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/jquery.matchHeight-min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/pace/pace.min.js' %}"></script>
+<script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+<script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'css/demo.css' %}" type="text/css">
+</head>
+<body>
+
+<div class="wrapper nav-collapsed menu-collapsed">
+     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+
+                 <div id=loading style="background:#6A5ACD;border:1px dashed #E6E6FA;color:#E6E6FA; position:absolute; left:1150px; top:15px; width:210px; height:25px; z-index:1">
+页面正在载入中,请稍候......</div>
+                <script>
+function closeDiv()
+{
+　　document.getElementById('loading').style.visibility='hidden';
+}</script>
+                <body>请选择您想要比较的项目：</body>
+             <a class="btn mr-1 btn-round btn-primary" href="{%url 'comparison'%}">2009-2019总分及排名概览</a>
+                <a class="btn mr-1 btn-round btn-info" href="{%url 'comparison2'%}">每年度各项指标得分</a>
+                <a class="btn mr-1 btn-round btn-success" href="{%url 'comparison3'%}">网络、存储和计算资源总量</a>
+                <a class="btn mr-1 btn-round btn-danger" href="{%url 'comparison4'%}">最新评估情况</a>
+                 <a class="btn mr-1 btn-round btn-secondary" href="{%url 'comparison5'%}">员工及培训状况</a>
+
+            </div>
+
+        </div>
+    </nav>
+
+ <div class="main-panel">
+        <div class="main-content">
+    <div class="content-wrapper">
+      <div class="container-fluid">
+ <div class="col-sm-12">
+                            <h2 class="content-header">2009-2019年信息化评估数据个性化对比：网络、存储和计算资源总量</h2>
+                            <p class="content-sub-header">请选择两家需要比较的单位 ：</p>
+                        </div>
+
+
+<div style="height: 100% ; width: 50%; float:left">
+<select name="select" class="choose" >
+
+<option value="1">上海光学精密机械研究所</option>
+<option value="2">上海天文台</option>
+<option value="3">上海巴斯德研究所</option>
+<option value="4">上海应用物理研究所</option>
+    <option value="5">上海微系统与信息技术研究所</option>
+<option value="6">上海技术物理研究所</option>
+<option value="7">上海有机化学研究所</option>
+<option value="8">上海硅酸盐研究所</option>
+    <option value="9">上海药物研究所</option>
+<option value="10">上海营养与健康研究所</option>
+<option value="11">上海高等研究院</option>
+<option value="12">东北地理与农业生态研究所</option>
+    <option value="13">亚热带农业生态研究所</option>
+<option value="14">信息工程研究所</option>
+<option value="15">光电技术研究所</option>
+<option value="16">兰州化学物理研究所</option>
+    <option value="17">分子植物科学卓越创新中心</option>
+<option value="18">分子细胞科学卓越创新中心</option>
+<option value="19">力学研究所</option>
+<option value="20">动物研究所</option>
+    <option value="21">化学研究所</option>
+<option value="22">北京基因组研究所</option>
+<option value="23">北京综合研究中心</option>
+<option value="24">半导体研究所</option>
+    <option value="25">华南植物园</option>
+<option value="26">南京土壤研究所</option>
+<option value="27">南京地理与湖泊研究所</option>
+<option value="28">南京地质古生物研究所</option>
+    <option value="29">南海海洋研究所</option>
+<option value="30">古脊椎动物与古人类研究所</option>
+<option value="31">合肥物质科学研究院</option>
+<option value="32">国家天文台</option>
+    <option value="33">国家授时中心</option>
+<option value="34">国家空间科学中心</option>
+<option value="35">国家纳米科学中心</option>
+<option value="36">地球化学研究所</option>
+    <option value="37">地球环境研究所</option>
+<option value="38">地理科学与资源研究所</option>
+<option value="39">地质与地球物理研究所</option>
+<option value="40">城市环境研究所</option>
+    <option value="41">声学研究所</option>
+<option value="42">大气物理研究所</option>
+<option value="43">大连化学物理研究所</option>
+<option value="44">天津工业生物技术研究所</option>
+    <option value="45">宁波材料技术与工程研究所</option>
+<option value="46">山西煤炭化学研究所</option>
+<option value="47">工程热物理研究所</option>
+<option value="48">广州地球化学研究所</option>
+    <option value="49">广州生物医药与健康研究院</option>
+<option value="50">广州能源研究所</option>
+<option value="51">微小卫星创新研究院</option>
+<option value="52">微生物研究所</option>
+    <option value="53">微电子研究所</option>
+<option value="54">心理研究所</option>
+<option value="55">成都山地灾害与环境研究所</option>
+<option value="56">成都生物研究所</option>
+    <option value="57">数学与系统科学研究院</option>
+<option value="58">新疆理化技术研究所</option>
+<option value="59">新疆生态与地理研究所</option>
+<option value="60">昆明动物研究所</option>
+    <option value="61">昆明植物研究所</option>
+<option value="62">植物研究所</option>
+<option value="63">武汉岩土力学研究所</option>
+<option value="64">武汉植物园</option>
+    <option value="65">武汉病毒研究所</option>
+<option value="66">水生生物研究所</option>
+<option value="67">沈阳应用生态研究所</option>
+<option value="68">沈阳自动化研究所</option>
+    <option value="69">海洋研究所</option>
+<option value="70">深圳先进技术研究院</option>
+<option value="71">深海科学与工程研究所</option>
+<option value="72">烟台海岸带研究所</option>
+    <option value="73">物理研究所</option>
+<option value="74">理化技术研究所</option>
+<option value="75">理论物理研究所</option>
+<option value="76">生态环境研究中心</option>
+    <option value="77">生物物理研究所</option>
+<option value="78">电工研究所</option>
+<option value="79">福建物质结构研究所</option>
+<option value="80">科技战略咨询研究院</option>
+    <option value="81">空天信息创新研究院</option>
+<option value="82">空间应用工程与技术中心</option>
+<option value="83">精密测量科学与技术创新研究院</option>
+<option value="84">紫金山天文台</option>
+    <option value="85">脑科学与智能技术卓越创新中心</option>
+<option value="86">自动化研究所</option>
+<option value="87">自然科学史研究所</option>
+<option value="88">苏州生物医学工程技术研究所</option>
+    <option value="89">苏州纳米技术与纳米仿生研究所</option>
+<option value="90">西北生态环境资源研究院</option>
+<option value="91">西双版纳热带植物园</option>
+<option value="92">西安光学精密机械研究所</option>
+    <option value="93">计算技术研究所</option>
+<option value="94">软件研究所</option>
+<option value="95">过程工程研究所</option>
+<option value="96">近代物理研究所</option>
+    <option value="97">遗传与发育生物学研究所</option>
+<option value="98">重庆绿色智能技术研究院</option>
+<option value="99">金属研究所</option>
+<option value="100">长春光学精密机械与物理研究所</option>
+    <option value="101">长春应用化学研究所</option>
+<option value="102">青岛生物能源与过程研究所</option>
+<option value="103">青藏高原研究所</option>
+<option value="104">高能物理研究所</option>
+</select>
+        <div class="showVie" >
+            <!--左边栏所有选项和索引关系的对应 -->
+<ul>
+<li><canvas id="picto1" height="450" width="650"></canvas></li>
+<li><canvas id="picto2" height="450" width="650"></canvas></li>
+<li><canvas id="picto3" height="450" width="650"></canvas></li>
+<li><canvas id="picto4" height="450" width="650"></canvas></li>
+<li><canvas id="picto5" height="450" width="650"></canvas></li>
+<li><canvas id="picto6" height="450" width="650"></canvas></li>
+<li><canvas id="picto7" height="450" width="650"></canvas></li>
+<li><canvas id="picto8" height="450" width="650"></canvas></li>
+    <li><canvas id="picto9" height="450" width="650"></canvas></li>
+<li><canvas id="picto10" height="450" width="650"></canvas></li>
+<li><canvas id="picto11" height="450" width="650"></canvas></li>
+<li><canvas id="picto12" height="450" width="650"></canvas></li>
+<li><canvas id="picto13" height="450" width="650"></canvas></li>
+<li><canvas id="picto14" height="450" width="650"></canvas></li>
+<li><canvas id="picto15" height="450" width="650"></canvas></li>
+<li><canvas id="picto16" height="450" width="650"></canvas></li>
+    <li><canvas id="picto17" height="450" width="650"></canvas></li>
+<li><canvas id="picto18" height="450" width="650"></canvas></li>
+<li><canvas id="picto19" height="450" width="650"></canvas></li>
+<li><canvas id="picto20" height="450" width="650"></canvas></li>
+<li><canvas id="picto21" height="450" width="650"></canvas></li>
+<li><canvas id="picto22" height="450" width="650"></canvas></li>
+<li><canvas id="picto23" height="450" width="650"></canvas></li>
+<li><canvas id="picto24" height="450" width="650"></canvas></li>
+    <li><canvas id="picto25" height="450" width="650"></canvas></li>
+<li><canvas id="picto26" height="450" width="650"></canvas></li>
+<li><canvas id="picto27" height="450" width="650"></canvas></li>
+<li><canvas id="picto28" height="450" width="650"></canvas></li>
+<li><canvas id="picto29" height="450" width="650"></canvas></li>
+<li><canvas id="picto30" height="450" width="650"></canvas></li>
+<li><canvas id="picto31" height="450" width="650"></canvas></li>
+<li><canvas id="picto32" height="450" width="650"></canvas></li>
+    <li><canvas id="picto33" height="450" width="650"></canvas></li>
+<li><canvas id="picto34" height="450" width="650"></canvas></li>
+<li><canvas id="picto35" height="450" width="650"></canvas></li>
+<li><canvas id="picto36" height="450" width="650"></canvas></li>
+<li><canvas id="picto37" height="450" width="650"></canvas></li>
+<li><canvas id="picto38" height="450" width="650"></canvas></li>
+<li><canvas id="picto39" height="450" width="650"></canvas></li>
+<li><canvas id="picto40" height="450" width="650"></canvas></li>
+    <li><canvas id="picto41" height="450" width="650"></canvas></li>
+<li><canvas id="picto42" height="450" width="650"></canvas></li>
+<li><canvas id="picto43" height="450" width="650"></canvas></li>
+<li><canvas id="picto44" height="450" width="650"></canvas></li>
+<li><canvas id="picto45" height="450" width="650"></canvas></li>
+<li><canvas id="picto46" height="450" width="650"></canvas></li>
+<li><canvas id="picto47" height="450" width="650"></canvas></li>
+<li><canvas id="picto48" height="450" width="650"></canvas></li>
+    <li><canvas id="picto49" height="450" width="650"></canvas></li>
+<li><canvas id="picto50" height="450" width="650"></canvas></li>
+<li><canvas id="picto51" height="450" width="650"></canvas></li>
+<li><canvas id="picto52" height="450" width="650"></canvas></li>
+<li><canvas id="picto53" height="450" width="650"></canvas></li>
+<li><canvas id="picto54" height="450" width="650"></canvas></li>
+<li><canvas id="picto55" height="450" width="650"></canvas></li>
+<li><canvas id="picto56" height="450" width="650"></canvas></li>
+    <li><canvas id="picto57" height="450" width="650"></canvas></li>
+<li><canvas id="picto58" height="450" width="650"></canvas></li>
+<li><canvas id="picto59" height="450" width="650"></canvas></li>
+<li><canvas id="picto60" height="450" width="650"></canvas></li>
+<li><canvas id="picto61" height="450" width="650"></canvas></li>
+<li><canvas id="picto62" height="450" width="650"></canvas></li>
+<li><canvas id="picto63" height="450" width="650"></canvas></li>
+<li><canvas id="picto64" height="450" width="650"></canvas></li>
+    <li><canvas id="picto65" height="450" width="650"></canvas></li>
+<li><canvas id="picto66" height="450" width="650"></canvas></li>
+<li><canvas id="picto67" height="450" width="650"></canvas></li>
+<li><canvas id="picto68" height="450" width="650"></canvas></li>
+<li><canvas id="picto69" height="450" width="650"></canvas></li>
+<li><canvas id="picto70" height="450" width="650"></canvas></li>
+<li><canvas id="picto71" height="450" width="650"></canvas></li>
+<li><canvas id="picto72" height="450" width="650"></canvas></li>
+    <li><canvas id="picto73" height="450" width="650"></canvas></li>
+<li><canvas id="picto74" height="450" width="650"></canvas></li>
+<li><canvas id="picto75" height="450" width="650"></canvas></li>
+<li><canvas id="picto76" height="450" width="650"></canvas></li>
+<li><canvas id="picto77" height="450" width="650"></canvas></li>
+<li><canvas id="picto78" height="450" width="650"></canvas></li>
+<li><canvas id="picto79" height="450" width="650"></canvas></li>
+<li><canvas id="picto80" height="450" width="650"></canvas></li>
+    <li><canvas id="picto81" height="450" width="650"></canvas></li>
+<li><canvas id="picto82" height="450" width="650"></canvas></li>
+<li><canvas id="picto83" height="450" width="650"></canvas></li>
+<li><canvas id="picto84" height="450" width="650"></canvas></li>
+<li><canvas id="picto85" height="450" width="650"></canvas></li>
+<li><canvas id="picto86" height="450" width="650"></canvas></li>
+<li><canvas id="picto87" height="450" width="650"></canvas></li>
+<li><canvas id="picto88" height="450" width="650"></canvas></li>
+    <li><canvas id="picto89" height="450" width="650"></canvas></li>
+<li><canvas id="picto90" height="450" width="650"></canvas></li>
+<li><canvas id="picto91" height="450" width="650"></canvas></li>
+<li><canvas id="picto92" height="450" width="650"></canvas></li>
+<li><canvas id="picto93" height="450" width="650"></canvas></li>
+<li><canvas id="picto94" height="450" width="650"></canvas></li>
+<li><canvas id="picto95" height="450" width="650"></canvas></li>
+<li><canvas id="picto96" height="450" width="650"></canvas></li>
+    <li><canvas id="picto97" height="450" width="650"></canvas></li>
+<li><canvas id="picto98" height="450" width="650"></canvas></li>
+<li><canvas id="picto99" height="450" width="650"></canvas></li>
+<li><canvas id="picto100" height="450" width="650"></canvas></li>
+<li><canvas id="picto101" height="450" width="650"></canvas></li>
+<li><canvas id="picto102" height="450" width="650"></canvas></li>
+<li><canvas id="picto103" height="450" width="650"></canvas></li>
+<li><canvas id="picto104" height="450" width="650"></canvas></li>
+
+</ul>
+
+
+</div>
+
+
+
+</div>
+
+<div style="height: 100% ; width: 50%; float:right" >
+<select name="select" class="choose1" >
+<option value="1">上海光学精密机械研究所</option>
+<option value="2">上海天文台</option>
+<option value="3">上海巴斯德研究所</option>
+<option value="4">上海应用物理研究所</option>
+    <option value="5">上海微系统与信息技术研究所</option>
+<option value="6">上海技术物理研究所</option>
+<option value="7">上海有机化学研究所</option>
+<option value="8">上海硅酸盐研究所</option>
+    <option value="9">上海药物研究所</option>
+<option value="10">上海营养与健康研究所</option>
+<option value="11">上海高等研究院</option>
+<option value="12">东北地理与农业生态研究所</option>
+    <option value="13">亚热带农业生态研究所</option>
+<option value="14">信息工程研究所</option>
+<option value="15">光电技术研究所</option>
+<option value="16">兰州化学物理研究所</option>
+    <option value="17">分子植物科学卓越创新中心</option>
+<option value="18">分子细胞科学卓越创新中心</option>
+<option value="19">力学研究所</option>
+<option value="20">动物研究所</option>
+    <option value="21">化学研究所</option>
+<option value="22">北京基因组研究所</option>
+<option value="23">北京综合研究中心</option>
+<option value="24">半导体研究所</option>
+    <option value="25">华南植物园</option>
+<option value="26">南京土壤研究所</option>
+<option value="27">南京地理与湖泊研究所</option>
+<option value="28">南京地质古生物研究所</option>
+    <option value="29">南海海洋研究所</option>
+<option value="30">古脊椎动物与古人类研究所</option>
+<option value="31">合肥物质科学研究院</option>
+<option value="32">国家天文台</option>
+    <option value="33">国家授时中心</option>
+<option value="34">国家空间科学中心</option>
+<option value="35">国家纳米科学中心</option>
+<option value="36">地球化学研究所</option>
+    <option value="37">地球环境研究所</option>
+<option value="38">地理科学与资源研究所</option>
+<option value="39">地质与地球物理研究所</option>
+<option value="40">城市环境研究所</option>
+    <option value="41">声学研究所</option>
+<option value="42">大气物理研究所</option>
+<option value="43">大连化学物理研究所</option>
+<option value="44">天津工业生物技术研究所</option>
+    <option value="45">宁波材料技术与工程研究所</option>
+<option value="46">山西煤炭化学研究所</option>
+<option value="47">工程热物理研究所</option>
+<option value="48">广州地球化学研究所</option>
+    <option value="49">广州生物医药与健康研究院</option>
+<option value="50">广州能源研究所</option>
+<option value="51">微小卫星创新研究院</option>
+<option value="52">微生物研究所</option>
+    <option value="53">微电子研究所</option>
+<option value="54">心理研究所</option>
+<option value="55">成都山地灾害与环境研究所</option>
+<option value="56">成都生物研究所</option>
+    <option value="57">数学与系统科学研究院</option>
+<option value="58">新疆理化技术研究所</option>
+<option value="59">新疆生态与地理研究所</option>
+<option value="60">昆明动物研究所</option>
+    <option value="61">昆明植物研究所</option>
+<option value="62">植物研究所</option>
+<option value="63">武汉岩土力学研究所</option>
+<option value="64">武汉植物园</option>
+    <option value="65">武汉病毒研究所</option>
+<option value="66">水生生物研究所</option>
+<option value="67">沈阳应用生态研究所</option>
+<option value="68">沈阳自动化研究所</option>
+    <option value="69">海洋研究所</option>
+<option value="70">深圳先进技术研究院</option>
+<option value="71">深海科学与工程研究所</option>
+<option value="72">烟台海岸带研究所</option>
+    <option value="73">物理研究所</option>
+<option value="74">理化技术研究所</option>
+<option value="75">理论物理研究所</option>
+<option value="76">生态环境研究中心</option>
+    <option value="77">生物物理研究所</option>
+<option value="78">电工研究所</option>
+<option value="79">福建物质结构研究所</option>
+<option value="80">科技战略咨询研究院</option>
+    <option value="81">空天信息创新研究院</option>
+<option value="82">空间应用工程与技术中心</option>
+<option value="83">精密测量科学与技术创新研究院</option>
+<option value="84">紫金山天文台</option>
+    <option value="85">脑科学与智能技术卓越创新中心</option>
+<option value="86">自动化研究所</option>
+<option value="87">自然科学史研究所</option>
+<option value="88">苏州生物医学工程技术研究所</option>
+    <option value="89">苏州纳米技术与纳米仿生研究所</option>
+<option value="90">西北生态环境资源研究院</option>
+<option value="91">西双版纳热带植物园</option>
+<option value="92">西安光学精密机械研究所</option>
+    <option value="93">计算技术研究所</option>
+<option value="94">软件研究所</option>
+<option value="95">过程工程研究所</option>
+<option value="96">近代物理研究所</option>
+    <option value="97">遗传与发育生物学研究所</option>
+<option value="98">重庆绿色智能技术研究院</option>
+<option value="99">金属研究所</option>
+<option value="100">长春光学精密机械与物理研究所</option>
+    <option value="101">长春应用化学研究所</option>
+<option value="102">青岛生物能源与过程研究所</option>
+<option value="103">青藏高原研究所</option>
+<option value="104">高能物理研究所</option>
+
+
+</select>
+    <div class="showView1" >
+
+<ul>
+ <li><canvas id="picto1-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto2-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto3-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto4-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto5-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto6-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto7-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto8-1" height="450" width="650"></canvas></li>
+    <li><canvas id="picto9-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto10-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto11-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto12-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto13-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto14-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto15-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto16-1" height="450" width="650"></canvas></li>
+    <li><canvas id="picto17-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto18-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto19-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto20-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto21-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto22-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto23-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto24-1" height="450" width="650"></canvas></li>
+    <li><canvas id="picto25-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto26-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto27-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto28-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto29-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto30-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto31-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto32-1" height="450" width="650"></canvas></li>
+    <li><canvas id="picto33-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto34-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto35-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto36-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto37-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto38-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto39-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto40-1" height="450" width="650"></canvas></li>
+    <li><canvas id="picto41-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto42-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto43-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto44-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto45-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto46-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto47-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto48-1" height="450" width="650"></canvas></li>
+    <li><canvas id="picto49-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto50-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto51-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto52-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto53-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto54-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto55-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto56-1" height="450" width="650"></canvas></li>
+    <li><canvas id="picto57-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto58-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto59-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto60-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto61-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto62-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto63-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto64-1" height="450" width="650"></canvas></li>
+    <li><canvas id="picto65-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto66-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto67-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto68-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto69-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto70-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto71-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto72-1" height="450" width="650"></canvas></li>
+    <li><canvas id="picto73-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto74-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto75-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto76-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto77-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto78-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto79-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto80-1" height="450" width="650"></canvas></li>
+    <li><canvas id="picto81-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto82-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto83-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto84-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto85-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto86-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto87-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto88-1" height="450" width="650"></canvas></li>
+    <li><canvas id="picto89-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto90-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto91-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto92-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto93-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto94-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto95-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto96-1" height="450" width="650"></canvas></li>
+    <li><canvas id="picto97-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto98-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto99-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto100-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto101-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto102-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto103-1" height="450" width="650"></canvas></li>
+<li><canvas id="picto104-1" height="450" width="650"></canvas></li>
+
+</ul>
+
+</div>
+
+</div></div></div></div></div>
+
+
+
+<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+<script>
+$('.showVie ul li').eq(0).show().siblings().hide();
+$('.choose').on('change', function (){
+var index = $(this).val() - 1;
+$('.showVie ul li').eq(index).show().siblings().hide();
+})
+</script>
+<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+<script>
+$('.showView1 ul li').eq(0).show().siblings().hide();
+$('.choose1').on('change', function (){
+var index = $(this).val() - 1;
+$('.showView1 ul li').eq(index).show().siblings().hide();
+})
+</script>
+
+<!--引用象形条形图js文件  -->
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph4.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph5.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph6.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph7.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph8.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph9.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph10.js' %}"></script>
+     <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph11.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph12.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph13.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph14.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph15.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph16.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph17.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph18.js' %}"></script>
+     <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph19.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph20.js' %}"></script>
+     <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph21.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph22.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph23.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph24.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph25.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph26.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph27.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph28.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph29.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph30.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph31.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph32.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph33.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph34.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph35.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph36.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph37.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph38.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph39.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph40.js' %}"></script>
+      <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph41.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph42.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph43.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph44.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph45.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph46.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph47.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph48.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph49.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph50.js' %}"></script>
+      <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph51.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph52.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph53.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph54.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph55.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph56.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph57.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph58.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph59.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph60.js' %}"></script>
+      <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph61.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph62.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph63.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph64.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph65.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph66.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph67.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph68.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph69.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph70.js' %}"></script>
+      <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph71.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph72.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph73.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph74.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph75.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph76.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph77.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph78.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph79.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph80.js' %}"></script>
+      <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph81.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph82.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph83.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph84.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph85.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph86.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph87.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph88.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph89.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph90.js' %}"></script>
+      <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph91.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph92.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph93.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph94.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph95.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph96.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph97.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph98.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph99.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph100.js' %}"></script>
+      <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph101.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph102.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph103.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_picto/pictograph104.js' %}"></script>
+
+
+    <!--所有调用js文件的函数  -->
+  <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto1'));
+  picto1(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto2'));
+  picto2(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto3'));
+  picto3(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto4'));
+  picto4(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto5'));
+  picto5(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto6'));
+  picto6(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto7'));
+  picto7(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto8'));
+  picto8(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto9'));
+  picto9(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto10'));
+  picto10(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto11'));
+  picto11(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto12'));
+  picto12(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto13'));
+  picto13(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto14'));
+  picto14(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto15'));
+  picto15(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto16'));
+  picto16(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto17'));
+  picto17(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto18'));
+  picto18(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto19'));
+  picto19(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto20'));
+  picto20(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto21'));
+  picto21(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto22'));
+  picto22(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto23'));
+  picto23(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto24'));
+  picto24(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto25'));
+  picto25(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto26'));
+  picto26(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto27'));
+  picto27(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto28'));
+  picto28(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto29'));
+  picto29(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto30'));
+  picto30(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto31'));
+  picto31(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto32'));
+  picto32(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto33'));
+  picto33(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto34'));
+  picto34(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto35'));
+  picto35(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto36'));
+  picto36(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto37'));
+  picto37(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto38'));
+  picto38(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto39'));
+  picto39(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto40'));
+  picto40(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto41'));
+  picto41(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto42'));
+  picto42(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto43'));
+  picto43(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto44'));
+  picto44(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto45'));
+  picto45(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto46'));
+  picto46(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto47'));
+  picto47(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto48'));
+  picto48(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto49'));
+  picto49(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto50'));
+  picto50(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto51'));
+  picto51(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto52'));
+  picto52(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto53'));
+  picto53(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto54'));
+  picto54(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto55'));
+  picto55(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto56'));
+  picto56(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto57'));
+  picto57(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto58'));
+  picto58(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto59'));
+  picto59(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto60'));
+  picto60(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto61'));
+  picto61(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto62'));
+  picto62(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto63'));
+  picto63(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto64'));
+  picto64(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto65'));
+  picto65(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto66'));
+  picto66(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto67'));
+  picto67(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto68'));
+  picto68(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto69'));
+  picto69(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto70'));
+  picto70(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto71'));
+  picto71(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto72'));
+  picto72(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto73'));
+  picto73(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto74'));
+  picto74(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto75'));
+  picto75(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto76'));
+  picto76(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto77'));
+  picto77(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto78'));
+  picto78(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto79'));
+  picto79(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto80'));
+  picto80(myChart1, hei);
+</script>
+ <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto81'));
+  picto81(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto82'));
+  picto82(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto83'));
+  picto83(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto84'));
+  picto84(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto85'));
+  picto85(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto86'));
+  picto86(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto87'));
+  picto87(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto88'));
+  picto88(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto89'));
+  picto89(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto90'));
+  picto90(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto91'));
+  picto91(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto92'));
+  picto92(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto93'));
+  picto93(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto94'));
+  picto94(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto95'));
+  picto95(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto96'));
+  picto96(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto97'));
+  picto97(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto98'));
+  picto98(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto99'));
+  picto99(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto100'));
+  picto100(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto101'));
+  picto101(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto102'));
+  picto102(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto103'));
+  picto103(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto104'));
+  picto104(myChart1, hei);
+</script>
+
+
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto1-1'));
+  picto1(myChart1, hei);
+</script>
+ <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto2-1'));
+  picto2(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto3-1'));
+  picto3(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto4-1'));
+  picto4(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto5-1'));
+  picto5(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto6-1'));
+  picto6(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto7-1'));
+  picto7(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto8-1'));
+  picto8(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto9-1'));
+  picto9(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto10-1'));
+  picto10(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto11-1'));
+  picto11(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto12-1'));
+  picto12(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto13-1'));
+  picto13(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto14-1'));
+  picto14(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto15-1'));
+  picto15(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto16-1'));
+  picto16(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto17-1'));
+  picto17(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto18-1'));
+  picto18(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto19-1'));
+  picto19(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto20-1'));
+  picto20(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto21-1'));
+  picto21(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto22-1'));
+  picto22(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto23-1'));
+  picto23(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto24-1'));
+  picto24(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto25-1'));
+  picto25(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto26-1'));
+  picto26(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto27-1'));
+  picto27(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto28-1'));
+  picto28(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto29-1'));
+  picto29(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto30-1'));
+  picto30(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto31-1'));
+  picto31(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto32-1'));
+  picto32(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto33-1'));
+  picto33(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto34-1'));
+  picto34(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto35-1'));
+  picto35(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto36-1'));
+  picto36(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto37-1'));
+  picto37(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto38-1'));
+  picto38(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto39-1'));
+  picto39(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto40-1'));
+  picto40(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto41-1'));
+  picto41(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto42-1'));
+  picto42(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto43-1'));
+  picto43(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto44-1'));
+  picto44(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto45-1'));
+  picto45(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto46-1'));
+  picto46(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto47-1'));
+  picto47(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto48-1'));
+  picto48(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto49-1'));
+  picto49(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto50-1'));
+  picto50(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto51-1'));
+  picto51(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto52-1'));
+  picto52(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto53-1'));
+  picto53(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto54-1'));
+  picto54(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto55-1'));
+  picto55(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto56-1'));
+  picto56(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto57-1'));
+  picto57(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto58-1'));
+  picto58(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto59-1'));
+  picto59(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto60-1'));
+  picto60(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto61-1'));
+  picto61(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto62-1'));
+  picto62(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto63-1'));
+  picto63(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto64-1'));
+  picto64(myChart1, hei);
+</script>
+      <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto65-1'));
+  picto65(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto66-1'));
+  picto66(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto67-1'));
+  picto67(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto68-1'));
+  picto68(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto69-1'));
+  picto69(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto70-1'));
+  picto70(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto71-1'));
+  picto71(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto72-1'));
+  picto72(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto73-1'));
+  picto73(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto74-1'));
+  picto74(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto75-1'));
+  picto75(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto76-1'));
+  picto76(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto77-1'));
+  picto77(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto78-1'));
+  picto78(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto79-1'));
+  picto79(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto80-1'));
+  picto80(myChart1, hei);
+</script>
+ <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto81-1'));
+  picto81(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto82-1'));
+  picto82(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto83-1'));
+  picto83(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto84-1'));
+  picto84(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto85-1'));
+  picto85(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto86-1'));
+  picto86(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto87-1'));
+  picto87(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto88-1'));
+  picto88(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto89-1'));
+  picto89(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto90-1'));
+  picto90(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto91-1'));
+  picto91(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto92-1'));
+  picto92(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto93-1'));
+  picto93(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto94-1'));
+  picto94(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto95-1'));
+  picto95(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto96-1'));
+  picto96(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto97-1'));
+  picto97(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto98-1'));
+  picto98(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto99-1'));
+  picto99(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto100-1'));
+  picto100(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto101-1'));
+  picto101(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto102-1'));
+  picto102(myChart1, hei);
+</script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto103-1'));
+  picto103(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('picto104-1'));
+  picto104(myChart1, hei);
+</script>
+
+    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="{% static 'index.html" class="logo-text float-left' %}"></a>
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/>
+                </div>
+
+                <a id="sidebarToggle" href="javascript:;"
+                   class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i data-toggle="collapsed"
+                                                                               class="ft-circle toggle-icon"></i></a><a
+                        id="sidebarClose" href="javascript:;"
+                        class="nav-close d-block d-md-block d-lg-none d-xl-none"><i class="ft-circle"></i></a></div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+
+                    <li class="has-sub nav-item"><a href="{% static '#' %}"><i class="icon-pie-chart"></i><span
+                            data-i18n="" class="menu-title">数据可视化</span></a>
+                        <ul class="menu-content">
+                            <li ><a href="{% url 'stack19' %}" class="menu-item">总均分及各项指标</a>
+                            </li>
+                           <li><a href="{% url 'institute19' %}" class="menu-item">各单位成绩分析</a>
+                            </li>
+                            <li class="active"><a href="{% url 'comparison' %}" class="menu-item">个性化数据对比</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+
+        </div>
+<script>
+　　closeDiv()
+</script>
+</body>
+</html>
+
+
+
+
+

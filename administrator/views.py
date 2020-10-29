@@ -20,7 +20,6 @@ from supervisor.models import TableEvaluation
 from supervisor.models import TableOrganization
 
 
-
 def standard(request):
     mList = TableEvaluationIndicator.objects.filter(
         Q(table_evaluation_indicator_col_evaluation_name=request.GET.get('evalname')) &
@@ -208,6 +207,10 @@ def indicator_export(request):
 
     return response
 
+
+def test_yhb(request):
+    administrator = request.session['user_name']
+    # test_evalname =
 
 
 def timeliner(request):
@@ -783,23 +786,24 @@ def accumulation(request):
     return JsonResponse({'msg': 'success'})
 
 
-
 def questionaire_manage(request):
     administrator = request.session['user_name']
     evalname = TableEvaluation.objects.filter(
-        Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用'))
+        Q(table_evaluation_col_administrator=administrator))  # & Q(table_evaluation_col_status='启用'))
+    print(evalname)
     eval_data = [
         {
             'org_id': TableOrganization.objects.filter(
-                Q(table_organization_col_name=project.table_evaluation_col_organization)).values_list('table_organization_col_id')[0][0],
+                Q(table_organization_col_name=project.table_evaluation_col_organization)).values_list(
+                'table_organization_col_id')[0][0],
             'org_name': project.table_evaluation_col_organization,
             'project_name': project.table_evaluation_col_name,
-            'project_admin': project.table_evaluation_col_administrator
+            'project_admin': project.table_evaluation_col_administrator,
+            'questionaire_status': project.table_evaluation_col_status
         } for project in evalname
     ]
     # print(eval_data)
     return render(request, 'standard/manage.html', {'eval_data': eval_data, 'evalname': evalname})
-
 
 
 def questionaire_submit(request):
@@ -840,6 +844,7 @@ def questionaire_delete(request):
     TableQuestionContent.objects.filter(table_question_content_col_indicator_id=nodeID).delete()
     return JsonResponse({'msg': '删除成功!'})
 
+
 def scheme_show(request):
     indicatorID = request.POST['indicatorID']
     questionnumber = request.POST['questionnumber']
@@ -848,12 +853,12 @@ def scheme_show(request):
         scheme = TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
             table_question_content_col_question_number=questionnumber))
         markmethod = TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
-            table_question_content_col_question_number=questionnumber)).values_list('table_question_content_col_markmethod')[0][0]
+            table_question_content_col_question_number=questionnumber)).values_list(
+            'table_question_content_col_markmethod')[0][0]
         data = serializers.serialize('json', scheme)
         return JsonResponse({'data': data, 'msg': 'Created', 'markmethod': markmethod})
     else:
         return JsonResponse({'msg': 'Notcreatedyet'})
-
 
 
 def export_answer(request):  # 导出答案部分
@@ -861,4 +866,9 @@ def export_answer(request):  # 导出答案部分
 
 
 def import_answer(request):  # 导入答案部分
+    pass
+
+
+def questionaire_status(request):
+    org_name = request
     pass

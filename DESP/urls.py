@@ -35,4 +35,7 @@ urlpatterns = [
     url(r'supervisor', include('supervisor.urls')),
     url(r'administrator',include('administrator.urls')),
     url(r'^user/', include('user.urls')),
+
+    url(r'visualization', include('visualization.urls'))
+
 ]

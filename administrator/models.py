@@ -31,6 +31,23 @@ class TableEvaluationIndicator(models.Model):
         managed = True
         db_table = 'Table_Evaluation_Indicator'
 
+
+class TableQuestionaire(models.Model):
+    table_questionaire_col_id = models.IntegerField(db_column='Table_Questionaire_col_id', primary_key=True)  # Field name made lowercase.
+    table_questionaire_col_organization_id = models.CharField(db_column='Table_Questionaire_col_organization_id', max_length=50)  # Field name made lowercase.
+    table_questionaire_col_organization_contact = models.CharField(db_column='Table_Questionaire_col_organization_contact', max_length=50)  # Field name made lowercase.
+    table_questionaire_col_organization_email = models.CharField(db_column='Table_Questionaire_col_organization_email', max_length=50)  # Field name made lowercase.
+    table_questionaire_col_indicator_id = models.CharField(db_column='Table_Questionaire_col_indicator_id', max_length=50)  # Field name made lowercase.
+    table_questionaire_col_question_id = models.CharField(db_column='Table_Questionaire_col_question_id', unique=True, max_length=50)  # Field name made lowercase.
+    table_questionaire_col_question_number = models.CharField(db_column='Table_Questionaire_col_question_number', max_length=50)  # Field name made lowercase.
+    table_questionaire_col_question_content = models.CharField(db_column='Table_Questionaire_col_question_content', max_length=50)  # Field name made lowercase.
+    table_questionaire_col_question_status = models.CharField(db_column='Table_Questionaire_col_question_status', max_length=50)  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'Table_Questionaire'
+
+
 class TableQuestionContent(models.Model):
     table_question_content_col_question_id = models.AutoField(db_column='Table_Question_Content_col_Question_id', primary_key=True)  # Field name made lowercase.
     table_question_content_col_question_type = models.CharField(db_column='Table_Question_Content_col_Question_type', max_length=256,null=True)  # Field name made lowercase.
