@@ -13,6 +13,9 @@ urlpatterns = [
     re_path(r'/indicator_export$', views.indicator_export, name='indicator_export'),
     re_path(r'/upload_indicator$', views.upload_indicator, name='upload_indicator'),
     url(r'^download_indicator/', views.download_indicator, name="download_indicator"),
+    #下载问卷测试
+    url(r'^download_questionaire/', views.download_questionaire, name='download_questionaire'),
+    #
     re_path(r'/timeliner_create$', views.timeliner_create, name='timeliner_create'),
     re_path(r'/timeliner_edit$', views.timeliner_edit, name='timeliner_edit'),
     re_path(r'/timeliner_delete$', views.timeliner_delete, name='timeliner_delete'),

@@ -13,12 +13,45 @@ from django.core import serializers
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse, render
+from django.utils.encoding import escape_uri_path
+from xlwt import Workbook
 
 from administrator import models
 from administrator.models import TableEvaluationIndicator, TableQuestionContent
 from login.models import TableUser
 from supervisor.models import TableEvaluation
 from supervisor.models import TableOrganization
+
+
+# test
+def download_questionaire(request):
+    # 需要pip xlwt和import escape_uri_path
+    q_e = request.GET.get('questionaire_evalname')
+    list_indicator = models.TableEvaluationIndicator.objects.filter(
+        Q(table_evaluation_indicator_col_evaluation_name=q_e) &
+        Q(table_evaluation_indicator_col_parent_name_id__isnull=False)). \
+            order_by('table_evaluation_indicator_col_id')
+    # ws = Workbook(encoding="UTF-8")
+    for x in list_indicator:
+        list_questionaire = TableQuestionContent.objects.filter(
+            Q(table_question_content_col_indicator_id=x.table_evaluation_indicator_col_id)). \
+                values('table_question_content_col_content'). \
+                order_by('table_question_content_col_marks')
+        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        print(list_questionaire)
+        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+
+    # list_questionaire = TableQuestionContent.objects.filter(
+    #     Q(table_question_content_col_indicator_id=list_indicator)). \
+    #         values('table_question_content_col_content'). \
+    #         order_by('table_question_content_col_marks')
+    file_name = "questionaire_" + str(q_e) + ".xlsx"
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = "attachment; filename*={}".format(escape_uri_path(file_name))
+    return response
+
+
+# test
 
 
 def standard(request):
@@ -47,7 +80,6 @@ def standard(request):
         timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
             'table_timeliner_col_evaluation')
         return render(request, 'standard/standard.html',
-
                       {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
                        'current_eval': current_eval, 'current_admin': current_admin})
 
@@ -208,11 +240,6 @@ def indicator_export(request):
                 return JsonResponse({'message': '节点数据缺失'})
 
     return response
-
-
-def test_yhb(request):
-    administrator = request.session['user_name']
-    # test_evalname =
 
 
 def timeliner(request):
@@ -509,7 +536,7 @@ def choice_add(request):
     list = []
     for i in range(0, len(existquestion)):
         list.append(existquestion[i][0])
-    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id= request.POST['indicatorID'])
+    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=request.POST['indicatorID'])
     evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
     evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     if int(request.POST['questionnumber']) in list:
@@ -561,7 +588,7 @@ def blank_add(request):
         importanswer = 'on'
     else:
         importanswer = 'off'
-    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id= request.POST['indicatorID'])
+    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=request.POST['indicatorID'])
     evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
     evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     data = {}
@@ -621,7 +648,7 @@ def answer_add(request):
         importanswer = 'on'
     else:
         importanswer = 'off'
-    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id= request.POST['indicatorID'])
+    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=request.POST['indicatorID'])
     evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
     evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     data = {}
@@ -686,7 +713,7 @@ def matrix_add(request):
     data['title'] = request.POST['choicetitle']
     data['column'] = request.POST.getlist('choice')
     data['rows'] = str(request.POST['row']).splitlines()
-    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id= request.POST['indicatorID'])
+    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=request.POST['indicatorID'])
     evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
     evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     existquestion = TableQuestionContent.objects.filter(
@@ -746,7 +773,7 @@ def form_add(request):
         importanswer = 'on'
     else:
         importanswer = 'off'
-    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id= request.POST['indicatorID'])
+    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=request.POST['indicatorID'])
     evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
     evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     data = {}
