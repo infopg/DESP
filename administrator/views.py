@@ -926,8 +926,10 @@ def export_answer(request):  # 导出答案部分
     pass
 
 
-# def import_answer(request):  # 导入答案部分
-#     pass
+def import_answer(request):  # 导入答案部分
+    org_dasdad = request.GET.get('adas')
+    pass
+
 
 
 def questionaire_status(request):
