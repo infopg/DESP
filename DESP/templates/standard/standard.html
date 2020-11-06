@@ -277,7 +277,34 @@
 
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-12" id="preview">
-
+                                                {% for x in question %}
+                                                    {% for a in x %}
+                                                        {% if a.table_question_content_col_question_type == '选择题' %}
+                                                        {% elif a.table_question_content_col_question_type == '填空题' %}
+                                                        {% elif a.table_question_content_col_question_type == '矩阵题' %}
+                                                        {% elif a.table_question_content_col_question_type == '简答题' %}
+                                                        {% elif a.table_question_content_col_question_type == '表格题' %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endfor %}
+                                                <div id="pages" class="text-center">
+                                                    <nav aria-label="Page navigation mb-3">
+                                                        <ul class="pagination justify-content-center">
+                                                            <li class="page-item">
+                                                                {% if question.has_previous %}
+                                                                    <a class='active' name='previous'
+                                                                       href="?evalname=网络信息评估&admin=qzc?&page={{ question.previous_page_number }}">上一页</a>
+                                                                {% endif %}
+                                                                <span class="current">
+                    Page {{ question.number }} of {{ question.paginator.num_pages }}</span>
+                                                                {% if question.has_next %}
+                                                                    <a class='active' name="next"
+                                                                       href="?evalname=网络信息评估&admin=qzc?&page={{ question.next_page_number }}">下一页</a>
+                                                                {% endif %}
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -339,8 +366,8 @@
         data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
     });
     // 页面加载时生成树
+    console.log({{ question|safe }});
     var setting = {
-
         view: {
             selectedMulti: false,
             nameIsHTML: true

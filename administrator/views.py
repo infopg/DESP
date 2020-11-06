@@ -9,6 +9,7 @@ from decimal import *
 
 import xlrd
 from django.core import serializers
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, InvalidPage
 # Create your views here.
 from django.db.models import Q
 from django.http import JsonResponse
@@ -60,7 +61,6 @@ def standard(request):
         Q(table_evaluation_indicator_col_administrator_name=request.session.get('user_name')))
     current_eval = request.GET.get('evalname')
     current_admin = request.session.get('user_name')
-
     if mList.exists():
         _data = [
             {
@@ -71,16 +71,55 @@ def standard(request):
                 'open': 1,
             } for x in mList
         ]
-        # questionaire_preview =
+        evalobj = TableEvaluation.objects.get(table_evaluation_col_name=current_eval)
+        questionaire_preview = set(
+            TableQuestionContent.objects.filter(table_question_content_col_evalname=evalobj).values_list(
+                'table_question_content_col_indicator_id'))
+        group = []
+        for eachquestion in questionaire_preview:
+            group.append(eachquestion)
+        list = []
+        for i in range(0, len(questionaire_preview)):
+            list.append(TableQuestionContent.objects.filter(table_question_content_col_indicator_id=group[i][0]))
+        paginator = Paginator(list, 1)
+        page = request.GET.get('page')
+        try:
+            question = paginator.page(page)
+        except PageNotAnInteger:
+            # 如果请求的页数不是整数, 返回第一页。
+            question = paginator.page(1)
+        except InvalidPage:
+            # 如果请求的页数不存在, 重定向页面
+            return HttpResponse('找不到页面的内容')
+        except EmptyPage:
+            # 如果请求的页数不在合法的页数范围内，返回结果的最后一页。
+            question = paginator.page(paginator.num_pages)
+        # for y in list:
+        #     data = [
+        #         {
+        #             'question_type': x.table_question_content_col_question_type,
+        #             'indicator_id': x.table_question_content_col_indicator_id,
+        #             'question_number': x.table_question_content_col_question_number,
+        #             'marks': x.table_question_content_col_marks,
+        #             'content': x.table_question_content_col_content,
+        #             # 'scheme': x.table_question_content_col_mark_scheme,
+        #             'markmethod': x.table_question_content_col_markmethod,
+        #             'attachment': x.table_question_content_col_question_attachment,
+        #             'class': x.table_question_content_col_question_class,
+        #             'import': x.table_question_content_col_question_importanswer,
+        #             'required': x.table_question_content_col_question_required
+        #         } for x in y
+        #     ]
+        # print(data)
         administrator = request.session['user_name']
         evalname = TableEvaluation.objects.filter(
             Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
             'table_evaluation_col_name')
-
         timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
             'table_timeliner_col_evaluation')
         return render(request, 'standard/standard.html',
-                      {'data': _data, 'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
+                      {'question': question, 'data': _data, 'evalname': evalname, 'admin': administrator,
+                       'timeevalname': timeevalname,
                        'current_eval': current_eval, 'current_admin': current_admin})
 
     else:
@@ -506,6 +545,13 @@ def questionaire(request):
             'required': x.table_question_content_col_question_required
         } for x in questionlist
     ]
+    # question = TableQuestionContent.objects.all()
+    # for q in question:
+    #     indicator = q.table_question_content_col_indicator_id
+    #     eval = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=indicator).values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
+    #     evalid = TableEvaluation.objects.get(table_evaluation_col_name=eval)
+    #     q.table_question_content_col_evalname= evalid
+    #     q.save()
     for question in data:
         for key in question:
             if question[key] == None:
