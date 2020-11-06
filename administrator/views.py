@@ -931,5 +931,7 @@ def import_answer(request):  # 导入答案部分
 
 
 def questionaire_status(request):
-    org_name = request
+    org_name = request.GET.get('evalname')
+    status = request.GET.get('status')
+
     pass

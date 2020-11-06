@@ -240,7 +240,7 @@
             "<td id ="+ id_project_admin +">" + e_d[i]['project_admin'] + "</td>" +
             "<td>" +
                 "<button class='btn mr-1 btn-secondary' id=" + bt_change + " " +
-                    "onclick='Change_Status(" + bt_change + ")'>已启用" +
+                    "onclick='Change_Status(" + id_project_name + "," + bt_change + ")'>已启用" +
                 "</button>" +
             "</td>" +
             "<td>进度 %</td>" +
@@ -259,13 +259,16 @@
 </script>
 <script>
     //改变问卷状态，待完善
-    function Change_Status(x) {
-        var x1 = "已启用";
-        var x2 = "已停用";
-        if(document.getElementById(x).innerHTML==x1){
-            document.getElementById(x).innerHTML=x2;
+    function Change_Status(x,y) {
+        var text = document.getElementById(x).innerHTML;
+        var text1 = "已启用";
+        var text2 = "已停用";
+        if(document.getElementById(y).innerHTML==text1){
+            document.getElementById(y).innerHTML=text2;
+            window.location.href = "{% url 'question_status' %}?evalname" + text + "&status" + text2;
         }else {
-            document.getElementById(x).innerHTML=x1;
+            document.getElementById(y).innerHTML=text1;
+            window.location.href = "{% url 'question_status' %}?evalname" + text + "&status" + text1;
         }
     }
 
