@@ -5,7 +5,6 @@ from administrator.views import standard, timeliner, choice_add, questionaire_ma
     form_add, accumulation, export_answer, import_answer, questionaire_submit, questionaire_delete, question_delete, \
     scheme_show
 
-
 urlpatterns = [
     url('/standard', standard, name='standard'),
     url(r'/delete', name='delete', view=views.delete),
@@ -13,6 +12,10 @@ urlpatterns = [
     re_path(r'/indicator_export$', views.indicator_export, name='indicator_export'),
     re_path(r'/upload_indicator$', views.upload_indicator, name='upload_indicator'),
     url(r'^download_indicator/', views.download_indicator, name="download_indicator"),
+    # 下载问卷测试/问卷状态改变测试
+    url(r'^download_questionaire/', views.download_questionaire, name='download_questionaire'),
+    url(r'^question_status/', views.questionaire_status, name='question_status'),
+    #
     re_path(r'/timeliner_create$', views.timeliner_create, name='timeliner_create'),
     re_path(r'/timeliner_edit$', views.timeliner_edit, name='timeliner_edit'),
     re_path(r'/timeliner_delete$', views.timeliner_delete, name='timeliner_delete'),

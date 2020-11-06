@@ -1,0 +1,2085 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html style="height: 100%">
+<head>
+    <META HTTP-EQUIV="Set-Cookie" CONTENT="cookievalue=xxx;expires=Wednesday, 21-Oct-21 16:14:21 GMT; path=/">
+   <meta http-equiv="Cache-control" content="no-cache,max-age=12000, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="Wed, 20 Jun 2021 22:33:00 GMT" />
+    <meta name="author" content="fengguorui">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <meta name="description" content=" data visualization">
+    <meta name="keywords" content="CAS,CNIC,数据可视化,信息化评估">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+   <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+     <script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+<script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'css/demo.css' %}" type="text/css">
+
+</head>
+<body>
+
+<div class="wrapper nav-collapsed menu-collapsed">
+     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                 <div id=loading style="background:#6A5ACD;border:1px dashed #E6E6FA;color:#E6E6FA; position:absolute; left:1150px; top:15px; width:210px; height:25px; z-index:1">
+页面正在载入中,请稍候......</div>
+                <script>
+function closeDiv()
+{
+　　document.getElementById('loading').style.visibility='hidden';
+}</script>
+
+                <body>请选择您想要比较的项目：</body>
+                 <a class="btn mr-1 btn-round btn-primary" href="{%url 'comparison'%}">2009-2019总分及排名概览</a>
+                <a class="btn mr-1 btn-round btn-info" href="{%url 'comparison2'%}">每年度各项指标得分</a>
+                <a class="btn mr-1 btn-round btn-warning" href="{%url 'comparison3'%}">网络、存储和计算资源总量</a>
+                <a class="btn mr-1 btn-round btn-danger" href="{%url 'comparison4'%}">最新评估情况</a>
+                 <a class="btn mr-1 btn-round btn-success" href="{%url 'comparison5'%}">员工及培训状况</a>
+            </div>
+
+
+        </div>
+    </nav>
+
+ <div class="main-panel">
+        <div class="main-content">
+    <div class="content-wrapper">
+      <div class="container-fluid">
+ <div class="col-sm-12">
+                            <h2 class="content-header">2009-2019年信息化评估数据个性化对比：员工及培训状况</h2>
+                            <p class="content-sub-header">请选择两家需要比较的单位 ：</p>
+                        </div>
+
+
+<div style="height: 100% ; width: 50%; float:left">
+<select name="select" class="choose" >
+
+<option value="1">上海光学精密机械研究所</option>
+<option value="2">上海天文台</option>
+<option value="3">上海巴斯德研究所</option>
+<option value="4">上海应用物理研究所</option>
+    <option value="5">上海微系统与信息技术研究所</option>
+<option value="6">上海技术物理研究所</option>
+<option value="7">上海有机化学研究所</option>
+<option value="8">上海硅酸盐研究所</option>
+    <option value="9">上海药物研究所</option>
+<option value="10">上海营养与健康研究所</option>
+<option value="11">上海高等研究院</option>
+<option value="12">东北地理与农业生态研究所</option>
+    <option value="13">亚热带农业生态研究所</option>
+<option value="14">信息工程研究所</option>
+<option value="15">光电技术研究所</option>
+<option value="16">兰州化学物理研究所</option>
+    <option value="17">分子植物科学卓越创新中心</option>
+<option value="18">分子细胞科学卓越创新中心</option>
+<option value="19">力学研究所</option>
+<option value="20">动物研究所</option>
+    <option value="21">化学研究所</option>
+<option value="22">北京基因组研究所</option>
+<option value="23">北京综合研究中心</option>
+<option value="24">半导体研究所</option>
+    <option value="25">华南植物园</option>
+<option value="26">南京土壤研究所</option>
+<option value="27">南京地理与湖泊研究所</option>
+<option value="28">南京地质古生物研究所</option>
+    <option value="29">南海海洋研究所</option>
+<option value="30">古脊椎动物与古人类研究所</option>
+<option value="31">合肥物质科学研究院</option>
+<option value="32">国家天文台</option>
+    <option value="33">国家授时中心</option>
+<option value="34">国家空间科学中心</option>
+<option value="35">国家纳米科学中心</option>
+<option value="36">地球化学研究所</option>
+    <option value="37">地球环境研究所</option>
+<option value="38">地理科学与资源研究所</option>
+<option value="39">地质与地球物理研究所</option>
+<option value="40">城市环境研究所</option>
+    <option value="41">声学研究所</option>
+<option value="42">大气物理研究所</option>
+<option value="43">大连化学物理研究所</option>
+<option value="44">天津工业生物技术研究所</option>
+    <option value="45">宁波材料技术与工程研究所</option>
+<option value="46">山西煤炭化学研究所</option>
+<option value="47">工程热物理研究所</option>
+<option value="48">广州地球化学研究所</option>
+    <option value="49">广州生物医药与健康研究院</option>
+<option value="50">广州能源研究所</option>
+<option value="51">微小卫星创新研究院</option>
+<option value="52">微生物研究所</option>
+    <option value="53">微电子研究所</option>
+<option value="54">心理研究所</option>
+<option value="55">成都山地灾害与环境研究所</option>
+<option value="56">成都生物研究所</option>
+    <option value="57">数学与系统科学研究院</option>
+<option value="58">新疆理化技术研究所</option>
+<option value="59">新疆生态与地理研究所</option>
+<option value="60">昆明动物研究所</option>
+    <option value="61">昆明植物研究所</option>
+<option value="62">植物研究所</option>
+<option value="63">武汉岩土力学研究所</option>
+<option value="64">武汉植物园</option>
+    <option value="65">武汉病毒研究所</option>
+<option value="66">水生生物研究所</option>
+<option value="67">沈阳应用生态研究所</option>
+<option value="68">沈阳自动化研究所</option>
+    <option value="69">海洋研究所</option>
+<option value="70">深圳先进技术研究院</option>
+<option value="71">深海科学与工程研究所</option>
+<option value="72">烟台海岸带研究所</option>
+    <option value="73">物理研究所</option>
+<option value="74">理化技术研究所</option>
+<option value="75">理论物理研究所</option>
+<option value="76">生态环境研究中心</option>
+    <option value="77">生物物理研究所</option>
+<option value="78">电工研究所</option>
+<option value="79">福建物质结构研究所</option>
+<option value="80">科技战略咨询研究院</option>
+    <option value="81">空天信息创新研究院</option>
+<option value="82">空间应用工程与技术中心</option>
+<option value="83">精密测量科学与技术创新研究院</option>
+<option value="84">紫金山天文台</option>
+    <option value="85">脑科学与智能技术卓越创新中心</option>
+<option value="86">自动化研究所</option>
+<option value="87">自然科学史研究所</option>
+<option value="88">苏州生物医学工程技术研究所</option>
+    <option value="89">苏州纳米技术与纳米仿生研究所</option>
+<option value="90">西北生态环境资源研究院</option>
+<option value="91">西双版纳热带植物园</option>
+<option value="92">西安光学精密机械研究所</option>
+    <option value="93">计算技术研究所</option>
+<option value="94">软件研究所</option>
+<option value="95">过程工程研究所</option>
+<option value="96">近代物理研究所</option>
+    <option value="97">遗传与发育生物学研究所</option>
+<option value="98">重庆绿色智能技术研究院</option>
+<option value="99">金属研究所</option>
+<option value="100">长春光学精密机械与物理研究所</option>
+    <option value="101">长春应用化学研究所</option>
+<option value="102">青岛生物能源与过程研究所</option>
+<option value="103">青藏高原研究所</option>
+<option value="104">高能物理研究所</option>
+</select>
+        <div class="showVie" >
+            <!--左边栏所有选项和索引关系的对应 -->
+<ul>
+<li>
+   <p></p>
+    <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_1()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_1()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_1()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_1()" />
+    <canvas id="radar1" height="550" width="550"></canvas>
+
+</li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_2()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_2()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_2()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_2()" /><canvas id="radar2" height="550" width="550"></canvas></li>
+
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_3()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_3()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_3()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_3()" /><canvas id="radar3" height="550" width="550"></canvas></li>
+<li> <p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_4()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_4()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_4()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_4()" /><canvas id="radar4" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_5()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_5()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_5()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_5()" /><canvas id="radar5" height="550" width="550"></canvas></li>
+<li> <p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_6()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_6()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_6()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_6()" /><canvas id="radar6" height="550" width="550"></canvas></li>
+<li> <p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_7()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_7()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_7()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_7()" /><canvas id="radar7" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_8()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_8()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_8()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_8()" /><canvas id="radar8" height="550" width="550"></canvas></li>
+    <li> <p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_9()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_9()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_9()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_9()" /><canvas id="radar9" height="550" width="550"></canvas></li>
+<li> <p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_10()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_10()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_10()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_10()" /><canvas id="radar10" height="550" width="550"></canvas></li>
+<li> <p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_11()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_11()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_11()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_11()" /><canvas id="radar11" height="550" width="550"></canvas></li>
+<li> <p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_12()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_12()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_12()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_12()" /><canvas id="radar12" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_13()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_13()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_13()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_13()" /><canvas id="radar13" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_14()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_14()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_14()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_14()" /><canvas id="radar14" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_15()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_15()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_15()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_15()" /><canvas id="radar15" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_16()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_16()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_16()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_16()" /><canvas id="radar16" height="550" width="550"></canvas></li>
+    <li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_17()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_17()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_17()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_17()" /><canvas id="radar17" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_18()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_18()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_18()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_18()" /><canvas id="radar18" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_19()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_19()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_19()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_19()" /><canvas id="radar19" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_20()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_20()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_20()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_20()" /><canvas id="radar20" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_21()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_21()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_21()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_21()" /><canvas id="radar21" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_22()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_22()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_22()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_22()" /><canvas id="radar22" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_23()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_23()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_23()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_23()" /><canvas id="radar23" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_24()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_24()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_24()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_24()" /><canvas id="radar24" height="550" width="550"></canvas></li>
+    <li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_25()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_25()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_25()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_25()" /><canvas id="radar25" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_26()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_26()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_26()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_26()" /><canvas id="radar26" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_27()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_27()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_27()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_27()" /><canvas id="radar27" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_28()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_28()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_28()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_28()" /><canvas id="radar28" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_29()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_29()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_29()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_29()" /><canvas id="radar29" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_30()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_30()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_30()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_30()" /><canvas id="radar30" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_31()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_31()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_31()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_31()" /><canvas id="radar31" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_32()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_32()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_32()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_32()" /><canvas id="radar32" height="550" width="550"></canvas></li>
+    <li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_33()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_33()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_33()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_33()" /><canvas id="radar33" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_34()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_34()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_34()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_34()" /><canvas id="radar34" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_35()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_35()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_35()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_35()" /><canvas id="radar35" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_36()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_36()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_36()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_36()" /><canvas id="radar36" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_37()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_37()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_37()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_37()" /><canvas id="radar37" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_38()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_38()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_38()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_38()" /><canvas id="radar38" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_39()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_39()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_39()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_39()" /><canvas id="radar39" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_40()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_40()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_40()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_40()" /><canvas id="radar40" height="550" width="550"></canvas></li>
+    <li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_41()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_41()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_41()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_41()" /><canvas id="radar41" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_42()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_42()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_42()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_42()" /><canvas id="radar42" height="550" width="550"></canvas></li>
+<li><p></p> <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_43()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_43()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_43()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_43()" /><canvas id="radar43" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_44()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_44()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_44()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_44()" /><canvas id="radar44" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_45()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_45()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_45()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_45()" /><canvas id="radar45" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_46()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_46()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_46()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_46()" /><canvas id="radar46" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_47()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_47()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_47()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_47()" /><canvas id="radar47" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_48()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_48()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_48()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_48()" /><canvas id="radar48" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_49()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_49()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_49()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_49()" /><canvas id="radar49" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_50()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_50()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_50()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_50()" /><canvas id="radar50" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_51()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_51()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_51()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_51()" /><canvas id="radar51" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_52()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_52()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_52()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_52()" /><canvas id="radar52" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_53()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_53()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_53()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_53()" /><canvas id="radar53" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_54()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_54()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_54()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_54()" /><canvas id="radar54" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_55()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_55()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_55()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_55()" /><canvas id="radar55" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_56()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_56()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_56()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_56()" /><canvas id="radar56" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_57()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_57()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_57()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_57()" /><canvas id="radar57" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_58()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_58()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_58()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_58()" /><canvas id="radar58" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_59()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_59()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_59()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_59()" /><canvas id="radar59" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_60()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_60()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_60()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_60()" /><canvas id="radar60" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_61()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_61()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_61()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_61()" /><canvas id="radar61" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_62()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_62()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_62()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_62()" /><canvas id="radar62" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_63()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_63()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_63()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_63()" /><canvas id="radar63" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_64()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_64()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_64()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_64()" /><canvas id="radar64" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_65()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_65()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_65()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_65()" /><canvas id="radar65" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_66()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_66()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_66()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_66()" /><canvas id="radar66" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_67()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_67()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_67()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_67()" /><canvas id="radar67" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_68()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_68()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_68()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_68()" /><canvas id="radar68" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_69()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_69()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_69()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_69()" /><canvas id="radar69" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_70()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_70()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_70()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_70()" /><canvas id="radar70" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_71()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_71()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_71()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_71()" /><canvas id="radar71" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_72()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_72()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_72()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_72()" /><canvas id="radar72" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_73()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_73()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_73()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_73()" /><canvas id="radar73" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_74()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_74()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_74()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_74()" /><canvas id="radar74" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_75()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_75()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_75()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_75()" /><canvas id="radar75" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_76()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_76()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_76()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_76()" /><canvas id="radar76" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_77()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_77()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_77()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_77()" /><canvas id="radar77" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_78()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_78()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_78()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_78()" /><canvas id="radar78" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_79()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_79()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_79()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_79()" /><canvas id="radar79" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_80()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_80()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_80()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_80()" /><canvas id="radar80" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_81()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_81()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_81()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_81()" /><canvas id="radar81" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_82()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_82()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_82()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_82()" /><canvas id="radar82" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_83()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_83()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_83()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_83()" /><canvas id="radar83" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_84()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_84()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_84()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_84()" /><canvas id="radar84" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_85()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_85()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_85()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_85()" /><canvas id="radar85" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_86()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_86()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_86()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_86()" /><canvas id="radar86" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_87()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_87()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_87()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_87()" /><canvas id="radar87" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_88()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_88()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_88()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_88()" /><canvas id="radar88" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_89()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_89()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_89()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_89()" /><canvas id="radar89" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_90()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_90()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_90()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_90()" /><canvas id="radar90" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_91()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_91()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_91()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_91()" /><canvas id="radar91" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_92()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_92()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_92()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_92()" /><canvas id="radar92" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_93()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_93()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_93()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_93()" /><canvas id="radar93" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_94()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_94()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_94()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_94()" /><canvas id="radar94" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_95()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_95()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_95()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_95()" /><canvas id="radar95" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_96()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_96()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_96()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_96()" /><canvas id="radar96" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_97()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_97()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_97()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_97()" /><canvas id="radar97" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_98()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_98()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_98()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_98()" /><canvas id="radar98" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_99()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_99()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_99()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_99()" /><canvas id="radar99" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_100()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_100()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_100()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_100()" /><canvas id="radar100" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_101()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_101()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_101()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_101()" /><canvas id="radar101" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_102()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_102()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_102()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_102()" /><canvas id="radar102" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_103()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_103()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_103()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_103()" /><canvas id="radar103" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="a16_104()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="a17_104()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="a18_104()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="a19_104()" /><canvas id="radar104" height="550" width="550"></canvas></li>
+
+</ul>
+
+
+</div>
+
+
+
+</div>
+
+<div style="height: 100% ; width: 50%; float:right" >
+<select name="select" class="choose1" >
+<option value="1">上海光学精密机械研究所</option>
+<option value="2">上海天文台</option>
+<option value="3">上海巴斯德研究所</option>
+<option value="4">上海应用物理研究所</option>
+    <option value="5">上海微系统与信息技术研究所</option>
+<option value="6">上海技术物理研究所</option>
+<option value="7">上海有机化学研究所</option>
+<option value="8">上海硅酸盐研究所</option>
+    <option value="9">上海药物研究所</option>
+<option value="10">上海营养与健康研究所</option>
+<option value="11">上海高等研究院</option>
+<option value="12">东北地理与农业生态研究所</option>
+    <option value="13">亚热带农业生态研究所</option>
+<option value="14">信息工程研究所</option>
+<option value="15">光电技术研究所</option>
+<option value="16">兰州化学物理研究所</option>
+    <option value="17">分子植物科学卓越创新中心</option>
+<option value="18">分子细胞科学卓越创新中心</option>
+<option value="19">力学研究所</option>
+<option value="20">动物研究所</option>
+    <option value="21">化学研究所</option>
+<option value="22">北京基因组研究所</option>
+<option value="23">北京综合研究中心</option>
+<option value="24">半导体研究所</option>
+    <option value="25">华南植物园</option>
+<option value="26">南京土壤研究所</option>
+<option value="27">南京地理与湖泊研究所</option>
+<option value="28">南京地质古生物研究所</option>
+    <option value="29">南海海洋研究所</option>
+<option value="30">古脊椎动物与古人类研究所</option>
+<option value="31">合肥物质科学研究院</option>
+<option value="32">国家天文台</option>
+    <option value="33">国家授时中心</option>
+<option value="34">国家空间科学中心</option>
+<option value="35">国家纳米科学中心</option>
+<option value="36">地球化学研究所</option>
+    <option value="37">地球环境研究所</option>
+<option value="38">地理科学与资源研究所</option>
+<option value="39">地质与地球物理研究所</option>
+<option value="40">城市环境研究所</option>
+    <option value="41">声学研究所</option>
+<option value="42">大气物理研究所</option>
+<option value="43">大连化学物理研究所</option>
+<option value="44">天津工业生物技术研究所</option>
+    <option value="45">宁波材料技术与工程研究所</option>
+<option value="46">山西煤炭化学研究所</option>
+<option value="47">工程热物理研究所</option>
+<option value="48">广州地球化学研究所</option>
+    <option value="49">广州生物医药与健康研究院</option>
+<option value="50">广州能源研究所</option>
+<option value="51">微小卫星创新研究院</option>
+<option value="52">微生物研究所</option>
+    <option value="53">微电子研究所</option>
+<option value="54">心理研究所</option>
+<option value="55">成都山地灾害与环境研究所</option>
+<option value="56">成都生物研究所</option>
+    <option value="57">数学与系统科学研究院</option>
+<option value="58">新疆理化技术研究所</option>
+<option value="59">新疆生态与地理研究所</option>
+<option value="60">昆明动物研究所</option>
+    <option value="61">昆明植物研究所</option>
+<option value="62">植物研究所</option>
+<option value="63">武汉岩土力学研究所</option>
+<option value="64">武汉植物园</option>
+    <option value="65">武汉病毒研究所</option>
+<option value="66">水生生物研究所</option>
+<option value="67">沈阳应用生态研究所</option>
+<option value="68">沈阳自动化研究所</option>
+    <option value="69">海洋研究所</option>
+<option value="70">深圳先进技术研究院</option>
+<option value="71">深海科学与工程研究所</option>
+<option value="72">烟台海岸带研究所</option>
+    <option value="73">物理研究所</option>
+<option value="74">理化技术研究所</option>
+<option value="75">理论物理研究所</option>
+<option value="76">生态环境研究中心</option>
+    <option value="77">生物物理研究所</option>
+<option value="78">电工研究所</option>
+<option value="79">福建物质结构研究所</option>
+<option value="80">科技战略咨询研究院</option>
+    <option value="81">空天信息创新研究院</option>
+<option value="82">空间应用工程与技术中心</option>
+<option value="83">精密测量科学与技术创新研究院</option>
+<option value="84">紫金山天文台</option>
+    <option value="85">脑科学与智能技术卓越创新中心</option>
+<option value="86">自动化研究所</option>
+<option value="87">自然科学史研究所</option>
+<option value="88">苏州生物医学工程技术研究所</option>
+    <option value="89">苏州纳米技术与纳米仿生研究所</option>
+<option value="90">西北生态环境资源研究院</option>
+<option value="91">西双版纳热带植物园</option>
+<option value="92">西安光学精密机械研究所</option>
+    <option value="93">计算技术研究所</option>
+<option value="94">软件研究所</option>
+<option value="95">过程工程研究所</option>
+<option value="96">近代物理研究所</option>
+    <option value="97">遗传与发育生物学研究所</option>
+<option value="98">重庆绿色智能技术研究院</option>
+<option value="99">金属研究所</option>
+<option value="100">长春光学精密机械与物理研究所</option>
+    <option value="101">长春应用化学研究所</option>
+<option value="102">青岛生物能源与过程研究所</option>
+<option value="103">青藏高原研究所</option>
+<option value="104">高能物理研究所</option>
+
+
+</select>
+    <div class="showView1" >
+
+<ul>
+ <li>
+     <p></p>
+     <input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_1()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_1()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_1()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_1()" />
+    <canvas id="radar1-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_2()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_2()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_2()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_2()" /><canvas id="radar2-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_3()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_3()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_3()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_3()" /><canvas id="radar3-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_4()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_4()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_4()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_4()" /><canvas id="radar4-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_5()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_5()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_5()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_5()" /><canvas id="radar5-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_6()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_6()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_6()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_6()" /><canvas id="radar6-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_7()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_7()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_7()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_7()" /><canvas id="radar7-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_8()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_8()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_8()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_8()" /><canvas id="radar8-1" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_9()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_9()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_9()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_9()" /><canvas id="radar9-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_10()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_10()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_10()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_10()" /><canvas id="radar10-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_11()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_11()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_11()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_11()" /><canvas id="radar11-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_12()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_12()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_12()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_12()" /><canvas id="radar12-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_13()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_13()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_13()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_13()" /><canvas id="radar13-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_14()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_14()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_14()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_14()" /><canvas id="radar14-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_15()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_15()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_15()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_15()" /><canvas id="radar15-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_16()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_16()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_16()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_16()" /><canvas id="radar16-1" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_17()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_17()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_17()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_17()" /><canvas id="radar17-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_18()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_18()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_18()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_18()" /><canvas id="radar18-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_19()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_19()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_19()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_19()" /><canvas id="radar19-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_20()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_20()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_20()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_20()" /><canvas id="radar20-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_21()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_21()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_21()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_21()" /><canvas id="radar21-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_22()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_22()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_22()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_22()" /><canvas id="radar22-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_23()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_23()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_23()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_23()" /><canvas id="radar23-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_24()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_24()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_24()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_24()" /><canvas id="radar24-1" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_25()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_25()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_25()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_25()" /><canvas id="radar25-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_26()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_26()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_26()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_26()" /><canvas id="radar26-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_27()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_27()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_27()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_27()" /><canvas id="radar27-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_28()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_28()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_28()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_28()" /><canvas id="radar28-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_29()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_29()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_29()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_29()" /><canvas id="radar29-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_30()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_30()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_30()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_30()" /><canvas id="radar30-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_31()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_31()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_31()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_31()" /><canvas id="radar31-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_32()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_32()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_32()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_32()" /><canvas id="radar32-1" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_33()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_33()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_33()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_33()" /><canvas id="radar33-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_34()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_34()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_34()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_34()" /><canvas id="radar34-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_35()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_35()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_35()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_35()" /><canvas id="radar35-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_36()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_36()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_36()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_36()" /><canvas id="radar36-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_37()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_37()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_37()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_37()" /><canvas id="radar37-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_38()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_38()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_38()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_38()" /><canvas id="radar38-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_39()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_39()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_39()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_39()" /><canvas id="radar39-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_40()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_40()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_40()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_40()" /><canvas id="radar40-1" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_41()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_41()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_41()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_41()" /><canvas id="radar41-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_42()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_42()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_42()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_42()" /><canvas id="radar42-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_43()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_43()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_43()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_43()" /><canvas id="radar43-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_44()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_44()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_44()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_44()" /><canvas id="radar44-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_45()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_45()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_45()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_45()" /><canvas id="radar45-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_46()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_46()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_46()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_46()" /><canvas id="radar46-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_47()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_47()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_47()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_47()" /><canvas id="radar47-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_48()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_48()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_48()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_48()" /><canvas id="radar48-1" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_49()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_49()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_49()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_49()" /><canvas id="radar49-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_50()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_50()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_50()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_50()" /><canvas id="radar50-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_51()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_51()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_51()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_51()" /><canvas id="radar51-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_52()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_52()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_52()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_52()" /><canvas id="radar52-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_53()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_53()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_53()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_53()" /><canvas id="radar53-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_54()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_54()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_54()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_54()" /><canvas id="radar54-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_55()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_55()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_55()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_55()" /><canvas id="radar55-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_56()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_56()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_56()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_56()" /><canvas id="radar56-1" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_57()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_57()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_57()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_57()" /><canvas id="radar57-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_58()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_58()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_58()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_58()" /><canvas id="radar58-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_59()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_59()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_59()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_59()" /><canvas id="radar59-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_60()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_60()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_60()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_60()" /><canvas id="radar60-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_61()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_61()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_61()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_61()" /><canvas id="radar61-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_62()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_62()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_62()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_62()" /><canvas id="radar62-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_63()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_63()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_63()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_63()" /><canvas id="radar63-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_64()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_64()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_64()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_64()" /><canvas id="radar64-1" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_65()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_65()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_65()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_65()" /><canvas id="radar65-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_66()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_66()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_66()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_66()" /><canvas id="radar66-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_67()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_67()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_67()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_67()" /><canvas id="radar67-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_68()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_68()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_68()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_68()" /><canvas id="radar68-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_69()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_69()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_69()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_69()" /><canvas id="radar69-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_70()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_70()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_70()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_70()" /><canvas id="radar70-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_71()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_71()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_71()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_71()" /><canvas id="radar71-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_72()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_72()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_72()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_72()" /><canvas id="radar72-1" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_73()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_73()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_73()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_73()" /><canvas id="radar73-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_74()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_74()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_74()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_74()" /><canvas id="radar74-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_75()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_75()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_75()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_75()" /><canvas id="radar75-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_76()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_76()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_76()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_76()" /><canvas id="radar76-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_77()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_77()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_77()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_77()" /><canvas id="radar77-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_78()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_78()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_78()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_78()" /><canvas id="radar78-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_79()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_79()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_79()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_79()" /><canvas id="radar79-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_80()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_80()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_80()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_80()" /><canvas id="radar80-1" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_81()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_81()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_81()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_81()" /><canvas id="radar81-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_82()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_82()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_82()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_82()" /><canvas id="radar82-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_83()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_83()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_83()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_83()" /><canvas id="radar83-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_84()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_84()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_84()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_84()" /><canvas id="radar84-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_85()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_85()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_85()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_85()" /><canvas id="radar85-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_86()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_86()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_86()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_86()" /><canvas id="radar86-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_87()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_87()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_87()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_87()" /><canvas id="radar87-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_88()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_88()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_88()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_88()" /><canvas id="radar88-1" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_89()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_89()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_89()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_89()" /><canvas id="radar89-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_90()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_90()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_90()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_90()" /><canvas id="radar90-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_91()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_91()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_91()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_91()" /><canvas id="radar91-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_92()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_92()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_92()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_92()" /><canvas id="radar92-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_93()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_93()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_93()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_93()" /><canvas id="radar93-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_94()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_94()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_94()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_94()" /><canvas id="radar94-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_95()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_95()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_95()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_95()" /><canvas id="radar95-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_96()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_96()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_96()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_96()" /><canvas id="radar96-1" height="550" width="550"></canvas></li>
+    <li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_97()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_97()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_97()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_97()" /><canvas id="radar97-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_98()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_98()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_98()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_98()" /><canvas id="radar98-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_99()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_99()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_99()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_99()" /><canvas id="radar99-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_100()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_100()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_100()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_100()" /><canvas id="radar100-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_101()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_101()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_101()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_101()" /><canvas id="radar101-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_102()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_102()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_102()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_102()" /><canvas id="radar102-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_103()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_103()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_103()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_103()" /><canvas id="radar103-1" height="550" width="550"></canvas></li>
+<li><p></p><input class = "btn mr-1 btn-round btn-primary" type="button"  value="2016" onClick="b16_104()" />
+<input class = "btn mr-1 btn-round btn-info" type="button"  value="2017" onClick="b17_104()" />
+<input class = "btn mr-1 btn-round btn-warning" type="button"  value="2018" onClick="b18_104()" />
+<input class = "btn mr-1 btn-round btn-danger" type="button"  value="2019" onClick="b19_104()" /><canvas id="radar104-1" height="550" width="550"></canvas></li>
+</ul>
+
+</ul>
+
+</div>
+
+</div></div></div></div></div>
+
+
+
+<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+<script>
+$('.showVie ul li').eq(0).show().siblings().hide();
+$('.choose').on('change', function (){
+var index = $(this).val() - 1;
+$('.showVie ul li').eq(index).show().siblings().hide();
+})
+</script>
+<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+<script>
+$('.showView1 ul li').eq(0).show().siblings().hide();
+$('.choose1').on('change', function (){
+var index = $(this).val() - 1;
+$('.showView1 ul li').eq(index).show().siblings().hide();
+})
+</script>
+
+
+
+<!--引用生成图片所需的js文件  -->
+    <script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/yjs_rose/rose1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose4.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose5.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose6.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose7.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose8.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose9.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose10.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose11.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose12.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose13.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose14.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose15.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose16.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose17.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose18.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose19.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose20.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose21.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose22.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose23.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose24.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/yjs_rose/rose25.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose26.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose27.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose28.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose29.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose30.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose31.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose32.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose33.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose34.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose35.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose36.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose37.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose38.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose39.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose40.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose41.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose42.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose43.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose44.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose45.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose46.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose47.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose48.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/yjs_rose/rose49.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose50.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose51.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose52.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose53.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose54.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose55.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose56.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose57.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose58.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose59.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose60.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose61.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose62.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose63.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose64.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose65.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose66.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose67.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose68.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose69.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose70.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose71.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose72.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/yjs_rose/rose73.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose74.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose75.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose76.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose77.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose78.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose79.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose80.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose81.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose82.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose83.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose84.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose85.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose86.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose87.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose88.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose89.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose90.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose91.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose92.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose93.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose94.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose95.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose96.js' %}"></script>
+     <script type="text/javascript" src="{% static 'js/yjs_rose/rose97.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose98.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose99.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose100.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose101.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose102.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose103.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/yjs_rose/rose104.js' %}"></script>
+
+    <!--所有调用js文件的函数  -->
+    <script type="text/javascript" src="{% static 'js/func.js' %}"></script>
+
+
+
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('radar1'));
+  radar1(myChart1, hei);
+  </script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('radar1-1'));
+  radar1(myChart1, hei);
+    </script>
+
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('radar2'));
+  radar2(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar3'));
+  radar3(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar4'));
+  radar4(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar5'));
+  radar5(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar6'));
+  radar6(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar7'));
+  radar7(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar8'));
+  radar8(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar9'));
+  radar9(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar10'));
+  radar10(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar11'));
+  radar11(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar12'));
+  radar12(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar13'));
+  radar13(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar14'));
+  radar14(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar15'));
+  radar15(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar16'));
+  radar16(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar17'));
+  radar17(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar18'));
+  radar18(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar19'));
+  radar19(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar20'));
+  radar20(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar21'));
+  radar21(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar22'));
+  radar22(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar23'));
+  radar23(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar24'));
+  radar24(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar25'));
+  radar25(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar26'));
+  radar26(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar27'));
+  radar27(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar28'));
+  radar28(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar29'));
+  radar29(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar30'));
+  radar30(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar31'));
+  radar31(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar32'));
+  radar32(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar33'));
+  radar33(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar34'));
+  radar34(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar35'));
+  radar35(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar36'));
+  radar36(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar37'));
+  radar37(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar38'));
+  radar38(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar39'));
+  radar39(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar40'));
+  radar40(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar41'));
+  radar41(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar42'));
+  radar42(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar43'));
+  radar43(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar44'));
+  radar44(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar45'));
+  radar45(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar46'));
+  radar46(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar47'));
+  radar47(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar48'));
+  radar48(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar49'));
+  radar49(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar50'));
+  radar50(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar51'));
+  radar51(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar52'));
+  radar52(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar53'));
+  radar53(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar54'));
+  radar54(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar55'));
+  radar55(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar56'));
+  radar56(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar57'));
+  radar57(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar58'));
+  radar58(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar59'));
+  radar59(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar60'));
+  radar60(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar61'));
+  radar61(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar62'));
+  radar62(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar63'));
+  radar63(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar64'));
+  radar64(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar65'));
+  radar65(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar66'));
+  radar66(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar67'));
+  radar67(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar68'));
+  radar68(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar69'));
+  radar69(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar70'));
+  radar70(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar71'));
+  radar71(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar72'));
+  radar72(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar73'));
+  radar73(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar74'));
+  radar74(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar75'));
+  radar75(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar76'));
+  radar76(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar77'));
+  radar77(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar78'));
+  radar78(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar79'));
+  radar79(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar80'));
+  radar80(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar81'));
+  radar81(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar82'));
+  radar82(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar83'));
+  radar83(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar84'));
+  radar84(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar85'));
+  radar85(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar86'));
+  radar86(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar87'));
+  radar87(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar88'));
+  radar88(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar89'));
+  radar89(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar90'));
+  radar90(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar91'));
+  radar91(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar92'));
+  radar92(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar93'));
+  radar93(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar94'));
+  radar94(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar95'));
+  radar95(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar96'));
+  radar96(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar97'));
+  radar97(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar98'));
+  radar98(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar99'));
+  radar99(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar100'));
+  radar100(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar101'));
+  radar101(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar102'));
+  radar102(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar103'));
+  radar103(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar104'));
+  radar104(myChart1, hei);
+
+
+
+  </script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+
+    var myChart1 = echarts.init(document.getElementById('radar2-1'));
+  radar2(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar3-1'));
+  radar3(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar4-1'));
+  radar4(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar5-1'));
+  radar5(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar6-1'));
+  radar6(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar7-1'));
+  radar7(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar8-1'));
+  radar8(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar9-1'));
+  radar9(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar10-1'));
+  radar10(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar11-1'));
+  radar11(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar12-1'));
+  radar12(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar13-1'));
+  radar13(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar14-1'));
+  radar14(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar15-1'));
+  radar15(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar16-1'));
+  radar16(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar17-1'));
+  radar17(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar18-1'));
+  radar18(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar19-1'));
+  radar19(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar20-1'));
+  radar20(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar21-1'));
+  radar21(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar22-1'));
+  radar22(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar23-1'));
+  radar23(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar24-1'));
+  radar24(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar25-1'));
+  radar25(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar26-1'));
+  radar26(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar27-1'));
+  radar27(myChart1, hei);
+
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('radar28-1'));
+  radar28(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar29-1'));
+  radar29(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar30-1'));
+  radar30(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar31-1'));
+  radar31(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar32-1'));
+  radar32(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar33-1'));
+  radar33(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar34-1'));
+  radar34(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar35-1'));
+  radar35(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar36-1'));
+  radar36(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar37-1'));
+  radar37(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar38-1'));
+  radar38(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar39-1'));
+  radar39(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar40-1'));
+  radar40(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar41-1'));
+  radar41(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar42-1'));
+  radar42(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar43-1'));
+  radar43(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar44-1'));
+  radar44(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar45-1'));
+  radar45(myChart1, hei);
+    var myChart1 = echarts.init(document.getElementById('radar46-1'));
+  radar46(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar47-1'));
+  radar47(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar48-1'));
+  radar48(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar49-1'));
+  radar49(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar50-1'));
+  radar50(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar51-1'));
+  radar51(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar52-1'));
+  radar52(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar53-1'));
+  radar53(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar54-1'));
+  radar54(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar55-1'));
+  radar55(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar56-1'));
+  radar56(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar57-1'));
+  radar57(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar58-1'));
+  radar58(myChart1, hei);
+    var myChart1 = echarts.init(document.getElementById('radar59-1'));
+  radar59(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar60-1'));
+  radar60(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar61-1'));
+  radar61(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar62-1'));
+  radar62(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar63-1'));
+  radar63(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar64-1'));
+  radar64(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar65-1'));
+  radar65(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar66-1'));
+  radar66(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar67-1'));
+  radar67(myChart1, hei);
+    var myChart1 = echarts.init(document.getElementById('radar68-1'));
+  radar68(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar69-1'));
+  radar69(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar70-1'));
+  radar70(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar71-1'));
+  radar71(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar72-1'));
+  radar72(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar73-1'));
+  radar73(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar74-1'));
+  radar74(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar75-1'));
+  radar75(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar76-1'));
+  radar76(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar77-1'));
+  radar77(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar78-1'));
+  radar78(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar79-1'));
+  radar79(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar80-1'));
+  radar80(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar81-1'));
+  radar81(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar82-1'));
+  radar82(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar83-1'));
+  radar83(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('radar84-1'));
+  radar84(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar85-1'));
+  radar85(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar86-1'));
+  radar86(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar87-1'));
+  radar87(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar88-1'));
+  radar88(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar89-1'));
+  radar89(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar90-1'));
+  radar90(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar91-1'));
+  radar91(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar92-1'));
+  radar92(myChart1, hei);
+    var myChart1 = echarts.init(document.getElementById('radar93-1'));
+  radar93(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar94-1'));
+  radar94(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar95-1'));
+  radar95(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar96-1'));
+  radar96(myChart1, hei);
+    var myChart1 = echarts.init(document.getElementById('radar97-1'));
+  radar97(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar98-1'));
+  radar98(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar99-1'));
+  radar99(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar100-1'));
+  radar100(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar101-1'));
+  radar101(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar102-1'));
+  radar102(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar103-1'));
+  radar103(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar104-1'));
+  radar104(myChart1, hei);
+</script>
+
+
+
+
+    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="{% static 'index.html" class="logo-text float-left' %}"></a>
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/>
+                </div>
+
+                <a id="sidebarToggle" href="javascript:;"
+                   class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i data-toggle="collapsed" class="ft-circle toggle-icon"></i></a>
+                <a id="sidebarClose" href="javascript:;"
+                        class="nav-close d-block d-md-block d-lg-none d-xl-none"><i class="ft-circle"></i></a>
+            </div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+
+                    <li class="has-sub nav-item"><a href="{% static '#' %}"><i class="icon-pie-chart"></i><span
+                            data-i18n="" class="menu-title">数据可视化</span></a>
+                        <ul class="menu-content">
+                            <li ><a href="{% url 'stack19' %}" class="menu-item">总均分及各项指标</a>
+                            </li>
+                           <li><a href="{% url 'institute19' %}" class="menu-item">各单位成绩分析</a>
+                            </li>
+                            <li class="active"><a href="{% url 'comparison' %}" class="menu-item">个性化数据对比</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+
+        </div>
+            <script>
+　　closeDiv()
+</script>
+
+</body>
+</html>
+
+
+

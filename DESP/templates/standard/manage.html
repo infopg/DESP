@@ -37,7 +37,6 @@
 
 <div class="wrapper nav-collapsed menu-collapsed">
 
-
     <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
         <div class="sidebar-header">
             <div class="logo clearfix"><a href="{% url 'administrator' %}" class="logo-text float-left">
@@ -222,14 +221,69 @@
 <script>
     var e_d = {{ eval_data|safe }};
     for(var i = 0; i < e_d.length; i++) {
+        var questionaire = i + 10000;
+        var id_org_id = i + 20000;
+        var id_org_name = i + 30000;
+        var id_project_name = i + 40000;
+        var id_project_admin = i + 50000;
+        var bt_change = "bt1" + i;
+        var bt_check = "bt2" + i;
+        var bt_download = "bt3" + i;
+        var bt_upload = "bt4" + i;
+        var bt_email = "bt5" + i;
+
         $("#tbody").append("" +
             "<tr>" +
-            "<td>" + e_d[i]['org_id'] + "</td>" +
-            "<td>" + e_d[i]['org_name'] + "</td>" +
-            "<td>" + e_d[i]['project_name'] + "</td>" +
-            "<td>" + e_d[i]['project_admin'] + "</td>" +
+            "<td id ="+ id_org_id +">" + e_d[i]['org_id'] + "</td>" +
+            "<td id ="+ id_org_name +">" + e_d[i]['org_name'] + "</td>" +
+            "<td id ="+ id_project_name +">" + e_d[i]['project_name'] + "</td>" +
+            "<td id ="+ id_project_admin +">" + e_d[i]['project_admin'] + "</td>" +
+            "<td>" +
+                "<button class='btn mr-1 btn-secondary' id=" + bt_change + " " +
+                    "onclick='Change_Status(" + id_project_name + "," + bt_change + ")'>已启用" +
+                "</button>" +
+            "</td>" +
+            "<td>进度 %</td>" +
+            "<td>" +
+                "<button class='btn mr-1 btn-secondary' id=" + bt_check + " " +
+                    "onclick='to_questionaire(" + id_project_name + "," + id_project_admin + ")'>查看" +
+                "</button> &emsp;" +
+                "<button class='btn mr-1 btn-secondary' id=" + bt_download + " " +
+                    "onclick='download_questionaire(" + id_project_name + ")'>导出" +
+                "</button> &emsp;" +
+                "<button class='btn mr-1 btn-secondary' id='DaoChu'>导入</button> &emsp;" +
+                "<button class='btn mr-1 btn-secondary' id='FaFang'>发送邮件</button> &emsp;" +
+            "</td>" +
             "</tr>");
     }
-
 </script>
+<script>
+    //改变问卷状态，待完善
+    function Change_Status(x,y) {
+        var text = document.getElementById(x).innerHTML;
+        var text1 = "已启用";
+        var text2 = "已停用";
+        if(document.getElementById(y).innerHTML==text1){
+            document.getElementById(y).innerHTML=text2;
+            window.location.href = "{% url 'question_status' %}?evalname" + text + "&status" + text2;
+        }else {
+            document.getElementById(y).innerHTML=text1;
+            window.location.href = "{% url 'question_status' %}?evalname" + text + "&status" + text1;
+        }
+    }
+
+    //点击“查看”前往项目管理对应页面
+    function to_questionaire(x,y){
+        var text1 = document.getElementById(x).innerHTML;
+        var text2 = document.getElementById(y).innerHTML;
+        window.location.href = "{% url 'standard' %}?evalname=" + text1 + " &admin=" + text2;
+    }
+
+    //下载问卷
+    function download_questionaire(x){
+        var text = document.getElementById(x).innerHTML;
+        window.location.href = "{% url 'download_questionaire' %}?questionaire_evalname=" + text;
+    }
+</script>
+
 

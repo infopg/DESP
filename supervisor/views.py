@@ -649,3 +649,6 @@ def download_organization(request):
     response['Content-Type'] = 'application/octet-stream'  # 设置头信息，告诉浏览器这是个文件
     response['Content-Disposition'] = 'attachment;filename="TableOrg_Import.xlsx"'
     return response
+
+def visualization(request):
+    return render(request, 'visual/app_manage.html')

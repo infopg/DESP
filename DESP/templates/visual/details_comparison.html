@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" class="loading">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description"
+          content="Convex admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Page for administrator</title>
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app-assets/img/ico/apple-icon-60.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app-assets/img/ico/apple-icon-76.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app-assets/img/ico/apple-icon-120.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'app-assets/img/ico/apple-icon-152.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'app-assets/img/ico/favicon.ico' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'app-assets/img/ico/favicon-32.png' %}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+</head>
+<body data-col="2-columns" class=" 2-columns">
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+<div class="wrapper nav-collapsed menu-collapsed">
+
+
+    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="#" class="logo-text float-left">
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/></div>
+                <span class="text align-middle">CNIC</span></a><a id="sidebarToggle" href="javascript:;"
+                                                                  class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i
+                    data-toggle="collapsed" class="ft-circle toggle-icon"></i></a><a id="sidebarClose"
+                                                                                     href="javascript:;"
+                                                                                     class="nav-close d-block d-md-block d-lg-none d-xl-none"><i
+                    class="ft-circle"></i></a></div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-pie-chart"></i><span data-i18n="" class="menu-title">数据分析</span></a>
+                        <ul class="menu-content">
+                            <li class='has-sub'><a href = "#" class="menu-item">总体情况</a>
+						        <ul class="menu-content">
+							        <li><a href="{% url 'overview_research' %}" class="menu-item">研究单位</a></li>
+							        <li><a href ="{% url 'overview_institute' %}" class="menu-item">分院</a></li>
+						            <li><a href = "{% url 'overview_system' %}"class="menu-item">分院系统</a></li>
+						        </ul>
+					        </li>
+                            <li class='has-sub'> <a href = "#" class="menu-item">网络安全</a>
+						        <ul class="menu-content">
+							        <li><a href ="{% url 'network_manage' %}"class="menu-item">管理</a></li>
+							        <li><a href ="{% url 'network_tech' %}" class="menu-item">技术保障</a></li>
+						        </ul>
+					        </li>
+                            <li class='has-sub'><a href = "#" class="menu-item">信息化应用</a>
+						        <ul class="menu-content">
+							        <li class='has-sub'><a href = "#" class="menu-item">科研信息化 </a>
+								        <ul class="menu-content">
+                                            <li><a href = "{% url 'app_research_data' %}" class="menu-item">科学数据应用</a></li>
+                                            <li><a href = "{% url 'app_research_calculate' %}"  class="menu-item">科学计算应用</a></li>
+                                            <li><a href = "{% url 'app_research_cloud' %}" class="menu-item">云计算应用</a></li>
+                                            <li><a href = "{% url 'app_research_share' %}"  class="menu-item">开放共享应用</a></li>
+								        </ul>
+							        </li>
+                                <li><a href = "{% url 'app_manage' %}"  class="menu-item">管理信息化</a></li>
+                                <li><a href = "{% url 'app_education' %}"  class="menu-item">教育信息化</a></li>
+                                <li><a href = "{% url 'app_science' %}"  class="menu-item">科学传播</a></li>
+						        </ul>
+					        </li>
+                            <li class='has-sub'><a href = "#" class="menu-item">基础环境</a>
+						        <ul class="menu-content">
+                                    <li><a href = "{% url 'env_management' %}" class="menu-item">管理与运行</a></li>
+                                    <li><a href = "{% url 'env_infrastructure' %}" class="menu-item">基础设施</a></li>
+                                    <li><a href = "{% url 'env_resource' %}" class="menu-item">资源</a></li>
+						        </ul>
+					        </li>
+                            <li><a href="{% url 'details_comparison' %}" class="menu-item">详细情况及对比</a></li>
+                            <li><a href = "http://xxhpg.cas.cn/views/download.jsp"target="_blank" class="menu-item">报告下载</a></li> 
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
+                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span></button>
+                <span class="d-lg-none navbar-right navbar-collapse-toggle"><a class="open-navbar-container"><i
+                        class="ft-more-vertical"></i></a></span><a id="navbar-fullscreen" href="javascript:;"
+                                                                   class="mr-2 display-inline-block apptogglefullscreen"><i
+                    class="ft-maximize blue-grey darken-4 toggleClass"></i>
+                <p class="d-none">fullscreen</p></a>
+
+            </div>
+            <div class="navbar-container">
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                                class="avatar avatar-online"><img id="navbar-avatar"
+                                                                  src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
+                                                                  alt="avatar"/></span>
+                            <p class="d-none">User Settings</p></a>
+                            <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
+                                <div class="arrow_box_right">
+                                    <a href="#" class="dropdown-item"><i
+                                            class="ft-power mr-2"></i><span>Logout</span></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-panel">
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="container-fluid"><!-- Base style table -->
+                    <section id="base-style">
+                        <div class="row">
+                          
+                            <div class="col-12">
+                                <div class="card" style='height:120rem'>
+                                    <div class="card-header">
+                                        <div class="card-title-wrap bar-success">
+                                            <h2 class="card-title">2009-2019年信息化评估数据个性化展示及对比</h2>
+                                        </div>
+                                    </div>
+                                    <div class="card-block">
+                                      <div id="institution_choose">
+                                        <div class="col-sm-12">
+                                          <h5 class="content-header">请选择单位 ：</h5>
+                                        </div>
+                                        <div id="institution_list">
+                                            <select id="institution_select" style="width:40%" class="choose" name="select" >
+                                              <option value="1">上海光学精密机械研究所</option>
+                                              <option value="2">上海天文台</option>
+                                              <option value="3">上海巴斯德研究所</option>
+                                              <option value="4">上海应用物理研究所</option>
+                                              <option value="5">上海微系统与信息技术研究所</option>
+                                              <option value="6">上海技术物理研究所</option>
+                                              <option value="7">上海有机化学研究所</option>
+                                              <option value="8">上海硅酸盐研究所</option>
+                                              <option value="9">上海药物研究所</option>
+                                              <option value="10">上海营养与健康研究所</option>
+                                              <option value="11">上海高等研究院</option>
+                                              <option value="12">东北地理与农业生态研究所</option>
+                                              <option value="13">亚热带农业生态研究所</option>
+                                              <option value="14">信息工程研究所</option>
+                                              <option value="15">光电技术研究所</option>
+                                              <option value="16">兰州化学物理研究所</option>
+                                              <option value="17">分子植物科学卓越创新中心</option>
+                                              <option value="18">分子细胞科学卓越创新中心</option>
+                                              <option value="19">力学研究所</option>
+                                              <option value="20">动物研究所</option>
+                                              <option value="21">化学研究所</option>
+                                              <option value="22">北京基因组研究所</option>
+                                              <option value="23">北京综合研究中心</option>
+                                              <option value="24">半导体研究所</option>
+                                              <option value="25">华南植物园</option>
+                                              <option value="26">南京土壤研究所</option>
+                                              <option value="27">南京地理与湖泊研究所</option>
+                                              <option value="28">南京地质古生物研究所</option>
+                                              <option value="29">南海海洋研究所</option>
+                                              <option value="30">古脊椎动物与古人类研究所</option>
+                                              <option value="31">合肥物质科学研究院</option>
+                                              <option value="32">国家天文台</option>
+                                              <option value="33">国家授时中心</option>
+                                              <option value="34">国家空间科学中心</option>
+                                              <option value="35">国家纳米科学中心</option>
+                                              <option value="36">地球化学研究所</option>
+                                              <option value="37">地球环境研究所</option>
+                                              <option value="38">地理科学与资源研究所</option>
+                                              <option value="39">地质与地球物理研究所</option>
+                                              <option value="40">城市环境研究所</option>
+                                              <option value="41">声学研究所</option>
+                                              <option value="42">大气物理研究所</option>
+                                              <option value="43">大连化学物理研究所</option>
+                                              <option value="44">天津工业生物技术研究所</option>
+                                              <option value="45">宁波材料技术与工程研究所</option>
+                                              <option value="46">山西煤炭化学研究所</option>
+                                              <option value="47">工程热物理研究所</option>
+                                              <option value="48">广州地球化学研究所</option>
+                                              <option value="49">广州生物医药与健康研究院</option>
+                                              <option value="50">广州能源研究所</option>
+                                              <option value="51">微小卫星创新研究院</option>
+                                              <option value="52">微生物研究所</option>
+                                              <option value="53">微电子研究所</option>
+                                              <option value="54">心理研究所</option>
+                                              <option value="55">成都山地灾害与环境研究所</option>
+                                              <option value="56">成都生物研究所</option>
+                                              <option value="57">数学与系统科学研究院</option>
+                                              <option value="58">新疆理化技术研究所</option>
+                                              <option value="59">新疆生态与地理研究所</option>
+                                              <option value="60">昆明动物研究所</option>
+                                              <option value="61">昆明植物研究所</option>
+                                              <option value="62">植物研究所</option>
+                                              <option value="63">武汉岩土力学研究所</option>
+                                              <option value="64">武汉植物园</option>
+                                              <option value="65">武汉病毒研究所</option>
+                                              <option value="66">水生生物研究所</option>
+                                              <option value="67">沈阳应用生态研究所</option>
+                                              <option value="68">沈阳自动化研究所</option>
+                                              <option value="69">海洋研究所</option>
+                                              <option value="70">深圳先进技术研究院</option>
+                                              <option value="71">深海科学与工程研究所</option>
+                                              <option value="72">烟台海岸带研究所</option>
+                                              <option value="73">物理研究所</option>
+                                              <option value="74">理化技术研究所</option>
+                                              <option value="75">理论物理研究所</option>
+                                              <option value="76">生态环境研究中心</option>
+                                              <option value="77">生物物理研究所</option>
+                                              <option value="78">电工研究所</option>
+                                              <option value="79">福建物质结构研究所</option>
+                                              <option value="80">科技战略咨询研究院</option>
+                                              <option value="81">空天信息创新研究院</option>
+                                              <option value="82">空间应用工程与技术中心</option>
+                                              <option value="83">精密测量科学与技术创新研究院</option>
+                                              <option value="84">紫金山天文台</option>
+                                              <option value="85">脑科学与智能技术卓越创新中心</option>
+                                              <option value="86">自动化研究所</option>
+                                              <option value="87">自然科学史研究所</option>
+                                              <option value="88">苏州生物医学工程技术研究所</option>
+                                              <option value="89">苏州纳米技术与纳米仿生研究所</option>
+                                              <option value="90">西北生态环境资源研究院</option>
+                                              <option value="91">西双版纳热带植物园</option>
+                                              <option value="92">西安光学精密机械研究所</option>
+                                              <option value="93">计算技术研究所</option>
+                                              <option value="94">软件研究所</option>
+                                              <option value="95">过程工程研究所</option>
+                                              <option value="96">近代物理研究所</option>
+                                              <option value="97">遗传与发育生物学研究所</option>
+                                              <option value="98">重庆绿色智能技术研究院</option>
+                                              <option value="99">金属研究所</option>
+                                              <option value="100">长春光学精密机械与物理研究所</option>
+                                              <option value="101">长春应用化学研究所</option>
+                                              <option value="102">青岛生物能源与过程研究所</option>
+                                              <option value="103">青藏高原研究所</option>
+                                              <option value="104">高能物理研究所</option>
+                                            </select>
+                                            <button type="button" class="btn" onclick="activate_echarts(event)">生成对比图表</button>
+                                        </div> 
+                                        <hr style='clear: both;visibility: hidden;'>
+                                        <div id="score" style="width: 95%;height:400%;"></div>
+                                        <hr style='clear: both;visibility: hidden;'>
+                                        <div id="ranking" style="width: 95%;height:400%;"></div>
+                                        <hr style='clear: both;visibility: hidden;'>
+                                        <div id="sf_ranking" style="width: 95%;height:400%;"></div>
+                                        <hr style='clear: both;visibility: hidden;'>
+                                        <div id="quota" style="width: 95%;height:500%;" class="nav-vertical">
+                                            <ul class="nav nav-tabs nav-left flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="baseVerticalLeft-tab1" data-toggle="tab" aria-controls="tabVerticalLeft1" href="#tabVerticalLeft1" aria-expanded="true">2019</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="baseVerticalLeft-tab2" data-toggle="tab" aria-controls="tabVerticalLeft2" href="#tabVerticalLeft2" aria-expanded="false">2018</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="baseVerticalLeft-tab3" data-toggle="tab" aria-controls="tabVerticalLeft3" href="#tabVerticalLeft3" aria-expanded="false">2017</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="baseVerticalLeft-tab4" data-toggle="tab" aria-controls="tabVerticalLeft4" href="#tabVerticalLeft4" aria-expanded="false">2016</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="baseVerticalLeft-tab5" data-toggle="tab" aria-controls="tabVerticalLeft5" href="#tabVerticalLeft5" aria-expanded="false">2015</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="baseVerticalLeft-tab6" data-toggle="tab" aria-controls="tabVerticalLeft6" href="#tabVerticalLeft6" aria-expanded="false">2014</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="baseVerticalLeft-tab7" data-toggle="tab" aria-controls="tabVerticalLeft7" href="#tabVerticalLeft7" aria-expanded="false">2013</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="baseVerticalLeft-tab8" data-toggle="tab" aria-controls="tabVerticalLeft8" href="#tabVerticalLeft8" aria-expanded="false">2012</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="baseVerticalLeft-tab9" data-toggle="tab" aria-controls="tabVerticalLeft9" href="#tabVerticalLeft9" aria-expanded="false">2011</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content px-1">
+                                                <div role="tabpanel" class="tab-pane active" id="2019quota" aria-expanded="true" aria-labelledby="baseVerticalLeft-tab1">
+{#                                                    <div id="2019quota_chart" style="width: 85%;height:400%;" class="nav-vertical">#}
+                                                </div>
+                                                <div class="tab-pane" id="2018quota" aria-labelledby="baseVerticalLeft-tab2">
+                                                </div>
+                                                <div class="tab-pane" id="2017quota" aria-labelledby="baseVerticalLeft-tab3">
+                                                </div>
+                                                <div class="tab-pane" id="2016quota" aria-labelledby="baseVerticalLeft-tab4">
+                                                </div>
+                                                <div class="tab-pane" id="2015quota" aria-labelledby="baseVerticalLeft-tab5">
+                                                </div>
+                                                <div class="tab-pane" id="2014quota" aria-labelledby="baseVerticalLeft-tab6">
+                                                </div>
+                                                <div class="tab-pane" id="2013quota" aria-labelledby="baseVerticalLeft-tab7">
+                                                </div>
+                                                <div class="tab-pane" id="2012quota" aria-labelledby="baseVerticalLeft-tab8">
+                                                </div>
+                                                <div class="tab-pane" id="2011quota" aria-labelledby="baseVerticalLeft-tab9">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr style='clear: both;visibility: hidden;'>
+                                        <div id="table" style="width: 95%;height:800%;"></div>
+                                        <hr style='clear: both;visibility: hidden;'>  
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <footer class="footer footer-static footer-light">
+            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; 2020<a href="#" id="pixinventLink"
+                                                                                            target="_blank"
+                                                                                            class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
+            </p>
+        </footer>
+
+    </div>
+</div>
+<!-- BEGIN VENDOR JS-->
+  <script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+  <script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+  <script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+  <script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+  <script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+  <script src="{% static 'src/js/3_comparison.js' %}"></script>
+</body>
+</html>

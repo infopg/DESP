@@ -1,0 +1,131 @@
+﻿{
+"resource":
+[{"name": "上海光学精密机械研究所", "wideband": 550, "computation": 3801.7, "store": 1790.5},
+{"name": "上海天文台", "wideband": 3947, "computation": 2184, "store": 17414}, 
+{"name": "上海巴斯德研究所", "wideband": 150, "computation": 1541.4, "store": 505}, 
+{"name": "上海应用物理研究所", "wideband": 450, "computation": 1174, "store": 1697}, 
+{"name": "上海微系统与信息技术研究所", "wideband": 560, "computation": 2889, "store": 180},
+
+{"name": "上海技术物理研究所", "wideband": 200, "computation": 570, "store": 164}, 
+{"name": "上海有机化学研究所", "wideband": 1010, "computation": 487, "store": 310},  
+{"name": "上海硅酸盐研究所", "wideband": 225, "computation": 290.5, "store": 60}, 
+{"name": "上海药物研究所", "wideband": 840, "computation": 455.8, "store": 3362.0}, 
+{"name": "上海营养与健康研究所", "wideband": 400, "computation": 287.92, "store": 8417},
+
+{"name": "上海高等研究院", "wideband": 1060, "computation": 369.2, "store": 2160.7}, 
+{"name": "东北地理与农业生态研究所", "wideband": 285, "computation": 150.2, "store": 252}, 
+{"name": "亚热带农业生态研究所", "wideband": 70.0, "computation": 130.8, "store": 20.7},
+{"name": "信息工程研究所", "wideband": 780, "computation": 8463, "store": 1292.0}, 
+{"name": "光电技术研究所", "wideband": 185, "computation": 132.8, "store": 110.0},
+
+{"name": "兰州化学物理研究所", "wideband": 670, "computation": 126.6, "store": 6.0}, 
+{"name": "分子植物科学卓越创新中心", "wideband": 695, "computation": 109.6, "store": 0}, 
+{"name": "分子细胞科学卓越创新中心", "wideband": 345, "computation": 275, "store": 5120}, 
+{"name": "力学研究所", "wideband": 460, "computation": 176.4, "store": 522}, 
+{"name": "动物研究所", "wideband": 340, "computation": 101.1, "store": 316},
+
+{"name": "化学研究所", "wideband": 420, "computation": 80.0, "store": 273.0}, 
+{"name": "北京基因组研究所", "wideband": 355, "computation": 547, "store": 9000.0}, 
+{"name": "北京综合研究中心", "wideband": 0, "computation": 66.9, "store": 1}, 
+{"name": "半导体研究所", "wideband": 260.0, "computation": 145.5, "store": 597.0}, 
+{"name": "华南植物园", "wideband": 850, "computation": 839.7, "store": 1725.0},
+
+{"name": "南京土壤研究所", "wideband": 182, "computation": 103.3, "store": 65.0}, 
+{"name": "南京地理与湖泊研究所", "wideband": 365.0, "computation": 316.2, "store": 1031.0}, 
+{"name": "南京地质古生物研究所", "wideband": 1185.0, "computation": 446, "store": 219.0}, 
+{"name": "南海海洋研究所", "wideband":400.0, "computation": 282.0, "store": 5008.1}, 
+{"name": "古脊椎动物与古人类研究所", "wideband": 300, "computation": 59.6, "store": 500.0},
+
+{"name": "合肥物质科学研究院", "wideband": 3290, "computation": 224.0, "store": 3136.0}, 
+{"name": "国家天文台", "wideband": 620, "computation": 273.0, "store": 6020.0}, 
+{"name": "国家授时中心", "wideband": 420, "computation": 22.0, "store": 809.0}, 
+{"name": "国家空间科学中心", "wideband": 360, "computation": 395.3, "store": 8859.0}, 
+{"name": "国家纳米科学中心", "wideband": 200, "computation": 57.3, "store": 150.0},
+
+{"name": "地球化学研究所", "wideband": 370, "computation": 55.6, "store": 20.0}, 
+{"name": "地球环境研究所", "wideband": 350, "computation": 265.4, "store": 4427}, 
+{"name": "地理科学与资源研究所", "wideband": 990, "computation": 13.1, "store": 6120.0}, 
+{"name": "地质与地球物理研究所", "wideband": 300.0, "computation": 659.0, "store": 1006.0}, 
+{"name": "城市环境研究所", "wideband": 215, "computation": 204.9, "store": 60.7},
+
+{"name": "声学研究所", "wideband": 280, "computation": 909.1, "store": 2000.0}, 
+{"name": "大气物理研究所", "wideband": 650, "computation": 2106, "store": 32358.0}, 
+{"name": "大连化学物理研究所", "wideband": 1500.0, "computation": 612.5, "store": 1232.0}, 
+{"name": "天津工业生物技术研究所", "wideband": 310, "computation": 56.0, "store": 0.0}, 
+{"name": "宁波材料技术与工程研究所", "wideband": 1285, "computation": 172.6, "store": 44.0},
+
+{"name": "山西煤炭化学研究所", "wideband": 180, "computation": 212.9, "store": 776.0},
+{"name": "工程热物理研究所", "wideband": 255, "computation": 2504.8, "store": 300.0}, 
+{"name": "广州地球化学研究所", "wideband": 650.0, "computation": 16.2, "store": 132.0}, 
+{"name": "广州生物医药与健康研究院", "wideband": 360.0, "computation": 106.0, "store": 3123.0}, 
+{"name": "广州能源研究所", "wideband": 800.0, "computation": 24.1, "store": 94.5},
+
+{"name": "微小卫星创新研究院", "wideband": 300, "computation": 4, "store": 0}, 
+{"name": "微生物研究所", "wideband": 390.0, "computation": 20.6, "store": 3087.0}, 
+{"name": "微电子研究所", "wideband": 215, "computation": 54.6, "store": 475}, 
+{"name": "心理研究所", "wideband": 225, "computation": 44.7, "store": 1074.4}, 
+{"name": "成都山地灾害与环境研究所", "wideband": 90, "computation": 23, "store": 250.0},
+
+{"name": "成都生物研究所", "wideband": 170, "computation": 122.5, "store": 402.5}, 
+{"name": "数学与系统科学研究院", "wideband": 1105, "computation": 1134.5, "store": 504.5}, 
+{"name": "新疆理化技术研究所", "wideband": 390, "computation": 2.5, "store": 0}, 
+{"name": "新疆生态与地理研究所", "wideband": 380, "computation": 704.4, "store": 4472.0}, 
+{"name": "昆明动物研究所", "wideband": 370, "computation": 182.1, "store": 4202.0},
+
+{"name": "昆明植物研究所", "wideband": 600.0, "computation": 75.0, "store": 1360.0},
+{"name": "植物研究所", "wideband": 460, "computation": 79.9, "store": 4291.9}, 
+{"name": "武汉岩土力学研究所", "wideband": 385, "computation": 200.7, "store": 720}, 
+{"name": "武汉植物园", "wideband": 490, "computation": 238.6, "store": 1466}, 
+{"name": "武汉病毒研究所", "wideband": 385.0, "computation": 206.3, "store": 3665},
+
+{"name": "水生生物研究所", "wideband": 385.0, "computation": 26.5, "store": 3450},
+{"name": "沈阳应用生态研究所", "wideband": 265, "computation": 501, "store": 198}, 
+{"name": "沈阳自动化研究所", "wideband": 385, "computation": 3719, "store": 165.1},
+{"name": "海洋研究所", "wideband": 710, "computation": 434.9, "store": 2836}, 
+{"name": "深圳先进技术研究院", "wideband": 2558, "computation": 130.9, "store": 1600.0}, 
+
+{"name": "深海科学与工程研究所", "wideband": 430, "computation": 110.4, "store": 589.0}, 
+{"name": "烟台海岸带研究所", "wideband": 530.0, "computation": 63.2, "store": 319.7}, 
+{"name": "物理研究所", "wideband": 740, "computation": 180.5, "store": 0.0}, 
+{"name": "理化技术研究所", "wideband": 620, "computation": 0.8, "store": 15}, 
+{"name": "理论物理研究所", "wideband": 200, "computation": 609.6, "store": 800.0}, 
+
+{"name": "生态环境研究中心", "wideband": 260, "computation": 25.1, "store": 920.0}, 
+{"name": "生物物理研究所", "wideband": 520, "computation": 58.1, "store": 4523}, 
+{"name": "电工研究所", "wideband": 660, "computation": 114.91, "store": 19.5},  
+{"name": "福建物质结构研究所", "wideband": 615, "computation": 246.5, "store": 367.0}, 
+{"name": "科技战略咨询研究院", "wideband": 155, "computation": 318.2, "store": 800.0},
+
+{"name": "空天信息创新研究院", "wideband": 600, "computation": 5.7, "store": 440}, 
+{"name": "空间应用工程与技术中心", "wideband": 260.0, "computation": 71.4, "store": 1624.0}, 
+{"name": "精密测量科学与技术创新研究院", "wideband": 372, "computation": 138.9, "store": 1827}, 
+{"name": "紫金山天文台", "wideband": 565, "computation": 1161, "store": 850}, 
+{"name": "脑科学与智能技术卓越创新中心", "wideband": 310, "computation": 81, "store": 2500}, 
+
+{"name": "自动化研究所", "wideband": 830, "computation": 1689.6, "store": 8401}, 
+{"name": "自然科学史研究所", "wideband": 50.0, "computation": 0, "store": 224.0},
+{"name": "苏州生物医学工程技术研究所", "wideband": 270, "computation": 0, "store": 231.1}, 
+{"name": "苏州纳米技术与纳米仿生研究所", "wideband": 440.0, "computation": 184.0, "store": 80.0}, 
+{"name": "西北生态环境资源研究院", "wideband": 90, "computation": 40.2, "store": 870.0}, 
+
+{"name": "西双版纳热带植物园", "wideband": 950.0, "computation": 455.4, "store": 104.0}, 
+{"name": "西安光学精密机械研究所", "wideband": 970, "computation": 413.5, "store": 1198.0}, 
+{"name": "计算技术研究所", "wideband": 590, "computation": 524.0, "store": 1183.0}, 
+{"name": "软件研究所", "wideband": 445, "computation": 400000, "store": 11.0}, 
+{"name": "过程工程研究所", "wideband": 600, "computation": 2655.0, "store": 5700.0}, 
+
+{"name": "近代物理研究所", "wideband": 1225.0, "computation": 1502.4, "store": 365.0}, 
+{"name": "遗传与发育生物学研究所", "wideband": 310.0, "computation": 60, "store": 4849.2},  
+{"name": "重庆绿色智能技术研究院", "wideband": 480.0, "computation": 514.0, "store": 4050.0}, 
+{"name": "金属研究所", "wideband": 790.0, "computation": 253.7, "store": 197.0}, 
+{"name": "长春光学精密机械与物理研究所", "wideband": 3150, "computation": 1070, "store": 3065.0}, 
+
+{"name": "长春应用化学研究所", "wideband": 430, "computation": 1365, "store": 643.43}, 
+{"name": "青岛生物能源与过程研究所", "wideband": 760, "computation": 29.7, "store": 264.0}, 
+{"name": "青藏高原研究所", "wideband": 560.0, "computation": 40, "store": 2126.1}, 
+{"name": "高能物理研究所", "wideband": 1840, "computation": 6312, "store": 20250.0}]
+
+
+
+
+}

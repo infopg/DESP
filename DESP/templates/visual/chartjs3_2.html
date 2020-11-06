@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html style="height: 100%">
+<head>
+    <META HTTP-EQUIV="Set-Cookie" CONTENT="cookievalue=xxx;expires=Wednesday, 21-Oct-21 16:14:21 GMT; path=/">
+   <meta http-equiv="Cache-control" content="no-cache,max-age=12000, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="Wed, 20 Jun 2021 22:33:00 GMT" />
+     <meta name="description" content=" data visualization">
+    <meta name="keywords" content="CAS,CNIC,数据可视化,信息化评估">
+    <meta charset="utf-8">
+    <meta name="author" content="fengguorui">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+<script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
+<script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'css/demo.css' %}" type="text/css">
+
+</head>
+<body>
+
+<div class="wrapper nav-collapsed menu-collapsed">
+     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                 <div id=loading style="background:#6A5ACD;border:1px dashed #E6E6FA;color:#E6E6FA; position:absolute; left:1150px; top:15px; width:210px; height:25px; z-index:1">
+页面正在载入中,请稍候......</div>
+                <script>
+function closeDiv()
+{
+　　document.getElementById('loading').style.visibility='hidden';
+}</script>
+
+                <body>请选择您想要比较的项目：</body>
+                 <a class="btn mr-1 btn-round btn-primary" href="{%url 'comparison'%}">2009-2019总分及排名概览</a>
+                <a class="btn mr-1 btn-round btn-success" href="{%url 'comparison2'%}">每年度各项指标得分</a>
+                <a class="btn mr-1 btn-round btn-warning" href="{%url 'comparison3'%}">网络、存储和计算资源总量</a>
+                <a class="btn mr-1 btn-round btn-danger" href="{%url 'comparison4'%}">最新评估情况</a>
+                 <a class="btn mr-1 btn-round btn-secondary" href="{%url 'comparison5'%}">员工及培训状况</a>
+            </div>
+
+
+        </div>
+    </nav>
+
+ <div class="main-panel">
+        <div class="main-content">
+    <div class="content-wrapper">
+      <div class="container-fluid">
+ <div class="col-sm-12">
+                            <h2 class="content-header">2009-2019年信息化评估数据个性化对比：每年度各项指标得分</h2>
+                            <p class="content-sub-header">请选择两家需要比较的单位 ：</p>
+                        </div>
+
+
+<div style="height: 100% ; width: 50%; float:left">
+<select name="select" class="choose" >
+
+<option value="1">上海光学精密机械研究所</option>
+<option value="2">上海天文台</option>
+<option value="3">上海巴斯德研究所</option>
+<option value="4">上海应用物理研究所</option>
+    <option value="5">上海微系统与信息技术研究所</option>
+<option value="6">上海技术物理研究所</option>
+<option value="7">上海有机化学研究所</option>
+<option value="8">上海硅酸盐研究所</option>
+    <option value="9">上海药物研究所</option>
+<option value="10">上海营养与健康研究所</option>
+<option value="11">上海高等研究院</option>
+<option value="12">东北地理与农业生态研究所</option>
+    <option value="13">亚热带农业生态研究所</option>
+<option value="14">信息工程研究所</option>
+<option value="15">光电技术研究所</option>
+<option value="16">兰州化学物理研究所</option>
+    <option value="17">分子植物科学卓越创新中心</option>
+<option value="18">分子细胞科学卓越创新中心</option>
+<option value="19">力学研究所</option>
+<option value="20">动物研究所</option>
+    <option value="21">化学研究所</option>
+<option value="22">北京基因组研究所</option>
+<option value="23">北京综合研究中心</option>
+<option value="24">半导体研究所</option>
+    <option value="25">华南植物园</option>
+<option value="26">南京土壤研究所</option>
+<option value="27">南京地理与湖泊研究所</option>
+<option value="28">南京地质古生物研究所</option>
+    <option value="29">南海海洋研究所</option>
+<option value="30">古脊椎动物与古人类研究所</option>
+<option value="31">合肥物质科学研究院</option>
+<option value="32">国家天文台</option>
+    <option value="33">国家授时中心</option>
+<option value="34">国家空间科学中心</option>
+<option value="35">国家纳米科学中心</option>
+<option value="36">地球化学研究所</option>
+    <option value="37">地球环境研究所</option>
+<option value="38">地理科学与资源研究所</option>
+<option value="39">地质与地球物理研究所</option>
+<option value="40">城市环境研究所</option>
+    <option value="41">声学研究所</option>
+<option value="42">大气物理研究所</option>
+<option value="43">大连化学物理研究所</option>
+<option value="44">天津工业生物技术研究所</option>
+    <option value="45">宁波材料技术与工程研究所</option>
+<option value="46">山西煤炭化学研究所</option>
+<option value="47">工程热物理研究所</option>
+<option value="48">广州地球化学研究所</option>
+    <option value="49">广州生物医药与健康研究院</option>
+<option value="50">广州能源研究所</option>
+<option value="51">微小卫星创新研究院</option>
+<option value="52">微生物研究所</option>
+    <option value="53">微电子研究所</option>
+<option value="54">心理研究所</option>
+<option value="55">成都山地灾害与环境研究所</option>
+<option value="56">成都生物研究所</option>
+    <option value="57">数学与系统科学研究院</option>
+<option value="58">新疆理化技术研究所</option>
+<option value="59">新疆生态与地理研究所</option>
+<option value="60">昆明动物研究所</option>
+    <option value="61">昆明植物研究所</option>
+<option value="62">植物研究所</option>
+<option value="63">武汉岩土力学研究所</option>
+<option value="64">武汉植物园</option>
+    <option value="65">武汉病毒研究所</option>
+<option value="66">水生生物研究所</option>
+<option value="67">沈阳应用生态研究所</option>
+<option value="68">沈阳自动化研究所</option>
+    <option value="69">海洋研究所</option>
+<option value="70">深圳先进技术研究院</option>
+<option value="71">深海科学与工程研究所</option>
+<option value="72">烟台海岸带研究所</option>
+    <option value="73">物理研究所</option>
+<option value="74">理化技术研究所</option>
+<option value="75">理论物理研究所</option>
+<option value="76">生态环境研究中心</option>
+    <option value="77">生物物理研究所</option>
+<option value="78">电工研究所</option>
+<option value="79">福建物质结构研究所</option>
+<option value="80">科技战略咨询研究院</option>
+    <option value="81">空天信息创新研究院</option>
+<option value="82">空间应用工程与技术中心</option>
+<option value="83">精密测量科学与技术创新研究院</option>
+<option value="84">紫金山天文台</option>
+    <option value="85">脑科学与智能技术卓越创新中心</option>
+<option value="86">自动化研究所</option>
+<option value="87">自然科学史研究所</option>
+<option value="88">苏州生物医学工程技术研究所</option>
+    <option value="89">苏州纳米技术与纳米仿生研究所</option>
+<option value="90">西北生态环境资源研究院</option>
+<option value="91">西双版纳热带植物园</option>
+<option value="92">西安光学精密机械研究所</option>
+    <option value="93">计算技术研究所</option>
+<option value="94">软件研究所</option>
+<option value="95">过程工程研究所</option>
+<option value="96">近代物理研究所</option>
+    <option value="97">遗传与发育生物学研究所</option>
+<option value="98">重庆绿色智能技术研究院</option>
+<option value="99">金属研究所</option>
+<option value="100">长春光学精密机械与物理研究所</option>
+    <option value="101">长春应用化学研究所</option>
+<option value="102">青岛生物能源与过程研究所</option>
+<option value="103">青藏高原研究所</option>
+<option value="104">高能物理研究所</option>
+</select>
+        <div class="showVie" >
+            <!--左边栏所有选项和索引关系的对应 -->
+<ul>
+<li><canvas id="radar1" height="650" width="650"></canvas></li>
+<li><canvas id="radar2" height="650" width="650"></canvas></li>
+<li><canvas id="radar3" height="650" width="650"></canvas></li>
+<li><canvas id="radar4" height="650" width="650"></canvas></li>
+<li><canvas id="radar5" height="650" width="650"></canvas></li>
+<li><canvas id="radar6" height="650" width="650"></canvas></li>
+<li><canvas id="radar7" height="650" width="650"></canvas></li>
+<li><canvas id="radar8" height="650" width="650"></canvas></li>
+    <li><canvas id="radar9" height="650" width="650"></canvas></li>
+<li><canvas id="radar10" height="650" width="650"></canvas></li>
+<li><canvas id="radar11" height="650" width="650"></canvas></li>
+<li><canvas id="radar12" height="650" width="650"></canvas></li>
+<li><canvas id="radar13" height="650" width="650"></canvas></li>
+<li><canvas id="radar14" height="650" width="650"></canvas></li>
+<li><canvas id="radar15" height="650" width="650"></canvas></li>
+<li><canvas id="radar16" height="650" width="650"></canvas></li>
+    <li><canvas id="radar17" height="650" width="650"></canvas></li>
+<li><canvas id="radar18" height="650" width="650"></canvas></li>
+<li><canvas id="radar19" height="650" width="650"></canvas></li>
+<li><canvas id="radar20" height="650" width="650"></canvas></li>
+<li><canvas id="radar21" height="650" width="650"></canvas></li>
+<li><canvas id="radar22" height="650" width="650"></canvas></li>
+<li><canvas id="radar23" height="650" width="650"></canvas></li>
+<li><canvas id="radar24" height="650" width="650"></canvas></li>
+    <li><canvas id="radar25" height="650" width="650"></canvas></li>
+<li><canvas id="radar26" height="650" width="650"></canvas></li>
+<li><canvas id="radar27" height="650" width="650"></canvas></li>
+<li><canvas id="radar28" height="650" width="650"></canvas></li>
+<li><canvas id="radar29" height="650" width="650"></canvas></li>
+<li><canvas id="radar30" height="650" width="650"></canvas></li>
+<li><canvas id="radar31" height="650" width="650"></canvas></li>
+<li><canvas id="radar32" height="650" width="650"></canvas></li>
+    <li><canvas id="radar33" height="650" width="650"></canvas></li>
+<li><canvas id="radar34" height="650" width="650"></canvas></li>
+<li><canvas id="radar35" height="650" width="650"></canvas></li>
+<li><canvas id="radar36" height="650" width="650"></canvas></li>
+<li><canvas id="radar37" height="650" width="650"></canvas></li>
+<li><canvas id="radar38" height="650" width="650"></canvas></li>
+<li><canvas id="radar39" height="650" width="650"></canvas></li>
+<li><canvas id="radar40" height="650" width="650"></canvas></li>
+    <li><canvas id="radar41" height="650" width="650"></canvas></li>
+<li><canvas id="radar42" height="650" width="650"></canvas></li>
+<li><canvas id="radar43" height="650" width="650"></canvas></li>
+<li><canvas id="radar44" height="650" width="650"></canvas></li>
+<li><canvas id="radar45" height="650" width="650"></canvas></li>
+<li><canvas id="radar46" height="650" width="650"></canvas></li>
+<li><canvas id="radar47" height="650" width="650"></canvas></li>
+<li><canvas id="radar48" height="650" width="650"></canvas></li>
+    <li><canvas id="radar49" height="650" width="650"></canvas></li>
+<li><canvas id="radar50" height="650" width="650"></canvas></li>
+<li><canvas id="radar51" height="650" width="650"></canvas></li>
+<li><canvas id="radar52" height="650" width="650"></canvas></li>
+<li><canvas id="radar53" height="650" width="650"></canvas></li>
+<li><canvas id="radar54" height="650" width="650"></canvas></li>
+<li><canvas id="radar55" height="650" width="650"></canvas></li>
+<li><canvas id="radar56" height="650" width="650"></canvas></li>
+    <li><canvas id="radar57" height="650" width="650"></canvas></li>
+<li><canvas id="radar58" height="650" width="650"></canvas></li>
+<li><canvas id="radar59" height="650" width="650"></canvas></li>
+<li><canvas id="radar60" height="650" width="650"></canvas></li>
+<li><canvas id="radar61" height="650" width="650"></canvas></li>
+<li><canvas id="radar62" height="650" width="650"></canvas></li>
+<li><canvas id="radar63" height="650" width="650"></canvas></li>
+<li><canvas id="radar64" height="650" width="650"></canvas></li>
+    <li><canvas id="radar65" height="650" width="650"></canvas></li>
+<li><canvas id="radar66" height="650" width="650"></canvas></li>
+<li><canvas id="radar67" height="650" width="650"></canvas></li>
+<li><canvas id="radar68" height="650" width="650"></canvas></li>
+<li><canvas id="radar69" height="650" width="650"></canvas></li>
+<li><canvas id="radar70" height="650" width="650"></canvas></li>
+<li><canvas id="radar71" height="650" width="650"></canvas></li>
+<li><canvas id="radar72" height="650" width="650"></canvas></li>
+    <li><canvas id="radar73" height="650" width="650"></canvas></li>
+<li><canvas id="radar74" height="650" width="650"></canvas></li>
+<li><canvas id="radar75" height="650" width="650"></canvas></li>
+<li><canvas id="radar76" height="650" width="650"></canvas></li>
+<li><canvas id="radar77" height="650" width="650"></canvas></li>
+<li><canvas id="radar78" height="650" width="650"></canvas></li>
+<li><canvas id="radar79" height="650" width="650"></canvas></li>
+<li><canvas id="radar80" height="650" width="650"></canvas></li>
+    <li><canvas id="radar81" height="650" width="650"></canvas></li>
+<li><canvas id="radar82" height="650" width="650"></canvas></li>
+<li><canvas id="radar83" height="650" width="650"></canvas></li>
+<li><canvas id="radar84" height="650" width="650"></canvas></li>
+<li><canvas id="radar85" height="650" width="650"></canvas></li>
+<li><canvas id="radar86" height="650" width="650"></canvas></li>
+<li><canvas id="radar87" height="650" width="650"></canvas></li>
+<li><canvas id="radar88" height="650" width="650"></canvas></li>
+    <li><canvas id="radar89" height="650" width="650"></canvas></li>
+<li><canvas id="radar90" height="650" width="650"></canvas></li>
+<li><canvas id="radar91" height="650" width="650"></canvas></li>
+<li><canvas id="radar92" height="650" width="650"></canvas></li>
+<li><canvas id="radar93" height="650" width="650"></canvas></li>
+<li><canvas id="radar94" height="650" width="650"></canvas></li>
+<li><canvas id="radar95" height="650" width="650"></canvas></li>
+<li><canvas id="radar96" height="650" width="650"></canvas></li>
+    <li><canvas id="radar97" height="650" width="650"></canvas></li>
+<li><canvas id="radar98" height="650" width="650"></canvas></li>
+<li><canvas id="radar99" height="650" width="650"></canvas></li>
+<li><canvas id="radar100" height="650" width="650"></canvas></li>
+<li><canvas id="radar101" height="650" width="650"></canvas></li>
+<li><canvas id="radar102" height="650" width="650"></canvas></li>
+<li><canvas id="radar103" height="650" width="650"></canvas></li>
+<li><canvas id="radar104" height="650" width="650"></canvas></li>
+
+</ul>
+
+
+</div>
+
+
+
+</div>
+
+<div style="height: 100% ; width: 50%; float:right" >
+<select name="select" class="choose1" >
+<option value="1">上海光学精密机械研究所</option>
+<option value="2">上海天文台</option>
+<option value="3">上海巴斯德研究所</option>
+<option value="4">上海应用物理研究所</option>
+    <option value="5">上海微系统与信息技术研究所</option>
+<option value="6">上海技术物理研究所</option>
+<option value="7">上海有机化学研究所</option>
+<option value="8">上海硅酸盐研究所</option>
+    <option value="9">上海药物研究所</option>
+<option value="10">上海营养与健康研究所</option>
+<option value="11">上海高等研究院</option>
+<option value="12">东北地理与农业生态研究所</option>
+    <option value="13">亚热带农业生态研究所</option>
+<option value="14">信息工程研究所</option>
+<option value="15">光电技术研究所</option>
+<option value="16">兰州化学物理研究所</option>
+    <option value="17">分子植物科学卓越创新中心</option>
+<option value="18">分子细胞科学卓越创新中心</option>
+<option value="19">力学研究所</option>
+<option value="20">动物研究所</option>
+    <option value="21">化学研究所</option>
+<option value="22">北京基因组研究所</option>
+<option value="23">北京综合研究中心</option>
+<option value="24">半导体研究所</option>
+    <option value="25">华南植物园</option>
+<option value="26">南京土壤研究所</option>
+<option value="27">南京地理与湖泊研究所</option>
+<option value="28">南京地质古生物研究所</option>
+    <option value="29">南海海洋研究所</option>
+<option value="30">古脊椎动物与古人类研究所</option>
+<option value="31">合肥物质科学研究院</option>
+<option value="32">国家天文台</option>
+    <option value="33">国家授时中心</option>
+<option value="34">国家空间科学中心</option>
+<option value="35">国家纳米科学中心</option>
+<option value="36">地球化学研究所</option>
+    <option value="37">地球环境研究所</option>
+<option value="38">地理科学与资源研究所</option>
+<option value="39">地质与地球物理研究所</option>
+<option value="40">城市环境研究所</option>
+    <option value="41">声学研究所</option>
+<option value="42">大气物理研究所</option>
+<option value="43">大连化学物理研究所</option>
+<option value="44">天津工业生物技术研究所</option>
+    <option value="45">宁波材料技术与工程研究所</option>
+<option value="46">山西煤炭化学研究所</option>
+<option value="47">工程热物理研究所</option>
+<option value="48">广州地球化学研究所</option>
+    <option value="49">广州生物医药与健康研究院</option>
+<option value="50">广州能源研究所</option>
+<option value="51">微小卫星创新研究院</option>
+<option value="52">微生物研究所</option>
+    <option value="53">微电子研究所</option>
+<option value="54">心理研究所</option>
+<option value="55">成都山地灾害与环境研究所</option>
+<option value="56">成都生物研究所</option>
+    <option value="57">数学与系统科学研究院</option>
+<option value="58">新疆理化技术研究所</option>
+<option value="59">新疆生态与地理研究所</option>
+<option value="60">昆明动物研究所</option>
+    <option value="61">昆明植物研究所</option>
+<option value="62">植物研究所</option>
+<option value="63">武汉岩土力学研究所</option>
+<option value="64">武汉植物园</option>
+    <option value="65">武汉病毒研究所</option>
+<option value="66">水生生物研究所</option>
+<option value="67">沈阳应用生态研究所</option>
+<option value="68">沈阳自动化研究所</option>
+    <option value="69">海洋研究所</option>
+<option value="70">深圳先进技术研究院</option>
+<option value="71">深海科学与工程研究所</option>
+<option value="72">烟台海岸带研究所</option>
+    <option value="73">物理研究所</option>
+<option value="74">理化技术研究所</option>
+<option value="75">理论物理研究所</option>
+<option value="76">生态环境研究中心</option>
+    <option value="77">生物物理研究所</option>
+<option value="78">电工研究所</option>
+<option value="79">福建物质结构研究所</option>
+<option value="80">科技战略咨询研究院</option>
+    <option value="81">空天信息创新研究院</option>
+<option value="82">空间应用工程与技术中心</option>
+<option value="83">精密测量科学与技术创新研究院</option>
+<option value="84">紫金山天文台</option>
+    <option value="85">脑科学与智能技术卓越创新中心</option>
+<option value="86">自动化研究所</option>
+<option value="87">自然科学史研究所</option>
+<option value="88">苏州生物医学工程技术研究所</option>
+    <option value="89">苏州纳米技术与纳米仿生研究所</option>
+<option value="90">西北生态环境资源研究院</option>
+<option value="91">西双版纳热带植物园</option>
+<option value="92">西安光学精密机械研究所</option>
+    <option value="93">计算技术研究所</option>
+<option value="94">软件研究所</option>
+<option value="95">过程工程研究所</option>
+<option value="96">近代物理研究所</option>
+    <option value="97">遗传与发育生物学研究所</option>
+<option value="98">重庆绿色智能技术研究院</option>
+<option value="99">金属研究所</option>
+<option value="100">长春光学精密机械与物理研究所</option>
+    <option value="101">长春应用化学研究所</option>
+<option value="102">青岛生物能源与过程研究所</option>
+<option value="103">青藏高原研究所</option>
+<option value="104">高能物理研究所</option>
+
+
+</select>
+    <div class="showView1" >
+
+<ul>
+ <li><canvas id="radar1-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar2-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar3-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar4-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar5-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar6-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar7-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar8-1" height="650" width="650"></canvas></li>
+    <li><canvas id="radar9-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar10-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar11-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar12-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar13-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar14-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar15-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar16-1" height="650" width="650"></canvas></li>
+    <li><canvas id="radar17-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar18-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar19-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar20-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar21-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar22-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar23-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar24-1" height="650" width="650"></canvas></li>
+    <li><canvas id="radar25-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar26-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar27-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar28-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar29-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar30-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar31-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar32-1" height="650" width="650"></canvas></li>
+    <li><canvas id="radar33-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar34-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar35-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar36-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar37-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar38-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar39-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar40-1" height="650" width="650"></canvas></li>
+    <li><canvas id="radar41-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar42-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar43-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar44-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar45-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar46-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar47-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar48-1" height="650" width="650"></canvas></li>
+    <li><canvas id="radar49-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar50-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar51-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar52-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar53-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar54-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar55-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar56-1" height="650" width="650"></canvas></li>
+    <li><canvas id="radar57-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar58-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar59-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar60-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar61-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar62-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar63-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar64-1" height="650" width="650"></canvas></li>
+    <li><canvas id="radar65-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar66-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar67-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar68-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar69-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar70-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar71-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar72-1" height="650" width="650"></canvas></li>
+    <li><canvas id="radar73-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar74-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar75-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar76-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar77-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar78-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar79-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar80-1" height="650" width="650"></canvas></li>
+    <li><canvas id="radar81-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar82-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar83-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar84-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar85-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar86-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar87-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar88-1" height="650" width="650"></canvas></li>
+    <li><canvas id="radar89-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar90-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar91-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar92-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar93-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar94-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar95-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar96-1" height="650" width="650"></canvas></li>
+    <li><canvas id="radar97-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar98-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar99-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar100-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar101-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar102-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar103-1" height="650" width="650"></canvas></li>
+<li><canvas id="radar104-1" height="650" width="650"></canvas></li>
+</ul>
+
+</ul>
+
+</div>
+
+</div></div></div></div></div>
+
+
+
+<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+<script>
+$('.showVie ul li').eq(0).show().siblings().hide();
+$('.choose').on('change', function (){
+var index = $(this).val() - 1;
+$('.showVie ul li').eq(index).show().siblings().hide();
+})
+</script>
+<script src="{% static 'js/jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+<script>
+$('.showView1 ul li').eq(0).show().siblings().hide();
+$('.choose1').on('change', function (){
+var index = $(this).val() - 1;
+$('.showView1 ul li').eq(index).show().siblings().hide();
+})
+</script>
+
+
+
+<!--引用雷达图js文件  -->
+    <script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/index_radar_yjs.js' %}"></script>
+
+<!--所有调用js文件的函数  -->
+
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('radar1'));
+  radar1(myChart1, hei);
+  </script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('radar1-1'));
+  radar1(myChart1, hei);
+    </script>
+
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('radar2'));
+  radar2(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar3'));
+  radar3(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar4'));
+  radar4(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar5'));
+  radar5(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar6'));
+  radar6(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar7'));
+  radar7(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar8'));
+  radar8(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar9'));
+  radar9(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar10'));
+  radar10(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar11'));
+  radar11(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar12'));
+  radar12(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar13'));
+  radar13(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar14'));
+  radar14(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar15'));
+  radar15(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar16'));
+  radar16(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar17'));
+  radar17(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar18'));
+  radar18(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar19'));
+  radar19(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar20'));
+  radar20(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar21'));
+  radar21(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar22'));
+  radar22(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar23'));
+  radar23(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar24'));
+  radar24(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar25'));
+  radar25(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar26'));
+  radar26(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar27'));
+  radar27(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar28'));
+  radar28(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar29'));
+  radar29(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar30'));
+  radar30(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar31'));
+  radar31(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar32'));
+  radar32(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar33'));
+  radar33(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar34'));
+  radar34(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar35'));
+  radar35(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar36'));
+  radar36(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar37'));
+  radar37(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar38'));
+  radar38(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar39'));
+  radar39(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar40'));
+  radar40(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar41'));
+  radar41(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar42'));
+  radar42(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar43'));
+  radar43(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar44'));
+  radar44(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar45'));
+  radar45(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar46'));
+  radar46(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar47'));
+  radar47(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar48'));
+  radar48(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar49'));
+  radar49(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar50'));
+  radar50(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar51'));
+  radar51(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar52'));
+  radar52(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar53'));
+  radar53(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar54'));
+  radar54(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar55'));
+  radar55(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar56'));
+  radar56(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar57'));
+  radar57(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar58'));
+  radar58(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar59'));
+  radar59(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar60'));
+  radar60(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar61'));
+  radar61(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar62'));
+  radar62(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar63'));
+  radar63(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar64'));
+  radar64(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar65'));
+  radar65(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar66'));
+  radar66(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar67'));
+  radar67(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar68'));
+  radar68(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar69'));
+  radar69(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar70'));
+  radar70(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar71'));
+  radar71(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar72'));
+  radar72(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar73'));
+  radar73(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar74'));
+  radar74(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar75'));
+  radar75(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar76'));
+  radar76(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar77'));
+  radar77(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar78'));
+  radar78(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar79'));
+  radar79(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar80'));
+  radar80(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar81'));
+  radar81(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar82'));
+  radar82(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar83'));
+  radar83(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar84'));
+  radar84(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar85'));
+  radar85(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar86'));
+  radar86(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar87'));
+  radar87(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar88'));
+  radar88(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar89'));
+  radar89(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar90'));
+  radar90(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar91'));
+  radar91(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar92'));
+  radar92(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar93'));
+  radar93(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar94'));
+  radar94(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar95'));
+  radar95(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar96'));
+  radar96(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar97'));
+  radar97(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar98'));
+  radar98(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar99'));
+  radar99(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar100'));
+  radar100(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar101'));
+  radar101(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar102'));
+  radar102(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar103'));
+  radar103(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar104'));
+  radar104(myChart1, hei);
+
+
+
+  </script>
+    <script type="text/javascript">
+    hei = document.body.clientWidth;
+
+    var myChart1 = echarts.init(document.getElementById('radar2-1'));
+  radar2(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar3-1'));
+  radar3(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar4-1'));
+  radar4(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar5-1'));
+  radar5(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar6-1'));
+  radar6(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar7-1'));
+  radar7(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar8-1'));
+  radar8(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar9-1'));
+  radar9(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar10-1'));
+  radar10(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar11-1'));
+  radar11(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar12-1'));
+  radar12(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar13-1'));
+  radar13(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar14-1'));
+  radar14(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar15-1'));
+  radar15(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar16-1'));
+  radar16(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar17-1'));
+  radar17(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar18-1'));
+  radar18(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar19-1'));
+  radar19(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar20-1'));
+  radar20(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar21-1'));
+  radar21(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar22-1'));
+  radar22(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar23-1'));
+  radar23(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar24-1'));
+  radar24(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar25-1'));
+  radar25(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar26-1'));
+  radar26(myChart1, hei);
+
+
+    var myChart1 = echarts.init(document.getElementById('radar27-1'));
+  radar27(myChart1, hei);
+
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('radar28-1'));
+  radar28(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar29-1'));
+  radar29(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar30-1'));
+  radar30(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar31-1'));
+  radar31(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar32-1'));
+  radar32(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar33-1'));
+  radar33(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar34-1'));
+  radar34(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar35-1'));
+  radar35(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar36-1'));
+  radar36(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar37-1'));
+  radar37(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar38-1'));
+  radar38(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar39-1'));
+  radar39(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar40-1'));
+  radar40(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar41-1'));
+  radar41(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar42-1'));
+  radar42(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar43-1'));
+  radar43(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar44-1'));
+  radar44(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar45-1'));
+  radar45(myChart1, hei);
+    var myChart1 = echarts.init(document.getElementById('radar46-1'));
+  radar46(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar47-1'));
+  radar47(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar48-1'));
+  radar48(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar49-1'));
+  radar49(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar50-1'));
+  radar50(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar51-1'));
+  radar51(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar52-1'));
+  radar52(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar53-1'));
+  radar53(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar54-1'));
+  radar54(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar55-1'));
+  radar55(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar56-1'));
+  radar56(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar57-1'));
+  radar57(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar58-1'));
+  radar58(myChart1, hei);
+    var myChart1 = echarts.init(document.getElementById('radar59-1'));
+  radar59(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar60-1'));
+  radar60(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar61-1'));
+  radar61(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar62-1'));
+  radar62(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar63-1'));
+  radar63(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar64-1'));
+  radar64(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar65-1'));
+  radar65(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar66-1'));
+  radar66(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar67-1'));
+  radar67(myChart1, hei);
+    var myChart1 = echarts.init(document.getElementById('radar68-1'));
+  radar68(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar69-1'));
+  radar69(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar70-1'));
+  radar70(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar71-1'));
+  radar71(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar72-1'));
+  radar72(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar73-1'));
+  radar73(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar74-1'));
+  radar74(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar75-1'));
+  radar75(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar76-1'));
+  radar76(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar77-1'));
+  radar77(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar78-1'));
+  radar78(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar79-1'));
+  radar79(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar80-1'));
+  radar80(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar81-1'));
+  radar81(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar82-1'));
+  radar82(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar83-1'));
+  radar83(myChart1, hei);
+</script>
+     <script type="text/javascript">
+    hei = document.body.clientWidth;
+    var myChart1 = echarts.init(document.getElementById('radar84-1'));
+  radar84(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar85-1'));
+  radar85(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar86-1'));
+  radar86(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar87-1'));
+  radar87(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar88-1'));
+  radar88(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar89-1'));
+  radar89(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar90-1'));
+  radar90(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar91-1'));
+  radar91(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar92-1'));
+  radar92(myChart1, hei);
+    var myChart1 = echarts.init(document.getElementById('radar93-1'));
+  radar93(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar94-1'));
+  radar94(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar95-1'));
+  radar95(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar96-1'));
+  radar96(myChart1, hei);
+    var myChart1 = echarts.init(document.getElementById('radar97-1'));
+  radar97(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar98-1'));
+  radar98(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar99-1'));
+  radar99(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar100-1'));
+  radar100(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar101-1'));
+  radar101(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar102-1'));
+  radar102(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar103-1'));
+  radar103(myChart1, hei);
+
+    var myChart1 = echarts.init(document.getElementById('radar104-1'));
+  radar104(myChart1, hei);
+</script>
+
+
+
+
+    <div data-active-color="white" data-background-color="primary" data-image="" class="app-sidebar">
+        <div class="sidebar-header">
+            <div class="logo clearfix"><a href="{% static 'index.html" class="logo-text float-left' %}"></a>
+                <div class="logo-img"><img src="{% static 'app-assets/img/logo.png' %}" alt="Convex Logo"/>
+                </div>
+
+                <a id="sidebarToggle" href="javascript:;"
+                   class="nav-toggle d-none d-sm-none d-md-none d-lg-block"><i data-toggle="collapsed" class="ft-circle toggle-icon"></i></a>
+                <a id="sidebarClose" href="javascript:;"
+                        class="nav-close d-block d-md-block d-lg-none d-xl-none"><i class="ft-circle"></i></a>
+            </div>
+        </div>
+        <div class="sidebar-content">
+            <div class="nav-container">
+                <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
+
+                    <li class="has-sub nav-item"><a href="{% static '#' %}"><i class="icon-pie-chart"></i><span
+                            data-i18n="" class="menu-title">数据可视化</span></a>
+                        <ul class="menu-content">
+                            <li ><a href="{% url 'stack19' %}" class="menu-item">总均分及各项指标</a>
+                            </li>
+                           <li><a href="{% url 'institute19' %}" class="menu-item">各单位成绩分析</a>
+                            </li>
+                            <li class="active"><a href="{% url 'comparison' %}" class="menu-item">个性化数据对比</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+
+</div>
+            <script>
+　　closeDiv()
+</script>
+
+</body>
+</html>
+
+
+
