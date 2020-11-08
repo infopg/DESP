@@ -1,9 +1,6 @@
 function bar(chart, a) {
 
     option = {
-        //背景颜色
-        //backgroundColor: '#333333',
-        //标题
         color: ['#f6ba4a', '#f37021', '#45518A'],
         title: {
             text: '研究单位信息化评估平均成绩与标准差', //标题文字
@@ -28,12 +25,12 @@ function bar(chart, a) {
                 crossStyle: {
                     color: '#aaaaaa' //颜色
                 }
-            },
+            }
         },
 
         // 图例组件样式
         legend: {
-            data: ['信息化基础环境', '信息化应用', '网络安全', '标准差'], //图例的数据数组。通常为一个字符串，每一项代表一个系列的name
+            data: ['基础环境', '信息化应用', '网络安全', '标准差'], //图例的数据数组。通常为一个字符串，每一项代表一个系列的name
             //文本样式
             textStyle: {
                 color: '#333333', //颜色
@@ -43,11 +40,6 @@ function bar(chart, a) {
             type: 'scroll',
 
         },
-
-        // legend: {
-        //     data:['信息化基础环境','信息化应用','网络安全','标准差'],
-        //     itemGap:30,
-        // },
         grid: {
             containLabel: true,
         },
@@ -96,7 +88,7 @@ function bar(chart, a) {
                 interval: 20, //强制设置坐标轴分割间隔
                 //坐标轴刻度标签的相关设置
                 axisLabel: {
-                    formatter: '{value}', //刻度标签的内容格式器，支持字符串模板和回调函数两种形式 
+                    formatter: '{value}', //刻度标签的内容格式器，支持字符串模板和回调函数两种形式
                     textStyle: {
                         fontSize: a * 0.009,
                     }
@@ -133,24 +125,20 @@ function bar(chart, a) {
 
         //系列列表
         series: [{
-                name: '信息化基础环境', //系列名称，用于tooltip的显示，legend 的图例筛选
+                name: '基础环境', //系列名称，用于tooltip的显示，legend 的图例筛选
                 type: 'bar', //图表类型：柱状图
                 //系列中的数据内容数组。数组项通常为具体的数据项
                 stack: '值',
                 data: [],
                 //图形样式
                 itemStyle: {
-
-
                     opacity: 0.75,
-
-
                 },
                 barMaxWidth: 60,
                 label: {
                     show: false,
                     textStyle: {
-                        color: '#fff',
+                        color: '#333333',
 
                     }
                 }
@@ -164,10 +152,7 @@ function bar(chart, a) {
                 data: [],
                 //图形样式
                 itemStyle: {
-
                     opacity: 0.75,
-
-
                 },
                 barMaxWidth: 60,
                 label: {
@@ -196,7 +181,7 @@ function bar(chart, a) {
                     position: 'insideBottom',
                     show: false,
                     textStyle: {
-                        color: '#fff',
+                        color: '#333333',
 
                     }
                 }
@@ -204,21 +189,21 @@ function bar(chart, a) {
             },
             {
                 name: '总分',
-                barMaxWidth: 0,
+                barWidth: 60,
 
                 type: 'bar',
                 stack: '值',
                 itemStyle: {
                     normal: {
                         barBorderColor: 'rgba(0,0,0,0)',
-                        color: 'rgba(0,0,0,0)'
+                        color: 'rgba(0,0,0,0)',
                     },
                     emphasis: {
                         barBorderColor: 'rgba(0,0,0,0)',
                         color: 'rgba(0,0,0,0)'
                     }
                 },
-                data: [61.7, 63.12, 64.56]
+                data: [59.35, 61.33, 64.56, 64.45]
             },
             {
                 name: '标准差', //系列名称
@@ -259,7 +244,7 @@ function bar(chart, a) {
             }],
 
             series: [{
-                    name: '信息化基础环境',
+                    name: '基础环境',
                     data: data.x1,
                 },
                 {
@@ -274,6 +259,7 @@ function bar(chart, a) {
                     name: '标准差',
                     data: data.std,
                 }
+
             ]
         });
 

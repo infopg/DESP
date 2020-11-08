@@ -20,8 +20,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
-          rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
@@ -134,43 +132,89 @@
     </nav>
 
     <div class="main-panel">
-        <div class="main-content">
-            <div class="content-wrapper">
-                <div class="container-fluid"><!-- Base style table -->
-                    <section id="base-style">
+        <div class="main-content" >
+            <div class="content-wrapper" >
+                <div class="container-fluid" ><!-- Base style table -->
+                    <section id="base-style" style="width:1300px;height:2700px">
                         <div class="row">
                           
-                            <div class="col-12">
-                                <div class="card" style='height:60rem'>
+                            <div class="col-12" >
+                                <div class="card">
                                     <div class="card-header">
                                         <div class="card-title-wrap bar-success">
                                             <h2 class="card-title">研究单位总体情况</h2>
                                         </div>
                                     </div>
-                                    <div class="card-block">
-                                        <table class="table" border="0" align="left" style="width: 1300px;height:600px;">
-                                            <thead style='display: none;'></thead>
-                                            <tbody>
-                                                <tr>
-                                                    <!--纵向合并单元格，并添加地图及隐藏悬浮框-->
-                                                    <td rowspan="2" width = 700px height = 600px>
-                                                        <div id="map" style="height: 100%; width:100%"></div>
-                                                    </td>		
-                                                    <th width = 600px height = 300px>
-                                                        <!--添加柱形图-->
-                                                        <div id = 'bar' style = "height:100%; width:100%"></div>
-                                                    </th>
-			                                    </tr>
-                                                <tr>
-                                                    <th width = 600px  height = 300px>
-                                                        <!--添加雷达图-->
-                                                        <div id = 'rad' style = "height:100%; width:100%"></div>
-                                                    </th>
-                                                </tr>
-                                            </tbody>
-			                                
-		                                </table>
-                                       
+                                    <div class="card-block" >
+                                        <table class="table1" border="0" align="left" style="width: 1100px;height:300px;">
+                                            <th>
+                                                <div id="bar" style="width:60%;height:100%"></div>
+                                            </th>
+                                        </table>
+                                        <table class="table2" border="0" align="left" style="width: 1300px;height:600px;">
+                                            <tr>
+                                                <!--纵向合并单元格，并添加地图及隐藏悬浮框-->
+                                                <td rowspan="2" style="width:55%;height:100%">
+                                                    <div id="map" style="width: 90%; height:100%;"></div>
+                                                </td>
+                                                <th width = 45% height = 50%>
+                                                    <div id="bar2" style="width: 90%; height:100%;"></div>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                 <th width = 45%  height = 50%>
+                                                    <div id = 'rad' style = "width:80%;height:100%"></div>
+                                                 </th>
+                                            </tr>
+                                        </table>
+                                        <table class="table3" border="0"  align="left" style="width: 1300px;height:600px;">
+                                            <tr>
+                                                <!--纵向合并单元格，并添加地图及隐藏悬浮框-->
+                                                <td rowspan="2" style="width:55%;height:100%">
+                                                    <div id="map2" style="width: 90%; height:100%;"></div>
+                                                </td>
+                                                <th width = 45% height = 50%>
+                                                    <div id="bar22" style="width: 90%; height:100%;"></div>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                 <th width = 45%  height = 50%>
+                                                    <div id = 'rad2' style = "width:80%;height:100%"></div>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                        <table class="table4" border="0"  align="left" style="width: 1300px;height:600px;">
+                                            <tr>
+                                                <!--纵向合并单元格，并添加地图及隐藏悬浮框-->
+                                                <td rowspan="2" style="width:55%;height:100%">
+                                                    <div id="map3" style="width: 90%; height:100%;"></div>
+                                                </td>
+                                                <th width = 45% height = 50%>
+                                                    <div id="bar32" style="width: 90%; height:100%;"></div>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                 <th width = 45%  height = 50%>
+                                                    <div id = 'rad3' style = "width:80%;height:100%"></div>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                        <table class="table5" border="0"  align="left" style="width: 1300px;height:600px;">
+                                            <tr>
+                                                <!--纵向合并单元格，并添加地图及隐藏悬浮框-->
+                                                <td rowspan="2" style="width:55%;height:100%">
+                                                    <div id="map4" style="width: 90%; height:100%;"></div>
+                                                </td>
+                                                <th width = 45% height = 50%>
+                                                    <div id="bar42" style="width: 90%; height:100%;"></div>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                 <th width = 45%  height = 50%>
+                                                    <div id = 'rad4' style = "width:80%;height:100%"></div>
+                                                </th>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -195,15 +239,18 @@
     <script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
     <script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
     <script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="{% static 'lib/echarts/echarts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/echarts/echarts.js' %}"></script>3
     <script type="text/javascript" src="{% static 'lib/echarts/china.js' %}"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/jquery.js' %}"></script>
     <!--引用雷达图、柱形图、的地图的.js文件-->
-    <script type="text/javascript" src="{% static 'src/js/over_yjs.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/overview_research.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/overview_research2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/overview_research3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/overview_research4.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/jquery.ba-resize.js.js' %}"></script>
     <script type="text/javascript">
-        hei = document.body.clientWidth
+
+        hei = document.body.clientWidth;
         //雷达图
         var myRad = echarts.init(document.getElementById('rad'));
         rad(myRad, hei);
@@ -213,13 +260,37 @@
         //排名地图
         var myMap = echarts.init(document.getElementById('map'));
         map(myMap,myRad,hei);
-        setTimeout(function (){
-            window.onresize = function () {
-                myBar.resize();
-                myRad.resize();
-                myMap.resize();
-            }
-        })
+
+        var myBar2 = echarts.init(document.getElementById('bar2'));
+        bar2(myBar2,hei);
+
+        var myRad2 = echarts.init(document.getElementById('rad2'));
+        rad2(myRad2, hei);
+
+        var myMap2 = echarts.init(document.getElementById('map2'));
+        map2(myMap2,myRad2,hei);
+
+        var myBar22 = echarts.init(document.getElementById('bar22'));
+        bar22(myBar22,hei);
+
+        var myRad3 = echarts.init(document.getElementById('rad3'));
+        rad3(myRad3, hei);
+
+        var myMap3 = echarts.init(document.getElementById('map3'));
+        map3(myMap3,myRad3,hei);
+
+        var myBar32 = echarts.init(document.getElementById('bar32'));
+        bar32(myBar32,hei);
+
+        var myRad4 = echarts.init(document.getElementById('rad4'));
+        rad4(myRad4, hei);
+
+        var myMap4 = echarts.init(document.getElementById('map4'));
+        map4(myMap4,myRad4,hei);
+
+        var myBar42 = echarts.init(document.getElementById('bar42'));
+        bar42(myBar42,hei);
+
     </script>
     <style type="text/css">
         * {
@@ -227,34 +298,43 @@
             padding: 0%;
         }
 
-        .table{
-            margin-top:5%;
+        .table1{
+            margin-top:2.5%;
             margin-left:0%;
             margin-right:0%;
-            float:center;
-        
+            margin-down:2.5%;
+        }
 
+        .table2{
+            margin-top:4.5%;
+            margin-left:0%;
+            margin-right:0%;
+            margin-down:2.5%;
+        }
+
+        .table3{
+            margin-top:4.5%;
+            margin-left:0%;
+            margin-right:0%;
+            margin-down:2.5%;
+        }
+
+        .table4{
+            margin-top:4.5%;
+            margin-left:0%;
+            margin-right:0%;
+            margin-down:2.5%;
+        }
+
+        .table5{
+            margin-top:4.5%;
+            margin-left:0%;
+            margin-right:0%;
+            margin-down:2.5%;
         }
 
         #bar{
-            margin-top:0%;
-            margin-right: 0%;
-            z-index: 888;
-            float:left;
-
-        }
-
-
-        #rad{
-            margin-top: 0%;
-            
-            float:left;
-
-        }
-
-        #map{
-            float:right;
-            margin-right:0%;
+            margin-bottom: 0;
         }
     </style>
   </body>

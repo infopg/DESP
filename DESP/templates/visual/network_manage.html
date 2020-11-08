@@ -20,16 +20,15 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
-          rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
     <link rel="stylesheet" type="text/css"
-          href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
+          href="{% static 'app-assets/vendors/css/tables/datatable/dataTables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/net_mag.css' %}">
 </head>
 <body data-col="2-columns" class=" 2-columns">
 <!-- ////////////////////////////////////////////////////////////////////////////-->
@@ -88,7 +87,7 @@
 						        </ul>
 					        </li>
                             <li><a href="{% url 'details_comparison' %}" class="menu-item">详细情况及对比</a></li>
-                            <li><a href = "http://xxhpg.cas.cn/views/download.jsp"target="_blank" class="menu-item">报告下载</a></li> 
+                            <li><a href = "http://xxhpg.cas.cn/views/download.jsp"target="_blank" class="menu-item">报告下载</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -139,7 +138,7 @@
                 <div class="container-fluid"><!-- Base style table -->
                     <section id="base-style">
                         <div class="row">
-                          
+
                             <div class="col-12">
                                 <div class="card" style='height:80rem'>
                                     <div class="card-header">
@@ -147,45 +146,34 @@
                                             <h2 class="card-title">网络安全管理</h2>
                                         </div>
                                     </div>
-                                    <div class="card-block" style="width: 100%;height:100%">
-                                        <table class="table" border="0" align="left" style="width: 100%;height:40%">
-                                            <tr>
-                                                <th style = 'width:50%'>
-                                                    <div class = 'select'>
-                                                        <input class = 'button' type="button" id="actf1" name="actf" value="  研究单位无线网络安全防护措施  "
-                                                            onClick="f1()" />
-                                                        <input class = 'button' type="button" id="actf2" name="actf" value="  研究单位网络安全审计情况  " 
-                                                            onClick="f2()" /> 
-                                                            <input class = 'button' type="button" id="actf3" name="actf" value="  研究单位网络安全培训情况  " 
-                                                            onClick="f3()" /> 
-                                                    </div>
-                                                    <div id="fall" style="width: 100%; height:100%;"></div>
-                                                </th>	
-				                                <th style = 'width:50%'>
-					                                <div id="rad1" style="width: 100%; height:100%;"></div>
-					                                <div class = 'title'>
-                                                    <p> 研究单位内部审批流程完成情况</p></div>
-                                                </th>	
-                                            </tr>
+                                    <div class="card-block" style="width: 100%;height:80%">
+                                        <table class="table" border="0" align="left" style="width: 100%;height:40%;">
+                                            <th style = 'width:33%'>
+                                                <div id="fall" style="width: 100%; height:100%;"></div>
+                                            </th>
+                                            <th style = 'width:33%'>
+                                                <div id="fall2" style="width: 100%; height:100%;"></div>
+                                            </th>
+                                            <th style = 'width:33%'>
+                                                <div id="fall3" style="width: 100%; height:100%;"></div>
+                                            </th>
 	                                    </table>
-	                                    <table class="table2" border="0" align="left" style="width: 100%;height:40%;">
-                                            <tr>
-                                                <th style = 'width: 50%'>
-                                                    <div class = 'select2' style = 'float:left'>
-                                                        <input class = 'button' type="button" id="actp1" name="actp" value="研究单位网络与信息安全认证、标准或规范情况" 
-                                                            onClick="p1()" /> 
-                                                        <input class = 'button' type="button" id="actp2" name="actp" value="研究单位信息系统安全检查情况" 
-                                                            onClick="p2()" /> 
-                                                    </div>
-                                                    <div style = 'clear: both'></div>
-                                                    <div id="pie" style="width: 100%; height:100%; float:left;"></div>	
-                                                    <div style = 'clear: both'></div>
-                                                </th>		
-                                                <th style = "width: 50%">
-                                                    <div id="rad2" style="width: 100%; height:100%;float:left;"></div>
-                                                    <div style = 'clear: both'></div>
-                                                </th>	
-                                            </tr>
+                                        <table class="table2" border="0" align="center" style="width: 100%;height:48%;">
+                                            <th style = 'width:50%'>
+                                                <div id="rad1" style="width: 100%; height:100%;float:left;"></div>
+                                            </th>
+                                            <th style = 'width:50%'>
+                                                <div id="rad2" style="width: 100%; height:100%;float:left;"></div>
+                                                <div style = 'clear: both'></div>
+                                            </th>
+                                        </table>
+	                                    <table class="table3" border="0" align="right" style="width: 100%;height:30%;">
+                                            <th style = "width:50%">
+                                                <div id="pie" style="width: 100%; height:100%; "></div>
+                                            </th>
+                                            <th style = "width:50%">
+                                                <div id="pie2" style="width: 100%; height:100%;"></div>
+                                            </th>
                                         </table>
                                     </div>
                                 </div>
@@ -211,89 +199,17 @@
     <script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
     <script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
     <script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/echarts.js' %}"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/china.js' %}"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/jquery.js' %}"></script>
     <!--引用雷达图、地图的.js文件-->
     <script type="text/javascript" src="{% static 'src/js/net_mag_rad1.js' %}"></script>
     <script type="text/javascript" src="{% static 'src/js/net_mag_fall.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/net_mag_fall2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/net_mag_fall3.js' %}"></script>
     <script type="text/javascript" src="{% static 'src/js/net_mag_pie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/net_mag_pie2.js' %}"></script>
     <script type="text/javascript" src="{% static 'src/js/net_mag_rad2.js' %}"></script>
-    <script type="text/javascript">
-        hei = document.body.clientWidth	
-        var myFall = echarts.init(document.getElementById('fall'));
-        fall1(myFall,hei);
-        var myPie1 = echarts.init(document.getElementById('pie'));
-        pie1(myPie1,hei);
-        var myRad1 = echarts.init(document.getElementById('rad1'));
-        rad1(myRad1,hei);   
-        var myRad2 = echarts.init(document.getElementById('rad2'));
-        rad2(myRad2,hei);
-        {% comment %} setTimeout(function (){
-            window.onresize = function () {
-                myFall.resize();
-                myPie1.resize();
-                myRad1.resize();
-                myRad2.resize();               
-            }
-        }) {% endcomment %}
-        function f1(){
-            myFall.clear();
-            fall1(myFall,hei);
-        }
-        function f2(){
-            myFall.clear();					
-            fall2(myFall,hei);
-        }
-        function f3(){
-            myFall.clear();					
-            fall3(myFall,hei);
-        }
-
-        function p1(){
-            myPie1.clear();
-            pie1(myPie1,hei);
-        }
-		function p2(){
-			myPie1.clear();				
-			pie2(myPie1,hei);
-		}
-    </script>
-    <style type="text/css">
-        * {
-            margin: 0%;
-            padding: 0%;
-        }
-
-        .table{
-            margin-top:0%;
-            margin-left:0%;
-            margin-right:0%;
-            float:center;
-        }
-
-        #bar{
-            margin-top:0%;
-            margin-right: 0%;
-            z-index: 888;
-            float:left;
-
-        }
-
-
-        #rad{
-            margin-top: 0%;
-            
-            float:left;
-
-        }
-
-        #map{
-            float:right;
-            margin-right:0%;
-        }
-    </style>
+    <script type="text/javascript" src="{% static 'src/js/net_mag_collect.js' %}"></script>
   </body>
 </html>
