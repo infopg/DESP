@@ -15,7 +15,6 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse, render
 from django.utils.encoding import escape_uri_path
-from xlwt import Workbook
 
 from administrator import models
 from administrator.models import TableEvaluationIndicator, TableQuestionContent
