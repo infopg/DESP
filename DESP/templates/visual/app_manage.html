@@ -20,8 +20,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
-          rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
@@ -156,6 +154,17 @@
                                                 <div id="fall" style="width: 100%; height:100%;"></div>
                                             </th>
                                         </table>
+                                        <table class="table" border="0"  style="width:1100px;height:300px">
+                                            <th width = 33% height = 100%>
+                                                <div id="pie31" style="width: 100%; height:95%;"></div>
+                                            </th>
+                                            <th width = 33% height = 100%>
+                                                <div id="pie32" style="width: 100%; height:95%;"></div>
+                                            </th>
+                                            <th width = 33% height = 100%>
+                                                <div id="pie33" style="width: 100%; height:95%;"></div>
+                                            </th>
+                                        </table>
                                         <table class="table" border="0" valign="middle" style="width:1100px;height:250px">
                                             <th width = 50% height = 100%>
                                                 <div id="pie1" style="width: 100%; height:100%;"></div>
@@ -196,8 +205,6 @@
     <script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
     <script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
     <script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/echarts.js' %}"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/china.js' %}"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/jquery.js' %}"></script>
@@ -206,8 +213,15 @@
     <script type="text/javascript" src="{% static 'src/js/app_man_bar2.js' %}"></script>
     <script type="text/javascript" src="{% static 'src/js/app_man_pie1.js' %}"></script>
     <script type="text/javascript" src="{% static 'src/js/app_man_pie2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/app_man_pie3.js' %}"></script>
     <script type="text/javascript">
-        hei = document.body.clientWidth	
+        hei = document.body.clientWidth
+
+        var myFall = echarts.init(document.getElementById('fall'));
+		bar1(myFall,hei);
+
+		var myBar = echarts.init(document.getElementById('bar'));
+		barh(myBar,hei);
 	
 		var myPie1 = echarts.init(document.getElementById('pie1'));
 		pie11(myPie1,hei);
@@ -221,11 +235,14 @@
 		var myPie22 = echarts.init(document.getElementById('pie22'));
 		pie22(myPie22,hei);
 
-		var myFall = echarts.init(document.getElementById('fall'));
-		bar1(myFall,hei);
+		var myPie31 = echarts.init(document.getElementById('pie31'));
+		pie31(myPie31,hei);
 
-		var myBar = echarts.init(document.getElementById('bar'));
-		barh(myBar,hei);
+		var myPie32 = echarts.init(document.getElementById('pie32'));
+		pie32(myPie32,hei);
+
+		var myPie33 = echarts.init(document.getElementById('pie33'));
+		pie33(myPie33,hei);
 
 		setTimeout(function (){
 			window.onresize = function () {
@@ -235,25 +252,24 @@
 				myPie2.resize();
 				myPie12.resize();
 				myPie22.resize();
+				myPie31.resize();
+				myPie32.resize();
+				myPie33.resize();
         	}
   		})
 
-		function p11(){
-			myPie1.clear();
-			pie11(myPie1,hei);
-		}
-		function p12(){
-			myPie1.clear();			
-			pie12(myPie1,hei);
-		}
-		function p21(){
-			myPie2.clear();
-			pie21(myPie2,hei);
-		}
-		function p22(){
-			myPie2.clear();		
-			pie22(myPie2,hei);
-		}
+		{#function p11(){#}
+		{#	myPie1.clear();#}
+		{#	pie11(myPie1,hei);#}
+		{#function p12(){#}
+		{#	myPie1.clear();			#}
+		{#	pie12(myPie1,hei);#}
+		{#function p21(){#}
+		{#	myPie2.clear();#}
+		{#	pie21(myPie2,hei);#}
+		{#function p22(){#}
+		{#	myPie2.clear();		#}
+		{#	pie22(myPie2,hei);#}
     </script>
     <style type="text/css">
         * {
@@ -265,7 +281,6 @@
 			margin-top:0.5%;
 			margin-left:0%;
 			margin-right:0%;
-			float:center;
 		}
 
     </style>

@@ -226,11 +226,11 @@
         var id_org_name = i + 30000;
         var id_project_name = i + 40000;
         var id_project_admin = i + 50000;
-        var bt_change = "bt1" + i;
-        var bt_check = "bt2" + i;
-        var bt_download = "bt3" + i;
-        var bt_upload = "bt4" + i;
-        var bt_email = "bt5" + i;
+        var bt_change = 60000 + i;
+        var bt_check = 70000 + i;
+        var bt_download = 80000 + i;
+        var bt_upload = 90000 + i;
+        var bt_email = 100000 + i;
 
         $("#tbody").append("" +
             "<tr>" +
@@ -261,14 +261,15 @@
     //改变问卷状态，待完善
     function Change_Status(x,y) {
         var text = document.getElementById(x).innerHTML;
+
         var text1 = "已启用";
         var text2 = "已停用";
         if(document.getElementById(y).innerHTML==text1){
             document.getElementById(y).innerHTML=text2;
-            window.location.href = "{% url 'question_status' %}?evalname" + text + "&status" + text2;
+            {#window.location.href = "{% url 'question_status' %}?evalname" + text + "&status" + text2;#}
         }else {
             document.getElementById(y).innerHTML=text1;
-            window.location.href = "{% url 'question_status' %}?evalname" + text + "&status" + text1;
+            {#window.location.href = "{% url 'question_status' %}?evalname" + text + "&status" + text1;#}
         }
     }
 

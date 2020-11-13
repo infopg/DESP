@@ -20,8 +20,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
-          rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
@@ -148,39 +146,29 @@
                                         </div>
                                     </div>
                                     <div class="card-block">
-                                        <table class="table" border="0" align="left" width = 100% height = 50%>
-		<tr>
-				<th width = 50% height = 100%>
-					<div id="bar" style="width: 95%; height:90%;"></div>
-				</th>		
-
-			<th width = 50% height = 100%>
-				<div id = 'hor_bar' style = "height:90%; width:99%"></div>
-			</th>
-		</tr>
-		
-	</table>
-
-	<table class="table2" border="0" align="left" width = 100% height = 40%>
-			<tr>
-				<th width = 33% height = 100%>
-					<div id = 'pie1' style = "height:99%; width:100%"></div>
-				</th>		
-				
-				<th width = 34% height = 100%>
-					<div id = 'pie2' style = "height:99%; width:100%"></div>
-				</th>
-
-
-				<th width = 33% height = 100%>
-					
-					<div id = 'pie3' style = "height:99%; width:100%"></div>
-					
-				</th>
-			</tr>
-			
-		</table>
-                                       
+                                        <table class="table" border="0" align="left" width = 1000px height = 400px>
+                                            <tr>
+                                                <th width = 50% height = 100%>
+                                                    <div id="bar" style="width: 95%; height:90%;"></div>
+                                                </th>
+                                                <th width = 50% height = 100%>
+                                                    <div id = 'hor_bar' style = "height:90%; width:99%"></div>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                        <table class="table2" border="0" align="left" width = 1000px height = 400px>
+                                            <tr>
+                                                <th width = 33% height = 100%>
+                                                    <div id = 'pie1' style = "height:99%; width:100%"></div>
+                                                </th>
+                                                <th width = 34% height = 100%>
+                                                    <div id = 'pie2' style = "height:99%; width:100%"></div>
+                                                </th>
+                                                <th width = 33% height = 100%>
+                                                    <div id = 'pie3' style = "height:99%; width:100%"></div>
+                                                </th>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -195,7 +183,6 @@
                                                                                             class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
             </p>
         </footer>
-
     </div>
 </div>
 <!-- BEGIN VENDOR JS-->
@@ -205,31 +192,36 @@
     <script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
     <script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
     <script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/echarts.js' %}"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/china.js' %}"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/jquery.js' %}"></script>
     <!--引用雷达图、柱形图、的地图的.js文件-->
-    <script type="text/javascript" src="{% static 'src/js/over_yjs_rad.js' %}"></script>
-    <script type="text/javascript" src="{% static 'src/js/over_yjs_bar.js' %}"></script>
-    <script type="text/javascript" src="{% static 'src/js/over_yjs_map.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/env_manage.js' %}"></script>
     <script type="text/javascript">
         hei = document.body.clientWidth
-        //雷达图
-        var myRad = echarts.init(document.getElementById('rad'));
-        rad(myRad, hei);
-        //柱形图和折线图的结合
+        var myBarh = echarts.init(document.getElementById('hor_bar'));
+        barh(myBarh,hei);
+
         var myBar = echarts.init(document.getElementById('bar'));
         bar(myBar,hei);
-        //排名地图
-        var myMap = echarts.init(document.getElementById('map'));
-        map(myMap,myRad,hei);
+
+        var myPie1 = echarts.init(document.getElementById('pie1'));
+        pie1(myPie1,hei);
+
+        var myPie2 = echarts.init(document.getElementById('pie2'));
+        pie2(myPie2,hei);
+
+        var myPie3 = echarts.init(document.getElementById('pie3'));
+        pie3(myPie3,hei);
+
         setTimeout(function (){
             window.onresize = function () {
-                myBar.resize();
-                myRad.resize();
-                myMap.resize();
+
+                            myBarh.resize();
+                            myBar.resize();
+                            myPie1.resize();
+                            myPie2.resize();
+                            myPie3.resize();
             }
         })
     </script>
@@ -239,40 +231,40 @@
             padding: 0%;
         }
 
-	.table{
-		margin-top:4%;
-		margin-left:0%;
-		margin-right:0%;
-	
+        .table{
+            margin-top:0.5%;
+            margin-left:0%;
+            margin-right:0%;
 
-	}
 
-	.table2{
-		margin-top:0%;
-		margin-left:0%;
-		margin-right:0%;
-		text-align: center;
-	
+        }
 
-	}
+        .table2{
+            margin-top:0%;
+            margin-left:0%;
+            margin-right:0%;
+            text-align: center;
 
-	#bar{
-		margin-left: 0%;
-		margin-top:3.5%;
 
-	}
-	#hor_bar{
-		margin-top: 4%;
-		margin-left: 0%;
-	}
+        }
 
-	#pie2{
-		margin-left: 0%;
-	}
+        #bar{
+            margin-left: 0%;
+            margin-top:3.5%;
 
-	#pie1, #pie2, #pie3{
-		margin-top:0%;
-	}
+        }
+        #hor_bar{
+            margin-top: 4%;
+            margin-left: 0%;
+        }
+
+        #pie2{
+            margin-left: 0%;
+        }
+
+        #pie1, #pie2, #pie3{
+            margin-top:0%;
+        }
 
     </style>
   </body>

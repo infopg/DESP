@@ -1,19 +1,24 @@
 from __future__ import unicode_literals
 
+import ast
 import codecs
 import csv
 import json
 import os
 import time
 from decimal import *
+from io import BytesIO
 
 import xlrd
+import xlwt
 from django.core import serializers
-# Create your views here.
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse, render
 from django.utils.encoding import escape_uri_path
+from django.utils.http import urlquote
+from xlwt import Workbook
+
 
 from administrator import models
 from administrator.models import TableEvaluationIndicator, TableQuestionContent
@@ -29,31 +34,99 @@ from supervisor.models import TableOrganization
 def download_questionaire(request):
     # 需要pip xlwt和import escape_uri_path
     q_e = request.GET.get('questionaire_evalname')
+    file_name = u"questionaire_" + str(q_e) + ".xls"
+    workbook = Workbook(encoding='utf-8')
+
     list_indicator = models.TableEvaluationIndicator.objects.filter(
         Q(table_evaluation_indicator_col_evaluation_name=q_e) &
         Q(table_evaluation_indicator_col_parent_name_id__isnull=False)). \
-            order_by('table_evaluation_indicator_col_id')
-    # ws = Workbook(encoding="UTF-8")
-    for x in list_indicator:
-        list_questionaire = TableQuestionContent.objects.filter(
-            Q(table_question_content_col_indicator_id=x.table_evaluation_indicator_col_id)). \
-                values('table_question_content_col_content'). \
-                order_by('table_question_content_col_marks')
-        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-        print(list_questionaire)
-        print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        order_by('table_evaluation_indicator_col_id')
+    for x1 in list_indicator:
+        list_questionaire = models.TableQuestionContent.objects.filter(
+            Q(table_question_content_col_indicator_id=x1.table_evaluation_indicator_col_id)). \
+            order_by('table_question_content_col_question_number')
+        for x2 in list_questionaire:
+            TQC_indicator_id = str(x2.table_question_content_col_indicator_id)
+            TQC_question_number = str(x2.table_question_content_col_question_number)
+            TQC_markmethod = str(x2.table_question_content_col_markmethod)
+            TQC_question_attachment = str(x2.table_question_content_col_question_attachment)
+            TQC_question_class = str(x2.table_question_content_col_question_class)
+            TQC_question_importanswer = str(x2.table_question_content_col_question_importanswer)
+            TQC_question_required = str(x2.table_question_content_col_question_required)
+            TQC_question_type = str(x2.table_question_content_col_question_type)
+            TQC_content_dict = ast.literal_eval(x2.table_question_content_col_content)
+            TQC_content_title = str(TQC_content_dict['title'])
 
-    # list_questionaire = TableQuestionContent.objects.filter(
-    #     Q(table_question_content_col_indicator_id=list_indicator)). \
-    #         values('table_question_content_col_content'). \
-    #         order_by('table_question_content_col_marks')
-    file_name = "questionaire_" + str(q_e) + ".xlsx"
-    response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = "attachment; filename*={}".format(escape_uri_path(file_name))
+            # 创建 sheet 并命名
+            sheet_str = "" + str(TQC_indicator_id) + "-" + str(TQC_question_number) + "-" + str(TQC_question_type)
+            worksheet = workbook.add_sheet(sheet_str)
+
+            # 创建一个样式对象，初始化样式
+            style = xlwt.XFStyle()
+            al = xlwt.Alignment()
+            al.horz = 0x02  # 设置水平居中
+            al.vert = 0x01  # 设置垂直居中
+            style.alignment = al
+            # 设置行高
+            tall_style = xlwt.easyxf('font:height 720;')  # 36pt,类型小初的字号
+            for num in range(0, 8):
+                row_set = worksheet.row(num)
+                row_set.set_style(tall_style)
+            # 设置列宽
+            worksheet.col(0).width = 250 * 20
+            worksheet.col(1).width = 240 * 20
+            worksheet.col(2).width = 120 * 20
+            worksheet.col(3).width = 2000 * 20
+
+            # 写入 sheet
+            if TQC_content_dict.get('answer'):
+                TQC_content_answer = str(TQC_content_dict['answer'])
+                worksheet.col(9).width = 240 * 20
+                worksheet.write(1, 2, "答案", style)
+                worksheet.write(1, 3, TQC_content_answer, style)
+            worksheet.write(0, 0, "指标id", style)
+            worksheet.write(1, 0, "问题编号", style)
+            worksheet.write(2, 0, "计分方式", style)
+            worksheet.write(3, 0, "question_attachment", style)
+            worksheet.write(4, 0, "question_importanswer", style)
+            worksheet.write(5, 0, "question_required", style)
+            worksheet.write(6, 0, "问题种类", style)
+            worksheet.write(7, 0, "问题类型", style)
+            worksheet.write(0, 2, "题目", style)
+            # 填入数据
+            worksheet.write(0, 1, TQC_indicator_id, style)
+            worksheet.write(1, 1, TQC_question_number, style)
+            worksheet.write(2, 1, TQC_markmethod, style)
+            worksheet.write(3, 1, TQC_question_attachment, style)
+            worksheet.write(4, 1, TQC_question_importanswer, style)
+            worksheet.write(5, 1, TQC_question_required, style)
+            worksheet.write(6, 1, TQC_question_type, style)
+            worksheet.write(7, 1, TQC_question_class, style)
+            worksheet.write(0, 3, TQC_content_title, style)
+
+            # 测试
+            print(TQC_indicator_id, end='/')
+            print(TQC_question_number, end='/')
+            print(TQC_markmethod, end='/')
+            print(TQC_question_attachment, end='/')
+            print(TQC_question_class, end='/')
+            print(TQC_question_importanswer, end='/')
+            print(TQC_question_required, end='/')
+            print(TQC_question_type, end='/')
+            if TQC_content_dict.get('answer'):
+                print(TQC_content_dict['title'], end='/')
+                print(TQC_content_dict['answer'])
+            else:
+                print(TQC_content_dict['title'])
+            print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+
+    output = BytesIO()
+    workbook.save(output)
+    output.seek(0)
+    response = HttpResponse(output.getvalue(), content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(escape_uri_path(file_name))
+    response.write(output.getvalue())
     return response
-
-
-# test
 
 
 def standard(request):
@@ -958,11 +1031,11 @@ def export_answer(request):  # 导出答案部分
 
 
 def import_answer(request):  # 导入答案部分
+    org_dasdad = request.GET.get('adas')
     pass
 
 
 def questionaire_status(request):
     org_name = request.GET.get('evalname')
     status = request.GET.get('status')
-
     pass
