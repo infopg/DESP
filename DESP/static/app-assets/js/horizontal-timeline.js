@@ -146,7 +146,7 @@
 			timelineComponents['eventsWrapper'].css('width', totalWidth+'px');
 			updateFilling(timelineComponents['eventsWrapper'].find('a.selected'), timelineComponents['fillingLine'], totalWidth);
 			updateTimelinePosition('next', timelineComponents['eventsWrapper'].find('a.selected'), timelineComponents);
-		
+		    console.log(totalWidth)
 			return totalWidth;
 		}
 
@@ -223,6 +223,7 @@
 				var	newDate = new Date(dayComp[2], dayComp[1]-1, dayComp[0], timeComp[0], timeComp[1]);
 				dateArrays.push(newDate);
 			});
+
 		    return dateArrays;
 		}
 

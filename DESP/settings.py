@@ -96,8 +96,8 @@ DATABASES = {
         'NAME': 'Data_evaluation',
         'USER': 'casdev',
         'PASSWORD': 'iepDev<Cas&001',
-        # 'HOST': '10.10.11.39',
-        'HOST': '10.10.11.40',
+        'HOST': '10.10.11.39',
+        # 'HOST': '10.10.11.40',
         # 'HOST': '159.226.186.34',
         'PORT': '3306',
     }

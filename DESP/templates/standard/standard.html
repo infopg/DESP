@@ -276,35 +276,18 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-md-6 col-sm-6 col-12" id="preview">
-                                                {% for x in question %}
-                                                    {% for a in x %}
-                                                        {% if a.table_question_content_col_question_type == '选择题' %}
-                                                        {% elif a.table_question_content_col_question_type == '填空题' %}
-                                                        {% elif a.table_question_content_col_question_type == '矩阵题' %}
-                                                        {% elif a.table_question_content_col_question_type == '简答题' %}
-                                                        {% elif a.table_question_content_col_question_type == '表格题' %}
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                {% endfor %}
-                                                <div id="pages" class="text-center">
-                                                    <nav aria-label="Page navigation mb-3">
-                                                        <ul class="pagination justify-content-center">
-                                                            <li class="page-item">
-                                                                {% if question.has_previous %}
-                                                                    <a class='active' name='previous'
-                                                                       href="?evalname=网络信息评估&admin=qzc?&page={{ question.previous_page_number }}">上一页</a>
-                                                                {% endif %}
-                                                                <span class="current">
-                    Page {{ question.number }} of {{ question.paginator.num_pages }}</span>
-                                                                {% if question.has_next %}
-                                                                    <a class='active' name="next"
-                                                                       href="?evalname=网络信息评估&admin=qzc?&page={{ question.next_page_number }}">下一页</a>
-                                                                {% endif %}
-                                                            </li>
-                                                        </ul>
-                                                    </nav>
+                                            <div class="text-center">
+                                                <div class="btn-group mr-2">
+                                                    <button class="btn btn-danger dropdown-toggle" type="button"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                        选择
+                                                    </button>
+                                                    <div class="dropdown-menu" id="pages">
+                                                    </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-12" id="question_list">
                                             </div>
                                         </div>
                                     </div>
@@ -356,6 +339,7 @@
 <script src="{% static 'ztreejs/jquery.ztree.core.js' %}"></script>
 <script type="text/javascript" src="{% static 'ztreejs/jquery.ztree.exhide.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'ztreejs/fuzzysearch.js' %}"></script>
+<script src="{% static 'src/js/questionaire.js' %}"></script>
 <!-- END PAGE LEVEL JS-->
 <script src="{% static 'ztreejs/csrf.js' %}"></script>
 <script src="{% static 'ztreejs/jquery.custom.js' %}"></script>
@@ -366,7 +350,138 @@
         data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
     });
     // 页面加载时生成树
-    console.log({{ question|safe }});
+    var q = {{ question|safe }};
+    for (var i = 0; i < q.length; i++) {
+        var content = q[i]['content'];
+        var question_type = q[i]['question_type'];
+        if (q[i]['question_type'] === '选择题') {
+            var len = $(".div_question").length + 1;
+            $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
+                "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
+                "                                                        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
+                "                                                            <div>\n" +
+                "<h5 style=\'display: inline\'>" + len + '.' + ' ' + "</h5>" +
+                "                                                                <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + ' </h5>\n' +
+                "                                                            </div>\n" +
+                "                                                            <div>\n" +
+                "                                                                <ul class=\"choice_list\">\n" +
+                "                                                                </ul>\n" +
+                "                                                            </div>\n" +
+                "                                                        </div>\n" +
+                "                                                    </form>\n" +
+                "                                                </div>"
+            );
+            variableID(10);
+            for (var x = 0; x < JSON.parse(q[i]['content'])['answer'].length; x++) {
+                $('.div_question').last().find('.choice_list').append("                                                                    <li class=\"mb-2\">\n" +
+                    "                                                                        <input type=\"checkbox\">\n" +
+                    "                                                                        <span>" + JSON.parse(q[i]['content'])['answer'][x] + "</span></li>\n")
+            }
+        } else if (q[i]['question_type'] === '填空题') {
+            var len = $(".div_question").length + 1;
+            $('#question_list').append("                                               <div class=\"div_question\" id = " + len + ">\n" +
+                "                                                        <form method=\"post\" class=\"form-horizontal\">\n" +
+                "                                                            <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
+                "                                                        <div>\n" +
+                "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+                "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
+                "                                                        </div>\n" +
+                "                                                            </div>\n" +
+                "                                                            </form>\n" +
+                "                                                </div>");
+            variableID(10);
+        } else if (q[i]['question_type'] === '简答题') {
+            var len = $(".div_question").length + 1;
+            $('#question_list').append("                                      <div class=\"div_question\" id = " + len + ">\n" +
+                "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
+                "                                                    <div onclick = \"toggle_edit(event)\" class='toggle'>\n" +
+                "                                                        <div>\n" +
+                "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+                "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
+                "<textarea class=\'form-control\' name=\'answerarea\' disabled>答题区域</textarea>" +
+                "                                                        </div>\n" +
+                "                                                    </div>\n" +
+                "                                                        </form>\n" +
+                "                                                </div>");
+            variableID(10);
+        } else if (q[i]['question_type'] === '矩阵题') {
+            var len = $(".div_question").length + 1;
+            $('#question_list').append("                                <div class=\"div_question\" id = " + len + ">\n" +
+                "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
+                "                                                        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
+                "                                                            <div>\n" +
+                "                                                                <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+                "                                                                <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
+                "                                                            </div>\n" +
+                "                                                            <div>\n" +
+                "                                                                <table class=\"table table-responsive-sm text-left\"  style=\"table-layout:fixed;\">\n" +
+                "                                                                    <thead>\n" +
+                "                                                                    <tr>\n" +
+                "                                                                        <td></td>\n" +
+                "                                                                    </tr>\n" +
+                "                                                                    </thead>\n" +
+                "                                                                    <tbody>\n" +
+                "                                                                    </tbody>\n" +
+                "                                                                </table>\n" +
+                "                                                            </div>\n" +
+                "                                                        </div>\n" +
+                "                                                    </form>\n" +
+                "                                                </div>");
+            variableID(10);
+            for (var x = 0; x < JSON.parse(q[i]['content'])['column'].length; x++) {
+                $('.div_question').last().find('table').eq(0).children('thead').children().eq(0).append(" <td>" + JSON.parse(q[i]['content'])['column'][x] + "</td>\n")
+            }
+            for (var y = 0; y < JSON.parse(q[i]['content'])['rows'].length; y++) {
+                $('.div_question').last().find('table').eq(0).children('tbody').append("<tr>\n" +
+                    "                                                                        <td>" + JSON.parse(q[i]['content'])['rows'][y] + "\n" +
+                    "                                                                        </td>\n" +
+                    "                                                                    </tr>\n");
+                for (var z = 0; z < JSON.parse(q[i]['content'])['column'].length; z++) {
+                    $('.div_question').last().find('table').eq(0).children('tbody').children().eq(y).append("<td><a class=\"ft-circle\"</a></td>")
+                }
+            }
+        } else if (q[i]['question_type'] === '表格题') {
+            var len = $(".div_question").length + 1;
+            $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
+                "                                                     <form method=\"post\" class=\"form-horizontal\">\n" +
+                "                                                   <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
+                "                                                        <div>\n" +
+                "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+                "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + "  </h5>\n" +
+                "                                                        </div>\n" +
+                "                                                         <div>\n" +
+                "                                                            <table class=\"table table-responsive-sm text-left\" style=\"table-layout: fixed;\">\n" +
+                "                                                                <thead>\n" +
+                "                                                                <tr>\n" +
+                "                                                                    <td></td>\n" +
+                "                                                                </tr>\n" +
+                "                                                                </thead>\n" +
+                "                                                                <tbody>\n" +
+                "                                                                </tbody>\n" +
+                "                                                            </table></div></div>\n" +
+                "                                            </form>\n" +
+                "                                            </div>");
+            variableID(10);
+            for (var x = 0; x < JSON.parse(q[i]['content'])['column'].length; x++) {
+                $('.div_question').last().find('table').eq(0).children('thead').children().eq(0).append(" <td>" + JSON.parse(q[i]['content'])['column'][x] + "</td>\n")
+            }
+            for (var y = 0; y < JSON.parse(q[i]['content'])['rows'].length; y++) {
+                $('.div_question').last().find('table').eq(0).children('tbody').append("                                                                <tr>\n" +
+                    "                                                                    <td>" + JSON.parse(q[i]['content'])['rows'][y] +
+                    "                                                                    </td> " +
+                    "                                                                </tr>\n"
+                );
+                for (var z = 0; z < JSON.parse(q[i]['content'])['column'].length; z++) {
+                    $('.div_question').last().find('table').eq(0).children('tbody').children().eq(y).append("<td><textarea disabled style='width: 100%'></textarea></td>\n")
+                }
+            }
+        } else if (q[i]['question_type'] === '附件题') {
+
+        }
+    }
+    for (i = 0; i < {{ preview_length|safe }}; i++) {
+        $("#pages").append("<a class=\"dropdown-item\" onclick=\"preview(this.text)\">" + i + "</a>")
+    }
     var setting = {
         view: {
             selectedMulti: false,
@@ -550,8 +665,8 @@
         $('#editForm').modal('show');
     }
 
-    function preview(){
-
+    function preview(value) {
+        window.location.href = "{% url 'standard' %}?evalname={{ current_eval }}&admin={{ admin }}&page=" + value + ""
     }
     // 当点击tree节点时触发
     function onClick(e, treeId, treeNode) {

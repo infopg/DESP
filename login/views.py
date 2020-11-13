@@ -1,21 +1,18 @@
-from random import Random
-
 from django.contrib.auth.hashers import make_password, check_password
 
-from django.shortcuts import render
 from django.shortcuts import redirect
-from login import models
-from . import forms
+from django.shortcuts import render
 from django.views import View
+
+from administrator.models import TableTimeliner, TableQuestionContent
+from login import models
+from login.forms import ForgetForm, ResetForm
 from login.utils.email_send import send_register_email
 from supervisor.models import TableEvaluation
+from supervisor.models import TableOrganization
+from . import forms
+import datetime
 from django.db.models import Q
-from login.forms import ForgetForm, ResetForm
-import pdb
-import datetime, json
-from django.core import serializers
-from administrator.models import TableTimeliner
-
 
 
 # Create your views here.
@@ -115,7 +112,39 @@ def administrator(request):
 def user(request):
     if not request.session.get('is_login', None) or request.session['permission'] != 3:
         return redirect('/')
-    return render(request, 'user/user.html')
+    user_name = request.session['user_name']
+    orgid = \
+    models.TableUser.objects.filter(table_user_col_name=user_name).values_list('table_user_col_organization')[0][0]
+    orgname = \
+    TableOrganization.objects.filter(table_organization_col_id=orgid).values_list('table_organization_col_name')[0][0]
+    eval = TableEvaluation.objects.get(table_evaluation_col_organization=orgname)
+    questionaire_answer = set(
+        TableQuestionContent.objects.filter(table_question_content_col_evalname=eval).values_list(
+            'table_question_content_col_indicator_id'))
+    group = []
+    for eachquestion in questionaire_answer:
+        group.append(eachquestion)
+    list = []
+    for i in range(0, len(questionaire_answer)):
+        list.append(TableQuestionContent.objects.filter(table_question_content_col_indicator_id=group[i][0]))
+    page = request.GET.get('page')
+    question = []
+    if page == None:
+        for x in list[0]:
+            question.append({
+                'question_type': x.table_question_content_col_question_type,
+                'content': x.table_question_content_col_content,
+                'indicator_id': x.table_question_content_col_indicator_id
+            })
+    else:
+        num = int(page)
+        for x in list[num]:
+            question.append({
+                'question_type': x.table_question_content_col_question_type,
+                'content': x.table_question_content_col_content,
+                'indicator_id': x.table_question_content_col_indicator_id
+            })
+    return render(request, 'user/user.html', {'question': question, 'preview_length': len(list)})
 
 
 def expert(request):

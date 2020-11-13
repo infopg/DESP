@@ -410,7 +410,7 @@
 							<ol>
 								<li><a data-date="01/04/2020" class="selected">时间线开始</a></li>
                                 {% for date in dateline %}
-                                <li><a data-date={{ date.table_timeliner_col_start }}>{{ date.table_timeliner_col_name }}</a></li>
+                                <li><a data-date={{ date.table_timeliner_col_start }}>{{ date.table_timeliner_col_status }}</a></li>
                                 {% endfor %}
 							</ol>
 							<span class="filling-line" aria-hidden="true"></span>
@@ -486,7 +486,7 @@
 <!-- END CONVEX JS-->
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
-<script src="{% static 'app-assets/js/horizontal-timeline.min.js' %}"></script>
+<script src="{% static 'app-assets/js/horizontal-timeline.js' %}"></script>
 <script>
     function go(id) {
         itemid = id

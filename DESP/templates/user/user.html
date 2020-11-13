@@ -1,11 +1,8 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="loading">
 <head>
     <meta charset="UTF-8">
-    <title>用户首页</title>
-
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -14,7 +11,10 @@
     <meta name="keywords"
           content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Styling DataTable - Convex bootstrap 4 admin dashboard template</title>
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <title>用户界面</title>
     <link rel="apple-touch-icon" sizes="60x60" href="{% static 'app-assets/img/ico/apple-icon-60.png' %}">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'app-assets/img/ico/apple-icon-76.png' %}">
     <link rel="apple-touch-icon" sizes="120x120" href="{% static 'app-assets/img/ico/apple-icon-120.png' %}">
@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css"
           href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/questionaire_result.css' %}">
 
 </head>
 
@@ -87,12 +88,24 @@
                                     <div class="card-header">
                                         <div class="card-title-wrap bar-success">
                                             <h4 class="card-title">问卷填写</h4>
-                                            <br><br><br><br><br><br><br><br><br><br>
-                                            <br><br><br><br><br><br><br><br><br><br>
-                                            <button>问卷保存</button> &emsp;
-                                            <button>问卷提交</button> &emsp;
                                         </div>
                                     </div>
+                                    <div class="card-body">
+                                        <div class="card-block">
+                                            <div class="btn-group mr-2">
+                                                <button class="btn btn-danger dropdown-toggle" type="button"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                    选择
+                                                </button>
+                                                <div class="dropdown-menu" id="pages">
+                                                </div>
+                                            </div>
+                                            <div id="question_list" class="col-md-6 col-sm-6 col-12"></div>
+                                            <input type="button" class="btn btn-warning" value="保存" onclick="submit()">
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -128,13 +141,173 @@
 <!-- BEGIN CONVEX JS-->
 <script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
 <script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
+<script src="{% static 'src/js/questionaire_result.js' %}"></script>
+<script src="{% static 'src/js/questionaire.js' %}"></script>
+<script src="{% static 'src/js/jquery.cookie.js' %}"></script>
 <!-- END CONVEX JS-->
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
 <!-- END PAGE LEVEL JS-->
+<script>
+    var q = {{ question|safe }};
+    var indicator_id = q[0]['indicator_id'];
+    $('#question_list').append("<input style=\'display: none\' name='\indicatorID\'\n value=" + indicator_id + ">");
+    for (var i = 0; i < q.length; i++) {
+        var content = q[i]['content'];
+        var question_type = q[i]['question_type'];
+        if (q[i]['question_type'] === '选择题') {
+            var len = $(".div_question").length + 1;
+            $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
+                "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
+                "                                                        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
+                "                                                            <div>\n" +
+                "<h5 style=\'display: inline\'>" + len + '.' + ' ' + "</h5>" +
+                "                                                                <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + ' </h5>\n' +
+                "                                                            </div>\n" +
+                "                                                            <div>\n" +
+                "                                                                <ul class=\"choice_list\">\n" +
+                "                                                                </ul>\n" +
+                "                                                            </div>\n" +
+                "                                                        </div>\n" +
+                "                                                        <div>\n" +
+                "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
+                "                                                                   value=\"选择题\">\n" +
+                "<input style=\"display: none\" name=\"questionnumber\"\n" +
+                "                                                                   value= " + len + ">\n" +
+                "</div>" +
+                "                                                    </form>\n" +
+                "                                                </div>"
+            );
+            for (var x = 0; x < JSON.parse(q[i]['content'])['answer'].length; x++) {
+                $('.div_question').last().find('.choice_list').append("                                                                    <li class=\"mb-2\">\n" +
+                    "                                                                        <input type=\"checkbox\" name='choice' data-index = " + x + " onclick =\"ischecked(event)\">\n" +
+                    "                                                                        <span>" + JSON.parse(q[i]['content'])['answer'][x] + "</span></li>\n")
+            }
+        } else if (q[i]['question_type'] === '填空题') {
+            var len = $(".div_question").length + 1;
+            $('#question_list').append("                                               <div class=\"div_question\" id = " + len + ">\n" +
+                "                                                        <form method=\"post\" class=\"form-horizontal\">\n" +
+                "                                                            <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
+                "                                                        <div>\n" +
+                "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+                "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
+                "                                                        </div>\n" +
+                "                                                            </div>\n" +
+                "                                                    <div>\n" +
+                "                                                        <input style=\"display: none\" name=\"questiontype\" value=\"填空题\">\n" +
+                "                                                        <input style=\"display: none\" name=\"questionnumber\" value= " + len + ">\n" +
+                "</div>" +
+                "                                                            </form>\n" +
+                "                                                </div>");
+        } else if (q[i]['question_type'] === '简答题') {
+            var len = $(".div_question").length + 1;
+            $('#question_list').append("                                      <div class=\"div_question\" id = " + len + ">\n" +
+                "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
+                "                                                    <div onclick = \"toggle_edit(event)\" class='toggle'>\n" +
+                "                                                        <div>\n" +
+                "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+                "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
+                "<textarea class=\'form-control\' name=\'answerarea\' disabled>答题区域</textarea>" +
+                "                                                        </div>\n" +
+                "                                                    </div>\n" +
+                "                                                    <div>\n" +
+                "                                                        <input style=\"display: none\" name=\"questiontype\" value=\'简答题\'>\n" +
+                "                                                        <input style=\"display: none\" name=\"questionnumber\" value= " + len + ">\n" +
+                "</div>" +
+                "                                                        </form>\n" +
+                "                                                </div>");
+        } else if (q[i]['question_type'] === '矩阵题') {
+            var len = $(".div_question").length + 1;
+            $('#question_list').append("                                <div class=\"div_question\" id = " + len + ">\n" +
+                "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
+                "                                                        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
+                "                                                            <div>\n" +
+                "                                                                <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+                "                                                                <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
+                "                                                            </div>\n" +
+                "                                                            <div>\n" +
+                "                                                                <table class=\"table table-responsive-sm text-left\"  style=\"table-layout:fixed;\">\n" +
+                "                                                                    <thead>\n" +
+                "                                                                    <tr>\n" +
+                "                                                                        <td></td>\n" +
+                "                                                                    </tr>\n" +
+                "                                                                    </thead>\n" +
+                "                                                                    <tbody>\n" +
+                "                                                                    </tbody>\n" +
+                "                                                                </table>\n" +
+                "                                                            </div>\n" +
+                "                                                        </div>\n" +
+                "                                                        <div>\n" +
+                "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
+                "                                                                   value=\"矩阵题\">\n" +
+                "<input style=\"display: none\" name=\"questionnumber\"\n" +
+                "                                                                   value= " + len + ">\n" +
+                "</div>" +
+                "                                                    </form>\n" +
+                "                                                </div>");
+            for (var x = 0; x < JSON.parse(q[i]['content'])['column'].length; x++) {
+                $('.div_question').last().find('table').eq(0).children('thead').children().eq(0).append(" <td>" + JSON.parse(q[i]['content'])['column'][x] + "</td>\n")
+            }
+            for (var y = 0; y < JSON.parse(q[i]['content'])['rows'].length; y++) {
+                $('.div_question').last().find('table').eq(0).children('tbody').append("<tr>\n" +
+                    "                                                                        <td>" + JSON.parse(q[i]['content'])['rows'][y] + "\n" +
+                    "                                                                        </td>\n" +
+                    "                                                                    </tr>\n");
+                for (var z = 0; z < JSON.parse(q[i]['content'])['column'].length; z++) {
+                    $('.div_question').last().find('table').eq(0).children('tbody').children().eq(y).append("<td><a class=\"ft-circle\"</a></td>")
+                }
+            }
+        } else if (q[i]['question_type'] === '表格题') {
+            var len = $(".div_question").length + 1;
+            $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
+                "                                                     <form method=\"post\" class=\"form-horizontal\">\n" +
+                "                                                   <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
+                "                                                        <div>\n" +
+                "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+                "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + "  </h5>\n" +
+                "                                                        </div>\n" +
+                "                                                         <div>\n" +
+                "                                                            <table class=\"table table-responsive-sm text-left\" style=\"table-layout: fixed;\">\n" +
+                "                                                                <thead>\n" +
+                "                                                                <tr>\n" +
+                "                                                                    <td></td>\n" +
+                "                                                                </tr>\n" +
+                "                                                                </thead>\n" +
+                "                                                                <tbody>\n" +
+                "                                                                </tbody>\n" +
+                "                                                            </table></div></div>\n" +
+                "                                                        <div>\n" +
+                "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
+                "                                                                   value=\"表格题\">\n" +
+                "<input style=\"display: none\" name=\"questionnumber\"\n" +
+                "                                                                   value= " + len + ">\n" +
+                "</div>" +
+                "                                            </form>\n" +
+                "                                            </div>");
+            for (var x = 0; x < JSON.parse(q[i]['content'])['column'].length; x++) {
+                $('.div_question').last().find('table').eq(0).children('thead').children().eq(0).append(" <td>" + JSON.parse(q[i]['content'])['column'][x] + "</td>\n")
+            }
+            for (var y = 0; y < JSON.parse(q[i]['content'])['rows'].length; y++) {
+                $('.div_question').last().find('table').eq(0).children('tbody').append("                                                                <tr>\n" +
+                    "                                                                    <td>" + JSON.parse(q[i]['content'])['rows'][y] +
+                    "                                                                    </td> " +
+                    "                                                                </tr>\n"
+                );
+                for (var z = 0; z < JSON.parse(q[i]['content'])['column'].length; z++) {
+                    $('.div_question').last().find('table').eq(0).children('tbody').children().eq(y).append("<td><textarea disabled style='width: 100%'></textarea></td>\n")
+                }
+            }
+        } else if (q[i]['question_type'] === '附件题') {
 
+        }
+    }
+    for (i = 0; i < {{ preview_length|safe }}; i++) {
+        $("#pages").append("<a class=\"dropdown-item\" onclick=\"preview(this.text)\">" + i + "</a>")
+    }
 
+    function preview(value) {
+        window.location.href = "{% url 'user' %}?page=" + value + ""
+    }
+</script>
 </body>
-
-
 </html>

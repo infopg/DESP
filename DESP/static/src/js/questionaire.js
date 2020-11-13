@@ -141,7 +141,7 @@ function blank_mark(event) {
     indicatorID = $(event.target).closest('.div_question').find('input[name="indicatorID"]').val();
     questionnumber = $(event.target).closest('.div_question').find('input[name="questionnumber"]').val();
     questiontype = $(event.target).closest('.div_question').find('input[name="questiontype"]').val();
-    var reg = /[\s\S*][___]+/; //改进一下？用户自己输入的短下划线不应视作一个空
+    var reg = /[\s\S*][___]+/; //改进一下？用户自己输入的短下划线不应被视作一个空
     console.log(text.split(reg));
     number = text.split(reg).length - 1;
     $.ajax({

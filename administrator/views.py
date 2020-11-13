@@ -9,19 +9,20 @@ from decimal import *
 
 import xlrd
 from django.core import serializers
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage, InvalidPage
 # Create your views here.
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse, render
 from django.utils.encoding import escape_uri_path
-from xlwt import Workbook
 
 from administrator import models
 from administrator.models import TableEvaluationIndicator, TableQuestionContent
 from login.models import TableUser
 from supervisor.models import TableEvaluation
 from supervisor.models import TableOrganization
+
+
+# from xlwt import Workbook
 
 
 # test
@@ -81,36 +82,22 @@ def standard(request):
         list = []
         for i in range(0, len(questionaire_preview)):
             list.append(TableQuestionContent.objects.filter(table_question_content_col_indicator_id=group[i][0]))
-        paginator = Paginator(list, 1)
         page = request.GET.get('page')
-        try:
-            question = paginator.page(page)
-        except PageNotAnInteger:
-            # 如果请求的页数不是整数, 返回第一页。
-            question = paginator.page(1)
-        except InvalidPage:
-            # 如果请求的页数不存在, 重定向页面
-            return HttpResponse('找不到页面的内容')
-        except EmptyPage:
-            # 如果请求的页数不在合法的页数范围内，返回结果的最后一页。
-            question = paginator.page(paginator.num_pages)
-        # for y in list:
-        #     data = [
-        #         {
-        #             'question_type': x.table_question_content_col_question_type,
-        #             'indicator_id': x.table_question_content_col_indicator_id,
-        #             'question_number': x.table_question_content_col_question_number,
-        #             'marks': x.table_question_content_col_marks,
-        #             'content': x.table_question_content_col_content,
-        #             # 'scheme': x.table_question_content_col_mark_scheme,
-        #             'markmethod': x.table_question_content_col_markmethod,
-        #             'attachment': x.table_question_content_col_question_attachment,
-        #             'class': x.table_question_content_col_question_class,
-        #             'import': x.table_question_content_col_question_importanswer,
-        #             'required': x.table_question_content_col_question_required
-        #         } for x in y
-        #     ]
-        # print(data)
+        preview = []
+        if page == None:
+            for x in list[0]:
+                preview.append({
+                    'question_type': x.table_question_content_col_question_type,
+                    'content': x.table_question_content_col_content
+                })
+        else:
+            num = int(page)
+            for x in list[num]:
+                preview.append({
+                    'question_type': x.table_question_content_col_question_type,
+                    'content': x.table_question_content_col_content
+                })
+        print(preview)
         administrator = request.session['user_name']
         evalname = TableEvaluation.objects.filter(
             Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
@@ -118,9 +105,9 @@ def standard(request):
         timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
             'table_timeliner_col_evaluation')
         return render(request, 'standard/standard.html',
-                      {'question': question, 'data': _data, 'evalname': evalname, 'admin': administrator,
+                      {'question': preview, 'data': _data, 'evalname': evalname, 'admin': administrator,
                        'timeevalname': timeevalname,
-                       'current_eval': current_eval, 'current_admin': current_admin})
+                       'current_eval': current_eval, 'current_admin': current_admin, 'preview_length': len(list)})
 
     else:
         administrator = request.session['user_name']
@@ -291,7 +278,6 @@ def timeliner(request):
         'table_timeliner_col_evaluation')
     timeline_list = models.TableTimeliner.objects.filter(
         table_timeliner_col_evaluation=request.GET.get('timeevalname')).order_by('table_timeliner_col_start')
-
     dateline_list = models.TableTimeliner.objects.filter(
         table_timeliner_col_evaluation=request.GET.get('timeevalname')).order_by('table_timeliner_col_start')
     date_length = len(dateline_list)
@@ -301,7 +287,6 @@ def timeliner(request):
         order_list.append(dateline_list.values_list('table_timeliner_col_id')[order_count][0])
         order_count = order_count + 1
     dateline = models.TableTimeliner.objects.filter(pk__in=order_list)
-
     for date in dateline:
         date_start = date.table_timeliner_col_start
         date_new_start = str(date_start).replace('-', '/')
