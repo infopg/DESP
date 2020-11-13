@@ -1,0 +1,32 @@
+* {
+            margin: 0%;
+            padding: 0%;
+        }
+
+        .table{
+            margin-top:0%;
+            margin-left:0%;
+            margin-right:0%;
+            float:none;
+        }
+
+        #bar{
+            margin-top:0%;
+            margin-right: 0%;
+            z-index: 888;
+            float:left;
+
+        }
+
+
+        #rad{
+            margin-top: 0%;
+
+            float:left;
+
+        }
+
+        #map{
+            float:right;
+            margin-right:0%;
+        }
