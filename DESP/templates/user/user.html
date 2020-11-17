@@ -33,6 +33,7 @@
           href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/questionaire_result.css' %}">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
 
 </head>
 
@@ -45,7 +46,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
         <div class="container-fluid">
             <div class="navbar-header">
-                                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
+                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
                         class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
                         class="icon-bar"></span><span class="icon-bar"></span></button>
                 <span class="d-lg-none navbar-right navbar-collapse-toggle"><a class="open-navbar-container"><i
@@ -56,16 +57,23 @@
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
-                    <ul class="navbar-nav">
-                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
-                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                    <ul class="layui-nav-item">
+                        <li class="dropdown layui-nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                                    class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
                                 class="avatar avatar-online"><img id="navbar-avatar"
                                                                   src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
                                                                   alt="avatar"/></span>
                             <p class="d-none">User Settings</p></a>
                             <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
                                 <div class="arrow_box_right">
-                                    <a href="{% url 'logout' %}" class="dropdown-item"><i class="ft-power mr-2"></i><span>Logout</span></a>
+                                    <a href="{% url 'logout' %}" class="dropdown-item"><i
+                                            class="layui-icon layui-icon-logout"
+                                            style="font-size: 18px; color:black;"></i> <span>退出</span></a>
+                                </div>
+                                <div class="arrow_box_right">
+                                    <a href="" class="dropdown-item"><i class="layui-icon layui-icon-user"
+                                                                        style="font-size: 18px; color:black;"></i>
+                                        <span>修改密码</span></a>
                                 </div>
                             </div>
                         </li>
@@ -77,52 +85,106 @@
 
     <div class="main-panel">
         <div class="main-content">
-            <div class="content-wrapper">
-                <div class="container-fluid"><!-- Base style table -->
-                    <section id="base-style">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="card-title-wrap bar-success">
-                                            <h4 class="card-title">问卷填写</h4>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="card-block">
-                                            <div class="btn-group mr-2">
-                                                <button class="btn btn-danger dropdown-toggle" type="button"
-                                                        data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                    选择
-                                                </button>
-                                                <div class="dropdown-menu" id="pages">
-                                                </div>
-                                            </div>
-                                            <div id="question_list" class="col-md-6 col-sm-6 col-12"></div>
-                                            <input type="button" class="btn btn-warning" value="保存" onclick="submit()">
-                                        </div>
-                                    </div>
 
-                                </div>
+
+        <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this">问卷填写</li>
+                <li>数据</li>
+                <li>报告</li>
+                <li>附件</li>
+            </ul>
+            <div class="layui-tab-content" style="height: 100%;">
+                <div class="layui-tab-item layui-show">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title-wrap bar-success">
+                                {#        <div class="main-content">#}
+                                {#            <div class="content-wrapper">#}
+                                {#                <div class="container-fluid"><!-- Base style table -->#}
+                                {#                    <section id="base-style">#}
+                                {#                        <div class="row">#}
+                                {#                            <div class="col-12">#}
+                                <h4 class="card-title">问卷填写</h4>
                             </div>
                         </div>
-                    </section>
-                    <!--/ Base style table -->
+                        <div class="card-body">
+                            <div class="card-block">
+                                <div class="btn-group mr-2">
+                                    <button class="btn btn-danger dropdown-toggle" type="button"
+                                            data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                        选择
+                                    </button>
+                                    <div class="dropdown-menu" id="pages">
+                                    </div>
+                                </div>
+                                <div id="question_list" class="col-md-6 col-sm-6 col-12"></div>
+                                <input type="button" class="btn btn-warning" value="保存" onclick="submit()">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title-wrap bar-success">
+                                <h4 class="card-title">数据查询</h4>
+                                <br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br>
+                                <button>查询</button> &emsp;
+                                <button>下载</button> &emsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title-wrap bar-success">
+                                <h4 class="card-title">报告</h4>
+                                <br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br>
+                                <button>查询</button> &emsp;
+                                <button>下载</button> &emsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title-wrap bar-success">
+                                <h4 class="card-title">附件</h4>
+                                <br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br>
+                                <button>查询</button> &emsp;
+                                <button>下载</button> &emsp;
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!--/ Base style table -->
         </div>
 
-        <footer class="footer footer-static footer-light">
-            <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; CNIC <a href="#" id="pixinventLink"
-                                                                                            target="_blank"
-                                                                                            class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
-            </p>
-        </footer>
 
+        </div>
     </div>
 </div>
 
+<footer class="footer footer-static footer-light">
+    <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; CNIC <a href="#" id="pixinventLink"
+                                                                                    target="_blank"
+                                                                                    class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
+    </p>
+</footer>
+
+</div>
+</div>
+
+<script src="{% static 'layui/layui.js' %}" charset="utf-8"></script>
 <!-- BEGIN VENDOR JS-->
 <script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>
@@ -307,5 +369,50 @@
         window.location.href = "{% url 'user' %}?page=" + value + ""
     }
 </script>
+
+<script>
+    layui.use('element', function () {
+        var $ = layui.jquery
+            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        //触发事件
+        var active = {
+            tabAdd: function () {
+                //新增一个Tab项
+                element.tabAdd('demo', {
+                    title: '新选项' + (Math.random() * 1000 | 0) //用于演示
+                    , content: '内容' + (Math.random() * 1000 | 0)
+                    , id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+                })
+            }
+            , tabDelete: function (othis) {
+                //删除指定Tab项
+                element.tabDelete('demo', '44'); //删除：“商品管理”
+
+
+                othis.addClass('layui-btn-disabled');
+            }
+            , tabChange: function () {
+                //切换到指定Tab项
+                element.tabChange('demo', '22'); //切换到：用户管理
+            }
+        };
+
+        $('.site-demo-active').on('click', function () {
+            var othis = $(this), type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+
+        //Hash地址的定位
+        var layid = location.hash.replace(/^#test=/, '');
+        element.tabChange('test', layid);
+
+        element.on('tab(test)', function (elem) {
+            location.hash = 'test=' + $(this).attr('lay-id');
+        });
+
+    });
+</script>
+
 </body>
 </html>

@@ -226,6 +226,7 @@
         var id_org_name = i + 30000;
         var id_project_name = i + 40000;
         var id_project_admin = i + 50000;
+
         var bt_change = 60000 + i;
         var bt_check = 70000 + i;
         var bt_download = 80000 + i;
@@ -283,7 +284,7 @@
     //下载问卷
     function download_questionaire(x){
         var text = document.getElementById(x).innerHTML;
-        window.location.href = "{% url 'download_questionaire' %}?questionaire_evalname=" + text;
+        window.location.href = "{% url 'export_questionaire' %}?questionaire_evalname=" + text;
     }
 </script>
 

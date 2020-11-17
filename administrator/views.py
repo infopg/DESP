@@ -19,7 +19,6 @@ from django.utils.encoding import escape_uri_path
 from django.utils.http import urlquote
 from xlwt import Workbook
 
-
 from administrator import models
 from administrator.models import TableEvaluationIndicator, TableQuestionContent
 from login.models import TableUser
@@ -27,12 +26,7 @@ from supervisor.models import TableEvaluation
 from supervisor.models import TableOrganization
 
 
-# from xlwt import Workbook
-
-
-# test
-def download_questionaire(request):
-    # 需要pip xlwt和import escape_uri_path
+def export_questionaire(request):
     q_e = request.GET.get('questionaire_evalname')
     file_name = u"questionaire_" + str(q_e) + ".xls"
     workbook = Workbook(encoding='utf-8')
@@ -41,6 +35,7 @@ def download_questionaire(request):
         Q(table_evaluation_indicator_col_evaluation_name=q_e) &
         Q(table_evaluation_indicator_col_parent_name_id__isnull=False)). \
         order_by('table_evaluation_indicator_col_id')
+    list_indicator.filter()
     for x1 in list_indicator:
         list_questionaire = models.TableQuestionContent.objects.filter(
             Q(table_question_content_col_indicator_id=x1.table_evaluation_indicator_col_id)). \
@@ -61,8 +56,8 @@ def download_questionaire(request):
             sheet_str = "" + str(TQC_indicator_id) + "-" + str(TQC_question_number) + "-" + str(TQC_question_type)
             worksheet = workbook.add_sheet(sheet_str)
 
-            # 创建一个样式对象，初始化样式
-            style = xlwt.XFStyle()
+            # 样式
+            style = xlwt.XFStyle()  # 创建一个样式对象，初始化样式
             al = xlwt.Alignment()
             al.horz = 0x02  # 设置水平居中
             al.vert = 0x01  # 设置垂直居中
@@ -93,6 +88,7 @@ def download_questionaire(request):
             worksheet.write(6, 0, "问题种类", style)
             worksheet.write(7, 0, "问题类型", style)
             worksheet.write(0, 2, "题目", style)
+
             # 填入数据
             worksheet.write(0, 1, TQC_indicator_id, style)
             worksheet.write(1, 1, TQC_question_number, style)
@@ -103,6 +99,12 @@ def download_questionaire(request):
             worksheet.write(6, 1, TQC_question_type, style)
             worksheet.write(7, 1, TQC_question_class, style)
             worksheet.write(0, 3, TQC_content_title, style)
+
+            if TQC_question_type == "填空题":
+                tmp = '_'.join(filter(lambda x: x, TQC_content_title.split('_')))
+                count = tmp.count('_')
+                for x in range(0, count):
+                    worksheet.write(x+1, 2, "填空"+str(x+1), style)
 
             # 测试
             print(TQC_indicator_id, end='/')
