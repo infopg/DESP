@@ -8,9 +8,12 @@ from administrator.models import TableTimeliner, TableQuestionContent
 from login import models
 from login.forms import ForgetForm, ResetForm
 from login.utils.email_send import send_register_email
+
 from supervisor.models import TableEvaluation
 from supervisor.models import TableOrganization
+from administrator.models import TableTimeliner
 from . import forms
+from . import models
 import datetime
 from django.db.models import Q
 
@@ -89,7 +92,8 @@ def supervisor(request):
     if not request.session.get('is_login', None) or request.session['permission'] != 0:  # 没登录过的或权限不对的，都直接返回到登录界面
 
         return redirect('/')
-    return render(request, 'login/supervisor.html/')
+    org_eval1 = TableEvaluation.objects.all()
+    return render(request, 'login/supervisor.html/', locals())
 
 
 def administrator(request):
@@ -105,8 +109,34 @@ def administrator(request):
         'table_evaluation_col_name')
     timeevalname = TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
         'table_timeliner_col_evaluation')
-    return render(request, 'login/administrator.html', {'evalname': evalname, 'admin': username, 'timeevalname':timeevalname})
 
+    org_eval = TableEvaluation.objects.all()
+    timeline_list = TableTimeliner.objects.all()
+    list1 = []
+    list2 = []
+    list3 = []
+    res = []
+    for x in org_eval:
+        for each in timeline_list:
+            if each.table_timeliner_col_evaluation == x.table_evaluation_col_name:
+                list1.append(each.table_timeliner_col_end)
+                list2.append(each)
+        if len(list2) != 0:
+            for each in list1:
+                i = 0
+                tmp = 0
+                while i < 10:
+                    if each[i] != '-':
+                        tmp = int(each[i]) + tmp * 10
+                    i += 1
+                list3.append(tmp)
+            res.append(list2[list3.index(max(list3))])
+            list1 = []
+            list2 = []
+            list3 = []
+    return render(request, 'login/administrator.html',
+                  {'evalname': evalname, 'admin': username, 'timeevalname': timeevalname, 'org_eval': org_eval,
+                   'timeline_list': res})
 
 
 def user(request):
@@ -114,9 +144,10 @@ def user(request):
         return redirect('/')
     user_name = request.session['user_name']
     orgid = \
-    models.TableUser.objects.filter(table_user_col_name=user_name).values_list('table_user_col_organization')[0][0]
+        models.TableUser.objects.filter(table_user_col_name=user_name).values_list('table_user_col_organization')[0][0]
     orgname = \
-    TableOrganization.objects.filter(table_organization_col_id=orgid).values_list('table_organization_col_name')[0][0]
+        TableOrganization.objects.filter(table_organization_col_id=orgid).values_list('table_organization_col_name')[0][
+            0]
     eval = TableEvaluation.objects.get(table_evaluation_col_organization=orgname)
     questionaire_answer = set(
         TableQuestionContent.objects.filter(table_question_content_col_evalname=eval).values_list(
@@ -150,13 +181,13 @@ def user(request):
 def expert(request):
     if not request.session.get('is_login', None) or request.session['permission'] != 4:
         return redirect('/')
-    return render(request, 'login/expert.html')
+    return render(request, 'expert/expert.html')
 
 
 def manager(request):
     if not request.session.get('is_login', None) or request.session['permission'] != 2:
         return redirect('/')
-    return render(request, 'login/manager.html')
+    return render(request, 'manager/manager.html')
 
 
 def logout(request):

@@ -1049,3 +1049,61 @@ def questionaire_status(request):
     org_name = request.GET.get('evalname')
     status = request.GET.get('status')
     pass
+
+
+def calculate(request):
+    # pdb.set_trace()
+    administrator = request.session['user_name']
+    evalname = TableEvaluation.objects.filter(
+        Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
+        'table_evaluation_col_name')
+    timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
+        'table_timeliner_col_evaluation')
+    timeline_list = models.TableTimeliner.objects.filter(
+        table_timeliner_col_evaluation=request.GET.get('timeevalname')).order_by('table_timeliner_col_start')
+    dateline_list = models.TableTimeliner.objects.filter(
+        table_timeliner_col_evaluation=request.GET.get('timeevalname')).order_by('table_timeliner_col_start')
+    date_length = len(dateline_list)
+    order_list = []
+    order_count = 0
+    while order_count < date_length:
+        order_list.append(dateline_list.values_list('table_timeliner_col_id')[order_count][0])
+        order_count = order_count + 1
+    dateline = models.TableTimeliner.objects.filter(pk__in=order_list)
+    for date in dateline:
+        date_start = date.table_timeliner_col_start
+        date_new_start = str(date_start).replace('-', '/')
+        date_use_start = date_new_start[-2:] + date_new_start[4:8] + date_new_start[0:4]
+        date.table_timeliner_col_start = date_use_start
+        date_end = date.table_timeliner_col_end
+        date_new_end = str(date_end).replace('-', '/')
+        date_use_end = date_new_end[-2:] + date_new_end[4:8] + date_new_end[0:4]
+        date.table_timeliner_col_end = date_use_end
+
+    org_eval = models.TableEvaluation.objects.all()
+    list1 = []
+    list2 = []
+    list3 = []
+    res = []
+    for x in org_eval:
+        for each in timeline_list:
+            if each.table_timeliner_col_evaluation == x.table_evaluation_col_name:
+                list1.append(each.table_timeliner_col_end)
+                list2.append(each)
+        if len(list2) != 0:
+            for each in list1:
+                i = 0
+                tmp = 0
+                while i < 10:
+                    if each[i] != '-':
+                        tmp = int(each[i]) + tmp * 10
+                    i += 1
+                list3.append(tmp)
+            res.append(list2[list3.index(max(list3))])
+            list1 = []
+            list2 = []
+            list3 = []
+
+    return render(request, 'standard/calculate.html',
+                  {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
+                   'timeline_list': timeline_list, 'dateline': dateline, 'org_eval': org_eval, 'timeline_list': res})

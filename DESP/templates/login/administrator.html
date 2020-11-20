@@ -65,7 +65,7 @@
                     {#                            </li>#}
                     {#                        </ul>#}
                     {#                    </li>#}
-                                        <li class="has-sub nav-item"><a href="#"><i class="ft-menu"></i><span
+                    <li class="has-sub nav-item"><a href="#"><i class="ft-menu"></i><span
                             data-i18n=""
                             class="menu-title">项目管理</span></a>
                         <ul class="menu-content">
@@ -102,14 +102,24 @@
                         {#                            </li>#}
                         {#                        </ul>#}
 
-                          <ul class="menu-content">
+                        <ul class="menu-content">
                             <li><a href="{% url 'questionaire_manage' %}" class="menu-item">问卷管理</a></li>
                         </ul>
 
                     </li>
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-folder"></i><span
+
+                    <li class="has-sub nav-item"><a href="#"><i class="icon-calendar"></i><span
                             data-i18n=""
-                            class="menu-title">数据统计</span></a></li>
+                            class="menu-title">数据统计</span></a>
+                        <ul class="menu-content">
+                            {% for t in evalname %}
+                                <li>
+                                    <a href="{% url 'calculate' %}?timeevalname={{ t.table_evaluation_col_name }}&admin={{ admin }}"
+                                       class="menu-item">{{ t.table_evaluation_col_name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -267,6 +277,38 @@
                                     <div class="card-header">
                                         <div class="card-title-wrap bar-success">
                                             <h4 class="card-title">欢迎</h4>
+                                            <table class="layui-table" lay-even="" lay-skin="nob">
+                                                <colgroup>
+                                                    <col width="150">
+                                                    <col width="150">
+                                                    <col width="200">
+                                                    <col>
+                                                </colgroup>
+                                                <thead>
+                                                <tr>
+                                                    <th>项目名称</th>
+                                                    <th>目前进度</th>
+                                                    <th>状态</th>
+                                                    <th>截止日期</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for t in timeline_list %}
+                                                    {% for x in org_eval %}
+                                                        {% if x.table_evaluation_col_name == t.table_timeliner_col_evaluation %}
+                                                            {% if x.table_evaluation_col_administrator == admin %}
+                                                                <tr>
+                                                                    <td>{{ x.table_evaluation_col_name }}</td>
+                                                                    <td>{{ t.table_timeliner_col_content }}</td>
+                                                                    <td>{{ t.table_timeliner_col_status }}</td>
+                                                                    <td>{{ t.table_timeliner_col_end }}</td>
+                                                                </tr>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     {#				<div class="card-body collapse show">#}
