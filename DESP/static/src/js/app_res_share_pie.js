@@ -3,7 +3,7 @@
     option = {
         color:['#893448', '#FFAE57', '#EA5151', '#ebdba4', '#FF7853',],
         title:{
-            text:' 研究单位科研协同应用软件来源',
+            text:' 2019年研究单位科研协同应用软件来源',
             textStyle:{
                 color:'#333333',
                 fontSize:a*0.013

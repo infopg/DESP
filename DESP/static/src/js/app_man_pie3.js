@@ -2,7 +2,7 @@
     option = {
         color:['#ebdba4','#FFAE57', '#FF7853' ,'#EA5151', '#893448'],
         title:{
-            text:'研究单位除ARP系统外\n科研管理信息系统使用情况',
+            text:'2019年研究单位除ARP系统外\n科研管理信息系统使用情况',
             textStyle:{
                 color:'#333333',
                 fontSize:'130%'
@@ -27,7 +27,7 @@
             {
                 name:'研究单位其他科研管理系统使用',
                 type:'pie',
-                radius:'65%',
+                radius:'55%',
                 center: ['50%', '50%'],
                 roseType: 'radius',
                 avoidLabelOverlap: true,
@@ -67,7 +67,7 @@
         option = {
             color: ['#ebdba4', '#FFAE57', '#FF7853', '#EA5151', '#893448'],
             title: {
-                text: '研究单位除ARP系统外\n科研管理信息系统开发方式',
+                text: '2019年研究单位除ARP系统外\n科研管理信息系统开发方式',
                 textStyle: {
                     color: '#333333',
                     fontSize: '130%'
@@ -92,7 +92,7 @@
                 {
                     name: '研究单位其他科研管理系统开发方式',
                     type: 'pie',
-                    radius:'65%',
+                    radius:'55%',
                     center: ['50%', '50%'],
                     roseType: 'radius',
                     avoidLabelOverlap: true,
@@ -134,7 +134,7 @@ function pie33(mychart,a) {
     option = {
         color: ['#ebdba4', '#FFAE57', '#FF7853', '#EA5151', '#893448'],
         title: {
-            text: '研究单位除ARP系统外\n科研管理信息系统知识产权',
+            text: '2019年研究单位除ARP系统外\n科研管理信息系统知识产权',
             textStyle: {
                 color: '#333333',
                 fontSize: '130%'
@@ -159,7 +159,7 @@ function pie33(mychart,a) {
             {
                 name: '研究单位其他科研管理系统知识产权',
                 type: 'pie',
-                radius:'65%',
+                radius:'55%',
                 center: ['50%', '50%'],
                 roseType: 'radius',
                 avoidLabelOverlap: true,

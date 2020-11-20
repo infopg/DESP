@@ -2,7 +2,7 @@
     option = {
         color:['#FFAE57', '#FF7853', '#EA5151', '#ebdba4', '#893448'],
         title: {
-            text: '研究单位继续教育任务学习参与率',
+            text: '2019年研究单位继续教育任务学习参与率',
             left: 'center',
             bottom:0,
             textStyle: {

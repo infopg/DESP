@@ -8,7 +8,7 @@
 function rad(chart,a){
     option = {
         title:{
-            text:'研究单位网络科普传播途径分析',
+            text:'2019年研究单位网络科普传播途径分析',
             x: 'center', //水平位置：居中
             y: 'bottom', //垂直位置：底部
             textStyle: {

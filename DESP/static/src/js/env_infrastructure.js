@@ -337,7 +337,13 @@ function bar1(mychart,a){
     function bar3(mychart,a){
         option = {
             color:['#FF7853','#ebdba4','#EA5151', '#FFAE57',  '#893448', ],
-
+            title:{
+                text:'自建存储环境对比',
+                left:'center',
+                textStyle:{
+                    fontsize:'130%'
+                }
+            },
             legend: {
                 data: ['在线存储','备份/归档存储'],
                 textStyle:{
@@ -348,7 +354,7 @@ function bar1(mychart,a){
                 type:'scroll',
                 textStyle:{
                     color:'#333333',
-                    fontSize:a*0.008,
+                    fontSize:a*0.009,
                 }
 
             },
@@ -401,7 +407,7 @@ function bar1(mychart,a){
                 show:true,
                 nameTextStyle:{
                     color:'#333333',
-                    fontSize:'80%',
+                    fontSize:'90%',
                 },
                 axisLabel:{
                     textStyle:{
@@ -433,6 +439,10 @@ function bar1(mychart,a){
                 data: [],
                 itemStyle:{
                     opacity:0.85,
+                },
+                label:{
+                    show:true,
+                    position:'inside'
                 }
             },
             {
@@ -443,6 +453,10 @@ function bar1(mychart,a){
                 data: [],
                 itemStyle:{
                     opacity:0.85,
+                },
+                label:{
+                    show:true,
+                    position:'inside'
                 }
             },
 
@@ -481,16 +495,23 @@ function bar1(mychart,a){
 function fall1(mychart,a){
 
     option = {
+        title:{
+          text:'2019年研究单位云计算服务使用情况',
+          textStyle:{
+              fontsize:'130%',
+          },
+            left:'center',
+        },
         xAxis: {
             type: 'category',
             show:true,
-            //name:'TB',
             data: [],
             nameTextStyle:{
                 color:'#333333',
                 fontSize:'90%',
             },
             axisLabel:{
+                interval:0,
                 textStyle:{
                     fontSize:a*0.009,
                     lineHeight:a*0.01
@@ -512,6 +533,7 @@ function fall1(mychart,a){
 
         },
         grid:{
+            interval:0,
             containLabel:true,
         },
         yAxis: {
@@ -609,6 +631,13 @@ function fall1(mychart,a){
     function fall2(mychart,a){
 
         option = {
+            title:{
+              text:'2019年研究单位网络监控运维情况',
+              textStyle:{
+                  fontsize:'130%',
+              },
+                left:'center',
+        },
             xAxis: {
                 type: 'category',
                 show:true,
@@ -624,10 +653,12 @@ function fall1(mychart,a){
                     length:0,
                 },
                 axisLabel:{
+                    interval:0,
                     textStyle:{
                         fontSize:a*0.009,
                         lineHeight:a*0.01
-                    }
+                    },
+                    rotate:50
                 },
                 axisLine:{
                     show:true,
@@ -651,6 +682,7 @@ function fall1(mychart,a){
                     length:0,
                 },
                 axisLabel:{
+                    interval:0,
                     textStyle:{
                         fontSize:a*0.009,
                     }
@@ -733,6 +765,13 @@ function fall1(mychart,a){
 
     function fall3(mychart,a){
         option = {
+            title:{
+              text:'2019年研究单位主交换机国产情况',
+              textStyle:{
+                  fontsize:'130%',
+              },
+                left:'center',
+            },
             xAxis: {
                 type: 'category',
                 show:true,
@@ -748,6 +787,7 @@ function fall1(mychart,a){
                     length:0,
                 },
                 axisLabel:{
+                    interval:0,
                     textStyle:{
                         fontSize:a*0.009,
                         lineHeight:a*0.01
@@ -858,10 +898,10 @@ function gauge(mychart,a){
     var option = {
         // backgroundColor:'#333333',
         tooltip : {
-            formatter: "{a} <br/>{c} {b}"
+            formatter: "{b} {c} Gbps"
         },
         title:{
-            text:'网络接入带宽总计',
+            text:'2019年网络接入带宽总计',
             left: 'center',
             top:'2%',
             textStyle: {
@@ -1229,7 +1269,13 @@ mychart.setOption(option);
 
 function pie1(mychart,a){
     var option = {
-        // backgroundColor: '#333333',
+        title:{
+            text:'2019年科技网接入带宽使用率',
+            textStyle:{
+                fontsize:'130%',
+            },
+            left:'center'
+        },
         color:['#ebdba4','#EA5151', '#FF7853', '#FFAE57', '#893448'],
         tooltip : {
             trigger: 'item',
@@ -1314,8 +1360,14 @@ mychart.setOption(option);
 function pie2(mychart,a){
 
     var option = {
-        // backgroundColor: '#333333',
         color:[ '#ebdba4','#EA5151', '#FF7853', '#FFAE57','#893448',],
+        title:{
+            text:'2019年研究单位园区无线网覆盖率',
+            textStyle:{
+                fontsize:'130%',
+            },
+            left:'center'
+        },
         tooltip : {
             trigger: 'item',
             formatter: function (params) {
@@ -1397,6 +1449,13 @@ function pie2(mychart,a){
         var option = {
             // backgroundColor: '#333333',
             color:['#FF7853', '#FFAE57','#EA5151',  '#ebdba4','#893448',],
+            title:{
+            text:'2019年研究单位IPv6出口流量',
+            textStyle:{
+                fontsize:'130%',
+            },
+                left:'center'
+        },
             tooltip : {
                 trigger: 'item',
                 formatter: function (params) {

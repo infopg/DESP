@@ -2,7 +2,7 @@
     option = {
         color:[ '#ebdba4', '#893448','#FFAE57', '#FF7853', '#EA5151',],
         title: {
-            text: '研究单位完成人均学时培训率',
+            text: '2019年研究单位完成人均学时培训率',
             left: 'center',
             bottom:0,
             textStyle: {

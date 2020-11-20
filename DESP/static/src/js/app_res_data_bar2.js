@@ -1,7 +1,7 @@
 ﻿function bar1(mychart,a){
     option = {
         title: {
-            text: '各学科数据库项目获得资助金额',
+            text: '2019年各学科数据库项目获得资助金额',
             textStyle:{
                 color:'#333333',
                 fontSize:a*0.013
@@ -99,7 +99,7 @@
     function bar3(mychart,a) {
         option = {
             title: {
-                text: '各学科数据库课题组情况',
+                text: '2019年各学科数据库课题组情况',
                 textStyle: {
                     color: '#333333',
                     fontSize: a * 0.013

@@ -1,7 +1,7 @@
 ﻿function bar1(mychart,a){
     option = {
         title: {
-            text: '研究单位ARP系统应用现状',
+            text: '2019年研究单位ARP系统应用现状',
             left: 'center',
             top: 5,
             textStyle: {

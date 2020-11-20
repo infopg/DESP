@@ -1,7 +1,7 @@
 ﻿function bar(mychart,a){
     option = {
         title:{
-            text:' 研究单位通过教育云平台完成工作情况',
+            text:' 2019年研究单位通过教育云平台完成工作情况',
             textStyle:{
                 color:'#333333',
                 fontSize:a*0.013
@@ -117,7 +117,7 @@
 function bar2(mychart,a){
     option = {
         title:{
-            text:' 研究单位教务管理信息化应用情况',
+            text:' 2019年研究单位教务管理信息化应用情况',
             textStyle:{
                 color:'#333333',
                 fontSize:a*0.013
@@ -230,7 +230,7 @@ function bar2(mychart,a){
 function bar3(mychart,a){
     option = {
         title:{
-            text:' 研究单位自建教育系统情况',
+            text:' 2019年研究单位自建教育系统情况',
             textStyle:{
                 color:'#333333',
                 fontSize:a*0.013

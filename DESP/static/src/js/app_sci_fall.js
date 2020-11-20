@@ -8,7 +8,7 @@
             formatter: '{b}: {c}家',
         },
         title:{
-            text:'研究单位选用新媒体类型统计',
+            text:'2019年研究单位选用新媒体类型统计',
             top:0,
             left:'center',
             textStyle:{
@@ -135,7 +135,7 @@
                 formatter: '{b}: {c}万元',
             },
             title:{
-                text:'各学科领域获得科普资助情况',
+                text:'2019年各学科领域获得科普资助情况',
                 left:'center',
                 top:0,
                 textStyle:{

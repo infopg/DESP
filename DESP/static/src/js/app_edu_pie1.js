@@ -2,7 +2,7 @@
     option = {
         color: ['#FFAE57', '#EA5151', '#ebdba4', '#893448', '#FF7853', ],
         title: {
-            text: '研究单位继续教育人均时长',
+            text: '2019年研究单位继续教育人均时长',
             left: 'center',
             bottom:0,
             textStyle: {

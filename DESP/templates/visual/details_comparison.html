@@ -20,8 +20,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
-          rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
@@ -32,6 +30,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 </head>
+<style>
+    .show{
+        display: block;
+    }
+    .active{
+        display: block;
+    }
+    .
+</style>
 <body data-col="2-columns" class=" 2-columns">
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 <div class="wrapper nav-collapsed menu-collapsed">
@@ -57,7 +64,7 @@
 						        <ul class="menu-content">
 							        <li><a href="{% url 'overview_research' %}" class="menu-item">研究单位</a></li>
 							        <li><a href ="{% url 'overview_institute' %}" class="menu-item">分院</a></li>
-						            <li><a href = "{% url 'overview_system' %}"class="menu-item">分院系统</a></li>
+						            <li><a href = "{% url 'overview_system' %}"class="menu-item">支撑单位</a></li>
 						        </ul>
 					        </li>
                             <li class='has-sub'> <a href = "#" class="menu-item">网络安全</a>
@@ -303,7 +310,7 @@
                                                 <div role="tabpanel" class="tab-pane active" id="2019quota" aria-expanded="true" aria-labelledby="baseVerticalLeft-tab1">
 {#                                                    <div id="2019quota_chart" style="width: 85%;height:400%;" class="nav-vertical">#}
                                                 </div>
-                                                <div class="tab-pane" id="2018quota" aria-labelledby="baseVerticalLeft-tab2">
+                                                <div class="tab-pane" id="2018quota"  aria-labelledby="baseVerticalLeft-tab2">
                                                 </div>
                                                 <div class="tab-pane" id="2017quota" aria-labelledby="baseVerticalLeft-tab3">
                                                 </div>
@@ -349,8 +356,6 @@
   <script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
   <script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
   <script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
   <script src="{% static 'src/js/3_comparison.js' %}"></script>
 </body>

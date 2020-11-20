@@ -4,6 +4,7 @@ from django.urls import path
 from django.conf.urls import include, url
 from login.views import ForgetPwdView,ResetView,ModifyView
 
+
 urlpatterns = [
     path('', views.abstract, name='abstract'),
     path('login', views.login, name='login'),

@@ -1,7 +1,6 @@
 from django.db import models
 from supervisor.models import TableEvaluation
 
-# Create your models here.
 
 class TableEvaluationIndicator(models.Model):
     table_evaluation_indicator_col_id = models.IntegerField(db_column='Table_Evaluation_Indicator_col_id',

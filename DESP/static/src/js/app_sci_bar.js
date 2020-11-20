@@ -2,18 +2,13 @@
     option = {
         color:['#FFAE57'],
         title: {
-            text: '研究单位部署终端安全软件类型和数量',
-            subtext:'微博评分前10名',
+            text: '2019年微博评分前10名',
             left: 'center',
             top: 0,
             textStyle: {
                 color: '#333333',
                 fontSize:'130%'
             },
-            subtextStyle:{
-                color:'#333333',
-                fontSize:'90%',
-            }
         },
         tooltip: {
             trigger: 'axis',
@@ -140,18 +135,13 @@
         option = {
             color:[ '#EA5151', '#FFAE57','#ebdba4', '#893448'],
             title: {
-                text: '研究单位部署终端安全软件类型和数量',
-                subtext:'微信评分前10名',
+                text: '2019年微信评分前10名',
                 left: 'center',
                 top:0,
                 textStyle: {
                     color: '#333333',
                     fontSize:'130%'
                 },
-                subtextStyle: {
-                    color: '#333333',
-                    fontSize:'90%'
-                }
             },
             tooltip: {
                 trigger: 'axis',

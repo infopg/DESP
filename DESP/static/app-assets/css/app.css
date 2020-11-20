@@ -40538,12 +40538,18 @@ select.form-control-xl:not([size]):not([multiple]) {
 }
 .nav-vertical .nav-left ~ .tab-content .tab-pane {
   display : none;
+    position: absolute;
   background-color : #FFFFFF;
   padding : 0 0 0.6rem 1rem;
+    overflow-x : hidden;
   overflow-y : auto;
+  margin-left: 80px;
 }
 .nav-vertical .nav-left ~ .tab-content .tab-pane.active {
   display : block;
+    position: absolute;
+    overflow-x : hidden;
+  margin-left: 80px;
 }
 .nav-vertical .nav-right.nav-tabs {
   float : right;

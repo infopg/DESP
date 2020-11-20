@@ -1,172 +1,178 @@
 function bar(mychart,a){
     option = {
         color:['#893448','#b5304d', '#EA5151', '#FF7853', '#FFAE57', '#ffc786', '#ebdba4'],
-        title:{
-            text:'信息化公共项目总投入',
-            left: 'center',
-            top: 10,
-            textStyle: {
-                color: '#333333',
+                title: {
+            text: '信息化公共项目总投入',
+            textStyle:{
+                color:'#333333',
                 fontSize:a*0.013
-            }
-        },
-        legend: {
-            data: ['网络通讯费','图书数字文献','网络软硬件设备','网络安全设备及投入','自筹系统开发', '其他'],
-            textStyle:{
-                color:'#333333',
             },
-            bottom:'5%',
-            itemGap:50,
-            left:30,
-            type:'scroll',
-            textStyle:{
-                color:'#333333',
-                fontSize:a*0.008,
-            }
-
+            left:'center',
+            top:0
+        },
+        tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow',
+                },
+        },
+        legend:{
+            data:['网络通讯费','图书数字文献','网络软硬件设备','网络安全设备及投入','自筹系统开发', '其他'],
+            left:'center',
+            bottom:0
         },
         grid:{
             containLabel:true,
+            left:0,
         },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'shadow'
-            }
-        },
-        xAxis: {
-            name: '万元',//x轴标签
-            type: 'value',
-            boundaryGap: [0, 0.01],
-            nameTextStyle:{
-                color:'#333333',
-                fontSize:a*0.008,
-            },
-            axisLine:{
-                show:true,
-                lineStyle:{
-                color:'#333333',
-                }
-            },
-            axisLabel:{
-                textStyle:{
-                    fontSize:a*0.008,
-                }
-            },
-            axisTick:{
-                show: false,
-                alignWithLabel:true,
-                length:0,
-            },
-            splitNumber:5,
-            splitLine:{
-                show:true,
-                lineStyle:{
-                    color:'#aaaaaa',
-                    opacity:0.4,
-                }
-            }
-        },
-
         yAxis: {
-            name:'年份',//y轴单位
-            type: 'category',
-            data: ['2017','2018','2019'],  //x轴坐标
+            type:'category',
+            data:['2017','2018','2019'],
             show:true,
             nameTextStyle:{
+                show:false,
                 color:'#333333',
-                fontSize:a*0.008,
-            },
-            axisLabel:{
-                textStyle:{
-                    fontSize:a*0.008,
-                }
+                fontSize:a*0.009,
+                lineHeight:a*0.01,
             },
             axisTick:{
                 show: false,
-
+            },
+            axisLabel:{
+                interval:0,
+                textStyle:{
+                    fontSize:a*0.009,
+                    lineHeight:a*0.01,
+                },
             },
             axisLine:{
+                    show:true,
+                    lineStyle:{
+                        color:'#333333',
+                    }
+            },
+            splitLine: {
                 show:true,
-                lineStyle:{
-                    color:'#333333',
+                lineStyle: {
+                    type: 'dashed',
+                    color:'#aaaaaa',
+                    opacity:0.4
                 }
             },
-            z:999,
-        },
-        grid: {
-            containLabel: true
-        },
 
-        series: [
-        {
+        },
+        xAxis: [{
+            type:'value',
+            name:'万元',
+            show:true,
+
+            nameTextStyle:{
+                color:'#333333',
+                fontSize:a*0.009,
+            },
+            axisTick:{
+                show: false,
+            },
+            axisLabel:{
+                textStyle:{
+                    fontSize:a*0.009,
+                }
+            },
+            splitLine: {
+                show:true,
+                lineStyle: {
+                    type: 'dashed',
+                    color:'#aaaaaa',
+                    opacity:0.4
+                }
+            },
+            scale: true,
+        }],
+        series: [{
             name: '网络通讯费',
-            type: 'bar',
-            barMaxWidth:40,
-            stack: '总量',
             data: [7410, 7461, 7456],
+            type: 'bar',
+            stack:'万元',
+            barMaxWidth:30,
             itemStyle:{
-                opacity:0.85,
+                opacity:0.85
+            },
+            label:{
+                show:true,
+                position:'inside'
             }
         },
         {
             name: '图书数字文献',
-            type: 'bar',
-            barMaxWidth:40,
-            stack: '总量',
-
             data: [14533, 14769, 15564],
+            type: 'bar',
+            stack:'万元',
+            barMaxWidth:30,
             itemStyle:{
-                opacity:0.85,
+                opacity:0.85
+            },
+            label:{
+                show:true,
+                position:'inside'
             }
         },
-
         {
             name: '网络软硬件设备',
-            type: 'bar',
-            barMaxWidth:40,
-            stack: '总量',
-
             data: [11606, 11076, 16584],
+            type: 'bar',
+            stack:'万元',
+            barMaxWidth:30,
             itemStyle:{
-                opacity:0.85,
+                opacity:0.85
+            },
+            label:{
+                show:true,
+                position:'inside'
             }
         },
         {
             name: '网络安全设备及投入',
-            type: 'bar',
-            barMaxWidth:40,
-            stack: '总量',
-
-            z:999,
             data: [2472, 3503, 4459],
-            itemStyle:{
-                opacity:0.85,
-            }
-        },{
-            name: '自筹系统开发',
             type: 'bar',
-            barMaxWidth:40,
-            stack: '总量',
-
-            data: [6171,6549,6750],
+            stack:'万元',
+            barMaxWidth:30,
             itemStyle:{
-                opacity:0.85,
+                opacity:0.85
+            },
+            label:{
+                show:true,
+                position:'inside'
+            }
+        },
+        {
+            name: '自筹系统开发',
+            data: [6171,6549,6750],
+            type: 'bar',
+            stack:'万元',
+            barMaxWidth:30,
+            itemStyle:{
+                opacity:0.85
+            },
+            label:{
+                show:true,
+                position:'inside'
             }
         },
         {
             name: '其他',
-            type: 'bar',
-            barMaxWidth:40,
-            stack: '总量',
-
             data: [8414, 9651, 7937],
+            type: 'bar',
+            stack:'万元',
+            barMaxWidth:30,
             itemStyle:{
-                opacity:0.85,
+                opacity:0.85
+            },
+            label:{
+                show:true,
+                position:'inside'
             }
-        },
-
-    ]};
+        }],
+    };
 
     $.get('/static/DATA/environment-manage.json').done(function (data) {
         //alert(data);
@@ -227,7 +233,7 @@ function bar(mychart,a){
 function barh(chart,a){
     option = {
         title: {
-            text: '研究单位基本信息化管理制度情况',
+            text: '2019年研究单位基本信息化管理制度情况',
             textStyle:{
                 color:'#333333', //文本颜色
                 fontSize:a*0.013 //字号
@@ -237,16 +243,14 @@ function barh(chart,a){
 
         legend: {
             data: [],
-           show:false,
+            show:false,
             textStyle:{
                 color:'#333333',
             },
-            bottom:'5%',
-            type:'scroll',
             itemGap:50,
             textStyle:{
                 color:'#333333',
-                fontSize:a*0.008,
+                fontSize:a*0.009,
             }
 
         },
@@ -262,7 +266,7 @@ function barh(chart,a){
             show:true,
             nameTextStyle:{
                 color:'#333333',
-                fontSize:a*0.008,
+                fontSize:a*0.009,
             },
             axisLabel:{
                 textStyle:{
@@ -291,23 +295,20 @@ function barh(chart,a){
         },
 
         xAxis: {
-            name:'',//x轴单位
             type: 'category',
             data: [],  //x轴坐标
             show:true,
             nameTextStyle:{
                 color:'#333333',
-                fontSize:a*0.008,
+                fontSize:a*0.009,
             },
             axisTick:{
                 show: false,
-
             },
             axisLabel:{
                 interval:0,
-                rotate:40,
                 textStyle:{
-                    fontSize:a*0.008,
+                    fontSize:a*0.009,
                 }
             },
             axisLine:{
@@ -316,10 +317,6 @@ function barh(chart,a){
                 color:'#333333',
                 }
             },
-            z:999
-        },
-        grid: {
-            containLabel: true
         },
 
         series: [{
@@ -336,8 +333,6 @@ function barh(chart,a){
             itemStyle:{
                 color:'#EA5151',
                 opacity:0.85,
-                // shadowBlur:5,
-                // shadowColor:'#EA5151'
             },
             barMaxWidth:50,
 
@@ -379,12 +374,11 @@ function barh(chart,a){
 
 function pie1(mychart,a){
     option = {
-        // backgroundColor: '#333333',
         color:['#893448','#EA5151', '#FF7853', '#FFAE57', '#ebdba4'],
         title: {
-            text: '研究单位信息化相关项目情况',
+            text: '2019年研究单位信息化相关项目情况',
             left: 'center',
-            top: 20,
+            top:'2.5%',
             textStyle: {
                 color: '#333333',
                 fontSize:a*0.013
@@ -484,9 +478,9 @@ function pie2(mychart,a){
         // backgroundColor: '#333333',
         color:['#FFAE57', '#FF7853', '#893448','#EA5151', ],
         title: {
-            text: '研究单位设立信息化运行机构情况',
+            text: '2019年研究单位设立信息化运行机构情况',
             left: 'center',
-            top: 20,
+            top:'2.5%',
             textStyle: {
                 color: '#333333',
                 fontSize:a*0.013
@@ -574,9 +568,9 @@ function pie3(mychart,a){
         // backgroundColor: '#333333',
         color:['#FFAE57', '#FF7853', '#893448','#EA5151', ],
         title: {
-            text: '专职信息化管理人员职称情况',
+            text: '2019年专职信息化管理人员职称情况',
             left: 'center',
-            top: 20,
+            top:'2.5%',
             textStyle: {
                 color: '#333333',
                 fontSize:a*0.013

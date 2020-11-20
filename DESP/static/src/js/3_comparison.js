@@ -75,7 +75,7 @@ function activate_echarts(event) {
                 calculable: true,
                 xAxis: {
                     type: 'category',
-                    data: ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019']
+                    data: ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019']
                 },
                 yAxis: [{ type: "value" }],
                 series: [{
@@ -137,7 +137,7 @@ function activate_echarts(event) {
                 calculable: true,
                 xAxis: {
                     type: 'category',
-                    data: ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019']
+                    data: ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019']
                 },
                 yAxis: [{ type: "value", inverse: true }],
                 series: [{
@@ -259,7 +259,7 @@ function activate_echarts(event) {
                         calculable: true,
                         xAxis: {
                             type: 'category',
-                            data: ['2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019']
+                            data: ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019']
                         },
                         yAxis: [{ type: "value", inverse: true }],
                         series: [{
@@ -302,6 +302,9 @@ function activate_echarts(event) {
                     };
                     // 使用刚指定的配置项和数据显示图表。
                     chart_sf.setOption(option_subranking);
+                    // window.onresize = function() {
+                    //     chart_sf.resize();
+                    // }
                 })
             } else {
                 $('#sf_ranking').hide();
@@ -312,37 +315,81 @@ function activate_echarts(event) {
             //初始化图表
             var x = 2020;
             var n = -1
+            var click_quota = function (e){
+                return function() {
+                    console.log(e)
+                    // console.log(e.parentElement.parentElement.nextElementSibling.children)
+
+                    var panel_list = e.parentElement.parentElement.children
+                    console.log(panel_list)
+                    emp = []
+                    for (var i=0; i<panel_list.length; i++){
+                        // console.log(panel_list[i])
+                        emp.push(panel_list[i].firstElementChild.toString())
+                    }
+                    console.log(emp.indexOf(e.toString()))
+                    var index = emp.indexOf(e.toString())
+
+                    // if (e.classList.contains('show')) {
+                    //     console.log(e.parentElement.parentElement.nextElementSibling.children[index])
+                    //     e.parentElement.parentElement.nextElementSibling.children[index].classList.remove('show')
+                    //     e.parentElement.parentElement.nextElementSibling.children[index].classList.remove('active')
+                    //     e.parentElement.parentElement.nextElementSibling.children[index].setAttribute('style', "display: none")
+                    // } else {
+
+                    for (var i=0; i<panel_list.length; i++){
+                        var div_ele = e.parentElement.parentElement.nextElementSibling.children
+                        if (i === index){
+                            console.log(div_ele[index])
+                            div_ele[index].classList.add('show')
+                            div_ele[index].classList.add('active')
+                            div_ele[index].setAttribute('style', "display: block")
+                        }else{
+                            div_ele[i].classList.remove('show')
+                            div_ele[i].classList.remove('active')
+                            div_ele[i].setAttribute('style', "display: none")
+                        }
+
+                    }
+                }
+            }
             for (var i in data){
                 x-=1;
                 n+=1;
                 console.log(n)
                 let id = (x)+'quota_chart'
                 let quota_id = (x)+'quota'
-                console.log(typeof (id))
+                // console.log(typeof (id))
                 console.log(i)
-
-                tab_quota[n].onclick = function (e){
-                    if (e.currentTarget.firstElementChild.classList.contains('show')){
-                        console.log(e.currentTarget.parentElement.nextElementSibling.children[n])
-                        e.currentTarget.parentElement.nextElementSibling.children[n].classList.add('show')
-                        e.currentTarget.parentElement.nextElementSibling.children[n].classList.add('active')
-                    }else{
-                        console.log(e.currentTarget.parentElement.nextElementSibling.children[n])
-                        e.currentTarget.parentElement.nextElementSibling.children[n].classList.remove('show')
-                        e.currentTarget.parentElement.nextElementSibling.children[n].classList.remove('active')
-                    }
-                }
+                console.log(tab_quota[n].firstElementChild)
+                tab_quota[n].firstElementChild.onclick = click_quota(tab_quota[n].firstElementChild)
+                // function (e){
+                //     return function() {
+                //         console.log(e.currentTarget)
+                //         console.log(e.currentTarget.parentElement.parentElement.nextElementSibling.children[n])
+                //         if (e.currentTarget.classList.contains('show')) {
+                //             console.log(e.currentTarget.parentElement.parentElement.nextElementSibling.children[n])
+                //             e.currentTarget.parentElement.parentElement.nextElementSibling.children[n].classList.add('show')
+                //             e.currentTarget.parentElement.parentElement.nextElementSibling.children[n].classList.add('active')
+                //         } else {
+                //             console.log(e.currentTarget.parentElement.parentElement.nextElementSibling.children[n])
+                //             e.currentTarget.parentElement.parentElement.nextElementSibling.children[n].classList.remove('show')
+                //             e.currentTarget.parentElement.parentElement.nextElementSibling.children[n].setAttribute('style', "display: none")
+                //             e.currentTarget.parentElement.parentElement.nextElementSibling.children[n].classList.remove('active')
+                //         }
+                //     }
+                // }
                 new_div = document.getElementById(quota_id)
                 temp = document.createElement('div')
                 temp.setAttribute('id', id)
-                temp.setAttribute('style', "width: 85%;height:400%;")
+                temp.setAttribute('style', "width: 1150%;height:500%;marginLeft:20px")
                 temp.classList.add('nav-vertical')
                 new_div.appendChild(temp)
                 console.log(temp)
                 var ins1_quota_chart = (data[i]).filter(a => a.name == ins1 || a.name == (" " + ins1 + " ") );
                 var ins2_quota_chart = (data[i]).filter(a => a.name == ins2 || a.name == (" " + ins2 + " "));
                 console.log(ins2_quota_chart)
-                var chart_quota = echarts.init(document.getElementById(id))
+                var chart_quota = echarts.init(document.getElementById(id));
                 var option_quota = {
                 title: {
                     text: '各项指标得分情况'
@@ -446,7 +493,9 @@ function activate_echarts(event) {
             // }
             // var chart_quota = echarts.init(document.getElementById(id));
             //各项指标雷达对比图
-
+            window.onresize = function() {
+                chart_quota.resize();
+            }
         });
 
     } else {

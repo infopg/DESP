@@ -2,7 +2,7 @@
     option = {
         color:[ '#EA5151','#FFAE57','#ebdba4'],
         title: {
-            text: '各学科高性能计算机使用情况',
+            text: '2019年各学科高性能计算机使用情况',
             textStyle:{
                 color:'#333333',
                 fontSize:a*0.013
@@ -159,7 +159,7 @@ function bar2(mychart,a){
     option = {
         color:['#eddd86','#f8cb7f','#efa666','#eab026','#e3852b','#d85d2a','#EA5151'],
         title: {
-            text: '各学科在科学计算发展和应用方面取得成果情况',
+            text: '2019年各学科在科学计算发展和应用方面取得成果情况',
             textStyle:{
                 color:'#333333',
                 fontSize:a*0.013

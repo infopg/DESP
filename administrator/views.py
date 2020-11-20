@@ -49,7 +49,7 @@ def export_questionaire(request):
             TQC_question_importanswer = str(x2.table_question_content_col_question_importanswer)
             TQC_question_required = str(x2.table_question_content_col_question_required)
             TQC_question_type = str(x2.table_question_content_col_question_type)
-            TQC_content_dict = ast.literal_eval(x2.table_question_content_col_content)
+            TQC_content_dict = ast.literal_eval(x2.table_question_content_col_content)  # 转换成字典
             TQC_content_title = str(TQC_content_dict['title'])
 
             # 创建 sheet 并命名
@@ -62,23 +62,19 @@ def export_questionaire(request):
             al.horz = 0x02  # 设置水平居中
             al.vert = 0x01  # 设置垂直居中
             style.alignment = al
+            style.alignment.wrap = 1
             # 设置行高
             tall_style = xlwt.easyxf('font:height 720;')  # 36pt,类型小初的字号
-            for num in range(0, 8):
+            for num in range(0, 20):
                 row_set = worksheet.row(num)
                 row_set.set_style(tall_style)
             # 设置列宽
             worksheet.col(0).width = 250 * 20
             worksheet.col(1).width = 240 * 20
             worksheet.col(2).width = 120 * 20
-            worksheet.col(3).width = 2000 * 20
+            worksheet.col(3).width = 1200 * 20
 
             # 写入 sheet
-            if TQC_content_dict.get('answer'):
-                TQC_content_answer = str(TQC_content_dict['answer'])
-                worksheet.col(9).width = 240 * 20
-                worksheet.write(1, 2, "答案", style)
-                worksheet.write(1, 3, TQC_content_answer, style)
             worksheet.write(0, 0, "指标id", style)
             worksheet.write(1, 0, "问题编号", style)
             worksheet.write(2, 0, "计分方式", style)
@@ -88,7 +84,6 @@ def export_questionaire(request):
             worksheet.write(6, 0, "问题种类", style)
             worksheet.write(7, 0, "问题类型", style)
             worksheet.write(0, 2, "题目", style)
-
             # 填入数据
             worksheet.write(0, 1, TQC_indicator_id, style)
             worksheet.write(1, 1, TQC_question_number, style)
@@ -103,8 +98,21 @@ def export_questionaire(request):
             if TQC_question_type == "填空题":
                 tmp = '_'.join(filter(lambda x: x, TQC_content_title.split('_')))
                 count = tmp.count('_')
+                worksheet.write(1, 2, "填空数", style)
+                worksheet.write(1, 3, count, style)
                 for x in range(0, count):
-                    worksheet.write(x+1, 2, "填空"+str(x+1), style)
+                    worksheet.write(x + 2, 2, "填空" + str(x + 1), style)
+
+            if TQC_question_type == "选择题":
+                TQC_content_answer = TQC_content_dict['answer']
+                count = len(TQC_content_answer)
+                worksheet.write(1, 2, "选择数", style)
+                worksheet.write(1, 3, count, style)
+                worksheet.write(1, 4, "正确选项填'1'", style)
+                for x in range(0, count):
+                    worksheet.write(x + 2, 2, "选择" + str(x + 1), style)
+                    worksheet.write(x + 2, 3, TQC_content_answer[x], style)
+                    worksheet.write(x + 2, 4, 0, style)
 
             # 测试
             print(TQC_indicator_id, end='/')

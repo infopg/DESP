@@ -15,7 +15,7 @@ def overview_institute(request):
     return render(request, 'visual/overview_institute.html')
 
 def overview_system(request):
-    return render(request, 'visual/overview_system.html')
+    return render(request, 'visual/overview_zcdw.html')
 
 def network_manage(request):
     return render(request, 'visual/network_manage.html')

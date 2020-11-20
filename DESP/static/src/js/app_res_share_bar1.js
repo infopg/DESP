@@ -1,7 +1,7 @@
 ﻿function bar1(mychart,a){
     option = {
         title:{
-            text:' 研究单位所共享和管理的仪器设备情况',
+            text:' 2019年研究单位所共享和管理的仪器设备情况',
             subtext:'仅显示前10名情况',
             textStyle:{
                 color:'#333333',
@@ -118,7 +118,7 @@ mychart.setOption(option);
     function bar12(mychart,a){
     option = {
         title:{
-            text:' 研究单位所共享和管理的仪器设备预约单提交情况',
+            text:' 2019年研究单位所共享和管理的仪器设备预约单提交情况',
             subtext:'仅显示前10名情况',
             textStyle:{
                 color:'#333333',
@@ -230,7 +230,7 @@ mychart.setOption(option);
     function bar2(mychart,a){
         option = {
             title:{
-                text:' 研究单位大装置共享平台机时提供情况',
+                text:' 2019年研究单位大装置共享平台机时提供情况',
                 subtext:'仅显示前10名情况',
                 textStyle:{
                     color:'#333333',
@@ -336,7 +336,7 @@ mychart.setOption(option);
             function bar22(mychart,a){
         option = {
             title:{
-                text:' 研究单位大装置共享平台课题预约情况',
+                text:' 2019年研究单位大装置共享平台课题预约情况',
                 subtext:'仅显示前10名情况',
                 textStyle:{
                     color:'#333333',

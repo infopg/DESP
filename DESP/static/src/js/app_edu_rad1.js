@@ -8,7 +8,7 @@
 function rad1(chart,a){
     option = {
         title: {
-            text: '研究单位统一网络学习平台情况',
+            text: '2019年研究单位统一网络学习平台情况',
             bottom:0,
             left:'center',
             textStyle: {

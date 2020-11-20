@@ -3,7 +3,7 @@
     option = {
         color:['#FFAE57', '#EA5151', '#893448','#f8cb7f','#FF7853' ,'#ebdba4'],
         title: {
-            text: '高性能计算机软件领域论文发表情况',
+            text: '2019年高性能计算机软件领域论文发表情况',
             subtext:'仅展示前5个机构情况',
             textStyle:{
                 color:'#333333',
@@ -77,7 +77,7 @@ function pie2(mychart,a){
     option = {
         color:[ '#893448','#f8cb7f','#FF7853' ,'#ebdba4','#FFAE57', '#EA5151',],
         title: {
-            text: '高性能计算机软件领域专利申请情况',
+            text: '2019年高性能计算机软件领域专利申请情况',
             subtext:'仅展示前5个机构情况',
             textStyle:{
                 color:'#333333',

@@ -2,7 +2,7 @@
     option = {
         color:[ '#EA5151', '#FFAE57','#ebdba4', '#893448'],
         title: {
-            text: '自建管理系信息系统涵盖功能情况',
+            text: '2019年自建管理系信息系统涵盖功能情况',
             left: 'center',
             top: 5,
             textStyle: {

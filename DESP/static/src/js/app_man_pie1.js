@@ -4,7 +4,7 @@
         backgroundcolor:'#333333',
         color:['#FFAE57', '#EA5151', '#ebdba4', '#893448'],
         title:{
-            text:'研究单位ARP公文系统应用情况',
+            text:'2019年研究单位ARP公文系统应用情况',
             textStyle:{
                 color:'#333333',
                 fontSize:'130%'
@@ -93,7 +93,7 @@
         option = {
             color:['#ebdba4','#FF7853',  '#893448','#FFAE57', '#EA5151'],
             title:{
-                text:'研究单位ARP接口使用情况',
+                text:'2019年研究单位ARP接口使用情况',
                 textStyle:{
                     color:'#333333',
                     fontSize:'130%'

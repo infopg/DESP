@@ -1,5 +1,12 @@
 function bar1(mychart,a){
     option = {
+        title:{
+            text:'2019年研究单位课件资源积累',
+            textStyle:{
+                fontsize:'130%'
+            },
+            left:'center'
+        },
         xAxis: {
             type: 'category',
             show:true,
@@ -72,11 +79,8 @@ function bar1(mychart,a){
             trigger: 'axis',
             axisPointer: {
                 type: 'shadow',
-
             },
             formatter: '课件资源积累{b}GB: {c}家',
-
-
         },
 
         series: [{
@@ -126,6 +130,13 @@ function bar1(mychart,a){
 
     function bar2(mychart,a){
         option = {
+            title:{
+                text:'2019年研究单位继续教育网上传课件',
+                left:'center',
+                textStyle:{
+                    fontsize:'130%'
+                }
+            },
             xAxis: {
                 type: 'category',
                 show:true,
@@ -151,8 +162,6 @@ function bar1(mychart,a){
                     color:'#333333',
                     }
                 },
-
-
             },
             yAxis: {
                 type: 'value',
@@ -178,10 +187,6 @@ function bar1(mychart,a){
                         fontSize:a*0.009,
                     }
                 },
-                splitNumber:5,
-                interval:14,
-                min:0,
-                max:56,
                 splitLine:{
                     show:true,
                     lineStyle:{
@@ -195,15 +200,12 @@ function bar1(mychart,a){
                 trigger: 'axis',
                 axisPointer: {
                     type: 'shadow',
-
                 },
-                formatter: '课件资源积累{b}GB: {c}家',
-
-
+                formatter: '继续教育网上传课件{b}个: {c}家',
             },
 
             series: [{
-                data: [52,44,8],
+                data:[],
                 type: 'bar',
                 label: {
                     normal: {
@@ -249,15 +251,13 @@ function bar1(mychart,a){
 
 function data_bub(mychart,a){
     option = {
-        // backgroundColor: '#333333',
         title: {
-            text: '科学数据资源统计情况',
+            text: '2019年科学数据资源统计情况',
             textStyle:{
                 color:'#333333',
                 fontSize:a*0.013
             },
             left:'center'
-
         },
         tooltip:{
             formatter: function (params) {
@@ -273,7 +273,7 @@ function data_bub(mychart,a){
             show:true,
             nameTextStyle:{
                 color:'#333333',
-                fontSize:a*0.008,
+                fontSize:a*0.009,
                 lineHeight:a*0.01,
             },
             axisTick:{
@@ -283,9 +283,8 @@ function data_bub(mychart,a){
             },
             axisLabel:{
                 interval:0,
-                rotate:40,
                 textStyle:{
-                    fontSize:a*0.00750,
+                    fontSize:a*0.009,
                     lineHeight:a*0.01,
 
                 }
@@ -314,7 +313,7 @@ function data_bub(mychart,a){
 
             nameTextStyle:{
                 color:'#333333',
-                fontSize:a*0.008,
+                fontSize:a*0.009,
             },
             axisTick:{
                 show: false,
@@ -323,7 +322,7 @@ function data_bub(mychart,a){
             },
             axisLabel:{
                 textStyle:{
-                    fontSize:a*0.008,
+                    fontSize:a*0.009,
                 }
             },
             axisLine:{
@@ -470,7 +469,7 @@ function data_bub(mychart,a){
                     position: 'top',
                     textStyle:{
                         color:'#fff',
-                        fontSize:a*0.007,
+                        fontSize:a*0.009,
                     },
                 }
 
@@ -507,7 +506,7 @@ function data_bub(mychart,a){
                     position: 'top',
                     textStyle:{
                         color:'#fff',
-                        fontSize:a*0.007,
+                        fontSize:a*0.009,
                     },
                 }
 
@@ -544,7 +543,7 @@ function data_bub(mychart,a){
                     position: 'top',
                     textStyle:{
                         color:'#fff',
-                        fontSize:a*0.007,
+                        fontSize:a*0.009,
                     },
                 }
 
@@ -582,7 +581,7 @@ function data_bub(mychart,a){
                     position: 'top',
                     textStyle:{
                         color:'#333333',
-                        fontSize:a*0.007,
+                        fontSize:a*0.009,
                     },
                 }
 
@@ -602,44 +601,6 @@ function data_bub(mychart,a){
                 }
             }
         },
-        // {
-        //     name: '其他领域',
-        //     data: [],
-        //     type: 'scatter',
-        //     symbolSize: function (data) {
-        //         return  a*0.004; /// 5e2;
-        //     },
-        //     label: {
-
-        //         normal: {
-        //             show: true,
-        //             formatter: function (param) {
-        //                 return param.data[2]+'万条';
-        //             },
-        //             position: 'top',
-        //             textStyle:{
-        //                 color:'#fff',
-        //                 fontSize:a*0.007,
-        //             },
-        //         }
-
-        //     },
-        //     itemStyle: {
-        //         normal: {
-        //             shadowBlur: 30,
-        //             shadowColor: '#b5304d',
-        //             shadowOffsetY: 5,
-        //             color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
-        //                 offset: 0.01,
-        //                 color: '#e3a27f'
-        //             }, {
-        //                 offset: 0.35,
-        //                 color: '#b5304d'
-        //             }]),
-        //             opacity:0.7
-        //         }
-        //     }
-        // }
     ]
     };
 mychart.setOption(option);
@@ -679,26 +640,17 @@ $.get('/static/DATA/environment-resource.json').done(function (data) {
         },{
             name: '生态环境',
             data: data.buble[6],
-
         },
-        // {
-        //     name: '其他领域',
-        //     data: data.buble[7],}
         ]
     });
     });
 }
 
 function fall1(mychart,a){
-
     option = {
-        // backgroundColor:'#333333',
-        //color:['#EA5151', '#FF7853', '#FFAE57'],
         title: {
-            text: '研究单位自建文献情报资源种类',
-
+            text: '2019年研究单位自建文献情报资源种类',
             x:'center',//水平位置：居中
-            //y:'bottom',//垂直位置：底部
             textStyle: {
                 color: '#333333',
                 fontSize:a*0.013
@@ -852,8 +804,12 @@ function fall1(mychart,a){
 function pie1(mychart,a){
 
     option = {
-        // backgroundColor: '#333333',
         color:['#EA5151', '#FF7853', '#FFAE57', '#893448', '#ebdba4',],
+        title:{
+            text:'2019年研究单位\n中文网站文章数量',
+            bottom:0,
+            left:'center'
+        },
         tooltip : {
             trigger: 'item',
             formatter: function (params) {
@@ -934,8 +890,12 @@ function pie1(mychart,a){
 
     function pie2(mychart,a){
         option = {
-            // backgroundColor: '#333333',
             color:['#EA5151', '#FF7853', '#FFAE57', '#893448', '#ebdba4',],
+            title:{
+                text:'2019年研究单位\n英文网站文章数量',
+                bottom:0,
+                left:'center'
+        },
             tooltip : {
                 trigger: 'item',
                 formatter: function (params) {
@@ -1016,8 +976,12 @@ function pie1(mychart,a){
 
     function pie3(mychart,a){
         option = {
-            // backgroundColor: '#333333',
             color:['#EA5151', '#FF7853', '#FFAE57', '#893448', '#ebdba4',],
+            title:{
+                text:'2019年研究单位\n科普文章发稿量',
+                bottom:0,
+                left:'center'
+        },
             tooltip : {
                 trigger: 'item',
                 formatter: function (params) {
@@ -1096,8 +1060,12 @@ function pie1(mychart,a){
 
     function pie4(mychart,a){
         option = {
-            // backgroundColor: '#333333',
             color:['#FFAE57', '#FF7853',  '#893448', '#ebdba4',],
+            title:{
+                text:'2019年研究单位\n自制科普视频数量',
+                bottom:0,
+                left:'center'
+            },
             tooltip : {
                 trigger: 'item',
                 formatter: function (params) {

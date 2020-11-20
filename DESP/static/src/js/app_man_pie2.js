@@ -3,7 +3,7 @@
     option = {
         color:['#ebdba4','#FFAE57', '#FF7853' ,'#EA5151', '#893448'],
         title:{
-            text:'研究单位新一代ARP系统培训情况',
+            text:'2019年研究单位新一代ARP系统培训情况',
             textStyle:{
                 color:'#333333',
                 fontSize:'130%'
@@ -95,7 +95,7 @@
         option = {
             color:['#FFAE57', '#FF7853' ,'#EA5151', '#893448'],
             title:{
-                text:'研究单位ARP系统基础操作培训情况',
+                text:'2019年研究单位ARP系统基础操作培训情况',
                 textStyle:{
                     color:'#333333',
                     fontSize:'130%',
