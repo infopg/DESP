@@ -1,5 +1,14 @@
 ﻿function bar1(chart, a) {
     option = {
+        title: {
+            text: '研究单位办公网和业务网采取的安全隔离措施',
+            left: 'center',
+            top: 10,
+            textStyle: {
+                color: '#020202',
+                fontSize:'150%'
+            }
+        },
         tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -18,7 +27,7 @@
             data: [],
             //name:'个',
             nameTextStyle: {
-                color: '#e3e3e3',
+                color: '#020202',
                 fontSize: a * 0.009,
             },
             axisLabel: {
@@ -35,7 +44,7 @@
             axisLine: {
                 show: true,
                 lineStyle: {
-                    color: '#e3e3e3',
+                    color: '#020202',
                 }
             },
             show: true,
@@ -46,7 +55,7 @@
             name: '家',
             show: true,
             nameTextStyle: {
-                color: '#e3e3e3',
+                color: '#020202',
                 fontSize: a * 0.009,
             },
             axisLabel: {
@@ -62,7 +71,7 @@
             axisLine: {
                 show: true,
                 lineStyle: {
-                    color: '#e3e3e3',
+                    color: '#020202',
                 }
             },
             splitNumber: 5,
@@ -70,7 +79,7 @@
             splitLine: {
                 show: true,
                 lineStyle: {
-                    color: '#aaaaaa',
+                    color: '#020202',
                     opacity: 0.4,
                 }
             }

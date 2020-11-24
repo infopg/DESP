@@ -5,24 +5,21 @@
     }
 };
 
-
-
 function rad2(chart, a) {
 
     option = {
         //backgroundColor: '#333333',
 
         title: {
-            text: '研究单位信息系统安全检查内容',
+           text: '研究单位信息系统安全检查内容',
 
-            x: 'center', //水平位置：居中
-            bottom: 0, //垂直位置：底部
-            textStyle: {
-                color: '#e3e3e3',
-
-                fontSize: a * 0.013
-            },
-            lineHeight: 25,
+           x: 'center', //水平位置：居中
+           bottom: -5, //垂直位置：底部
+           textStyle: {
+               color: '#020202',
+               fontSize: a * 0.015
+           },
+           lineHeight: -20,
         },
 
         center: ['50%', '50%'],

@@ -2,15 +2,15 @@
     option = {
         color: ['#FFAE57'],
         //backgroundColor:'#333333',
-        // title: {
-        //     text: '研究单位部署终端安全软件类型和数量',
-        //     left: 'center',
-        //     top: 0,
-        //     textStyle: {
-        //         color: '#e3e3e3',
-        //         fontSize:'130%'
-        //     }
-        // },
+        title: {
+            text: '研究单位部署终端安全软件类型和数量',
+            left: 'center',
+            top: 10,
+            textStyle: {
+                color: '#020202',
+                fontSize:'150%'
+            }
+        },
         tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -29,7 +29,7 @@
             data: [],
             //name:'小时',
             nameTextStyle: {
-                color: '#e3e3e3',
+                color: '#020202',
                 fontSize: a * 0.009,
             },
             axisLabel: {
@@ -46,7 +46,7 @@
             axisLine: {
                 show: true,
                 lineStyle: {
-                    color: '#e3e3e3',
+                    color: '#020202',
                 }
             },
             show: true,
@@ -57,7 +57,7 @@
             name: '个',
             show: true,
             nameTextStyle: {
-                color: '#e3e3e3',
+                color: '#020202',
                 fontSize: a * 0.009,
             },
             axisLabel: {
@@ -73,7 +73,7 @@
             axisLine: {
                 show: true,
                 lineStyle: {
-                    color: '#e3e3e3',
+                    color: '#020202',
                 }
             },
             splitNumber: 5,
@@ -81,7 +81,7 @@
             splitLine: {
                 show: true,
                 lineStyle: {
-                    color: '#aaaaaa',
+                    color: '#020202',
                     opacity: 0.4,
                 }
             }

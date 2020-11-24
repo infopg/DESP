@@ -19,17 +19,15 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'app-assets/img/ico/favicon-32.png' %}">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
-          rel="stylesheet">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">F
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/font-awesome/css/font-awesome.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/perfect-scrollbar.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/prism.min.css' %}">
-    <link rel="stylesheet" type="text/css"
-          href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/tables/datatable/dataTables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/net_tech.css' %}">
 </head>
 <body data-col="2-columns" class=" 2-columns">
 <!-- ////////////////////////////////////////////////////////////////////////////-->
@@ -56,7 +54,7 @@
 						        <ul class="menu-content">
 							        <li><a href="{% url 'overview_research' %}" class="menu-item">研究单位</a></li>
 							        <li><a href ="{% url 'overview_institute' %}" class="menu-item">分院</a></li>
-						            <li><a href ="{% url 'overview_system' %}"class="menu-item">支撑单位</a></li>
+						            <li><a href ="{% url 'overview_system' %}"class="menu-item">分院系统</a></li>
 						        </ul>
 					        </li>
                             <li class='has-sub'> <a href = "#" class="menu-item">网络安全</a>
@@ -141,36 +139,37 @@
                         <div class="row">
                           
                             <div class="col-12">
-                                <div class="card" style='height:80rem'>
+                                <div class="card" style='width:80rem;height:80rem'>
                                     <div class="card-header">
                                         <div class="card-title-wrap bar-success">
                                             <h2 class="card-title">网络安全技术保障</h2>
                                         </div>
                                     </div>
                                     <div class="card-block" style="width: 100%;height:100%">
-                                        <table class="table" border="0" align="left" width = 100% height = 88%>
+                                        <table class="table" border="0" align="left" width = 100% height = 100% border="2" bordercolor="black" cellspacing="0" cellpadding="5">
                                             <tr>
-                                                <td rowspan="2" width = 50% height =100%>				
+                                                <td width = 40% height =33%>
                                                     <div id="barh" style="height: 90%; width:90%"></div>
-                                                </td>		
-                                                <th width = 50% height =50%>
-                                                    <div id="bar" style="width: 90%; height:90%;"></div>
-                                                </th>
+                                                </td>
+                                                <td width = 60% height =33%>
+                                                    <div id="bar" style="width: 100%; height:100%;"></div>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <th width = 50% height =50%>
-                                                    <div class = 'select2'>
-                                                        <input class = 'button' type="button" id="actp1" name="actp" value="  研究单位系统安全检查情况  " 
-                                                            onClick="p1()" />
-                                                        <input class = 'button' type="button" id="actp2" name="actp" value="  研究单位“ICP信息”备案现状  " 
-                                                            onClick="p2()" />
-                                                        <input class = 'button' type="button" id="actp3" name="actp" value="  研究单位“等保”备案现状  " 
-                                                            onClick="p3()" /> <br>
-                                                        <input class = 'button' type="button" id="actp4" name="actp" value="  研究单位无线路由隔离情况  " 
-                                                            onClick="p4()" />
-                                                    </div>
-                                                    <div id="pie" style="width: 90%; height:85%;"></div>
-                                                </th>
+                                                <td width=30% height=33% align="center">
+                                                    <div id="pie1" style="width: 100%; height:100%;"></div>
+                                                </td>
+                                                <td width=30% height =33% align="center">
+                                                    <div id="pie2" style="width: 100%; height:100%;"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width = 30% height = 34% align="center">
+                                                    <div id="pie3" style="width: 100%; height:100%;"></div>
+                                                </td>
+                                                <td width = 30% height = 34% align="center">
+                                                    <div id="pie4" style="width: 100%; height:100%;"></div>
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
@@ -197,8 +196,6 @@
     <script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
     <script src="{% static 'app-assets/vendors/js/perfect-scrollbar.jquery.min.js' %}"></script>
     <script src="{% static 'app-assets/js/app-sidebar.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/echarts.js' %}"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/china.js' %}"></script>
     <script type="text/javascript" src="{% static 'lib/echarts/jquery.js' %}"></script>
@@ -206,78 +203,9 @@
     <script type="text/javascript" src="{% static 'src/js/net_tech_bar.js' %}"></script>
     <script type="text/javascript" src="{% static 'src/js/net_tech_barh.js' %}"></script>
     <script type="text/javascript" src="{% static 'src/js/net_tech_pie1.js' %}"></script>
-    <script type="text/javascript">
-        	hei = document.body.clientWidth	
-            var myPie = echarts.init(document.getElementById('pie'));
-            pie1(myPie,hei);
-
-            var myBar = echarts.init(document.getElementById('bar'));
-            bar1(myBar,hei);
-
-            var myBarh = echarts.init(document.getElementById('barh'));
-            barh1(myBarh,hei);
-            setTimeout(function (){
-                window.onresize = function () {
-                    myBarh.resize();
-                    myBar.resize();
-                    myPie.resize();
-                }
-            })
-            function p1(){
-                myPie.clear();
-                pie1(myPie,hei);
-            }
-            function p2(){
-                myPie.clear();             
-                pie2(myPie,hei);
-            }
-            function p3(){
-                myPie.clear();                            
-                pie3(myPie,hei);
-            }
-            function p4(){
-                myPie.clear();                           
-                pie4(myPie,hei);
-            }
-            function p5(){
-                myPie.clear();                          
-                pie5(myPie,hei);
-            }
-
-    </script>
-    <style type="text/css">
-        * {
-            margin: 0%;
-            padding: 0%;
-        }
-
-        .table{
-            margin-top:0%;
-            margin-left:0%;
-            margin-right:0%;
-            float:center;
-        }
-
-        #bar{
-            margin-top:0%;
-            margin-right: 0%;
-            z-index: 888;
-            float:left;
-
-        }
-
-
-        #rad{
-            margin-top: 0%;
-            
-            float:left;
-
-        }
-
-        #map{
-            float:right;
-            margin-right:0%;
-        }
-    </style>
-  </body>
+    <script type="text/javascript" src="{% static 'src/js/net_tech_pie2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/net_tech_pie3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/net_tech_pie4.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/js/net_tech_collect.js' %}"></script>
+</body>
 </html>
