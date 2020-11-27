@@ -42,38 +42,44 @@
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 <div class="wrapper nav-collapsed menu-collapsed">
 
-
     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
-                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
-                        class="icon-bar"></span><span class="icon-bar"></span></button>
-                <span class="d-lg-none navbar-right navbar-collapse-toggle"><a class="open-navbar-container"><i
-                        class="ft-more-vertical"></i></a></span><a id="navbar-fullscreen" href="javascript:;"
-                                                                   class="mr-2 display-inline-block apptogglefullscreen"><i
-                    class="ft-maximize blue-grey darken-4 toggleClass"></i>
-                <p class="d-none">fullscreen</p></a>
+                <span class="d-lg-none navbar-right navbar-collapse-toggle">
+                    <a class="open-navbar-container">
+                        <i class="ft-more-vertical"></i>
+                    </a>
+                </span>
+                <a id="navbar-fullscreen" href="javascript:;" class="mr-2 display-inline-block apptogglefullscreen">
+                    <p class="d-none">fullscreen</p>
+                </a>
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
                     <ul class="layui-nav-item">
-                        <li class="dropdown layui-nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
-                                                                    class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
-                                class="avatar avatar-online"><img id="navbar-avatar"
-                                                                  src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
-                                                                  alt="avatar"/></span>
-                            <p class="d-none">User Settings</p></a>
+                        <li class="dropdown layui-nav-item mr-0">
+                            <a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                               class="nav-link position-relative dropdown-user-link dropdown-toggle">
+                                <span class="avatar avatar-online">
+                                    <img id="navbar-avatar"
+                                         src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
+                                         alt="avatar"/>
+                                </span>
+                                <p class="d-none">User Settings</p>
+                            </a>
                             <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
                                 <div class="arrow_box_right">
-                                    <a href="{% url 'logout' %}" class="dropdown-item"><i
-                                            class="layui-icon layui-icon-logout"
-                                            style="font-size: 18px; color:black;"></i> <span>退出</span></a>
+                                    <a href="{% url 'logout' %}" class="dropdown-item">
+                                        <i class="layui-icon layui-icon-logout"
+                                           style="font-size: 18px; color:black;"></i>
+                                        <span>退出</span>
+                                    </a>
                                 </div>
                                 <div class="arrow_box_right">
-                                    <a href="" class="dropdown-item"><i class="layui-icon layui-icon-user"
-                                                                        style="font-size: 18px; color:black;"></i>
-                                        <span>修改密码</span></a>
+                                    <a href="" class="dropdown-item">
+                                        <i class="layui-icon layui-icon-user" style="font-size: 18px; color:black;"></i>
+                                        <span>修改密码</span>
+                                    </a>
                                 </div>
                             </div>
                         </li>
@@ -85,104 +91,91 @@
 
     <div class="main-panel">
         <div class="main-content">
-
-
-        <div class="layui-tab layui-tab-card">
-            <ul class="layui-tab-title">
-                <li class="layui-this">问卷填写</li>
-                <li>数据</li>
-                <li>报告</li>
-                <li>附件</li>
-            </ul>
-            <div class="layui-tab-content" style="height: 100%;">
-                <div class="layui-tab-item layui-show">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title-wrap bar-success">
-                                {#        <div class="main-content">#}
-                                {#            <div class="content-wrapper">#}
-                                {#                <div class="container-fluid"><!-- Base style table -->#}
-                                {#                    <section id="base-style">#}
-                                {#                        <div class="row">#}
-                                {#                            <div class="col-12">#}
-                                <h4 class="card-title">问卷填写</h4>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card-block">
-                                <div class="btn-group mr-2">
-                                    <button class="btn btn-danger dropdown-toggle" type="button"
-                                            data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                        选择
-                                    </button>
-                                    <div class="dropdown-menu" id="pages">
-                                    </div>
+            <div class="layui-tab layui-tab-card">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">问卷填写</li>
+                    <li>数据</li>
+                    <li>报告</li>
+                    <li>附件</li>
+                </ul>
+                <div class="layui-tab-content" style="height: 100%;">
+                    <div class="layui-tab-item layui-show">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrap bar-success">
+                                    <h4 class="card-title">问卷填写</h4>
                                 </div>
-                                <div id="question_list" class="col-md-6 col-sm-6 col-12"></div>
-                                <input type="button" class="btn btn-warning" value="保存" onclick="submit()">
                             </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="layui-tab-item">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title-wrap bar-success">
-                                <h4 class="card-title">数据查询</h4>
-                                <br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br>
-                                <button class='btn mr-1 btn-secondary'>查询</button> &emsp;
-                                <button class='btn mr-1 btn-secondary'>下载</button> &emsp;
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-tab-item">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title-wrap bar-success">
-                                <h4 class="card-title">报告</h4>
-                                <br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br>
-                                <button class='btn mr-1 btn-secondary'>查询</button> &emsp;
-                                <button class='btn mr-1 btn-secondary'>下载</button> &emsp;
+                            <div class="card-body">
+                                <div class="card-block">
+                                    <div class="btn-group mr-2">
+                                        <button class="btn btn-danger dropdown-toggle" type="button"
+                                                data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                            选择
+                                        </button>
+                                        <div class="dropdown-menu" id="pages"></div>
+                                    </div>
+                                    <div id="question_list" class="col-md-6 col-sm-6 col-12"></div>
+                                    <input type="button" class="btn btn-warning" value="保存" onclick="submit()">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="layui-tab-item">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title-wrap bar-success">
-                                <h4 class="card-title">附件</h4>
-                                <br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br>
-                                <button class='btn mr-1 btn-secondary'>查询</button> &emsp;
-                                <button class='btn mr-1 btn-secondary'>下载</button> &emsp;
+                    <div class="layui-tab-item">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrap bar-success">
+                                    <h4 class="card-title">数据查询</h4>
+                                    <br><br><br><br><br><br><br><br><br><br>
+                                    <br><br><br><br><br><br><br><br><br><br>
+                                    <button class='btn mr-1 btn-secondary'>查询</button> &emsp;
+                                    <button class='btn mr-1 btn-secondary'>下载</button> &emsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrap bar-success">
+                                    <h4 class="card-title">报告</h4>
+                                    <br><br><br><br><br><br><br><br><br><br>
+                                    <br><br><br><br><br><br><br><br><br><br>
+                                    <button class='btn mr-1 btn-secondary'>查询</button> &emsp;
+                                    <button class='btn mr-1 btn-secondary'>下载</button> &emsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrap bar-success">
+                                    <h4 class="card-title">附件</h4>
+                                    <br><br><br><br><br><br><br><br><br><br>
+                                    <br><br><br><br><br><br><br><br><br><br>
+                                    <button class='btn mr-1 btn-secondary'>查询</button> &emsp;
+                                    <button class='btn mr-1 btn-secondary'>下载</button> &emsp;
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--/ Base style table -->
             </div>
-            <!--/ Base style table -->
-        </div>
-
-
         </div>
     </div>
 </div>
 
 <footer class="footer footer-static footer-light">
-    <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; CNIC <a href="#" id="pixinventLink"
-                                                                                    target="_blank"
-                                                                                    class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
+    <p class="clearfix text-muted text-center px-2">
+        <span>Copyright  &copy; CNIC
+            <a href="#" id="pixinventLink" target="_blank" class="text-bold-800 primary darken-2"></a>, All rights reserved.
+        </span>
     </p>
 </footer>
 
-</div>
-</div>
 
 <script src="{% static 'layui/layui.js' %}" charset="utf-8"></script>
 <!-- BEGIN VENDOR JS-->

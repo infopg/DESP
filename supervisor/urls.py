@@ -23,5 +23,4 @@ urlpatterns = [
     re_path(r'/upload_organization$', views.upload_organization, name='upload_organization'),
     url(r'^download_organization/', views.download_organization, name="download_organization"),
     re_path(r'/user_export$',views.user_export,name='user_export'),
-    url(r'/visualization', views.visualization, name='visualization')
 ]

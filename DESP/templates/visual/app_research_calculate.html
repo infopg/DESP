@@ -52,41 +52,46 @@
                         <ul class="menu-content">
                             <li class='has-sub'><a href = "#" class="menu-item">总体情况</a>
 						        <ul class="menu-content">
-							        <li><a href="{% url 'overview_research' %}" class="menu-item">研究单位</a></li>
-							        <li><a href ="{% url 'overview_institute' %}" class="menu-item">分院</a></li>
-						            <li><a href ="{% url 'overview_system' %}"class="menu-item">支撑单位</a></li>
-						        </ul>
-					        </li>
-                            <li class='has-sub'> <a href = "#" class="menu-item">网络安全</a>
-						        <ul class="menu-content">
-							        <li><a href ="{% url 'network_manage' %}" class="menu-item">管理</a></li>
-							        <li><a href = "{% url 'network_tech' %}" class="menu-item">技术保障</a></li>
-						        </ul>
-					        </li>
-                            <li class='has-sub'><a href = "#" class="menu-item">信息化应用</a>
-						        <ul class="menu-content">
-							        <li class='has-sub'><a href = "#" class="menu-item">科研信息化 </a>
-								        <ul class="menu-content">
-                                            <li><a href = "{% url 'app_research_data' %}" class="menu-item">科学数据应用</a></li>
-                                            <li><a href = "{% url 'app_research_calculate' %}"  class="menu-item">科学计算应用</a></li>
-                                            <li><a href = "{% url 'app_research_cloud' %}" class="menu-item">云计算应用</a></li>
-                                            <li><a href = "{% url 'app_research_share' %}"  class="menu-item">开放共享应用</a></li>
-								        </ul>
-							        </li>
-                                <li><a href = "{% url 'app_manage' %}"  class="menu-item">管理信息化</a></li>
-                                <li><a href = "{% url 'app_education' %}"  class="menu-item">教育信息化</a></li>
-                                <li><a href = "{% url 'app_science' %}"  class="menu-item">科学传播</a></li>
-						        </ul>
-					        </li>
-                            <li class='has-sub'><a href = "#" class="menu-item">基础环境</a>
-						        <ul class="menu-content">
-                                    <li><a href = "{% url 'env_management' %}" class="menu-item">管理与运行</a></li>
-                                    <li><a href = "{% url 'env_infrastructure' %}" class="menu-item">基础设施</a></li>
-                                    <li><a href = "{% url 'env_resource' %}" class="menu-item">资源</a></li>
-						        </ul>
-					        </li>
-                            <li><a href="{% url 'details_comparison' %}" class="menu-item">详细情况及对比</a></li>
-                            <li><a href = "http://xxhpg.cas.cn/views/download.jsp"target="_blank" class="menu-item">报告下载</a></li> 
+							        <li><a href="{% url 'overview_research' %}?app={{ check_app }}" class="menu-item">研究单位</a></li>
+                                    <li><a href="{% url 'overview_institute' %}?app={{ check_app }}" class="menu-item">分院</a></li>
+                                    <li><a href="{% url 'overview_system' %}?app={{ check_app }}" class="menu-item">支撑单位</a></li>
+                                </ul>
+                            </li>
+                            <li class='has-sub'><a href="#" class="menu-item">网络安全</a>
+                                <ul class="menu-content">
+                                    <li><a href="{% url 'network_manage' %}?app={{ check_app }}" class="menu-item">管理</a></li>
+                                    <li><a href="{% url 'network_tech' %}?app={{ check_app }}" class="menu-item">技术保障</a></li>
+                                </ul>
+                            </li>
+                            <li class='has-sub'><a href="#" class="menu-item">信息化应用</a>
+                                <ul class="menu-content">
+                                    <li class='has-sub'><a href="#" class="menu-item">科研信息化 </a>
+                                        <ul class="menu-content">
+                                            <li><a href="{% url 'app_research_data' %}?app={{ check_app }}" class="menu-item">科学数据应用</a>
+                                            </li>
+                                            <li><a href="{% url 'app_research_calculate' %}?app={{ check_app }}"
+                                                   class="menu-item">科学计算应用</a></li>
+                                            <li><a href="{% url 'app_research_cloud' %}?app={{ check_app }}" class="menu-item">云计算应用</a>
+                                            </li>
+                                            <li><a href="{% url 'app_research_share' %}?app={{ check_app }}" class="menu-item">开放共享应用</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{% url 'app_manage' %}?app={{ check_app }}" class="menu-item">管理信息化</a></li>
+                                    <li><a href="{% url 'app_education' %}?app={{ check_app }}" class="menu-item">教育信息化</a></li>
+                                    <li><a href="{% url 'app_science' %}?app={{ check_app }}" class="menu-item">科学传播</a></li>
+                                </ul>
+                            </li>
+                            <li class='has-sub'><a href="#" class="menu-item">基础环境</a>
+                                <ul class="menu-content">
+                                    <li><a href="{% url 'env_management' %}?app={{ check_app }}" class="menu-item">管理与运行</a></li>
+                                    <li><a href="{% url 'env_infrastructure' %}?app={{ check_app }}" class="menu-item">基础设施</a></li>
+                                    <li><a href="{% url 'env_resource' %}?app={{ check_app }}" class="menu-item">资源</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'details_comparison' %}?app={{ check_app }}" class="menu-item">详细情况及对比</a></li>
+                            <li><a href="http://xxhpg.cas.cn/views/download.jsp" target="_blank"
+                                   class="menu-item">报告下载</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -112,18 +117,8 @@
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
                     <ul class="navbar-nav">
-                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
-                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
-                                class="avatar avatar-online"><img id="navbar-avatar"
-                                                                  src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
-                                                                  alt="avatar"/></span>
-                            <p class="d-none">User Settings</p></a>
-                            <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
-                                <div class="arrow_box_right">
-                                    <a href="#" class="dropdown-item"><i
-                                            class="ft-power mr-2"></i><span>Logout</span></a>
-                                </div>
-                            </div>
+                        <li class="dropdown nav-item mr-0"><a class="btn mr-1 btn-secondary"
+                                       href="{% url "go_back" %}?app={{ check_app }}">退出可视化页面</a>
                         </li>
                     </ul>
                 </div>

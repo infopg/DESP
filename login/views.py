@@ -104,39 +104,25 @@ def administrator(request):
     lastlogintime = d.strftime("%Y-%m-%d %H:%M:%S.%f")
     username = request.session.get('user_name')
     models.TableUser.objects.filter(table_user_col_name=username).update(table_user_col_lastlogintime=lastlogintime)
-    evalname = TableEvaluation.objects.filter(
-        Q(table_evaluation_col_administrator=username) & Q(table_evaluation_col_status='启用')).values(
-        'table_evaluation_col_name')
     timeevalname = TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
         'table_timeliner_col_evaluation')
-
-    org_eval = TableEvaluation.objects.all()
+    administrator = request.session['user_name']
     timeline_list = TableTimeliner.objects.all()
-    list1 = []
-    list2 = []
-    list3 = []
-    res = []
-    for x in org_eval:
-        for each in timeline_list:
-            if each.table_timeliner_col_evaluation == x.table_evaluation_col_name:
-                list1.append(each.table_timeliner_col_end)
-                list2.append(each)
-        if len(list2) != 0:
-            for each in list1:
-                i = 0
-                tmp = 0
-                while i < 10:
-                    if each[i] != '-':
-                        tmp = int(each[i]) + tmp * 10
-                    i += 1
-                list3.append(tmp)
-            res.append(list2[list3.index(max(list3))])
-            list1 = []
-            list2 = []
-            list3 = []
-    return render(request, 'login/administrator.html',
-                  {'evalname': evalname, 'admin': username, 'timeevalname': timeevalname, 'org_eval': org_eval,
-                   'timeline_list': res})
+    evalname = TableEvaluation.objects.filter(
+        Q(table_evaluation_col_administrator=administrator))  # & Q(table_evaluation_col_status='启用'))
+    eval_data = [
+        {
+            'org_id': TableOrganization.objects.filter(
+                Q(table_organization_col_name=project.table_evaluation_col_organization)).values_list(
+                'table_organization_col_id')[0][0],
+            'org_name': project.table_evaluation_col_organization,
+            'project_name': project.table_evaluation_col_name,
+            'project_admin': project.table_evaluation_col_administrator,
+            'questionaire_status': project.table_evaluation_col_status,
+            'enddate': project.table_evaluation_col_finish_time,
+        } for project in evalname
+    ]
+    return render(request, 'login/administrator.html', {'eval_data': eval_data, 'evalname': evalname,'admin':administrator})
 
 
 def user(request):

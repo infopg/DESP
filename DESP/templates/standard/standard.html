@@ -23,8 +23,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900%7CMontserrat:300,400,500,600,700,800,900"
-          rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/feather/style.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/fonts/simple-line-icons/style.css' %}">
@@ -35,6 +33,7 @@
           href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
     <link rel="stylesheet" href="{% static 'ztreecss/zTreeStyle/zTreeStyle.css' %}">
+
     <style type="text/css">
         div#rMenu {
             position: absolute;
@@ -158,43 +157,25 @@
         <div class="sidebar-content">
             <div class="nav-container">
                 <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-menu"></i><span
+                    <li class="has-sub nav-item"><a href="{% url 'standard' %}?evalname={{ current_eval }}&admin={{ admin }}"><i class="ft-menu"></i><span
                             data-i18n=""
                             class="menu-title">项目管理</span></a>
-                        <ul class="menu-content">
-                            {% for u in evalname %}
-                                <li>
-                                    <a href="{% url 'standard' %}?evalname={{ u.table_evaluation_col_name }}&admin={{ admin }}"
-                                       class="menu-item">{{ u.table_evaluation_col_name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
                     </li>
 
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-calendar"></i><span
+                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i class="icon-calendar"></i><span
                             data-i18n=""
                             class="menu-title">项目进度</span></a>
-                        <ul class="menu-content">
-                            {% for t in evalname %}
-                                <li>
-                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_evaluation_col_name }}&admin={{ admin }}"
-                                       class="menu-item">{{ t.table_evaluation_col_name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
                     </li>
 
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-file-text"></i><span
+                    <li class="has-sub nav-item"> <a href="{% url 'questionaire_manage' %}?timeevalname={{ current_eval}}&admin={{ admin }}"><i class="ft-file-text"></i><span
                             data-i18n=""
                             class="menu-title">数据采集</span></a>
-                        <ul class="menu-content">
-                            <li><a href="{% url 'questionaire_manage' %}" class="menu-item">问卷管理</a></li>
-                        </ul>
-
                     </li>
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-folder"></i><span
+
+                    <li class="has-sub nav-item"><a href="{% url 'calculate' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i class="ft-folder"></i><span
                             data-i18n=""
-                            class="menu-title">数据统计</span></a></li>
+                            class="menu-title">数据统计</span></a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -217,9 +198,9 @@
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
-                    <ul class="navbar-nav">
-                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
-                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                    <ul class="layui-nav-item">
+                        <li class="dropdown layui-nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                                    class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
                                 class="avatar avatar-online"><img id="navbar-avatar"
                                                                   src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
                                                                   alt="avatar"/></span>
@@ -227,7 +208,13 @@
                             <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
                                 <div class="arrow_box_right">
                                     <a href="{% url 'logout' %}" class="dropdown-item"><i
-                                            class="ft-power mr-2"></i><span>Logout</span></a>
+                                            class="layui-icon layui-icon-logout"
+                                            style="font-size: 18px; color:black;"></i> <span>退出</span></a>
+                                </div>
+                                <div class="arrow_box_right">
+                                    <a href="" class="dropdown-item"><i class="layui-icon layui-icon-user"
+                                                                        style="font-size: 18px; color:black;"></i>
+                                        <span>修改密码</span></a>
                                 </div>
                             </div>
                         </li>
@@ -247,7 +234,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <div class="card-title-wrap bar-success">
-                                            <h4 class="card-title">欢迎</h4>
+                                            <h4 class="card-title">{{ current_eval }}</h4>
                                         </div>
                                     </div>
                                     <div class="card-body"> {% if message %}
@@ -317,6 +304,7 @@
        onclick="standard_question()">编辑问卷</a>
 </div>
 <!-- BEGIN VENDOR JS-->
+<script src="{% static 'layui/layui.js' %}" charset="utf-8"></script>
 <script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'ztreejs/jquery.ztree.all.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>

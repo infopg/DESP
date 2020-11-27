@@ -24,17 +24,18 @@ from rest_framework.routers import DefaultRouter
 urlpatterns = [
     path('admin', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('logout', login_views.logout,name='logout'),
-    path('supervisor', login_views.supervisor,name='supervisor'),
-    path('administrator', login_views.administrator,name='administrator'),
-    path('user', login_views.user,name='user'),
-    path('expert', login_views.expert,name='expert'),
-    path('manager', login_views.manager,name='manager'),
+    path('logout', login_views.logout, name='logout'),
+    path('supervisor', login_views.supervisor, name='supervisor'),
+    path('administrator', login_views.administrator, name='administrator'),
+    path('user', login_views.user, name='user'),
+    path('expert', login_views.expert, name='expert'),
+    path('manager', login_views.manager, name='manager'),
     path('captcha', include('captcha.urls')),
     url(r'', include('login.urls')),
     url(r'supervisor', include('supervisor.urls')),
-    url(r'administrator',include('administrator.urls')),
+    url(r'administrator', include('administrator.urls')),
     url(r'user', include('user.urls')),
-    url(r'visualization', include('visualization.urls'))
+    url(r'visualization', include('visualization.urls')),
+    url(r'expert', include('expert.urls'))
 
 ]

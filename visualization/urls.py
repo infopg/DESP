@@ -13,18 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
-from visualization.views import comparison,details_comparison,comparison2,comparison3,comparison4,comparison5,overview_research,overview_institute,overview_system,network_manage,network_tech,app_education,app_manage,app_research_calculate,app_research_cloud,app_research_data,app_research_share,app_science,env_management,env_infrastructure,env_resource
+from visualization.views import go_back, comparison, details_comparison, comparison2, comparison3, comparison4, \
+    comparison5, overview_research, overview_institute, overview_system, network_manage, network_tech, app_education, \
+    app_manage, app_research_calculate, app_research_cloud, app_research_data, app_research_share, app_science, \
+    env_management, env_infrastructure, env_resource
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
 
-    path('admin/comparison',comparison, name='comparison'),
-    path('admin/details_comparison',details_comparison, name='details_comparison'),
-    path('admin/comparison2',comparison2, name='comparison2'),
-    path('admin/comparison3',comparison3, name='comparison3'),
-    path('admin/comparison4',comparison4, name='comparison4'),
+    url('/go_back$', go_back, name='go_back'),
+
+    path('admin/comparison', comparison, name='comparison'),
+    path('admin/details_comparison', details_comparison, name='details_comparison'),
+    path('admin/comparison2', comparison2, name='comparison2'),
+    path('admin/comparison3', comparison3, name='comparison3'),
+    path('admin/comparison4', comparison4, name='comparison4'),
     path('admin/comparison5', comparison5, name='comparison5'),
     path('admin/overview_research', overview_research, name='overview_research'),
     path('admin/overview_institute', overview_institute, name='overview_institute'),
@@ -41,15 +47,5 @@ urlpatterns = [
     path('admin/env_management', env_management, name='env_management'),
     path('admin/env_infrastructure', env_infrastructure, name='env_infrastructure'),
     path('admin/env_resource', env_resource, name='env_resource'),
-
-
-
-
-
-
-
-
-
-
 
 ]

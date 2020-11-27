@@ -44,35 +44,41 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span
-                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
-                        class="icon-bar"></span><span class="icon-bar"></span></button>
-                <span class="d-lg-none navbar-right navbar-collapse-toggle"><a class="open-navbar-container"><i
-                        class="ft-more-vertical"></i></a></span><a id="navbar-fullscreen" href="javascript:;"
-                                                                   class="mr-2 display-inline-block apptogglefullscreen"><i
-                    class="ft-maximize blue-grey darken-4 toggleClass"></i>
-                <p class="d-none">fullscreen</p></a>
+                <span class="d-lg-none navbar-right navbar-collapse-toggle">
+                    <a class="open-navbar-container">
+                        <i class="ft-more-vertical"></i>
+                    </a>
+                </span>
+                <a id="navbar-fullscreen" href="javascript:;" class="mr-2 display-inline-block apptogglefullscreen">
+                    <p class="d-none">fullscreen</p>
+                </a>
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
                     <ul class="layui-nav-item">
-                        <li class="dropdown layui-nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
-                                                                    class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
-                                class="avatar avatar-online"><img id="navbar-avatar"
-                                                                  src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
-                                                                  alt="avatar"/></span>
-                            <p class="d-none">User Settings</p></a>
+                        <li class="dropdown layui-nav-item mr-0">
+                            <a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                               class="nav-link position-relative dropdown-user-link dropdown-toggle">
+                                <span class="avatar avatar-online">
+                                    <img id="navbar-avatar"
+                                         src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
+                                         alt="avatar"/>
+                                </span>
+                                <p class="d-none">User Settings</p>
+                            </a>
                             <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
                                 <div class="arrow_box_right">
-                                    <a href="{% url 'logout' %}" class="dropdown-item"><i
-                                            class="layui-icon layui-icon-logout"
-                                            style="font-size: 18px; color:black;"></i> <span>退出</span></a>
+                                    <a href="{% url 'logout' %}" class="dropdown-item">
+                                        <i class="layui-icon layui-icon-logout"
+                                           style="font-size: 18px; color:black;"></i>
+                                        <span>退出</span>
+                                    </a>
                                 </div>
                                 <div class="arrow_box_right">
-                                    <a href="" class="dropdown-item"><i class="layui-icon layui-icon-password
-"
+                                    <a href="" class="dropdown-item"><i class="layui-icon layui-icon-password"
                                                                         style="font-size: 18px; color:black;"></i>
-                                        <span>修改密码</span></a>
+                                        <span>修改密码</span>
+                                    </a>
                                 </div>
                             </div>
                         </li>
@@ -168,12 +174,9 @@
                             <div class="card-header">
                                 <div class="card-title-wrap bar-success">
                                     <h4 class="card-title">数据分析</h4>
-                                    <br><br><br><br><br><br><br><br><br><br>
-                                    <br><br><br><br><br><br><br><br><br><br>
-                                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">查询
-                                    </button>
-                                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
-                                    </button>
+                                    <br><br><br><br>
+                                    <a class="layui-btn layui-btn-normal layui-btn-radius"
+                                       href="{% url "visualization" %}?app=manager">往年数据查询</a>
                                 </div>
                             </div>
                         </div>
@@ -182,20 +185,18 @@
                 <!--/ Base style table -->
             </div>
 
-
         </div>
     </div>
 </div>
 
 <footer class="footer footer-static footer-light">
-    <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; CNIC <a href="#" id="pixinventLink"
-                                                                                    target="_blank"
-                                                                                    class="text-bold-800 primary darken-2"></a>, All rights reserved. </span>
+    <p class="clearfix text-muted text-center px-2">
+        <span>Copyright  &copy; CNIC
+            <a href="#" id="pixinventLink" target="_blank" class="text-bold-800 primary darken-2"></a>, All rights reserved.
+        </span>
     </p>
 </footer>
 
-</div>
-</div>
 
 <script src="{% static 'layui/layui.js' %}" charset="utf-8"></script>
 <!-- BEGIN VENDOR JS-->
@@ -383,11 +384,6 @@
     }
 
 
-
-
-
-
-
 </script>
 
 <script>
@@ -434,24 +430,19 @@
     });
 
 
-
-
-
-
-
 </script>
 
 
 <script>
-layui.use(['laypage', 'layer'], function(){
-  var laypage = layui.laypage
-  ,layer = layui.layer;
+    layui.use(['laypage', 'layer'], function () {
+        var laypage = layui.laypage
+            , layer = layui.layer;
 
-  laypage.render({
-    elem: 'demo0'
-    ,count: 50 //数据总数
-  });
-});
+        laypage.render({
+            elem: 'demo0'
+            , count: 50 //数据总数
+        });
+    });
 
 </script>
 </body>

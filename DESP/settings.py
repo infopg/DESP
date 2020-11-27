@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'supervisor',
     'administrator',
     'user',
-
+    'expert',
     'rest_framework',
     'django_filters'
 ]

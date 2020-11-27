@@ -30,6 +30,8 @@
     <link rel="stylesheet" type="text/css"
           href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+        <link rel="stylesheet" href="{% static 'layui/css/layui.css'%}">
+
 </head>
 <body data-col="2-columns" class=" 2-columns ">
 
@@ -51,50 +53,31 @@
         <div class="sidebar-content">
             <div class="nav-container">
                 <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-menu"></i><span
+                    <li class="has-sub nav-item"><a href="{% url 'standard' %}?evalname={{ current_eval }}&admin={{ admin }}"><i class="ft-menu"></i><span
                             data-i18n=""
                             class="menu-title">项目管理</span></a>
-                        <ul class="menu-content">
-                            {% for u in evalname %}
-                                <li>
-                                    <a href="{% url 'standard' %}?evalname={{ u.table_evaluation_col_name }}&admin={{ admin }}"
-                                       class="menu-item">{{ u.table_evaluation_col_name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
                     </li>
 
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-calendar"></i><span
+                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i class="icon-calendar"></i><span
                             data-i18n=""
                             class="menu-title">项目进度</span></a>
-                        <ul class="menu-content">
-                            {% for t in evalname %}
-                                <li>
-                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_evaluation_col_name }}&admin={{ admin }}"
-                                       class="menu-item">{{ t.table_evaluation_col_name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
                     </li>
 
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-file-text"></i><span
+                    <li class="has-sub nav-item"> <a href="{% url 'questionaire_manage' %}?timeevalname={{ current_eval}}&admin={{ admin }}"><i class="ft-file-text"></i><span
                             data-i18n=""
                             class="menu-title">数据采集</span></a>
-                        <ul class="menu-content">
-                            <li><a href="{% url 'questionaire_manage' %}" class="menu-item">问卷管理</a></li>
-                        </ul>
-
                     </li>
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-folder"></i><span
+
+                    <li class="has-sub nav-item"><a href="{% url 'calculate' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i class="ft-folder"></i><span
                             data-i18n=""
-                            class="menu-title">数据统计</span></a></li>
+                            class="menu-title">数据统计</span></a>
+                    </li>
                 </ul>
             </div>
         </div>
+
         <div class="sidebar-background"></div>
     </div>
-
-
     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -110,9 +93,9 @@
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
-                    <ul class="navbar-nav">
-                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
-                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                    <ul class="layui-nav-item">
+                        <li class="dropdown layui-nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                                    class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
                                 class="avatar avatar-online"><img id="navbar-avatar"
                                                                   src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
                                                                   alt="avatar"/></span>
@@ -120,7 +103,13 @@
                             <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
                                 <div class="arrow_box_right">
                                     <a href="{% url 'logout' %}" class="dropdown-item"><i
-                                            class="ft-power mr-2"></i><span>Logout</span></a>
+                                            class="layui-icon layui-icon-logout"
+                                            style="font-size: 18px; color:black;"></i> <span>退出</span></a>
+                                </div>
+                                <div class="arrow_box_right">
+                                    <a href="" class="dropdown-item"><i class="layui-icon layui-icon-user"
+                                                                        style="font-size: 18px; color:black;"></i>
+                                        <span>修改密码</span></a>
                                 </div>
                             </div>
                         </li>
@@ -140,40 +129,68 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <div class="card-title-wrap bar-success">
-                                            <h4 class="card-title">欢迎</h4>
+                                            <h4 class="card-title">{{ current_eval }}</h4>
                                         </div>
-                                        {#                                        <input type="button" class="btn mr-1 btn-secondary" onclick="location.href ='{% url 'export_answer' %}'" value="导出问卷答案模板">#}
-                                        {#                                        <button type="button" class="btn mr-1 btn-secondary" onclick="import_answer()">导入答案</button>#}
                                     </div>
                                     <div class="card-body collapse show">
                                         <div class="card-block card-dashboard">
                                             <p class="card-text"></p>
-                                            <table class="table table-striped table-bordered base-style">
+                                            <table class="table table-striped table-bordered ">
                                                 <thead>
                                                 <tr>
-                                                    <th>机构ID</th>
                                                     <th>机构名称</th>
                                                     <th>评估体系</th>
                                                     <th>机构管理员</th>
                                                     <th>问卷状态</th>
-                                                    <th>填报进度</th>
-                                                    <th>操作
-                                                    </th>
+                                                    <th>操作</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody id = tbody>
                                                 </tbody>
-                                                <tfoot>
+                                            </table>
+                                            <br>
+                                            <table class="table table-striped table-bordered base-style">
+                                                <thead>
                                                 <tr>
-                                                    <th>机构ID</th>
-                                                    <th>机构名称</th>
-                                                    <th>机构用户</th>
-                                                    <th>机构管理员</th>
-                                                    <th>问卷状态</th>
-                                                    <th>填报进度</th>
+                                                    <th>单位</th>
+                                                    <th>项目</th>
+                                                    <th>工作状态</th>
                                                     <th>操作</th>
                                                 </tr>
-                                                </tfoot>
+                                                </thead>
+                                                <tbody>
+                                                {% for t in evalname %}
+                                                    {%if t.table_evaluation_col_name == current_eval %}
+                                                    {% for x in data %}
+                                                    <tr>
+                                                        <td>{{ x.name }}</td>
+                                                        <td>{{ t.table_evaluation_col_name }}</td>
+                                                        <td>已提交</td>
+                                                        <td>
+                                                            <button type="button" class="btn mr-1 btn-secondary">查看</button>
+                                                            <button type="button" class="btn mr-1 btn-secondary">退回</button>
+
+{#<!--                                                            <button type="button" class="btn mr-1 btn-secondary"-->#}
+{#<!--                                                                    data-toggle="modal"-->#}
+{#<!--                                                                    data-target="#mymodal_edit"-->#}
+{#<!--                                                                    id="{{ t.table_timeliner_col_id }}"-->#}
+{##}
+{#<!--                                                                    onclick="timeliner_edit(this.id)">查看-->#}
+{##}
+{#<!--                                                            </button>-->#}
+{#<!--                                                            <button type="button" class="btn mr-1 btn-secondary"-->#}
+{#<!--                                                                    data-toggle="modal"-->#}
+{#<!--                                                                    data-target="#mymodal_delete"-->#}
+{#<!--                                                                    id="{{ t.table_timeliner_col_id }}"-->#}
+{#<!--                                                                    onclick="go(this.id)">退回-->#}
+{#<!--                                                            </button>-->#}
+
+                                                        </td>
+                                                    </tr>
+                                                    {%endfor%}
+                                                    {%endif%}
+                                                {% endfor %}
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -195,6 +212,8 @@
 
     </div>
 </div>
+<script src="{% static 'layui/layui.js' %}" charset="utf-8"></script>
+
 <script src="{% static 'app-assets/vendors/js/core/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/core/popper.min.js' %}"></script>
 <script src="{% static 'app-assets/vendors/js/core/bootstrap.min.js' %}"></script>
@@ -221,41 +240,41 @@
 <script>
     var e_d = {{ eval_data|safe }};
     for(var i = 0; i < e_d.length; i++) {
-        var questionaire = i + 10000;
-        var id_org_id = i + 20000;
-        var id_org_name = i + 30000;
-        var id_project_name = i + 40000;
-        var id_project_admin = i + 50000;
+        if(e_d[i]['project_name']=='{{current_eval1}}'){
+            var questionaire = i + 10000;
+            var id_org_id = i + 20000;
+            var id_org_name = i + 30000;
+            var id_project_name = i + 40000;
+            var id_project_admin = i + 50000;
 
-        var bt_change = 60000 + i;
-        var bt_check = 70000 + i;
-        var bt_download = 80000 + i;
-        var bt_upload = 90000 + i;
-        var bt_email = 100000 + i;
+            var bt_change = 60000 + i;
+            var bt_check = 70000 + i;
+            var bt_download = 80000 + i;
+            var bt_upload = 90000 + i;
+            var bt_email = 100000 + i;
 
-        $("#tbody").append("" +
-            "<tr>" +
-            "<td id ="+ id_org_id +">" + e_d[i]['org_id'] + "</td>" +
-            "<td id ="+ id_org_name +">" + e_d[i]['org_name'] + "</td>" +
-            "<td id ="+ id_project_name +">" + e_d[i]['project_name'] + "</td>" +
-            "<td id ="+ id_project_admin +">" + e_d[i]['project_admin'] + "</td>" +
-            "<td>" +
-                "<button class='btn mr-1 btn-secondary' id=" + bt_change + " " +
-                    "onclick='Change_Status(" + id_project_name + "," + bt_change + ")'>已启用" +
-                "</button>" +
-            "</td>" +
-            "<td>进度 %</td>" +
-            "<td>" +
-                "<button class='btn mr-1 btn-secondary' id=" + bt_check + " " +
-                    "onclick='to_questionaire(" + id_project_name + "," + id_project_admin + ")'>查看" +
-                "</button> &emsp;" +
-                "<button class='btn mr-1 btn-secondary' id=" + bt_download + " " +
-                    "onclick='download_questionaire(" + id_project_name + ")'>导出" +
-                "</button> &emsp;" +
-                "<button class='btn mr-1 btn-secondary' id='DaoChu'>导入</button> &emsp;" +
-                "<button class='btn mr-1 btn-secondary' id='FaFang'>发送邮件</button> &emsp;" +
-            "</td>" +
-            "</tr>");
+            $("#tbody").append("" +
+                "<tr>" +
+                "<td id ="+ id_org_name +">" + e_d[i]['org_name'] + "</td>" +
+                "<td id ="+ id_project_name +">" + e_d[i]['project_name'] + "</td>" +
+                "<td id ="+ id_project_admin +">" + e_d[i]['project_admin'] + "</td>" +
+                "<td>" +
+                    "<button class='btn mr-1 btn-secondary' id=" + bt_change + " " +
+                        "onclick='Change_Status(" + id_project_name + "," + bt_change + ")'>已启用" +
+                    "</button>" +
+                "</td>" +
+                "<td>" +
+                    "<button class='btn mr-1 btn-secondary' id=" + bt_check + " " +
+                        "onclick='to_questionaire(" + id_project_name + "," + id_project_admin + ")'>查看" +
+                    "</button> &emsp;" +
+                    "<button class='btn mr-1 btn-secondary' id=" + bt_download + " " +
+                        "onclick='download_questionaire(" + id_project_name + ")'>导出" +
+                    "</button> &emsp;" +
+                    "<button class='btn mr-1 btn-secondary' id='DaoChu'>导入</button> &emsp;" +
+                    "<button class='btn mr-1 btn-secondary' id='FaFang'>发送邮件</button> &emsp;" +
+                "</td>" +
+                "</tr>");
+        }
     }
 </script>
 <script>
@@ -278,13 +297,14 @@
     function to_questionaire(x,y){
         var text1 = document.getElementById(x).innerHTML;
         var text2 = document.getElementById(y).innerHTML;
-        window.location.href = "{% url 'standard' %}?evalname=" + text1 + " &admin=" + text2;
+        window.location.href = "{% url 'standard' %}?evalname="+text1+"&admin="+text2;
     }
+
 
     //下载问卷
     function download_questionaire(x){
         var text = document.getElementById(x).innerHTML;
-        window.location.href = "{% url 'export_questionaire' %}?questionaire_evalname=" + text;
+        window.location.href = "{% url 'export_questionaire' %}?questionaire_evalname="+text;
     }
 </script>
 

@@ -650,5 +650,4 @@ def download_organization(request):
     response['Content-Disposition'] = 'attachment;filename="TableOrg_Import.xlsx"'
     return response
 
-def visualization(request):
-    return render(request, 'visual/app_manage.html')
+

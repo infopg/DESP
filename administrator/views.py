@@ -31,13 +31,18 @@ def export_questionaire(request):
     file_name = u"questionaire_" + str(q_e) + ".xls"
     workbook = Workbook(encoding='utf-8')
 
+    # 查询项目对应的机构名称id作为parentid
+    select_org = models.TableEvaluation.objects.get(Q(table_evaluation_col_name=q_e)).table_evaluation_col_organization
+    parent_org_id = TableOrganization.objects.get(Q(table_organization_col_name=select_org)).table_organization_col_id
+
     list_indicator = models.TableEvaluationIndicator.objects.filter(
         Q(table_evaluation_indicator_col_evaluation_name=q_e) &
         Q(table_evaluation_indicator_col_parent_name_id__isnull=False)). \
         order_by('table_evaluation_indicator_col_id')
-    list_indicator.filter()
+
     for x1 in list_indicator:
         list_questionaire = models.TableQuestionContent.objects.filter(
+            Q(table_question_content_col_question_importanswer='on') &
             Q(table_question_content_col_indicator_id=x1.table_evaluation_indicator_col_id)). \
             order_by('table_question_content_col_question_number')
         for x2 in list_questionaire:
@@ -52,8 +57,7 @@ def export_questionaire(request):
             TQC_content_dict = ast.literal_eval(x2.table_question_content_col_content)  # 转换成字典
             TQC_content_title = str(TQC_content_dict['title'])
 
-            # 创建 sheet 并命名
-            sheet_str = "" + str(TQC_indicator_id) + "-" + str(TQC_question_number) + "-" + str(TQC_question_type)
+            sheet_str = "" + str(TQC_indicator_id) + "-" + str(TQC_question_number)
             worksheet = workbook.add_sheet(sheet_str)
 
             # 样式
@@ -69,66 +73,64 @@ def export_questionaire(request):
                 row_set = worksheet.row(num)
                 row_set.set_style(tall_style)
             # 设置列宽
-            worksheet.col(0).width = 250 * 20
-            worksheet.col(1).width = 240 * 20
-            worksheet.col(2).width = 120 * 20
-            worksheet.col(3).width = 1200 * 20
+            for num in range(0, 10):
+                worksheet.col(num).width = 150 * 20
 
             # 写入 sheet
             worksheet.write(0, 0, "指标id", style)
-            worksheet.write(1, 0, "问题编号", style)
-            worksheet.write(2, 0, "计分方式", style)
-            worksheet.write(3, 0, "question_attachment", style)
-            worksheet.write(4, 0, "question_importanswer", style)
-            worksheet.write(5, 0, "question_required", style)
-            worksheet.write(6, 0, "问题种类", style)
-            worksheet.write(7, 0, "问题类型", style)
-            worksheet.write(0, 2, "题目", style)
+            worksheet.write(0, 1, "问题编号", style)
+            worksheet.write(0, 2, "计分方式", style)
+            worksheet.write(0, 3, "question_attachment", style)
+            worksheet.write(0, 4, "question_importanswer", style)
+            worksheet.write(0, 5, "question_required", style)
+            worksheet.write(0, 6, "问题种类", style)
+            worksheet.write(0, 7, "问题类型", style)
+            worksheet.write(2, 0, "题目", style)
+            worksheet.write(4, 0, "机构名称", style)
+            worksheet.write(4, 1, "机构id", style)
             # 填入数据
-            worksheet.write(0, 1, TQC_indicator_id, style)
+            worksheet.write(1, 0, TQC_indicator_id, style)
             worksheet.write(1, 1, TQC_question_number, style)
-            worksheet.write(2, 1, TQC_markmethod, style)
-            worksheet.write(3, 1, TQC_question_attachment, style)
-            worksheet.write(4, 1, TQC_question_importanswer, style)
-            worksheet.write(5, 1, TQC_question_required, style)
-            worksheet.write(6, 1, TQC_question_type, style)
-            worksheet.write(7, 1, TQC_question_class, style)
-            worksheet.write(0, 3, TQC_content_title, style)
+            worksheet.write(1, 2, TQC_markmethod, style)
+            worksheet.write(1, 3, TQC_question_attachment, style)
+            worksheet.write(1, 4, TQC_question_importanswer, style)
+            worksheet.write(1, 5, TQC_question_required, style)
+            worksheet.write(1, 6, TQC_question_type, style)
+            worksheet.write(1, 7, TQC_question_class, style)
+            worksheet.write_merge(2, 2, 1, 7, TQC_content_title, style)  # 合并单元格用于填写题目
 
             if TQC_question_type == "填空题":
                 tmp = '_'.join(filter(lambda x: x, TQC_content_title.split('_')))
                 count = tmp.count('_')
-                worksheet.write(1, 2, "填空数", style)
-                worksheet.write(1, 3, count, style)
+                worksheet.write(3, 0, "填空数", style)
+                worksheet.write(3, 1, str(count), style)
                 for x in range(0, count):
-                    worksheet.write(x + 2, 2, "填空" + str(x + 1), style)
+                    worksheet.write(3, x + 2, "填空" + str(x + 1), style)
 
             if TQC_question_type == "选择题":
                 TQC_content_answer = TQC_content_dict['answer']
                 count = len(TQC_content_answer)
-                worksheet.write(1, 2, "选择数", style)
-                worksheet.write(1, 3, count, style)
-                worksheet.write(1, 4, "正确选项填'1'", style)
+                worksheet.write(3, 0, "选择数", style)
+                worksheet.write(3, 1, str(count), style)
+                worksheet.write(3, 2 + count, "选项填'1'", style)
                 for x in range(0, count):
-                    worksheet.write(x + 2, 2, "选择" + str(x + 1), style)
-                    worksheet.write(x + 2, 3, TQC_content_answer[x], style)
-                    worksheet.write(x + 2, 4, 0, style)
+                    worksheet.write(3, x + 2, TQC_content_answer[x], style)
 
-            # 测试
-            print(TQC_indicator_id, end='/')
-            print(TQC_question_number, end='/')
-            print(TQC_markmethod, end='/')
-            print(TQC_question_attachment, end='/')
-            print(TQC_question_class, end='/')
-            print(TQC_question_importanswer, end='/')
-            print(TQC_question_required, end='/')
-            print(TQC_question_type, end='/')
-            if TQC_content_dict.get('answer'):
-                print(TQC_content_dict['title'], end='/')
-                print(TQC_content_dict['answer'])
+            if TableOrganization.objects.filter(Q(table_organization_col_parent_name_id=parent_org_id)).exists():
+                org_id = TableOrganization.objects.filter(Q(table_organization_col_parent_name_id=parent_org_id))
+                count = 0
+                for n in org_id:
+                    TO_org_name = str(n.table_organization_col_name)
+                    TO_org_id = str(n.table_organization_col_id)
+                    worksheet.write(5 + count, 0, TO_org_name, style)
+                    worksheet.write(5 + count, 1, TO_org_id, style)
+                    count = count + 1
             else:
-                print(TQC_content_dict['title'])
-            print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+                org_id = parent_org_id
+                TO_org_name = str(select_org)
+                TO_org_id = str(org_id)
+                worksheet.write(5 + count, 0, TO_org_name, style)
+                worksheet.write(5 + count, 1, TO_org_id, style)
 
     output = BytesIO()
     workbook.save(output)
@@ -354,6 +356,7 @@ def indicator_export(request):
 def timeliner(request):
     # pdb.set_trace()
     administrator = request.session['user_name']
+    current_eval = request.GET.get('timeevalname')
     evalname = TableEvaluation.objects.filter(
         Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
         'table_evaluation_col_name')
@@ -381,7 +384,7 @@ def timeliner(request):
         date.table_timeliner_col_end = date_use_end
     return render(request, 'standard/timeliner.html',
                   {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
-                   'timeline_list': timeline_list, 'dateline': dateline})
+                   'timeline_list': timeline_list, 'dateline': dateline, 'current_eval': current_eval})
 
 
 def timeliner_create(request):
@@ -962,10 +965,12 @@ def accumulation(request):
 
 
 def questionaire_manage(request):
+    current_eval = request.GET.get('timeevalname')
+    current_eval1 = current_eval
+    # print(current_eval1)
     administrator = request.session['user_name']
     evalname = TableEvaluation.objects.filter(
         Q(table_evaluation_col_administrator=administrator))  # & Q(table_evaluation_col_status='启用'))
-    print(evalname)
     eval_data = [
         {
             'org_id': TableOrganization.objects.filter(
@@ -974,11 +979,26 @@ def questionaire_manage(request):
             'org_name': project.table_evaluation_col_organization,
             'project_name': project.table_evaluation_col_name,
             'project_admin': project.table_evaluation_col_administrator,
-            'questionaire_status': project.table_evaluation_col_status
+            'questionaire_status': project.table_evaluation_col_status,
         } for project in evalname
     ]
+    o = TableOrganization.objects.all()
+    if o.exists():
+        _data = [
+            {
+                'id': x.table_organization_col_id,
+                'name': x.table_organization_col_name,
+                'pId': x.table_organization_col_parent_name.table_organization_col_id if x.table_organization_col_parent_name else 0,
+                'open': 1,
+            } for x in o
+        ]
+    # print(evalname.table_evaluation_col_name)
+    # timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
+    #     'table_timeliner_col_evaluation')
     # print(eval_data)
-    return render(request, 'standard/manage.html', {'eval_data': eval_data, 'evalname': evalname})
+    return render(request, 'standard/manage.html',
+                  {'data': _data, 'current_eval': current_eval, 'current_eval1': current_eval1, 'eval_data': eval_data,
+                   'evalname': evalname, 'admin': administrator})
 
 
 def questionaire_submit(request):
@@ -1053,6 +1073,7 @@ def questionaire_status(request):
 
 def calculate(request):
     # pdb.set_trace()
+    current_eval = request.GET.get('timeevalname')
     administrator = request.session['user_name']
     evalname = TableEvaluation.objects.filter(
         Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
@@ -1105,5 +1126,5 @@ def calculate(request):
             list3 = []
 
     return render(request, 'standard/calculate.html',
-                  {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
+                  {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname, 'current_eval': current_eval,
                    'timeline_list': timeline_list, 'dateline': dateline, 'org_eval': org_eval, 'timeline_list': res})
