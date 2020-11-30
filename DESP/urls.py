@@ -37,5 +37,4 @@ urlpatterns = [
     url(r'user', include('user.urls')),
     url(r'visualization', include('visualization.urls')),
     url(r'expert', include('expert.urls'))
-
 ]

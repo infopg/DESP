@@ -9,5 +9,4 @@ from user.views import questionaire_submit
 urlpatterns = [
     url(r'/questionaire_submit$', questionaire_submit, name='questionaire_submit'),
     url(r'/visualization', views.visualization, name='visualization')
-
 ]

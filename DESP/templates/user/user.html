@@ -95,7 +95,8 @@
                 <ul class="layui-tab-title">
                     <li class="layui-this">问卷填写</li>
                     <li>数据</li>
-                    <li>报告</li>
+                    <li>单位报告</li>
+                    <li>整体报告</li>
                     <li>附件</li>
                 </ul>
                 <div class="layui-tab-content" style="height: 100%;">
@@ -126,41 +127,77 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title-wrap bar-success">
-                                    <h4 class="card-title">数据查询</h4>
-                                    <br><br><br><br><br><br><br><br><br><br>
-                                    <br><br><br><br><br><br><br><br><br><br>
-                                    <button class='btn mr-1 btn-secondary'>查询</button> &emsp;
-                                    <button class='btn mr-1 btn-secondary'>下载</button> &emsp;
+                                    <h4 class="card-title">数据分析</h4>
+                                    <br><br><br><br>
+                                    <a class="layui-btn layui-btn-normal layui-btn-radius"
+                                       href="{% url "visualization" %}?app=user">往年数据查询</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="layui-tab-item">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title-wrap bar-success">
-                                    <h4 class="card-title">报告</h4>
-                                    <br><br><br><br><br><br><br><br><br><br>
-                                    <br><br><br><br><br><br><br><br><br><br>
-                                    <button class='btn mr-1 btn-secondary'>查询</button> &emsp;
-                                    <button class='btn mr-1 btn-secondary'>下载</button> &emsp;
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title-wrap bar-success">
+                                            <h4 class="card-title">单位报告</h4>
+                                            <fieldset class="layui-elem-field layui-field-title"
+                                                      style="margin-top: 20px;">
+                                                <legend>2019评估项目报告</legend>
+                                            </fieldset>
+                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                            </button>
+                                            <fieldset class="layui-elem-field layui-field-title"
+                                                      style="margin-top: 20px;">
+                                                <legend>网络信息评估报告</legend>
+                                            </fieldset>
+                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                     <div class="layui-tab-item">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title-wrap bar-success">
-                                    <h4 class="card-title">附件</h4>
-                                    <br><br><br><br><br><br><br><br><br><br>
-                                    <br><br><br><br><br><br><br><br><br><br>
-                                    <button class='btn mr-1 btn-secondary'>查询</button> &emsp;
-                                    <button class='btn mr-1 btn-secondary'>下载</button> &emsp;
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title-wrap bar-success">
+                                            <h4 class="card-title">整体报告</h4>
+                                            <fieldset class="layui-elem-field layui-field-title"
+                                                      style="margin-top: 20px;">
+                                                <legend>2019评估项目报告</legend>
+                                            </fieldset>
+                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                            </button>
+                                            <fieldset class="layui-elem-field layui-field-title"
+                                                      style="margin-top: 20px;">
+                                                <legend>网络信息评估报告</legend>
+                                            </fieldset>
+                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                    <div class="layui-tab-item">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="card-title-wrap bar-success">
+                                            <h4 class="card-title">附件</h4>
+                                            <fieldset class="layui-elem-field layui-field-title"
+                                                      style="margin-top: 20px;">
+                                                <legend>2020评估任务指南</legend>
+                                            </fieldset>
+                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                            </button>
+                                            <fieldset class="layui-elem-field layui-field-title"
+                                                      style="margin-top: 20px;">
+                                                <legend>用户系统操作手册</legend>
+                                            </fieldset>
+                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                 </div>
                 <!--/ Base style table -->
             </div>

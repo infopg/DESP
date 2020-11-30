@@ -9,8 +9,12 @@ def go_back(request):
     get_app = request.GET.get('app')
     if str(get_app) == "expert":
         return render(request, 'expert/expert.html')
-    else:
+    elif str(get_app) == "manager":
         return render(request, 'manager/manager.html')
+    else:
+        return render(request, 'user/user.html')
+
+
 
 
 def details_comparison(request):

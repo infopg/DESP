@@ -25,7 +25,6 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
 
     url('/go_back$', go_back, name='go_back'),
-
     path('admin/comparison', comparison, name='comparison'),
     path('admin/details_comparison', details_comparison, name='details_comparison'),
     path('admin/comparison2', comparison2, name='comparison2'),
