@@ -35,6 +35,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'test2/lib/jquery-ui-1.8.4.js' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'test2/example/reset.css' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'test2/jquery.ganttView.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+
 </head>
 <body data-col="2-columns" class=" 2-columns ">
 
@@ -278,9 +280,9 @@
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
-                    <ul class="navbar-nav">
-                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
-                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                    <ul class="layui-nav-item">
+                        <li class="dropdown layui-nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                                    class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
                                 class="avatar avatar-online"><img id="navbar-avatar"
                                                                   src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
                                                                   alt="avatar"/></span>
@@ -288,7 +290,13 @@
                             <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
                                 <div class="arrow_box_right">
                                     <a href="{% url 'logout' %}" class="dropdown-item"><i
-                                            class="ft-power mr-2"></i><span>Logout</span></a>
+                                            class="layui-icon layui-icon-logout"
+                                            style="font-size: 18px; color:black;"></i> <span>退出</span></a>
+                                </div>
+                                <div class="arrow_box_right">
+                                    <a href="" class="dropdown-item"><i class="layui-icon layui-icon-user"
+                                                                        style="font-size: 18px; color:black;"></i>
+                                        <span>修改密码</span></a>
                                 </div>
                             </div>
                         </li>

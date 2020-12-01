@@ -182,13 +182,13 @@ def standard(request):
                     'question_type': x.table_question_content_col_question_type,
                     'content': x.table_question_content_col_content
                 })
-        print(preview)
         administrator = request.session['user_name']
         evalname = TableEvaluation.objects.filter(
             Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
             'table_evaluation_col_name')
         timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
             'table_timeliner_col_evaluation')
+        print(evalname)
         return render(request, 'standard/standard.html',
                       {'question': preview, 'data': _data, 'evalname': evalname, 'admin': administrator,
                        'timeevalname': timeevalname,

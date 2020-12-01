@@ -93,7 +93,8 @@
             <div class="layui-tab layui-tab-card">
                 <ul class="layui-tab-title">
                     <li class="layui-this">项目进度</li>
-                    <li>报告</li>
+                    <li>单位报告</li>
+                    <li>整体报告</li>
                     <li>数据分析</li>
                 </ul>
                 <div class="layui-tab-content" style="height: 100%;">
@@ -101,60 +102,43 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title-wrap bar-success">
-                                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                                        <legend>2020评估项目</legend>
-                                    </fieldset>
-                                    <div class="layui-progress" lay-showpercent="true">
-                                        <div class="layui-progress-bar" lay-percent="32/144"></div>
-                                    </div>
-                                    <ul class="layui-timeline">
-                                        <li class="layui-timeline-item">
-                                            <i class="layui-icon layui-timeline-axis"></i>
-                                            <div class="layui-timeline-content layui-text">
-                                                <div class="layui-timeline-title">2020/12，项目结束</div>
-                                            </div>
-                                        </li>
-                                        <li class="layui-timeline-item">
-                                            <i class="layui-icon layui-timeline-axis"></i>
-                                            <div class="layui-timeline-content layui-text">
-                                                <div class="layui-timeline-title">2020/10，开始评估</div>
-                                            </div>
-                                        </li>
-                                        <li class="layui-timeline-item">
-                                            <i class="layui-icon layui-timeline-axis"></i>
-                                            <div class="layui-timeline-content layui-text">
-                                                <div class="layui-timeline-title">2020/01，规划完成</div>
-                                            </div>
-                                        </li>
-                                        <li class="layui-timeline-item">
-                                            <i class="layui-icon layui-timeline-axis"></i>
-                                            <div class="layui-timeline-content layui-text">
-                                                <div class="layui-timeline-title">2019/11，项目启动</div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <h4 class="card-title">项目进度</h4>
+                                    <br>
+                                    {% for e in evalname %}
+                                        <br>
+                                        <a class="layui-btn layui-btn-normal layui-btn-radius" href="/manager/timeliner1?timeevalname={{ e.table_evaluation_col_name }}">
+                                                                                {{ e.table_evaluation_col_name }}</a>
 
-                                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                                        <legend>网络信息评估</legend>
-                                    </fieldset>
-                                    <div class="layui-progress" lay-showpercent="true">
-                                        <div class="layui-progress-bar" lay-percent="77/100"></div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="card-block">
-                                    </div>
+                                        <br>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                     <div class="layui-tab-item">
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title-wrap bar-success">
-                                    <h4 class="card-title">报告</h4>
+                                    <h4 class="card-title">单位报告</h4>
+                                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                                        <legend>2019评估项目报告</legend>
+                                    </fieldset>
+                                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                    </button>
+                                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                                        <legend>网络信息评估报告</legend>
+                                    </fieldset>
+                                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrap bar-success">
+                                    <h4 class="card-title">整体报告</h4>
                                     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                                         <legend>2019评估项目报告</legend>
                                     </fieldset>
@@ -222,170 +206,73 @@
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
 <!-- END PAGE LEVEL JS-->
+
 <script>
-    var q = {{ question|safe }};
-    var indicator_id = q[0]['indicator_id'];
-    $('#question_list').append("<input style=\'display: none\' name='\indicatorID\'\n value=" + indicator_id + ">");
-    for (var i = 0; i < q.length; i++) {
-        var content = q[i]['content'];
-        var question_type = q[i]['question_type'];
-        if (q[i]['question_type'] === '选择题') {
-            var len = $(".div_question").length + 1;
-            $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
-                "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
-                "                                                            <div>\n" +
-                "<h5 style=\'display: inline\'>" + len + '.' + ' ' + "</h5>" +
-                "                                                                <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + ' </h5>\n' +
-                "                                                            </div>\n" +
-                "                                                            <div>\n" +
-                "                                                                <ul class=\"choice_list\">\n" +
-                "                                                                </ul>\n" +
-                "                                                            </div>\n" +
-                "                                                        </div>\n" +
-                "                                                        <div>\n" +
-                "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
-                "                                                                   value=\"选择题\">\n" +
-                "<input style=\"display: none\" name=\"questionnumber\"\n" +
-                "                                                                   value= " + len + ">\n" +
-                "</div>" +
-                "                                                    </form>\n" +
-                "                                                </div>"
-            );
-            for (var x = 0; x < JSON.parse(q[i]['content'])['answer'].length; x++) {
-                $('.div_question').last().find('.choice_list').append("                                                                    <li class=\"mb-2\">\n" +
-                    "                                                                        <input type=\"checkbox\" name='choice' data-index = " + x + " onclick =\"ischecked(event)\">\n" +
-                    "                                                                        <span>" + JSON.parse(q[i]['content'])['answer'][x] + "</span></li>\n")
-            }
-        } else if (q[i]['question_type'] === '填空题') {
-            var len = $(".div_question").length + 1;
-            $('#question_list').append("                                               <div class=\"div_question\" id = " + len + ">\n" +
-                "                                                        <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                            <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
-                "                                                        <div>\n" +
-                "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
-                "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
-                "                                                        </div>\n" +
-                "                                                            </div>\n" +
-                "                                                    <div>\n" +
-                "                                                        <input style=\"display: none\" name=\"questiontype\" value=\"填空题\">\n" +
-                "                                                        <input style=\"display: none\" name=\"questionnumber\" value= " + len + ">\n" +
-                "</div>" +
-                "                                                            </form>\n" +
-                "                                                </div>");
-        } else if (q[i]['question_type'] === '简答题') {
-            var len = $(".div_question").length + 1;
-            $('#question_list').append("                                      <div class=\"div_question\" id = " + len + ">\n" +
-                "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                    <div onclick = \"toggle_edit(event)\" class='toggle'>\n" +
-                "                                                        <div>\n" +
-                "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
-                "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
-                "<textarea class=\'form-control\' name=\'answerarea\' disabled>答题区域</textarea>" +
-                "                                                        </div>\n" +
-                "                                                    </div>\n" +
-                "                                                    <div>\n" +
-                "                                                        <input style=\"display: none\" name=\"questiontype\" value=\'简答题\'>\n" +
-                "                                                        <input style=\"display: none\" name=\"questionnumber\" value= " + len + ">\n" +
-                "</div>" +
-                "                                                        </form>\n" +
-                "                                                </div>");
-        } else if (q[i]['question_type'] === '矩阵题') {
-            var len = $(".div_question").length + 1;
-            $('#question_list').append("                                <div class=\"div_question\" id = " + len + ">\n" +
-                "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
-                "                                                            <div>\n" +
-                "                                                                <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
-                "                                                                <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
-                "                                                            </div>\n" +
-                "                                                            <div>\n" +
-                "                                                                <table class=\"table table-responsive-sm text-left\"  style=\"table-layout:fixed;\">\n" +
-                "                                                                    <thead>\n" +
-                "                                                                    <tr>\n" +
-                "                                                                        <td></td>\n" +
-                "                                                                    </tr>\n" +
-                "                                                                    </thead>\n" +
-                "                                                                    <tbody>\n" +
-                "                                                                    </tbody>\n" +
-                "                                                                </table>\n" +
-                "                                                            </div>\n" +
-                "                                                        </div>\n" +
-                "                                                        <div>\n" +
-                "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
-                "                                                                   value=\"矩阵题\">\n" +
-                "<input style=\"display: none\" name=\"questionnumber\"\n" +
-                "                                                                   value= " + len + ">\n" +
-                "</div>" +
-                "                                                    </form>\n" +
-                "                                                </div>");
-            for (var x = 0; x < JSON.parse(q[i]['content'])['column'].length; x++) {
-                $('.div_question').last().find('table').eq(0).children('thead').children().eq(0).append(" <td>" + JSON.parse(q[i]['content'])['column'][x] + "</td>\n")
-            }
-            for (var y = 0; y < JSON.parse(q[i]['content'])['rows'].length; y++) {
-                $('.div_question').last().find('table').eq(0).children('tbody').append("<tr>\n" +
-                    "                                                                        <td>" + JSON.parse(q[i]['content'])['rows'][y] + "\n" +
-                    "                                                                        </td>\n" +
-                    "                                                                    </tr>\n");
-                for (var z = 0; z < JSON.parse(q[i]['content'])['column'].length; z++) {
-                    $('.div_question').last().find('table').eq(0).children('tbody').children().eq(y).append("<td><a class=\"ft-circle\"</a></td>")
-                }
-            }
-        } else if (q[i]['question_type'] === '表格题') {
-            var len = $(".div_question").length + 1;
-            $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
-                "                                                     <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                   <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
-                "                                                        <div>\n" +
-                "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
-                "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + "  </h5>\n" +
-                "                                                        </div>\n" +
-                "                                                         <div>\n" +
-                "                                                            <table class=\"table table-responsive-sm text-left\" style=\"table-layout: fixed;\">\n" +
-                "                                                                <thead>\n" +
-                "                                                                <tr>\n" +
-                "                                                                    <td></td>\n" +
-                "                                                                </tr>\n" +
-                "                                                                </thead>\n" +
-                "                                                                <tbody>\n" +
-                "                                                                </tbody>\n" +
-                "                                                            </table></div></div>\n" +
-                "                                                        <div>\n" +
-                "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
-                "                                                                   value=\"表格题\">\n" +
-                "<input style=\"display: none\" name=\"questionnumber\"\n" +
-                "                                                                   value= " + len + ">\n" +
-                "</div>" +
-                "                                            </form>\n" +
-                "                                            </div>");
-            for (var x = 0; x < JSON.parse(q[i]['content'])['column'].length; x++) {
-                $('.div_question').last().find('table').eq(0).children('thead').children().eq(0).append(" <td>" + JSON.parse(q[i]['content'])['column'][x] + "</td>\n")
-            }
-            for (var y = 0; y < JSON.parse(q[i]['content'])['rows'].length; y++) {
-                $('.div_question').last().find('table').eq(0).children('tbody').append("                                                                <tr>\n" +
-                    "                                                                    <td>" + JSON.parse(q[i]['content'])['rows'][y] +
-                    "                                                                    </td> " +
-                    "                                                                </tr>\n"
-                );
-                for (var z = 0; z < JSON.parse(q[i]['content'])['column'].length; z++) {
-                    $('.div_question').last().find('table').eq(0).children('tbody').children().eq(y).append("<td><textarea disabled style='width: 100%'></textarea></td>\n")
-                }
-            }
-        } else if (q[i]['question_type'] === '附件题') {
+    layui.use('element', function () {
+        var $ = layui.jquery
+            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
 
-        }
-    }
-    for (i = 0; i < {{ preview_length|safe }}; i++) {
-        $("#pages").append("<a class=\"dropdown-item\" onclick=\"preview(this.text)\">" + i + "</a>")
-    }
+        //触发事件
+        var active = {
+            tabAdd: function () {
+                //新增一个Tab项
+                element.tabAdd('demo', {
+                    title: '新选项' + (Math.random() * 1000 | 0) //用于演示
+                    , content: '内容' + (Math.random() * 1000 | 0)
+                    , id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+                })
+            }
+            , tabDelete: function (othis) {
+                //删除指定Tab项
+                element.tabDelete('demo', '44'); //删除：“商品管理”
+                othis.addClass('layui-btn-disabled');
+            }
+            , tabChange: function () {
+                //切换到指定Tab项
+                element.tabChange('demo', '22'); //切换到：用户管理
+            }
+        };
 
-    function preview(value) {
-        window.location.href = "{% url 'user' %}?page=" + value + ""
-    }
+        $('.site-demo-active').on('click', function () {
+            var othis = $(this), type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+
+        //Hash地址的定位
+        var layid = location.hash.replace(/^#test=/, '');
+        element.tabChange('test', layid);
+
+        element.on('tab(test)', function (elem) {
+            location.hash = 'test=' + $(this).attr('lay-id');
+        });
+
+    });
 
 
 </script>
 
+
+<script>
+    layui.use(['laypage', 'layer'], function () {
+        var laypage = layui.laypage
+            , layer = layui.layer;
+
+        laypage.render({
+            elem: 'demo0'
+            , count: 50 //数据总数
+        });
+    });
+
+</script>
+
+<script src="{% static 'js/echarts.js' %}"></script>
+<script src="{% static 'js/echarts.min.js' %}"></script>
+<!-- BEGIN LAYER JS -->
+<script src="{% static 'layer-v3.1.1/layer-v3.1.1/layer/layer.js' %}"></script>
+<script src="{% static 'layui/layui.js' %}"></script>
+
+{# TODO 以上两个uploadfile优先选择layui的 #}
+<!-- LAYUI CARD TAB SWITCH -->
 <script>
     layui.use('element', function () {
         var $ = layui.jquery
@@ -428,22 +315,7 @@
         });
 
     });
-
-
 </script>
 
-
-<script>
-    layui.use(['laypage', 'layer'], function () {
-        var laypage = layui.laypage
-            , layer = layui.layer;
-
-        laypage.render({
-            elem: 'demo0'
-            , count: 50 //数据总数
-        });
-    });
-
-</script>
 </body>
 </html>
