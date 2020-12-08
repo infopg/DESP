@@ -33,7 +33,7 @@
           href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
     <link rel="stylesheet" href="{% static 'ztreecss/zTreeStyle/zTreeStyle.css' %}">
-                <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
 
 
     <style type="text/css">
@@ -159,22 +159,30 @@
         <div class="sidebar-content">
             <div class="nav-container">
                 <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
-                    <li class="has-sub nav-item"><a href="{% url 'standard' %}?evalname={{ current_eval }}&admin={{ admin }}"><i class="ft-menu"></i><span
+                    <li class="has-sub nav-item"><a
+                            href="{% url 'standard' %}?evalname={{ current_eval }}&admin={{ admin }}"><i
+                            class="ft-menu"></i><span
                             data-i18n=""
                             class="menu-title">项目管理</span></a>
                     </li>
 
-                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i class="icon-calendar"></i><span
+                    <li class="has-sub nav-item"><a
+                            href="{% url 'timeliner' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i
+                            class="icon-calendar"></i><span
                             data-i18n=""
                             class="menu-title">项目进度</span></a>
                     </li>
 
-                    <li class="has-sub nav-item"> <a href="{% url 'questionaire_manage' %}?timeevalname={{ current_eval}}&admin={{ admin }}"><i class="ft-file-text"></i><span
+                    <li class="has-sub nav-item"><a
+                            href="{% url 'questionaire_manage' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i
+                            class="ft-file-text"></i><span
                             data-i18n=""
                             class="menu-title">数据采集</span></a>
                     </li>
 
-                    <li class="has-sub nav-item"><a href="{% url 'calculate' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i class="ft-folder"></i><span
+                    <li class="has-sub nav-item"><a
+                            href="{% url 'calculate' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i
+                            class="ft-folder"></i><span
                             data-i18n=""
                             class="menu-title">数据统计</span></a>
                     </li>
@@ -265,18 +273,13 @@
                                                 </div>
 
                                             </div>
-                                            <div class="text-center">
-                                                <div class="btn-group mr-2">
-                                                    <button class="btn btn-danger dropdown-toggle" type="button"
-                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                        选择
-                                                    </button>
-                                                    <div class="dropdown-menu" id="pages">
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="col-md-6 col-sm-6 col-12" id="question_list">
+                                                <a>{{ indiname }}</a>
+                                                <a class="list-group-item aMenu" id="item_edit" onclick="standard_edit()">管理指标</a>
+                                                {% if notroot == 0 %}
+                                                <a class="list-group-item aMenu" id="item_ques" onclick="standard_question()">编辑问卷</a>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -472,6 +475,8 @@
     for (i = 0; i < {{ preview_length|safe }}; i++) {
         $("#pages").append("<a class=\"dropdown-item\" onclick=\"preview(this.text)\">" + i + "</a>")
     }
+
+
     var setting = {
         view: {
             selectedMulti: false,
@@ -507,7 +512,7 @@
     fuzzySearch('treeDemo', '#keyword', null, true);
 
     function standard_question() {
-        window.location.href = "{% url 'questionaire'  %}" + "?" + "nodeID" + "=" + standardID;
+        window.location.href = "{% url 'questionaire'  %}" + "?" + "nodeID" + "=" + {{ id }};
     }
 
     function addrow_standard() {
@@ -551,7 +556,7 @@
         $.ajax({
             type: 'GET',
             data: {
-                'edit_id': standardID
+                'edit_id': {{id}}
             },
             async: false,
             url: "{% url 'edit' %}",
@@ -658,15 +663,18 @@
     function preview(value) {
         window.location.href = "{% url 'standard' %}?evalname={{ current_eval }}&admin={{ admin }}&page=" + value + ""
     }
+
     // 当点击tree节点时触发
-    function onClick(e, treeId, treeNode) {
+    function onClick(e, treeId, treeNode, value) {
         standardname = treeNode.name;
         standardID = treeNode.id;
         parentstandID = treeNode.pId;
         if (treeNode.type === 0) {
             return;
         }
-        showRMenustand(treeNode.pId, event.pageX, event.pageY);
+        {#showRMenustand(treeNode.pId, event.pageX, event.pageY);#}
+        window.location.href = "{% url 'standard' %}?evalname={{ current_eval }}&admin={{ admin }}&id=" + standardID + ""
+
         {#$("#preview").load("questionaire?nodeID=" + standardID, function () {#}
         {#    $('.pace').last().remove(); //点击节点后侧边栏失效？#}
         {#    var html = "";#}

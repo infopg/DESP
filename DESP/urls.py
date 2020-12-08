@@ -38,5 +38,4 @@ urlpatterns = [
     url(r'visualization', include('visualization.urls')),
     url(r'expert', include('expert.urls')),
     url(r'manager', include('manager.urls')),
-
 ]

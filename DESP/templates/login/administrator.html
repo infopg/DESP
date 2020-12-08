@@ -207,7 +207,7 @@
     function to_questionaire(x,y){
         var text1 = document.getElementById(x).innerHTML;
         var text2 = document.getElementById(y).innerHTML;
-        window.location.href = "{% url 'standard' %}?evalname="+text1+"&admin="+text2;
+        window.location.href = "{% url 'standard' %}?evalname="+text1+"&admin="+text2+"&id="+0;
     }
 
 </script>
