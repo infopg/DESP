@@ -163,40 +163,28 @@ def standard(request):
         questionaire_preview = set(
             TableQuestionContent.objects.filter(table_question_content_col_evalname=evalobj).values_list(
                 'table_question_content_col_indicator_id'))
-        print(_data)
         group = []
         for eachquestion in questionaire_preview:
             group.append(eachquestion)
-        #print(group)
 
 
         id = request.GET.get('id')
-        print(id)
         indiname=current_eval
         notroot=0
         for each in _data:
             if each['id']==int(id):
                 indiname=each['name']
-            #print(each['pId'])
             if each['pId']== int(id):
                 notroot+=1;
-        # print('\n')
         index=0
         for each in group:
             if each[0] == int(id):
                 break
             else:
                 index=index+1
-        print('\n')
-        #print(index)
         list = []
         for i in range(0, len(questionaire_preview)):
              list.append(TableQuestionContent.objects.filter(table_question_content_col_indicator_id=group[i][0]))
-        #print(list[0])
-
-        # print(len(list))
-        # page = request.GET.get('page')
-
 
         preview = []
         if index == None:
@@ -214,14 +202,12 @@ def standard(request):
                     'question_type': x.table_question_content_col_question_type,
                     'content': x.table_question_content_col_content
                 })
-        # print(preview)
         administrator = request.session['user_name']
         evalname = TableEvaluation.objects.filter(
             Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
             'table_evaluation_col_name')
         timeevalname = models.TableTimeliner.objects.values('table_timeliner_col_evaluation').distinct().order_by(
             'table_timeliner_col_evaluation')
-        #print(evalname)
         return render(request, 'standard/standard.html',
                       {'question': preview, 'data': _data, 'evalname': evalname, 'admin': administrator,
                        'timeevalname': timeevalname,'id':id,'notroot':notroot,'indiname':indiname,

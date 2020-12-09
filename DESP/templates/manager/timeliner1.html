@@ -99,6 +99,7 @@
                                                                     <th>工作内容</th>
                                                                     <th>截止时间</th>
                                                                     <th>工作状态</th>
+                                                                    <th>附件下载</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -109,6 +110,9 @@
                                                                     <td>{{ t.table_timeliner_col_content }}</td>
                                                                     <td>{{ t.table_timeliner_col_end }}</td>
                                                                     <td>{{ t.table_timeliner_col_status }}</td>
+                                                                    <td>
+                                                                        <button type="button" class="btn mr-1 btn-secondary" id="downLoad" onclick="downLoad()"><i class="layui-icon">附件下载</i></button>
+                                                                    </td>
                                                                 </tr>
                                                             {% endfor %}
                                                             </tbody>

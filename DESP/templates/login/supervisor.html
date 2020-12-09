@@ -282,7 +282,7 @@
 
                                                 {% for x in org_eval1 %}
                                                 <tr>
-                                                    <td>{{ x.table_evaluation_col_name }}</td>
+                                                    <td><a href="{% url 'evaluation' %}">{{ x.table_evaluation_col_name }}</a></td>
                                                     <td>{{ x.table_evaluation_col_organization }}</td>
                                                     <td>{{ x.table_evaluation_col_status }}</td>
                                                     <td>{{ x.table_evaluation_col_finish_time }}</td>
