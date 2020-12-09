@@ -35,6 +35,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'test2/lib/jquery-ui-1.8.4.js' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'test2/example/reset.css' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'test2/jquery.ganttView.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+
 </head>
 <body data-col="2-columns" class=" 2-columns ">
 
@@ -237,43 +239,25 @@
         <div class="sidebar-content">
             <div class="nav-container">
                 <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-menu"></i><span
+                    <li class="has-sub nav-item"><a href="{% url 'standard' %}?evalname={{ current_eval }}&admin={{ admin }}&id=0"><i class="ft-menu"></i><span
                             data-i18n=""
                             class="menu-title">项目管理</span></a>
-                        <ul class="menu-content">
-                            {% for u in evalname %}
-                                <li>
-                                    <a href="{% url 'standard' %}?evalname={{ u.table_evaluation_col_name }}&admin={{ admin }}"
-                                       class="menu-item">{{ u.table_evaluation_col_name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
                     </li>
 
-                    <li class="has-sub nav-item"><a href="#"><i class="icon-calendar"></i><span
+                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i class="icon-calendar"></i><span
                             data-i18n=""
                             class="menu-title">项目进度</span></a>
-                        <ul class="menu-content">
-                            {% for t in evalname %}
-                                <li>
-                                    <a href="{% url 'timeliner' %}?timeevalname={{ t.table_evaluation_col_name }}&admin={{ admin }}"
-                                       class="menu-item">{{ t.table_evaluation_col_name }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
                     </li>
 
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-file-text"></i><span
+                    <li class="has-sub nav-item"> <a href="{% url 'questionaire_manage' %}?timeevalname={{ current_eval}}&admin={{ admin }}"><i class="ft-file-text"></i><span
                             data-i18n=""
                             class="menu-title">数据采集</span></a>
-                        <ul class="menu-content">
-                            <li><a href="{% url 'questionaire_manage' %}" class="menu-item">问卷管理</a></li>
-                        </ul>
-
                     </li>
-                    <li class="has-sub nav-item"><a href="#"><i class="ft-folder"></i><span
+
+                    <li class="has-sub nav-item"><a href="{% url 'calculate' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i class="ft-folder"></i><span
                             data-i18n=""
-                            class="menu-title">数据统计</span></a></li>
+                            class="menu-title">数据统计</span></a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -296,9 +280,9 @@
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
-                    <ul class="navbar-nav">
-                        <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
-                                                              class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
+                    <ul class="layui-nav-item">
+                        <li class="dropdown layui-nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
+                                                                    class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
                                 class="avatar avatar-online"><img id="navbar-avatar"
                                                                   src="{% static 'app-assets/img/portrait/small/avatar-s-3.jpg' %}"
                                                                   alt="avatar"/></span>
@@ -306,7 +290,13 @@
                             <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
                                 <div class="arrow_box_right">
                                     <a href="{% url 'logout' %}" class="dropdown-item"><i
-                                            class="ft-power mr-2"></i><span>Logout</span></a>
+                                            class="layui-icon layui-icon-logout"
+                                            style="font-size: 18px; color:black;"></i> <span>退出</span></a>
+                                </div>
+                                <div class="arrow_box_right">
+                                    <a href="" class="dropdown-item"><i class="layui-icon layui-icon-user"
+                                                                        style="font-size: 18px; color:black;"></i>
+                                        <span>修改密码</span></a>
                                 </div>
                             </div>
                         </li>
@@ -376,8 +366,7 @@
                                                                                 data-toggle="modal"
                                                                                 data-target="#mymodal_edit"
                                                                                 id="{{ t.table_timeliner_col_id }}"
-
-                                                                                onclick="timeliner_edit(this.id)">编辑
+                                                                                onclick="timeliner_edit(this.id)"><i class="layui-icon">编辑</i>
                                                                         </button>
                                                                         <button type="button" class="btn mr-1 btn-secondary"
                                                                                 data-toggle="modal"
@@ -436,15 +425,11 @@
 <script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
 <!-- END CONVEX JS-->
 <!-- BEGIN BUTTON JS -->
-<script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
-<script src="{% static 'app-assets/js/horizontal-timeline.min.js' %}"></script>
 <script>
     function go(id) {
         itemid = id
     }
 </script>
-
-
 <script>
     function timeliner_edit(id) {
         itemid = id;
@@ -455,122 +440,9 @@
             },
             url: "{% url "timeliner_edit" %}",
             dataType: 'json',
-            success: function (data) {
-                $("#edit_name").attr("value", eval("(" + data.timeline + ")")[0].fields.table_timeliner_col_name);
-                $("#edit_content").val(eval("(" + data.timeline + ")")[0].fields.table_timeliner_col_content);
-                $('#edit_start').attr("value", eval("(" + data.timeline + ")")[0].fields.table_timeliner_col_start);
-                $('#edit_end').attr("value", eval("(" + data.timeline + ")")[0].fields.table_timeliner_col_end);
-                $('#edit_status').attr("value", eval("(" + data.timeline + ")")[0].fields.table_timeliner_col_status);
-            }
-
         });
         $('#mymodal_edit').modal('show');
     }
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajaxSetup({
-            data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
-        });
-
-        $("#CreateForm_Content").submit(function () {
-            var create_name = $("#create_name").val();
-            var create_content = $("#create_content").val();
-            var create_start = $('#create_start').val();
-            var create_end = $('#create_end').val();
-            var create_status = $('#create_status').val();
-            var create_eval = $('#create_eval').val();
-            $.ajax({
-                type: 'POST',
-                data: {
-                    "name": create_name,
-                    "content": create_content,
-                    'start': create_start,
-                    'end': create_end,
-                    'status': create_status,
-                    'eval':create_eval
-                },
-                url: "{% url "timeliner_create" %}",
-                cache: false,
-
-                dataType: "json",
-
-                success: function (data) {
-                    window.location.reload();
-                    alert(data.message);
-                },
-                error: function (data) {
-                    alert(data.message);
-                }
-            });
-            return false;
-        });
-
-        $("#EditForm_Content").submit(function (event) {
-            event.preventDefault();
-
-            var edit_id = itemid;
-            var edit_name = $("#edit_name").val();
-            var edit_content = $("#edit_content").val();
-            var edit_start = $('#edit_start').val();
-            var edit_end = $('#edit_end').val();
-            var edit_status = $('#edit_status').val();
-            $.ajax({
-                type: 'POST',
-                data: {
-                    'edit_id': edit_id,
-                    'edit_name':edit_name,
-                    "content": edit_content,
-                    'start': edit_start,
-                    'end': edit_end,
-                    'status': edit_status
-                },
-                async: false,
-                url: "{% url "timeliner_edit" %}",
-                cache: false,
-
-                dataType: "json",
-
-                success: function (data) {
-                    window.location.reload();
-                    alert(data.message);
-
-                },
-                error: function (data) {
-                    alert(data.message);
-
-                }
-            });
-            return false;
-        });
-
-
-    });
-    $("#DeleteForm_Content").submit(function () {
-        var delete_id = itemid;
-        $.ajax({
-            type: 'POST',
-            data: {
-                "delete_id": delete_id,
-            },
-            async: false,
-            url: "{% url "timeliner_delete" %}",
-            cache: false,
-            dataType: "json",
-            success: function (data) {
-                window.location.reload();
-                alert(data.message);
-
-            },
-            error: function (data) {
-                alert(data.message);
-
-            }
-        });
-        return false;
-    });
-
 </script>
 <!-- BEGIN ECHARTS GANTT BLUE JS -->
 <script src="{% static 'js/echarts.js' %}"></script>
@@ -603,7 +475,7 @@
         {% for t in timeline_list %}
             {
                 name : "{{ t.table_timeliner_col_name }}",
-                //项目索引  计划开始日期   计划结束日期， 实际开始日期（空）  项目内容
+                //项目索引  计划开始日期   计划结束日期， 实际开始日期  项目内容
                 value : [i, '{{ t.table_timeliner_col_start }}', '{{ t.table_timeliner_col_end}}','','{{ t.table_timeliner_col_content }}'],
             },
             i++,
@@ -612,11 +484,8 @@
 
     //在渲染时，data中的每个数据项都会调用这个方法
     function renderItem(params, api) {//params为data中的数据项的信息对象    api中是一些开发者可调用的方法集合，可以对data中的数据项进行操作
-
-        var categoryIndex = api.value(0);//取出data中数据项的第一个维度的值
-
-        //系统时间
         var nowDatePX = api.coord([nowDateStr, categoryIndex]);
+        var categoryIndex = api.value(0);//取出data中数据项的第一个维度的值
         //===============计划工期进度条
         //计划开始日期(在屏幕上的像素值)
         var planStartDate = api.coord([api.value(1), categoryIndex]);//将数据项中的数值对应的坐标系上的点，转换为屏幕上的像素值
@@ -703,6 +572,9 @@
         if (rectShape2 == null) {
             //设置绘制的矩形的元素定义
             //TODO 施加一个与系统时间对比的操作，将项目节点分类
+            console.log(rectShape1.x);
+            console.log(rectShape1.width);
+            console.log(nowDatePX[0]);
             //case1.1: 已完成
             if (rectShape1.x + rectShape1.width <= nowDatePX[0]) {
                 return rectShape1 && {
@@ -855,7 +727,7 @@
                 type: 'slider',
                 //区域缩放组件的过滤模式，weakFilter：在进行区域缩放时，允许图形的一部分在坐标系上(可见)，另一部分在坐标系外(隐藏)
                 filterMode: 'weakFilter',
-                showDataShadow: true,
+                showDataShadow: false,
                 top: 400,
                 height: 10,
                 //区域缩放组件边框颜色
@@ -871,7 +743,7 @@
                     shadowBlur: 6,
                     shadowOffsetX: 1,
                     shadowOffsetY: 2,
-                    shadowColor: '#575757'
+                    shadowColor: '#aaa'
                 },
                 labelFormatter: ''
             },
@@ -884,33 +756,34 @@
         ],
         //图表底板
         grid: {
-            height: 300,
+            height: 300
         },
         xAxis: {
             type: "time",//x轴类型为时间轴
             min: 1585670400000,//最小值为2020-04-01
             max: 1622304000000,//最大值为2021-05-30
             axisLabel: {
-                interval: 1,//强制显示所有标签
+                interval: 0,//强制显示所有标签
             }
+
         },
         yAxis: {
             data: categories,
             axisTick: {
-                alignWithLabel: true,//保证刻度线和标签对齐，当boundaryGap为true的时候有效，不过boundaryGap默认就是true
-                boundaryGap: true
+                alignWithLabel: true//保证刻度线和标签对齐，当boundaryGap为true的时候有效，不过boundaryGap默认就是true
             }
         },
         legend: {
             left: '70%',
             top: 10,
-            data: ['已结束', '进行中','未开始']},
+            data: ['计划工期', '实际工期']
+        },
         series: [
             {
                 type: 'custom',
                 //使用自定义的图形元素
                 renderItem: renderItem,
-                name: '已结束',
+                name: '计划工期',
                 itemStyle: {
                     //透明度
                     opacity: 0.8,
@@ -927,20 +800,11 @@
             //这个系列并没有太大作用，也没有给它设置data，只是为了通过这个系列，显示图例(legend)而已
             {
                 type: 'custom',
-                name: '进行中',
+                name: '实际工期',
                 itemStyle: {
                     //透明度
                     opacity: 0.8,
-                    color: '#ff3a45'
-                }
-            },
-            {
-                type: 'custom',
-                name: '未开始',
-                itemStyle: {
-                    //透明度
-                    opacity: 0.8,
-                    color: '#fff62e'
+                    color: '#55abc0'
                 }
             }
         ]
@@ -992,7 +856,7 @@ layui.use('upload', function(){
 
   upload.render({
     elem: '#layui-upload'
-    ,url: '/uploadfile' //改成您自己的上传接口
+    ,url: '/uploadFile/' //改成您自己的上传接口
     ,accept: 'file' //普通文件
     ,done: function(res){
       layer.msg('上传成功');
@@ -1055,7 +919,7 @@ layui.use('element', function(){
         var pos = curWwwPath.indexOf(pathName);
         var localhostPath = curWwwPath.substring(0, pos);
         var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
-        var url = localhostPath + projectName + "/a.txt";
+        var url = localhostPath + projectName + "/xxTemplate/xxx.xls";
         window.open(url);
     }
 </script>
