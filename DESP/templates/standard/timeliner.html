@@ -30,7 +30,8 @@
           href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'layui/css/layui.css' %}" media="all">
-    <link rel="stylesheet" type="text/css" href="{% static 'layui/css/modules/laydate/default/laydate.css' %}" media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'layui/css/modules/laydate/default/laydate.css' %}"
+          media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'layui_exts/laydateNote/laydateNote.css' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'test2/lib/jquery-ui-1.8.4.js' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'test2/example/reset.css' %}" media="all">
@@ -239,22 +240,30 @@
         <div class="sidebar-content">
             <div class="nav-container">
                 <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
-                    <li class="has-sub nav-item"><a href="{% url 'standard' %}?evalname={{ current_eval }}&admin={{ admin }}&id=0"><i class="ft-menu"></i><span
+                    <li class="has-sub nav-item"><a
+                            href="{% url 'standard' %}?evalname={{ current_eval }}&admin={{ admin }}&id=0"><i
+                            class="ft-menu"></i><span
                             data-i18n=""
                             class="menu-title">项目管理</span></a>
                     </li>
 
-                    <li class="has-sub nav-item"><a href="{% url 'timeliner' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i class="icon-calendar"></i><span
+                    <li class="has-sub nav-item"><a
+                            href="{% url 'timeliner' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i
+                            class="icon-calendar"></i><span
                             data-i18n=""
                             class="menu-title">项目进度</span></a>
                     </li>
 
-                    <li class="has-sub nav-item"> <a href="{% url 'questionaire_manage' %}?timeevalname={{ current_eval}}&admin={{ admin }}"><i class="ft-file-text"></i><span
+                    <li class="has-sub nav-item"><a
+                            href="{% url 'questionaire_manage' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i
+                            class="ft-file-text"></i><span
                             data-i18n=""
                             class="menu-title">数据采集</span></a>
                     </li>
 
-                    <li class="has-sub nav-item"><a href="{% url 'calculate' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i class="ft-folder"></i><span
+                    <li class="has-sub nav-item"><a
+                            href="{% url 'calculate' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i
+                            class="ft-folder"></i><span
                             data-i18n=""
                             class="menu-title">数据统计</span></a>
                     </li>
@@ -324,7 +333,8 @@
                                             <!-- Begin Blue Gantt -->
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <button type="button" class="btn mr-1 btn-secondary" data-toggle="modal"
+                                                    <button type="button" class="btn mr-1 btn-secondary"
+                                                            data-toggle="modal"
                                                             data-target="#mymodal">添加新项目
                                                     </button>
                                                 </div>
@@ -335,7 +345,8 @@
                                             <!-- Begin Table -->
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <button type="button" class="btn mr-1 btn-secondary" data-toggle="modal"
+                                                    <button type="button" class="btn mr-1 btn-secondary"
+                                                            data-toggle="modal"
                                                             data-target="#mymodal">添加新项目
                                                     </button>
                                                 </div>
@@ -344,14 +355,14 @@
                                                         <p class="card-text"></p>
                                                         <table class="table table-striped table-bordered base-style">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>开始时间</th>
-                                                                    <th>工作项目</th>
-                                                                    <th>工作内容</th>
-                                                                    <th>截止时间</th>
-                                                                    <th>工作状态</th>
-                                                                    <th>操作</th>
-                                                                </tr>
+                                                            <tr>
+                                                                <th>开始时间</th>
+                                                                <th>工作项目</th>
+                                                                <th>工作内容</th>
+                                                                <th>截止时间</th>
+                                                                <th>工作状态</th>
+                                                                <th>操作</th>
+                                                            </tr>
                                                             </thead>
                                                             <tbody>
                                                             {% for t in timeline_list %}
@@ -362,21 +373,31 @@
                                                                     <td>{{ t.table_timeliner_col_end }}</td>
                                                                     <td>{{ t.table_timeliner_col_status }}</td>
                                                                     <td>
-                                                                        <button type="button" class="btn mr-1 btn-secondary"
+                                                                        <button type="button"
+                                                                                class="btn mr-1 btn-secondary"
                                                                                 data-toggle="modal"
                                                                                 data-target="#mymodal_edit"
                                                                                 id="{{ t.table_timeliner_col_id }}"
-                                                                                onclick="timeliner_edit(this.id)"><i class="layui-icon">编辑</i>
+                                                                                onclick="timeliner_edit(this.id)"><i
+                                                                                class="layui-icon">编辑</i>
                                                                         </button>
-                                                                        <button type="button" class="btn mr-1 btn-secondary"
+                                                                        <button type="button"
+                                                                                class="btn mr-1 btn-secondary"
                                                                                 data-toggle="modal"
                                                                                 data-target="#mymodal_delete"
                                                                                 id="{{ t.table_timeliner_col_id }}"
-                                                                                onclick="go(this.id)"><i class="layui-icon">删除</i>
+                                                                                onclick="go(this.id)"><i
+                                                                                class="layui-icon">删除</i>
                                                                         </button>
                                                                         {# TODO 现在下面两个button都是重复出现的， #}
-                                                                        <button type="button" class="btn mr-1 btn-secondary" id="layui-upload"><i class="layui-icon">上传文件</i></button>
-                                                                        <button type="button" class="btn mr-1 btn-secondary" id="downLoad" onclick="downLoad()"><i class="layui-icon">附件下载</i></button>
+                                                                        <button type="button"
+                                                                                class="btn mr-1 btn-secondary"
+                                                                                id="layui-upload"><i class="layui-icon">上传文件</i>
+                                                                        </button>
+                                                                        <button type="button"
+                                                                                class="btn mr-1 btn-secondary"
+                                                                                id="downLoad" onclick="downLoad()"><i
+                                                                                class="layui-icon">附件下载</i></button>
                                                                     </td>
                                                                 </tr>
                                                             {% endfor %}
@@ -474,7 +495,7 @@
                     'start': create_start,
                     'end': create_end,
                     'status': create_status,
-                    'eval':create_eval
+                    'eval': create_eval
                 },
                 url: "{% url "timeliner_create" %}",
                 cache: false,
@@ -505,7 +526,7 @@
                 type: 'POST',
                 data: {
                     'edit_id': edit_id,
-                    'edit_name':edit_name,
+                    'edit_name': edit_name,
                     "content": edit_content,
                     'start': edit_start,
                     'end': edit_end,
@@ -573,6 +594,7 @@
     var nowDate = new Date();//今日日期获取系统时间
     var nowDateStr = formatDate(nowDate);
     console.log(nowDateStr);
+
     function formatDate(date) {
         //将2020/2/3这种日期格式，转换为2020-02-03
         var arr = date.toLocaleDateString().split("/");
@@ -584,12 +606,13 @@
         }
         return arr.join("-");
     }
+
     var data = [
         {% for t in timeline_list %}
             {
-                name : "{{ t.table_timeliner_col_name }}",
+                name: "{{ t.table_timeliner_col_name }}",
                 //项目索引  计划开始日期   计划结束日期， 实际开始日期  项目内容
-                value : [i, '{{ t.table_timeliner_col_start }}', '{{ t.table_timeliner_col_end}}','','{{ t.table_timeliner_col_content }}'],
+                value: [i, '{{ t.table_timeliner_col_start }}', '{{ t.table_timeliner_col_end}}', '', '{{ t.table_timeliner_col_content }}'],
             },
             i++,
         {% endfor %}
@@ -602,12 +625,12 @@
         //===============计划工期进度条
         //计划开始日期(在屏幕上的像素值)
         var planStartDate = api.coord([api.value(1), categoryIndex]);//将数据项中的数值对应的坐标系上的点，转换为屏幕上的像素值
-                                                                    //坐标系上的点：是数据项映射到坐标系的x轴和y轴后，对应的位置
-                                                                    //屏幕上的像素值：是坐标系上的点，在屏幕上的位置
+        //坐标系上的点：是数据项映射到坐标系的x轴和y轴后，对应的位置
+        //屏幕上的像素值：是坐标系上的点，在屏幕上的位置
         //计划结束日期(在屏幕上的像素值)
         var planEndDate = api.coord([api.value(2), categoryIndex]);
-                                                                    //由于data.value中维度1和维度2的数据会被映射到x轴，而x轴的type为time，即时间轴，
-                                                                    //所以api.value(1)和api.value(2)获取到的值是将日期转换后的毫秒
+        //由于data.value中维度1和维度2的数据会被映射到x轴，而x轴的type为time，即时间轴，
+        //所以api.value(1)和api.value(2)获取到的值是将日期转换后的毫秒
 
         //设置图形的高度
         var height = api.size([0, 1])[1] * 0.4;//获得Y轴上数值范围为1的一段所对应的像素长度；这是官方文档的注释，对于api.size()方法，目前我还不是很理解；先做个标记??? 以后再说
@@ -654,8 +677,8 @@
                 //取当前日期(在屏幕上的像素值)
                 nowDate_or_practiceEndDate = api.coord([nowDate_millisecond, categoryIndex]);
             } else {//比如计划开始时间1月10日，计划结束时间1月20日，项目周期10天，实际开始时间1月10日，当前日期1月22日，说明项目已结束
-                    //那么在渲染实际工期的进度条时，进度条的范围应该是1月10日至1月20日(实际开始日期至实际结束日期)，
-                    //而不是1月10日至1月22日(实际开始日期至当前日期)
+                //那么在渲染实际工期的进度条时，进度条的范围应该是1月10日至1月20日(实际开始日期至实际结束日期)，
+                //而不是1月10日至1月22日(实际开始日期至当前日期)
                 //实际结束日期(毫秒值)：实际开始日期(毫秒值) + 项目周期(毫秒值)
                 var practiceEndDate_millisecond = practiceStartDate_millisecond + projectCycle_millisecond;
                 //取实际结束日期(在屏幕上的像素值)
@@ -685,11 +708,8 @@
         if (rectShape2 == null) {
             //设置绘制的矩形的元素定义
             //TODO 施加一个与系统时间对比的操作，将项目节点分类
-            console.log(rectShape1.x);
-            console.log(rectShape1.width);
-            console.log(nowDatePX[0]);
             //case1.1: 已完成
-            if (rectShape1.x + rectShape1.width <= nowDatePX[0]) {
+            if (planEndDate[0] <= nowDatePX[0]) {
                 return rectShape1 && {
                     type: 'group',
                     children: [
@@ -705,8 +725,9 @@
                         }
                     ]
                 };
-            //case1.2: 进行中
-            } else if (rectShape1.x <= nowDatePX[0] && rectShape1.x + rectShape1.width >= nowDatePX[0]){
+                //case1.2: 进行中
+            } else if ((planStartDate[0] <= nowDatePX[0]) && (planEndDate[0] >= nowDatePX[0])) {
+                //} else if (rectShape1.x - rectShape1.width < 400) {
                 return rectShape1 && {
                     type: 'group',
                     children: [
@@ -723,7 +744,8 @@
                     ]
                 };
                 //case1.3: 未开始
-            } else {
+                //} else {
+            } else if (planStartDate[0] > nowDatePX[0]) {
                 return rectShape1 && {
                     type: 'group',
                     children: [
@@ -850,7 +872,7 @@
                 //区域缩放组件上的手柄的样式
                 handleIcon: 'M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z', // jshint ignore:line
                 //手柄大小
-                handleSize:20,
+                handleSize: 20,
                 //为手柄设置阴影效果
                 handleStyle: {
                     shadowBlur: 6,
@@ -927,101 +949,101 @@
 <script src="{% static 'layer-v3.1.1/layer-v3.1.1/layer/layer.js' %}"></script>
 <script src="{% static 'layui/layui.js' %}"></script>
 <script>
-!function(){
+    !function () {
 //页面一打开就执行，放入ready是为了layer所需配件（css、扩展模块）加载完毕
-    layer.ready(function () {
-        layer.open({
-            {#type: 2,#}
-            title: '欢迎页',
-            maxmin: true,
-            area: ['800px', '500px'],
-            content: "此页面分页展示项目进度:" + '</br>' + "1.甘特图"+ '</br>' + "2.项目列表"+'</br>'+"甘特图起始。。，终止。。",
-            end: function () {
-                layer.tips('Hi', '#about', {tips: 1})
-            }
+        layer.ready(function () {
+            layer.open({
+                {#type: 2,#}
+                title: '欢迎页',
+                maxmin: true,
+                area: ['800px', '500px'],
+                content: "此页面分页展示项目进度:" + '</br>' + "1.甘特图" + '</br>' + "2.项目列表" + '</br>' + "甘特图起始。。，终止。。",
+                end: function () {
+                    layer.tips('Hi', '#about', {tips: 1})
+                }
+            });
         });
-    });
 
 
-    $('#about').on('click', function () {
-        layer.alert(layer.v + 'Project Progress!')
-    });
-
-    $('#about1').on('click', function () {
-        layer.open({
-            type: 2,
-            title: '项目文件',
-            maxmin: true,
-            area: ['800px', '500px'],
-            content: 'http://layer.layui.com/test/welcome.html',
-            end: function () {
-                layer.tips('Hi', '#about', {tips: 1})
-            }
+        $('#about').on('click', function () {
+            layer.alert(layer.v + 'Project Progress!')
         });
-    });
-}();
+
+        $('#about1').on('click', function () {
+            layer.open({
+                type: 2,
+                title: '项目文件',
+                maxmin: true,
+                area: ['800px', '500px'],
+                content: 'http://layer.layui.com/test/welcome.html',
+                end: function () {
+                    layer.tips('Hi', '#about', {tips: 1})
+                }
+            });
+        });
+    }();
 </script>
 <!-- BEGIN LAYUI UPLOADFILE JS -->
 <script>
-layui.use('upload', function(){
-  var $ = layui.jquery
-  ,upload = layui.upload;
+    layui.use('upload', function () {
+        var $ = layui.jquery
+            , upload = layui.upload;
 
-  upload.render({
-    elem: '#layui-upload'
-    ,url: '/uploadFile/' //改成您自己的上传接口
-    ,accept: 'file' //普通文件
-    ,done: function(res){
-      layer.msg('上传成功');
-      console.log(res);
-    }
-  });
-});
+        upload.render({
+            elem: '#layui-upload'
+            , url: '/uploadFile/' //改成您自己的上传接口
+            , accept: 'file' //普通文件
+            , done: function (res) {
+                layer.msg('上传成功');
+                console.log(res);
+            }
+        });
+    });
 </script>
 {# TODO 以上两个uploadfile优先选择layui的 #}
 <!-- LAYUI CARD TAB SWITCH -->
 <script>
-layui.use('element', function(){
-  var $ = layui.jquery
-  ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+    layui.use('element', function () {
+        var $ = layui.jquery
+            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
 
-  //触发事件
-  var active = {
-    tabAdd: function(){
-      //新增一个Tab项
-      element.tabAdd('demo', {
-        title: '新选项'+ (Math.random()*1000|0) //用于演示
-        ,content: '内容'+ (Math.random()*1000|0)
-        ,id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
-      })
-    }
-    ,tabDelete: function(othis){
-      //删除指定Tab项
-      element.tabDelete('demo', '44'); //删除：“商品管理”
+        //触发事件
+        var active = {
+            tabAdd: function () {
+                //新增一个Tab项
+                element.tabAdd('demo', {
+                    title: '新选项' + (Math.random() * 1000 | 0) //用于演示
+                    , content: '内容' + (Math.random() * 1000 | 0)
+                    , id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+                })
+            }
+            , tabDelete: function (othis) {
+                //删除指定Tab项
+                element.tabDelete('demo', '44'); //删除：“商品管理”
 
 
-      othis.addClass('layui-btn-disabled');
-    }
-    ,tabChange: function(){
-      //切换到指定Tab项
-      element.tabChange('demo', '22'); //切换到：用户管理
-    }
-  };
+                othis.addClass('layui-btn-disabled');
+            }
+            , tabChange: function () {
+                //切换到指定Tab项
+                element.tabChange('demo', '22'); //切换到：用户管理
+            }
+        };
 
-  $('.site-demo-active').on('click', function(){
-    var othis = $(this), type = othis.data('type');
-    active[type] ? active[type].call(this, othis) : '';
-  });
+        $('.site-demo-active').on('click', function () {
+            var othis = $(this), type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
 
-  //Hash地址的定位
-  var layid = location.hash.replace(/^#test=/, '');
-  element.tabChange('test', layid);
+        //Hash地址的定位
+        var layid = location.hash.replace(/^#test=/, '');
+        element.tabChange('test', layid);
 
-  element.on('tab(test)', function(elem){
-    location.hash = 'test='+ $(this).attr('lay-id');
-  });
+        element.on('tab(test)', function (elem) {
+            location.hash = 'test=' + $(this).attr('lay-id');
+        });
 
-});
+    });
 </script>
 <!-- DOWNLOAD JS -->
 <script>

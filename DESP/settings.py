@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'DESP.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Data_evaluation',
+        'NAME': 'de',
         'USER': 'casdev',
         'PASSWORD': '123456',
         'HOST': 'localhost',
