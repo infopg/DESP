@@ -144,24 +144,27 @@ def user(request):
     list = []
     for i in range(0, len(questionaire_answer)):
         list.append(TableQuestionContent.objects.filter(table_question_content_col_indicator_id=group[i][0]))
-    page = request.GET.get('page')
-    question = []
-    if page == None:
-        for x in list[0]:
-            question.append({
-                'question_type': x.table_question_content_col_question_type,
-                'content': x.table_question_content_col_content,
-                'indicator_id': x.table_question_content_col_indicator_id
-            })
+    if len(list)!=0:
+        page = request.GET.get('page')
+        question = []
+        if page == None:
+            for x in list[0]:
+                question.append({
+                    'question_type': x.table_question_content_col_question_type,
+                    'content': x.table_question_content_col_content,
+                    'indicator_id': x.table_question_content_col_indicator_id
+                })
+        else:
+            num = int(page)
+            for x in list[num]:
+                question.append({
+                    'question_type': x.table_question_content_col_question_type,
+                    'content': x.table_question_content_col_content,
+                    'indicator_id': x.table_question_content_col_indicator_id
+                })
+        return render(request, 'user/user.html', {'question': question, 'preview_length': len(list)})
     else:
-        num = int(page)
-        for x in list[num]:
-            question.append({
-                'question_type': x.table_question_content_col_question_type,
-                'content': x.table_question_content_col_content,
-                'indicator_id': x.table_question_content_col_indicator_id
-            })
-    return render(request, 'user/user.html', {'question': question, 'preview_length': len(list)})
+        return render(request, 'user/user.html')
 
 
 def expert(request):

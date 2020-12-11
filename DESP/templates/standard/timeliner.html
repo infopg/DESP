@@ -32,10 +32,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'layui/css/layui.css' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'layui/css/modules/laydate/default/laydate.css' %}"
           media="all">
-    <link rel="stylesheet" type="text/css" href="{% static 'layui_exts/laydateNote/laydateNote.css' %}" media="all">
-    <link rel="stylesheet" type="text/css" href="{% static 'test2/lib/jquery-ui-1.8.4.js' %}" media="all">
-    <link rel="stylesheet" type="text/css" href="{% static 'test2/example/reset.css' %}" media="all">
-    <link rel="stylesheet" type="text/css" href="{% static 'test2/jquery.ganttView.css' %}" media="all">
+{#    <link rel="stylesheet" type="text/css" href="{% static 'layui_exts/laydateNote/laydateNote.css' %}" media="all">#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'test2/lib/jquery-ui-1.8.4.js' %}" media="all">#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'test2/example/reset.css' %}" media="all">#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'test2/jquery.ganttView.css' %}" media="all">#}
     <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
 
 </head>
@@ -579,7 +579,7 @@
 
 </script>
 <!-- BEGIN ECHARTS GANTT BLUE JS -->
-<script src="{% static 'js/echarts.js' %}"></script>
+{#<script src="{% static 'js/echarts.js' %}"></script>#}
 <script src="{% static 'js/echarts.min.js' %}"></script>
 <script type="text/javascript">
     i = 0;
@@ -946,43 +946,43 @@
     });
 </script>
 <!-- BEGIN LAYER JS -->
-<script src="{% static 'layer-v3.1.1/layer-v3.1.1/layer/layer.js' %}"></script>
+{#<script src="{% static 'layer-v3.1.1/layer-v3.1.1/layer/layer.js' %}"></script>#}
 <script src="{% static 'layui/layui.js' %}"></script>
-<script>
-    !function () {
-//页面一打开就执行，放入ready是为了layer所需配件（css、扩展模块）加载完毕
-        layer.ready(function () {
-            layer.open({
+{#<script>#}
+{#    !function () {#}
+{#//页面一打开就执行，放入ready是为了layer所需配件（css、扩展模块）加载完毕#}
+{#        layer.ready(function () {#}
+{#            layer.open({#}
                 {#type: 2,#}
-                title: '欢迎页',
-                maxmin: true,
-                area: ['800px', '500px'],
-                content: "此页面分页展示项目进度:" + '</br>' + "1.甘特图" + '</br>' + "2.项目列表" + '</br>' + "甘特图起始。。，终止。。",
-                end: function () {
-                    layer.tips('Hi', '#about', {tips: 1})
-                }
-            });
-        });
-
-
-        $('#about').on('click', function () {
-            layer.alert(layer.v + 'Project Progress!')
-        });
-
-        $('#about1').on('click', function () {
-            layer.open({
-                type: 2,
-                title: '项目文件',
-                maxmin: true,
-                area: ['800px', '500px'],
-                content: 'http://layer.layui.com/test/welcome.html',
-                end: function () {
-                    layer.tips('Hi', '#about', {tips: 1})
-                }
-            });
-        });
-    }();
-</script>
+{#                title: '欢迎页',#}
+{#                maxmin: true,#}
+{#                area: ['800px', '500px'],#}
+{#                content: "此页面分页展示项目进度:" + '</br>' + "1.甘特图" + '</br>' + "2.项目列表" + '</br>' + "甘特图起始。。，终止。。",#}
+{#                end: function () {#}
+{#                    layer.tips('Hi', '#about', {tips: 1})#}
+{#                }#}
+{#            });#}
+{#        });#}
+{##}
+{##}
+{#        $('#about').on('click', function () {#}
+{#            layer.alert(layer.v + 'Project Progress!')#}
+{#        });#}
+{##}
+{#        $('#about1').on('click', function () {#}
+{#            layer.open({#}
+{#                type: 2,#}
+{#                title: '项目文件',#}
+{#                maxmin: true,#}
+{#                area: ['800px', '500px'],#}
+{#                content: 'http://layer.layui.com/test/welcome.html',#}
+{#                end: function () {#}
+{#                    layer.tips('Hi', '#about', {tips: 1})#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    }();#}
+{#</script>#}
 <!-- BEGIN LAYUI UPLOADFILE JS -->
 <script>
     layui.use('upload', function () {
@@ -991,7 +991,7 @@
 
         upload.render({
             elem: '#layui-upload'
-            , url: '/uploadFile/' //改成您自己的上传接口
+            , url: '' //改成您自己的上传接口
             , accept: 'file' //普通文件
             , done: function (res) {
                 layer.msg('上传成功');

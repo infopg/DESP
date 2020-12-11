@@ -1102,7 +1102,6 @@ function questionaire_submit() {
             success: function (data) {
                 alert('删除成功');
                 window.location.reload();
-
             }
         })
     }

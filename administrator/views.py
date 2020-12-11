@@ -614,12 +614,17 @@ def download_indicator(request):
 
 def questionaire(request):
     a = request.GET.get('nodeID')
+    print(a)
     questionlist = TableQuestionContent.objects.filter(table_question_content_col_indicator_id=a).order_by(
         'table_question_content_col_question_number')
     administrator = request.session['user_name']
     evalname = TableEvaluation.objects.filter(
         Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
         'table_evaluation_col_name')
+    current_eval=TableEvaluationIndicator.objects.filter(
+        Q(table_evaluation_indicator_col_id=a)).values('table_evaluation_indicator_col_evaluation_name')
+    current=current_eval[0]['table_evaluation_indicator_col_evaluation_name']
+    print(administrator)
     data = [
         {
             'question_type': x.table_question_content_col_question_type,
@@ -646,7 +651,7 @@ def questionaire(request):
         for key in question:
             if question[key] == None:
                 question[key] = ''
-    return render(request, 'standard/questionaire.html', {'data': data, 'evalname': evalname})
+    return render(request, 'standard/questionaire.html', {'data': data, 'evalname': evalname,'admin':administrator,'id':a,'current_eval':current})
 
 
 def choice_add(request):

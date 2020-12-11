@@ -328,14 +328,18 @@ def user_create(request):
             message = '你两次输入的密码不一致，请重新输入'
             return JsonResponse({'message': message})
         try:
-            models.TableUser.objects.create(table_user_col_name=user_name,
+            models.TableUser.objects.create(
+                                            table_user_col_name=user_name,
                                             table_user_col_real_name=user_realname,
                                             table_user_col_sex=user_sex,
                                             table_user_col_type=user_type,
                                             table_user_col_type_id=user_type_id,
-                                            table_user_col_password=make_password(user_password),
-                                            table_user_col_organization=user_organizationID,
-                                            table_user_col_department=user_department[0],
+                                            table_user_col_password=make_password(
+                                                user_password),
+                                            table_user_col_organization=
+                                            user_organizationID,
+                                            table_user_col_department=user_department[
+                                                0],
                                             table_user_col_title=user_title[0],
                                             table_user_col_work_field=user_field[0],
                                             table_user_col_email=user_email[0],

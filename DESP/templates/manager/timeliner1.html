@@ -32,10 +32,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'layui/css/layui.css' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'layui/css/modules/laydate/default/laydate.css' %}"
           media="all">
-    <link rel="stylesheet" type="text/css" href="{% static 'layui_exts/laydateNote/laydateNote.css' %}" media="all">
-    <link rel="stylesheet" type="text/css" href="{% static 'test2/lib/jquery-ui-1.8.4.js' %}" media="all">
-    <link rel="stylesheet" type="text/css" href="{% static 'test2/example/reset.css' %}" media="all">
-    <link rel="stylesheet" type="text/css" href="{% static 'test2/jquery.ganttView.css' %}" media="all">
 </head>
 <body data-col="2-columns" class=" 2-columns ">
 
@@ -184,7 +180,6 @@
     }
 </script>
 <!-- BEGIN ECHARTS GANTT BLUE JS -->
-<script src="{% static 'js/echarts.js' %}"></script>
 <script src="{% static 'js/echarts.min.js' %}"></script>
 <script type="text/javascript">
     i = 0;
@@ -516,14 +511,14 @@
         legend: {
             left: '70%',
             top: 10,
-            data: ['计划工期', '实际工期']
+            data: ['已完成', '进行中','未开始']
         },
         series: [
             {
                 type: 'custom',
                 //使用自定义的图形元素
                 renderItem: renderItem,
-                name: '计划工期',
+                name: '已完成',
                 itemStyle: {
                     //透明度
                     opacity: 0.8,
@@ -537,57 +532,32 @@
                 },
                 data: data
             },
-            //这个系列并没有太大作用，也没有给它设置data，只是为了通过这个系列，显示图例(legend)而已
             {
                 type: 'custom',
-                name: '实际工期',
+                //使用自定义的图形元素
+                renderItem: renderItem,
+                name: '进行中',
                 itemStyle: {
                     //透明度
                     opacity: 0.8,
-                    color: '#55abc0'
+                    color: '#ff3a45'
+                },
+            },
+            //这个系列并没有太大作用，也没有给它设置data，只是为了通过这个系列，显示图例(legend)而已
+            {
+                type: 'custom',
+                name: '未开始',
+                itemStyle: {
+                    //透明度
+                    opacity: 0.8,
+                    color: '#fff62e'
                 }
             }
         ]
     });
 </script>
 <!-- BEGIN LAYER JS -->
-<script src="{% static 'layer-v3.1.1/layer-v3.1.1/layer/layer.js' %}"></script>
 <script src="{% static 'layui/layui.js' %}"></script>
-<script>
-    !function () {
-//页面一打开就执行，放入ready是为了layer所需配件（css、扩展模块）加载完毕
-        layer.ready(function () {
-            layer.open({
-                {#type: 2,#}
-                title: '欢迎页',
-                maxmin: true,
-                area: ['800px', '500px'],
-                content: "此页面分页展示项目进度:" + '</br>' + "1.甘特图" + '</br>' + "2.项目列表" + '</br>' + "甘特图起始。。，终止。。",
-                end: function () {
-                    layer.tips('Hi', '#about', {tips: 1})
-                }
-            });
-        });
-
-
-        $('#about').on('click', function () {
-            layer.alert(layer.v + 'Project Progress!')
-        });
-
-        $('#about1').on('click', function () {
-            layer.open({
-                type: 2,
-                title: '项目文件',
-                maxmin: true,
-                area: ['800px', '500px'],
-                content: 'http://layer.layui.com/test/welcome.html',
-                end: function () {
-                    layer.tips('Hi', '#about', {tips: 1})
-                }
-            });
-        });
-    }();
-</script>
 <!-- BEGIN LAYUI UPLOADFILE JS -->
 <script>
     layui.use('upload', function () {
