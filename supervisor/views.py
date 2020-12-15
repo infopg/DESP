@@ -18,6 +18,7 @@ import os,time
 
 # Create your views here.
 def institute(request):
+    user_name = request.session['user_name']
     o = models.TableOrganization.objects.all()
     if o.exists():
         _data = [
@@ -28,12 +29,32 @@ def institute(request):
                 'open': 1,
             } for x in o
         ]
+        n=0
+        tmp=[]
+        for i in range(len(_data)):
+            if _data[i]['pId']==0:
+                rootid=_data[i]['id']
+            if _data[i]['pId'] == rootid:
+                n+=1
+                tmp.append(_data[i])
+        tree=[[]for i in range(n)]
+        for i in range (n):
+            tree[i].append(tmp[i])
+        for each in _data:
+            for i in range(n):
+                for j in range(len(tree[i])):
+                    if each['pId']==tree[i][j]['id']:
+                        tree[i].append(each)
+        # for each in tree:
+        #     print(each['pId'])
+        print(rootid)
         list = []
         eval_org = models.TableEvaluation.objects.values_list('table_evaluation_col_organization')
         for i in range(0, len(eval_org)):
             list.append(eval_org[i][0])
         listforfilter = json.dumps(list)
-        return render(request, 'supervisor/institute.html', {'data': _data, 'array': listforfilter})
+        return render(request, 'supervisor/institute.html', {'data': _data, 'array': listforfilter,'user_name':user_name,'tree':tree,
+                                                             'tree1':tree[0],'tree2':tree[1],'tree3':tree[2],'length':len(tree),'root':rootid})
     else:
         models.TableOrganization.objects.create(table_organization_col_name='机构树',
                                                 table_organization_col_address=None,
@@ -225,12 +246,12 @@ def user_edit(request):
             user_type_id = 0
         elif user_type == '管理员':
             user_type_id = 1
-        elif user_type == '机构管理员':
+        elif user_type == '审核':
             user_type_id = 2
         elif user_type == '机构用户':
-            user_type_id = '3'
+            user_type_id = 3
         elif user_type == '专家用户':
-            user_type_id = '4'
+            user_type_id = 4
         else:
             user_type_id = None
 
@@ -302,12 +323,12 @@ def user_create(request):
             user_type_id = 0
         elif user_type == '管理员':
             user_type_id = 1
-        elif user_type == '机构管理员':
+        elif user_type == '审核':
             user_type_id = 2
         elif user_type == '机构用户':
-            user_type_id = '3'
+            user_type_id = 3
         elif user_type == '专家用户':
-            user_type_id = '4'
+            user_type_id = 4
         else:
             user_type = None
         user_mobilenumber = request.POST.get('create_mobilenumber')
@@ -355,6 +376,7 @@ def user_create(request):
 
 
 def people(request):
+    user_name = request.session['user_name']
     users = models.TableUser.objects.all()
     organization = models.TableOrganization.objects.filter(~Q(table_organization_col_name="机构列表"))
     return render(request, 'supervisor/people.html', locals())
@@ -487,7 +509,7 @@ def excel_import_user(filename):
                     type_id = 0
                 elif arrs['Type'] == '管理员':
                     type_id = 1
-                elif arrs['Type'] == '机构管理员':
+                elif arrs['Type'] == '审核':
                     type_id = 2
                 elif arrs['Type'] == '机构用户':
                     type_id = 3

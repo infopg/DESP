@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css"
           href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
-            <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
 
 </head>
 <body data-col="2-columns" class=" 2-columns ">
@@ -299,28 +299,19 @@
         <div class="sidebar-content">
             <div class="nav-container">
                 <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
-
+                    <li class="has-sub nav-item"><a href="{% url 'evaluation' %}"><i class="ft-credit-card"></i><span
+                            data-i18n=""
+                            class="menu-title">评估系统</span></a>
+                    </li>
                     <li class="has-sub nav-item"><a href="{% url 'institute' %}"><i class="icon-briefcase"></i><span
                             data-i18n=""
                             class="menu-title">机构设置</span></a>
-                        {#                            <li><a href="{% url 'department' %}" class="menu-item">分院</a>#}
-                        {#                            </li>#}
-                        {#                            <li><a href="{% url 'unit' %}" class="menu-item">支撑单位</a>#}
-                        {#                            </li>#}
-                        {#                            <li><a href="{% url 'others' %}" class="menu-item">其他评估系统</a>#}
-                        {#                            </li>#}
-
                     </li>
                     <li class="has-sub nav-item"><a href="{% url 'people' %}"><i class="fa fa-user"></i><span
                             data-i18n=""
                             class="menu-title">人员设置</span></a>
                     </li>
-                    <li class="has-sub nav-item"><a href="{% url 'evaluation' %}"><i class="ft-credit-card"></i><span
-                            data-i18n=""
-                            class="menu-title">评估系统</span></a>
-                        <ul class="menu-content">
-                        </ul>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -344,6 +335,7 @@
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <p>欢迎你，超级管理员&nbsp&nbsp&nbsp{{ user_name }}</p>
                     <ul class="layui-nav-item">
                         <li class="dropdown layui-nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
                                                                     class="nav-link position-relative dropdown-user-link dropdown-toggle"><span

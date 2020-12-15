@@ -267,6 +267,13 @@
                             data-i18n=""
                             class="menu-title">数据统计</span></a>
                     </li>
+
+                    <li class="has-sub nav-item"><a
+                            href="{% url 'review' %}?timeevalname={{ current_eval }}&admin={{ admin }}"><i
+                            class="ft-folder"></i><span
+                            data-i18n=""
+                            class="menu-title">问卷审核</span></a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -289,6 +296,8 @@
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                                        <p>欢迎你，管理员&nbsp&nbsp&nbsp{{ admin }}</p>
+
                     <ul class="layui-nav-item">
                         <li class="dropdown layui-nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
                                                                     class="nav-link position-relative dropdown-user-link dropdown-toggle"><span

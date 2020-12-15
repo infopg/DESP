@@ -3,7 +3,7 @@ from django.conf.urls import url, re_path
 from administrator import views
 from administrator.views import standard, timeliner, choice_add, questionaire_manage, blank_add, answer_add, matrix_add, \
     form_add, accumulation, export_answer, import_answer, questionaire_submit, questionaire_delete, question_delete, \
-    scheme_show, calculate
+    scheme_show, calculate,review
 
 urlpatterns = [
     url('/standard', standard, name='standard'),
@@ -35,4 +35,5 @@ urlpatterns = [
     url(r'/accumulation$', accumulation, name='accumulation'),
     url(r'scheme_show$', scheme_show, name='scheme_show'),
     url(r'/calculate', calculate, name='calculate'),
+    url(r'/review', review, name='review'),
 ]

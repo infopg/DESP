@@ -166,8 +166,6 @@ def standard(request):
         group = []
         for eachquestion in questionaire_preview:
             group.append(eachquestion)
-
-
         id = request.GET.get('id')
         indiname=current_eval
         notroot=0
@@ -1152,3 +1150,11 @@ def calculate(request):
     return render(request, 'standard/calculate.html',
                   {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname, 'current_eval': current_eval,
                    'timeline_list': timeline_list, 'dateline': dateline, 'org_eval': org_eval, 'timeline_list': res})
+
+
+def review(request):
+    current_eval = request.GET.get('timeevalname')
+    administrator = request.session['user_name']
+    return render(request,'standard/review.html',{'admin': administrator,'current_eval': current_eval})
+
+

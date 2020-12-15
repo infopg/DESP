@@ -89,11 +89,13 @@ def login(request):
 
 def supervisor(request):
     # pdb.set_trace()
+    user_name = request.session['user_name']
     if not request.session.get('is_login', None) or request.session['permission'] != 0:  # 没登录过的或权限不对的，都直接返回到登录界面
-
         return redirect('/')
-    org_eval1 = TableEvaluation.objects.all()
-    return render(request, 'login/supervisor.html/', locals())
+    org_eval = TableEvaluation.objects.all()
+    organizations =TableOrganization.objects.filter(~Q(table_organization_col_name="机构树"))
+    users = models.TableUser.objects.filter(table_user_col_type_id=1)
+    return render(request, 'supervisor/evaluation.html/', locals())
 
 
 def administrator(request):
@@ -134,37 +136,40 @@ def user(request):
     orgname = \
         TableOrganization.objects.filter(table_organization_col_id=orgid).values_list('table_organization_col_name')[0][
             0]
-    eval = TableEvaluation.objects.get(table_evaluation_col_organization=orgname)
-    questionaire_answer = set(
-        TableQuestionContent.objects.filter(table_question_content_col_evalname=eval).values_list(
-            'table_question_content_col_indicator_id'))
-    group = []
-    for eachquestion in questionaire_answer:
-        group.append(eachquestion)
-    list = []
-    for i in range(0, len(questionaire_answer)):
-        list.append(TableQuestionContent.objects.filter(table_question_content_col_indicator_id=group[i][0]))
-    if len(list)!=0:
-        page = request.GET.get('page')
-        question = []
-        if page == None:
-            for x in list[0]:
-                question.append({
-                    'question_type': x.table_question_content_col_question_type,
-                    'content': x.table_question_content_col_content,
-                    'indicator_id': x.table_question_content_col_indicator_id
-                })
+    print(orgname)
+    eval = TableEvaluation.objects.filter(table_evaluation_col_organization=orgname)
+    if len(eval)!=0:
+        questionaire_answer = set(
+            TableQuestionContent.objects.filter(table_question_content_col_evalname=eval[0].table_evaluation_col_id).values_list('table_question_content_col_indicator_id'))
+        group = []
+        for eachquestion in questionaire_answer:
+            group.append(eachquestion)
+        list = []
+        for i in range(0, len(questionaire_answer)):
+            list.append(TableQuestionContent.objects.filter(table_question_content_col_indicator_id=group[i][0]))
+        if len(list)!=0:
+            page = request.GET.get('page')
+            question = []
+            if page == None:
+                for x in list[0]:
+                    question.append({
+                        'question_type': x.table_question_content_col_question_type,
+                        'content': x.table_question_content_col_content,
+                        'indicator_id': x.table_question_content_col_indicator_id
+                    })
+            else:
+                num = int(page)
+                for x in list[num]:
+                    question.append({
+                        'question_type': x.table_question_content_col_question_type,
+                        'content': x.table_question_content_col_content,
+                        'indicator_id': x.table_question_content_col_indicator_id
+                    })
+            return render(request, 'user/user.html', {'question': question, 'preview_length': len(list),'user':user_name,'orgname':orgname})
         else:
-            num = int(page)
-            for x in list[num]:
-                question.append({
-                    'question_type': x.table_question_content_col_question_type,
-                    'content': x.table_question_content_col_content,
-                    'indicator_id': x.table_question_content_col_indicator_id
-                })
-        return render(request, 'user/user.html', {'question': question, 'preview_length': len(list)})
+            return render(request, 'user/user.html',{'user':user_name,'orgname':orgname})
     else:
-        return render(request, 'user/user.html')
+        return render(request, 'user/user.html',{'user':user_name,'orgname':orgname})
 
 
 def expert(request):
