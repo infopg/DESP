@@ -34,6 +34,7 @@ def institute(request):
         for i in range(len(_data)):
             if _data[i]['pId']==0:
                 rootid=_data[i]['id']
+                root=_data[i]
             if _data[i]['pId'] == rootid:
                 n+=1
                 tmp.append(_data[i])
@@ -47,14 +48,18 @@ def institute(request):
                         tree[i].append(each)
         # for each in tree:
         #     print(each['pId'])
-        print(rootid)
+        li=[]
+        for i in range(len(tree)):
+            li.append(i+1)
+        # print(li)
         list = []
         eval_org = models.TableEvaluation.objects.values_list('table_evaluation_col_organization')
         for i in range(0, len(eval_org)):
             list.append(eval_org[i][0])
         listforfilter = json.dumps(list)
-        return render(request, 'supervisor/institute.html', {'data': _data, 'array': listforfilter,'user_name':user_name,'tree':tree,
-                                                             'tree1':tree[0],'tree2':tree[1],'tree3':tree[2],'length':len(tree),'root':rootid})
+        # print(listforfilter)
+        return render(request, 'supervisor/institute.html', {'data': _data, 'array': listforfilter,'user_name':user_name,'rooty':root,'tree':tree,'li':li,
+                                                             'length':len(tree),'root':rootid})
     else:
         models.TableOrganization.objects.create(table_organization_col_name='机构树',
                                                 table_organization_col_address=None,
