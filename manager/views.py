@@ -5,7 +5,7 @@ from supervisor.models import TableEvaluation
 # Create your views here.
 def timeliner1(request):
     # pdb.set_trace()
-    # administrator = request.session['user_name']
+    administrator = request.session['user_name']
     # current_eval = request.GET.get('timeevalname')
     evalname = TableEvaluation.objects.all().values('table_evaluation_col_name')
     print(evalname)

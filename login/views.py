@@ -175,7 +175,9 @@ def user(request):
 def expert(request):
     if not request.session.get('is_login', None) or request.session['permission'] != 4:
         return redirect('/')
-    return render(request, 'expert/expert.html')
+    administrator = request.session['user_name']
+
+    return render(request, 'expert/expert.html',{'user_name':administrator})
 
 
 def manager(request):
@@ -208,7 +210,7 @@ def manager(request):
         date_use_end = date_new_end[-2:] + date_new_end[4:8] + date_new_end[0:4]
         date.table_timeliner_col_end = date_use_end
     # print(timeline_list)
-    return render(request, 'manager/manager.html', {'evalname': evalname, 'timeevalname': timeevalname,
+    return render(request, 'manager/manager.html', {'evalname': evalname, 'timeevalname': timeevalname,'user_name':administrator,
                    'timeline_list': timeline_list, 'dateline': dateline,'admin':administrator})
 
 
