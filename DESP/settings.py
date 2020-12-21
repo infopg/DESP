@@ -18,6 +18,8 @@ pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+DJANGO_DRF_FILEPOND_UPLOAD_TMP = os.path.join(BASE_DIR, 'uploadFile')
+DJANGO_DRF_FILEPOND_FILE_STORE_PATH = os.path.join(BASE_DIR, 'uploadFile')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -51,7 +53,8 @@ INSTALLED_APPS = [
     'user',
     'expert',
     'rest_framework',
-    'django_filters'
+    'django_filters',
+    'django_drf_filepond'
 ]
 
 MIDDLEWARE = [
@@ -96,8 +99,9 @@ DATABASES = {
         'NAME': 'de',
         'USER': 'casdev',
         'PASSWORD': '123456',
+        #'PASSWORD': 'iepDev<Cas&001',
         'HOST': 'localhost',
-        # 'HOST': '10.10.11.40',
+        #'HOST': '10.10.11.40',
         # 'HOST': '159.226.186.34',
         'PORT': '3306',
     }

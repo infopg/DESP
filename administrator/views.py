@@ -26,6 +26,22 @@ from supervisor.models import TableEvaluation
 from supervisor.models import TableOrganization
 
 
+def upload_file(request):
+    if request.method == "POST":    # 请求方法为POST时，进行处理
+        myFile = request.FILES.get("myfile", None)    # 获取上传的文件，如果没有文件，则默认为None
+        print("------")
+        print(myFile.name)
+        print("------")
+        if not myFile:
+            return HttpResponse("no files for upload!")
+            # return JsonResponse({'message': 'no files'})
+        destination = open(os.path.join("uploadFile", myFile.name), 'wb+')    # 打开特定的文件进行二进制的写操作
+        for chunk in myFile.chunks():      # 分块写入文件
+            destination.write(chunk)
+        destination.close()
+        return JsonResponse({'message': 'Done'})
+
+
 def export_questionaire(request):
     q_e = request.GET.get('questionaire_evalname')
     file_name = u"questionaire_" + str(q_e) + ".xls"

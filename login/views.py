@@ -157,6 +157,7 @@ def user(request):
                         'content': x.table_question_content_col_content,
                         'indicator_id': x.table_question_content_col_indicator_id
                     })
+                page_num = 0
             else:
                 num = int(page)
                 for x in list[num]:
@@ -165,11 +166,13 @@ def user(request):
                         'content': x.table_question_content_col_content,
                         'indicator_id': x.table_question_content_col_indicator_id
                     })
-            return render(request, 'user/user.html', {'question': question, 'preview_length': len(list),'user':user_name,'orgname':orgname})
+                page_num = num
+            return render(request, 'user/user.html', {'question': question, 'preview_length': len(list),
+                                                      'user': user_name, 'orgname': orgname, 'page_num': page_num})
         else:
-            return render(request, 'user/user.html',{'user':user_name,'orgname':orgname})
+            return render(request, 'user/user.html', {'user': user_name, 'orgname': orgname})
     else:
-        return render(request, 'user/user.html',{'user':user_name,'orgname':orgname})
+        return render(request, 'user/user.html', {'user': user_name, 'orgname': orgname})
 
 
 def expert(request):

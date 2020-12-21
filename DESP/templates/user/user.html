@@ -2,6 +2,36 @@
 <!DOCTYPE html>
 <html lang="en" class="loading">
 <head>
+    <style>
+        ul.pagination {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul.pagination li {
+            display: inline;
+        }
+
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+            border: 1px solid #ddd;
+        }
+
+        ul.pagination li a.active {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+        }
+
+        ul.pagination li a:hover:not(.active) {
+            background-color: #ddd;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,7 +81,7 @@
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
-                                    <p>欢迎你，{{ orgname }}用户&nbsp&nbsp&nbsp{{ user }}</p>
+                    <p>欢迎你，{{ orgname }}用户&nbsp&nbsp&nbsp{{ user }}</p>
                     <ul class="layui-nav-item">
                         <li class="dropdown layui-nav-item mr-0">
                             <a id="dropdownBasic3" href="#" data-toggle="dropdown"
@@ -105,14 +135,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="card-block">
-                                    <div class="btn-group mr-2">
-                                        <button class="btn btn-danger dropdown-toggle" type="button"
-                                                data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                            选择
-                                        </button>
-                                        <div class="dropdown-menu" id="pages"></div>
-                                    </div>
+                                    <ul class="pagination">
+                                        <div id="pages"></div>
+                                    </ul>
                                     <div id="question_list" class="col-md-6 col-sm-6 col-12"></div>
                                     <input type="button" class="btn btn-warning" value="保存" onclick="submit()">
                                 </div>
@@ -132,68 +157,68 @@
                         </div>
                     </div>
                     <div class="layui-tab-item">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="card-title-wrap bar-success">
-                                            <h4 class="card-title">单位报告</h4>
-                                            <fieldset class="layui-elem-field layui-field-title"
-                                                      style="margin-top: 20px;">
-                                                <legend>2019评估项目报告</legend>
-                                            </fieldset>
-                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
-                                            </button>
-                                            <fieldset class="layui-elem-field layui-field-title"
-                                                      style="margin-top: 20px;">
-                                                <legend>网络信息评估报告</legend>
-                                            </fieldset>
-                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
-                                            </button>
-                                        </div>
-                                    </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrap bar-success">
+                                    <h4 class="card-title">单位报告</h4>
+                                    <fieldset class="layui-elem-field layui-field-title"
+                                              style="margin-top: 20px;">
+                                        <legend>2019评估项目报告</legend>
+                                    </fieldset>
+                                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                    </button>
+                                    <fieldset class="layui-elem-field layui-field-title"
+                                              style="margin-top: 20px;">
+                                        <legend>网络信息评估报告</legend>
+                                    </fieldset>
+                                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                    </button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                     <div class="layui-tab-item">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="card-title-wrap bar-success">
-                                            <h4 class="card-title">整体报告</h4>
-                                            <fieldset class="layui-elem-field layui-field-title"
-                                                      style="margin-top: 20px;">
-                                                <legend>2019评估项目报告</legend>
-                                            </fieldset>
-                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
-                                            </button>
-                                            <fieldset class="layui-elem-field layui-field-title"
-                                                      style="margin-top: 20px;">
-                                                <legend>网络信息评估报告</legend>
-                                            </fieldset>
-                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
-                                            </button>
-                                        </div>
-                                    </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrap bar-success">
+                                    <h4 class="card-title">整体报告</h4>
+                                    <fieldset class="layui-elem-field layui-field-title"
+                                              style="margin-top: 20px;">
+                                        <legend>2019评估项目报告</legend>
+                                    </fieldset>
+                                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                    </button>
+                                    <fieldset class="layui-elem-field layui-field-title"
+                                              style="margin-top: 20px;">
+                                        <legend>网络信息评估报告</legend>
+                                    </fieldset>
+                                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                    </button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                     <div class="layui-tab-item">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="card-title-wrap bar-success">
-                                            <h4 class="card-title">附件</h4>
-                                            <fieldset class="layui-elem-field layui-field-title"
-                                                      style="margin-top: 20px;">
-                                                <legend>2020评估任务指南</legend>
-                                            </fieldset>
-                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
-                                            </button>
-                                            <fieldset class="layui-elem-field layui-field-title"
-                                                      style="margin-top: 20px;">
-                                                <legend>用户系统操作手册</legend>
-                                            </fieldset>
-                                            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
-                                            </button>
-                                        </div>
-                                    </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrap bar-success">
+                                    <h4 class="card-title">附件</h4>
+                                    <fieldset class="layui-elem-field layui-field-title"
+                                              style="margin-top: 20px;">
+                                        <legend>2020评估任务指南</legend>
+                                    </fieldset>
+                                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                    </button>
+                                    <fieldset class="layui-elem-field layui-field-title"
+                                              style="margin-top: 20px;">
+                                        <legend>用户系统操作手册</legend>
+                                    </fieldset>
+                                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">下载
+                                    </button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                 </div>
                 <!--/ Base style table -->
             </div>
@@ -388,8 +413,11 @@
         }
     }
     for (i = 0; i < {{ preview_length|safe }}; i++) {
-        $("#pages").append("<a class=\"dropdown-item\" onclick=\"preview(this.text)\">" + i + "</a>")
+        $("#pages").append("<li><a id=" + i + " class=\"\" onclick=\"preview(this.text)\" >" + i + "</a></li>")
     }
+
+    value_num = {{ page_num|safe }}
+        document.getElementById(value_num).className = 'active'
 
     function preview(value) {
         window.location.href = "{% url 'user' %}?page=" + value + ""

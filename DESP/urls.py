@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from administrator import views
 from login import views as login_views
 from user import views as user_views
 from django.conf.urls import include, url
@@ -38,4 +40,7 @@ urlpatterns = [
     url(r'visualization', include('visualization.urls')),
     url(r'expert', include('expert.urls')),
     url(r'manager', include('manager.urls')),
+
+    url(r'^uploadFile/', views.upload_file, name='upload_file'),  # 项目timeliner上传文件
+    url(r'^fp/', include('django_drf_filepond.urls')),
 ]
