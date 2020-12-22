@@ -9,7 +9,8 @@ class TableOrganization(models.Model):
     table_organization_col_name = models.CharField(db_column='Table_Organization_col_Name',
 
                                                    max_length=100,unique=True)  # Field name made lowercase.
-
+    table_organization_col_code = models.CharField(db_column='Table_Organization_col_Code',
+                                                   max_length=100, unique=True,blank=True,null=True)
     table_organization_col_address = models.CharField(db_column='Table_Organization_col_Address',
                                                       max_length=100, null=True)  # Field name made lowercase.
     table_organization_col_postcode = models.CharField(db_column='Table_Organization_col_Postcode',

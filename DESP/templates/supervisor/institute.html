@@ -73,6 +73,13 @@
                         </div>
                     </div>
                     <div>
+                        <label>机构代码</label>
+                        <div>
+                            <input type="text" id="create_code"
+                                   name="code" required>
+                        </div>
+                    </div>
+                    <div>
                         <label>机构地址</label>
                         <div>
                             <input type="text" id="create_location"
@@ -125,6 +132,13 @@
                         <div>
                             <input type="text" id="edit_name"
                                    name="name" value="" required>
+                        </div>
+                    </div>
+                     <div>
+                        <label>机构代码</label>
+                        <div>
+                            <input type="text" id="edit_code"
+                                   name="code" required>
                         </div>
                     </div>
                     <div>
@@ -364,13 +378,10 @@
                                                href="{% url "download_organization" %}">下载模板</a>
                                         </p>
 
-                                        <div style="width: 600px">
-                                            <input id="keyword" type="search" placeHolder="搜索关键字"/>
-                                        </div>
+
                                         <div>
 
                                             <ul id="root" class="ztree"></ul>
-{#                                            <button onclick="organization_add()" >增加顶级机构</button>#}
                                             <div class="layui-tab" lay-filter="demo">
                                                 <ul class="layui-tab-title">
                                                     {% for each in tree %}
@@ -382,6 +393,9 @@
                                                     {% endfor %}
                                                 </ul>
                                                 <div class="layui-tab-content">
+                                                                                        <div style="width: 600px">
+                                            <input id="keyword" type="search" placeHolder="搜索关键字"/>
+                                        </div>
                                                                 <div class="layui-tab-item layui-show">
                                                                     <ul id="0" class="ztree"></ul>
                                                                 </div>
@@ -478,15 +492,13 @@
             onClick: NodeClick
         },
     };
-for (i = 0; i <{{ length }}; i++) {
+    for (i = 0; i <{{ length }}; i++) {
         zTree = $.fn.zTree.init($("#" + i), setting, trees[i]);
         zTree.expandAll(true);
         fuzzySearch(i, '#keyword', null, true);
     }
 
     var zTree1 = $.fn.zTree.init($("#root"), setting, {{ rooty | safe}});
-
-
 
     function organization_add() {
         $('#mymodal').modal('show');
@@ -506,6 +518,7 @@ for (i = 0; i <{{ length }}; i++) {
             dataType: 'json',
             success: function (data) {
                 $("#edit_name").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_name);
+                $("#edit_code").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_code);
                 $("#edit_location").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_address);
                 $("#edit_zipcode").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_postcode);
                 $("#edit_parent").attr("value", data.parent);
@@ -568,6 +581,7 @@ for (i = 0; i <{{ length }}; i++) {
     $("#CreateForm_Content").submit(function (event) {
         event.preventDefault();
         var create_name = $("#create_name").val();
+        var create_code = $("#create_code").val();
         var create_location = $('#create_location').val();
         var create_zipcode = $('#create_zipcode').val();
         var parent_name = Nodename;
@@ -576,6 +590,7 @@ for (i = 0; i <{{ length }}; i++) {
             type: 'POST',
             data: {
                 "create_name": create_name,
+                "create_code": create_code,
                 "create_location": create_location,
                 'create_zipcode': create_zipcode,
                 'parent_name': parent_name,
@@ -599,6 +614,7 @@ for (i = 0; i <{{ length }}; i++) {
         event.preventDefault();
         var edit_id = NodeID;
         var edit_name = $("#edit_name").val();
+        var edit_code = $("#edit_code").val();
         var edit_location = $("#edit_location").val();
         var edit_zipcode = $("#edit_zipcode").val();
         var edit_field = $("#edit_field").val();
@@ -608,6 +624,7 @@ for (i = 0; i <{{ length }}; i++) {
             data: {
                 "edit_id": edit_id,
                 "edit_name": edit_name,
+                "edit_code": edit_code,
                 "edit_location": edit_location,
                 "edit_zipcode": edit_zipcode,
                 "edit_field": edit_field,
@@ -688,242 +705,6 @@ for (i = 0; i <{{ length }}; i++) {
         return false;
     });
 </script>
-
-{#<script>#}
-{#    $.ajaxSetup({#}
-{#        data: {csrfmiddlewaretoken: "{{ csrf_token }}"},#}
-{#    });#}
-{#    var setting = {#}
-{#        view: {#}
-{#            selectedMulti: false,#}
-{#            nameIsHTML: true#}
-{#        },#}
-{#        edit: {#}
-{#            enable: false,#}
-{#            editNameSelectAll: false#}
-{#        },#}
-{#        data: {#}
-{#            simpleData: {#}
-{#                enable: true#}
-{##}
-{#            },#}
-{#            keep: {#}
-{#                parent: true#}
-{##}
-{#            }#}
-{#        },#}
-{#        callback: {#}
-{#            onClick: NodeClick1,#}
-{#        },#}
-{#    };#}
-{##}
-{#    var zTree1 = $.fn.zTree.init($("#root"), setting, {{ rooty | safe}});#}
-{##}
-{#    zTree1.expandAll(true);#}
-{#    fuzzySearch('root', '#keyword', null, true);#}
-{##}
-{#    function organization_add1() {#}
-{##}
-{#        $('#mymodal').modal('show');#}
-{#    }#}
-{##}
-{#    function organization_edit1() {#}
-{##}
-{#        $.ajax({#}
-{#            type: 'GET',#}
-{#            data: {#}
-{##}
-{#                'edit_id': NodeID,#}
-{#                'parent_id': parentID#}
-{##}
-{#            },#}
-{#            url: "{% url "organization_edit" %}",#}
-{#            dataType: 'json',#}
-{#            success: function (data) {#}
-{#                $("#edit_name").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_name);#}
-{#                $("#edit_location").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_address);#}
-{#                $("#edit_zipcode").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_postcode);#}
-{#                $("#edit_parent").attr("value", data.parent);#}
-{#                $("#edit_field").attr("value", eval("(" + data.org + ")")[0].fields.table_organization_col_field);#}
-{#            }#}
-{#        });#}
-{#        $('#mymodal_edit').modal('show');#}
-{#    }#}
-{##}
-{#    function organization_delete1() {#}
-{#        var nodes = zTree.getSelectedNodes();#}
-{#        var eval_org ={{ array|safe }};#}
-{#        if (eval_org.indexOf(Nodename) > -1) {#}
-{#            alert("该机构在使用中，不允许删除");#}
-{#            $("#rMenu").hide();#}
-{#        } else if (nodes && nodes.length > 0) {#}
-{#            if (nodes[0].children && nodes[0].children.length > 0) {#}
-{##}
-{#                $('#mymodal_deleteroot').modal('show');#}
-{##}
-{#            } else {#}
-{#                $('#mymodal_delete').modal('show');#}
-{#            }#}
-{#        }#}
-{#    }#}
-{##}
-{##}
-{#    function NodeClick1(event, treeId, treeNode) {#}
-{#        Nodename = treeNode.name;#}
-{#        NodeID = treeNode.id;#}
-{#        parentID = treeNode.pId;#}
-        {#alert(treeNode.children);#}
-{#        if (treeNode.type === 0) {#}
-{#            return;#}
-{#        }#}
-{#        showRMenu(treeNode.pId, event.pageX, event.pageY);#}
-        {#alert(event.clientX)#}
-{#    }#}
-{##}
-{#    function showRMenu1(type, x, y) {#}
-{#        $("#rMenu").show();#}
-{#        if (type === null) {#}
-{#            $("#item_edit").hide();#}
-{#        } else {#}
-{#            $("#item_edit").show();#}
-{#            $("#item_add").show();#}
-{#            $("#item_del").show();#}
-{#        }#}
-{#        $("#rMenu").css({"top": y + "px", "left": x + "px", "visibility": "visible", 'z-index': '50'}); //设置右键菜单的位置、可见#}
-{#        $("body").bind("mousedown", onBodyMouseDown);#}
-{#    }#}
-{##}
-{#    //鼠标按下事件#}
-{#    function onBodyMouseDown1(event) {#}
-{#        if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length > 0)) {#}
-{#            $("#rMenu").css({"visibility": "hidden"});#}
-{#        }#}
-{#    }#}
-{##}
-{#    $("#CreateForm_Content").submit(function (event) {#}
-{#        event.preventDefault();#}
-{#        var create_name = $("#create_name").val();#}
-{#        var create_location = $('#create_location').val();#}
-{#        var create_zipcode = $('#create_zipcode').val();#}
-{#        var parent_name = Nodename;#}
-{#        var create_field = $('#create_field').val();#}
-{#        $.ajax({#}
-{#            type: 'POST',#}
-{#            data: {#}
-{#                "create_name": create_name,#}
-{#                "create_location": create_location,#}
-{#                'create_zipcode': create_zipcode,#}
-{#                'parent_name': parent_name,#}
-{#                'create_field': create_field,#}
-{##}
-{#            },#}
-{#            url: "{% url "organization_create" %}",#}
-{#            cache: false,#}
-{#            dataType: "json",#}
-{#            success: function (data) {#}
-{#                window.location = 'institute';#}
-{#                alert(data.message)#}
-{#            },#}
-{#            error: function () {#}
-{#                alert.error('Error');#}
-{#            }#}
-{#        });#}
-{#        return false;#}
-{#    });#}
-{#    $("#EditForm_Content").submit(function (event) {#}
-{#        event.preventDefault();#}
-{#        var edit_id = NodeID;#}
-{#        var edit_name = $("#edit_name").val();#}
-{#        var edit_location = $("#edit_location").val();#}
-{#        var edit_zipcode = $("#edit_zipcode").val();#}
-{#        var edit_field = $("#edit_field").val();#}
-{#        var edit_parent = $("#edit_parent").val();#}
-{#        $.ajax({#}
-{#            type: 'POST',#}
-{#            data: {#}
-{#                "edit_id": edit_id,#}
-{#                "edit_name": edit_name,#}
-{#                "edit_location": edit_location,#}
-{#                "edit_zipcode": edit_zipcode,#}
-{#                "edit_field": edit_field,#}
-{#                "edit_parent": edit_parent#}
-{#            },#}
-{#            async: false,#}
-{#            url: "{% url "organization_edit" %}",#}
-{#            cache: false,#}
-{#            dataType: "json",#}
-{#            success: function (data) {#}
-{#                window.location = 'institute';#}
-{#                alert(data.message)#}
-{##}
-{#            },#}
-{#            error: function () {#}
-{#                window.location = 'institute';#}
-{#                alert(data.message)#}
-{##}
-{##}
-{#            }#}
-{#        });#}
-{#        return false;#}
-{#    });#}
-{#    $("#DeleteForm_Content,#DeleteRootForm_Content").submit(function () {#}
-{#        var delete_id = NodeID;#}
-{#        $.ajax({#}
-{#            type: 'POST',#}
-{#            data: {#}
-{#                "delete_id": delete_id,#}
-{#            },#}
-{#            async: false,#}
-{#            url: "{% url "organization_delete" %}",#}
-{#            cache: false,#}
-{#            dataType: "HTML",#}
-{#            success: function (data) {#}
-{#                window.location = 'institute';#}
-{#                alert.success(data.message);#}
-{##}
-{#            },#}
-{#            error: function () {#}
-{#                alert.error('Error');#}
-{##}
-{##}
-{#            }#}
-{#        });#}
-{#        return false;#}
-{#    });#}
-{##}
-{#    $("#UpdateForm_Content_Org").submit(function () {#}
-{#        var file = $('input[type=file]')[0].files[0];#}
-{#        var formdata = new FormData();#}
-{#        var csrf = $('input[name=csrfmiddlewaretoken]').val();#}
-{#        formdata.append('file_obj_org', file);#}
-{#        formdata.append('csrfmiddlewaretoken', csrf);#}
-{#        $.ajax({#}
-{#            type: 'POST',#}
-{#            async: false,#}
-{#            data: formdata,#}
-{#            url: "{% url "upload_organization" %}",#}
-{#            cache: false,#}
-{#            dataType: "json",#}
-{#            processData: false,#}
-{#            contentType: false,#}
-{#            header: {#}
-{#                'X-CSRFToken': $.cookie('csrftoken'),#}
-{#            },#}
-{#            success: function (data) {#}
-{#                window.location = 'institute';#}
-{#                alert.success(data.message);#}
-{#                console.log(data.message)#}
-{##}
-{#            },#}
-{#            error: function (data) {#}
-{#                alert('表格内容错误，请重新检查并上传!');#}
-{##}
-{#            }#}
-{#        });#}
-{#        return false;#}
-{#    });#}
-{#</script>#}
-
 <!-- END PAGE LEVEL JS-->
 <script>
     layui.use('element', function () {

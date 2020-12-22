@@ -86,6 +86,7 @@ def institute(request):
 def organization_create(request):
     if request.method == 'POST':
         organization_name = request.POST.get('create_name')
+        organization_code = request.POST.get('create_code')
         organization_location = request.POST.get('create_location')
         organization_zipcode = request.POST.get('create_zipcode')
         parent = models.TableOrganization.objects.get(table_organization_col_name=request.POST.get('parent_name'))
@@ -101,7 +102,8 @@ def organization_create(request):
                                                         table_organization_col_address=organization_location,
                                                         table_organization_col_postcode=organization_zipcode,
                                                         table_organization_col_field=organization_field,
-                                                        table_organization_col_parent_name=parent)
+                                                        table_organization_col_parent_name=parent,
+                                                        table_organization_col_code=organization_code)
                 return JsonResponse({'state': 1, 'message': '创建成功!'})
             except Exception as e:
                 return JsonResponse({'state': 0, 'message': 'Create Error: ' + str(e)})
@@ -123,6 +125,7 @@ def organization_edit(request):
         organization_name = request.POST.get('edit_name')
         organization_location = request.POST.get('edit_location')
         organization_zipcode = request.POST.get('edit_zipcode')
+        organization_code=request.POST.get('edit_code')
 
         try:
             parent = models.TableOrganization.objects.get(
@@ -143,7 +146,8 @@ def organization_edit(request):
                 table_organization_col_address=organization_location,
                 table_organization_col_postcode=organization_zipcode,
                 table_organization_col_field=organization_field,
-                table_organization_col_parent_name=parent
+                table_organization_col_parent_name=parent,
+                table_organization_col_code=organization_code
             )
             return JsonResponse({'state': 1, 'message': '修改成功!'})
         except Exception as e:
@@ -166,8 +170,8 @@ def organization_export(request):
     response.write(codecs.BOM_UTF8)
     response['Content-Disposition'] = "attachment;filename=organization.csv"
     writer = csv.writer(response)
-    org_csv = models.TableOrganization.objects.filter(~Q(table_organization_col_name='机构列表'))
-    writer.writerow(['Org_ID', 'Org_Name','Org_Address','Org_Post','Org_Field','Org_Parent_Name'])
+    org_csv = models.TableOrganization.objects.filter(~Q(table_organization_col_name='顶层机构操作'))
+    writer.writerow(['Org_ID','Org_Name','Org_Code','Org_Address','Org_Post','Org_Field','Org_Parent_Name'])
     write_length= len(org_csv)
     write_position=0
     while write_position < write_length:
@@ -175,9 +179,9 @@ def organization_export(request):
             org_row = org_csv[write_position]
             parent_org_query = org_row.table_organization_col_parent_name
             parent_org = parent_org_query.table_organization_col_name
-            if parent_org == '机构列表':
+            if parent_org == '顶层机构操作':
                 try:
-                    writer.writerow([org_row.table_organization_col_id, org_row.table_organization_col_name,
+                    writer.writerow([org_row.table_organization_col_id, org_row.table_organization_col_name,org_row.table_organization_col_code,
                                      org_row.table_organization_col_address, org_row.table_organization_col_postcode,
                                      org_row.table_organization_col_field])
                     write_position += 1
@@ -185,7 +189,7 @@ def organization_export(request):
                     return JsonResponse({'message':'顶级机构问题'})
             else:
                 try:
-                    writer.writerow([org_row.table_organization_col_id, org_row.table_organization_col_name,
+                    writer.writerow([org_row.table_organization_col_id, org_row.table_organization_col_name,org_row.table_organization_col_code,
                                      org_row.table_organization_col_address, org_row.table_organization_col_postcode,
                                      org_row.table_organization_col_field, parent_org])
                     write_position += 1
@@ -388,6 +392,7 @@ def people(request):
 
 
 def organization_evaluation(request):
+    user_name = request.session['user_name']
     org_eval = models.TableEvaluation.objects.all()
     organizations = models.TableOrganization.objects.filter(~Q(table_organization_col_name="机构树"))
     users = models.TableUser.objects.filter(table_user_col_type_id=1)
