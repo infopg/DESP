@@ -170,7 +170,7 @@ def organization_export(request):
     response.write(codecs.BOM_UTF8)
     response['Content-Disposition'] = "attachment;filename=organization.csv"
     writer = csv.writer(response)
-    org_csv = models.TableOrganization.objects.filter(~Q(table_organization_col_name='顶层机构操作'))
+    org_csv = models.TableOrganization.objects.filter(~Q(table_organization_col_name='机构列表'))
     writer.writerow(['Org_ID','Org_Name','Org_Code','Org_Address','Org_Post','Org_Field','Org_Parent_Name'])
     write_length= len(org_csv)
     write_position=0
@@ -179,14 +179,14 @@ def organization_export(request):
             org_row = org_csv[write_position]
             parent_org_query = org_row.table_organization_col_parent_name
             parent_org = parent_org_query.table_organization_col_name
-            if parent_org == '顶层机构操作':
+            if parent_org == '机构列表':
                 try:
                     writer.writerow([org_row.table_organization_col_id, org_row.table_organization_col_name,org_row.table_organization_col_code,
                                      org_row.table_organization_col_address, org_row.table_organization_col_postcode,
                                      org_row.table_organization_col_field])
                     write_position += 1
                 except:
-                    return JsonResponse({'message':'顶级机构问题'})
+                    return JsonResponse({'message':'根问题'})
             else:
                 try:
                     writer.writerow([org_row.table_organization_col_id, org_row.table_organization_col_name,org_row.table_organization_col_code,

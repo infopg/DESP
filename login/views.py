@@ -17,6 +17,11 @@ from . import models
 import datetime
 from django.db.models import Q
 from django.http import JsonResponse
+from django.shortcuts import render, HttpResponse, redirect
+import xlwt
+from io import BytesIO
+from xlwt import Workbook
+from django.utils.encoding import escape_uri_path
 
 
 
@@ -174,6 +179,7 @@ def user(request):
             if page == None:
                 for x in list[0]:
                     question.append({
+                        'question_id': x.table_question_content_col_question_id,
                         'question_type': x.table_question_content_col_question_type,
                         'content': x.table_question_content_col_content,
                         'indicator_id': x.table_question_content_col_indicator_id
@@ -183,11 +189,13 @@ def user(request):
                 num = int(page)
                 for x in list[num]:
                     question.append({
+                        'question_id': x.table_question_content_col_question_id,
                         'question_type': x.table_question_content_col_question_type,
                         'content': x.table_question_content_col_content,
                         'indicator_id': x.table_question_content_col_indicator_id
                     })
                 page_num = num
+            print(question)
             return render(request, 'user/user.html', {'question': question, 'preview_length': len(list),
                                                       'user': user_name, 'orgname': orgname, 'page_num': page_num})
         else:
@@ -314,7 +322,10 @@ def download_form(request):
     select_question = TableQuestionContent.objects.get(table_question_content_col_question_id=question_id)
     indicator_id = select_question.table_question_content_col_indicator_id
     question_num = select_question.table_question_content_col_question_number
-    question_content = select_question.table_question_content_col_content
+    # content转化为字典
+    question_content = eval(select_question.table_question_content_col_content)
+    content_title = question_content['title']
+    content_column = question_content['column']
 
     workbook = Workbook(encoding='utf-8')
     file_name = u"form_" + str(indicator_id) + "_" + str(question_num) + ".xls"
@@ -337,10 +348,19 @@ def download_form(request):
     for num in range(0, 10):
         worksheet.col(num).width = 150 * 20
 
-    # content_title = question_content['title']
-    # print(content_title)
+    worksheet.write(0, 0, "题目", style)
+    worksheet.write(0, 1, "id", style)
+    worksheet.write(0, 2, "指标id", style)
+    worksheet.write(0, 3, "题号", style)
 
-    worksheet.write(0, 0, "指标id", style)
+    worksheet.write(1, 0, content_title, style)
+    worksheet.write(1, 1, question_id, style)
+    worksheet.write(1, 2, indicator_id, style)
+    worksheet.write(1, 3, question_num, style)
+
+    for x in range(0, len(content_column)):
+        worksheet.write(2, x, str(x+1), style)
+        worksheet.write(3, x, content_column[x], style)
 
     output = BytesIO()
     workbook.save(output)
