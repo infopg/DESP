@@ -16,6 +16,8 @@ from . import forms
 from . import models
 import datetime
 from django.db.models import Q
+from django.http import JsonResponse
+
 
 
 # Create your views here.
@@ -85,6 +87,25 @@ def login(request):
 
     login_form = forms.UserForm()
     return render(request, 'login/login.html', locals())
+
+def reset(request):
+    user_name = request.session['user_name']
+    if request.method == 'POST':
+        user_password = request.POST.get('edit_password')
+        user_password_twice = request.POST.get('edit_password_twice')
+        if user_password != user_password_twice:
+            message = '你两次输入的密码不一致，请重新输入'
+            return JsonResponse({'message': message})
+        try:
+            models.TableUser.objects.filter(table_user_col_name=user_name).update(
+                                                                              table_user_col_password=make_password(
+                                                                                  user_password)
+                                                                              )
+            print(user_password)
+            return JsonResponse({'state': 1, 'message': '修改成功!'})
+        except Exception as e:
+            print(e)
+            return JsonResponse({'state': 0, 'message': 'Create Error: ' + str(e)})
 
 
 def supervisor(request):
@@ -287,3 +308,44 @@ def abstract(request):
 
 def Aboutus(request):
     return render(request, 'login/Aboutus.html')
+
+def download_form(request):
+    question_id = request.GET.get('form')
+    select_question = TableQuestionContent.objects.get(table_question_content_col_question_id=question_id)
+    indicator_id = select_question.table_question_content_col_indicator_id
+    question_num = select_question.table_question_content_col_question_number
+    question_content = select_question.table_question_content_col_content
+
+    workbook = Workbook(encoding='utf-8')
+    file_name = u"form_" + str(indicator_id) + "_" + str(question_num) + ".xls"
+    sheet_str = "" + str(question_id) + "_" + str(indicator_id) + "_" + str(question_num)
+    worksheet = workbook.add_sheet(sheet_str)
+
+    # 样式
+    style = xlwt.XFStyle()  # 创建一个样式对象，初始化样式
+    al = xlwt.Alignment()
+    al.horz = 0x02  # 设置水平居中
+    al.vert = 0x01  # 设置垂直居中
+    style.alignment = al
+    style.alignment.wrap = 1
+    # 设置行高
+    tall_style = xlwt.easyxf('font:height 720;')  # 36pt,类型小初的字号
+    for num in range(0, 20):
+        row_set = worksheet.row(num)
+        row_set.set_style(tall_style)
+    # 设置列宽
+    for num in range(0, 10):
+        worksheet.col(num).width = 150 * 20
+
+    # content_title = question_content['title']
+    # print(content_title)
+
+    worksheet.write(0, 0, "指标id", style)
+
+    output = BytesIO()
+    workbook.save(output)
+    output.seek(0)
+    response = HttpResponse(output.getvalue(), content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(escape_uri_path(file_name))
+    response.write(output.getvalue())
+    return response

@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('logout', login_views.logout, name='logout'),
+    path('reset', login_views.reset, name='reset'),
     path('supervisor', login_views.supervisor, name='supervisor'),
     path('administrator', login_views.administrator, name='administrator'),
     path('user', login_views.user, name='user'),
@@ -43,4 +44,5 @@ urlpatterns = [
 
     url(r'^uploadFile/', views.upload_file, name='upload_file'),  # 项目timeliner上传文件
     url(r'^fp/', include('django_drf_filepond.urls')),
+    url(r'^download_form/', login_views.download_form, name='download_form'),
 ]

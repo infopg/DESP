@@ -268,159 +268,199 @@
         var question_type = q[i]['question_type'];
         if (q[i]['question_type'] === '选择题') {
             var len = $(".div_question").length + 1;
-            $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
-                "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
-                "                                                            <div>\n" +
-                "<h5 style=\'display: inline\'>" + len + '.' + ' ' + "</h5>" +
-                "                                                                <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + ' </h5>\n' +
-                "                                                            </div>\n" +
-                "                                                            <div>\n" +
-                "                                                                <ul class=\"choice_list\">\n" +
-                "                                                                </ul>\n" +
-                "                                                            </div>\n" +
-                "                                                        </div>\n" +
-                "                                                        <div>\n" +
-                "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
-                "                                                                   value=\"选择题\">\n" +
-                "<input style=\"display: none\" name=\"questionnumber\"\n" +
-                "                                                                   value= " + len + ">\n" +
-                "</div>" +
-                "                                                    </form>\n" +
-                "                                                </div>"
-            );
+            $('#question_list').append("" +
+                "<div class=\"div_question\" id = " + len + ">\n" +
+                "    <form method=\"post\" class=\"form-horizontal\">\n" +
+                "        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
+                "            <div>\n" +
+                "                <h5 style=\'display: inline\'>" + len + '.' + ' ' + "</h5>" +
+                "                <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + "</h5>\n" +
+                "            </div>\n" +
+                "            <div>\n" +
+                "               <ul class=\"choice_list\"></ul>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <div>\n" +
+                "           <input style=\"display: none\" name=\"questiontype\" + value=\"选择题\">\n" +
+                "           <input style=\"display: none\" name=\"questionnumber\" + value= " + len + ">\n" +
+                "        </div>" +
+                "    </form>\n" +
+                "</div><br>");
             for (var x = 0; x < JSON.parse(q[i]['content'])['answer'].length; x++) {
-                $('.div_question').last().find('.choice_list').append("                                                                    <li class=\"mb-2\">\n" +
-                    "                                                                        <input type=\"checkbox\" name='choice' data-index = " + x + " onclick =\"ischecked(event)\">\n" +
-                    "                                                                        <span>" + JSON.parse(q[i]['content'])['answer'][x] + "</span></li>\n")
+                $('.div_question').last().find('.choice_list').append("" +
+                    "<li class=\"mb-2\">\n" +
+                    "   <input type=\"checkbox\" name='choice' data-index = " + x + " onclick =\"ischecked(event)\">\n" +
+                    "   <span>" + JSON.parse(q[i]['content'])['answer'][x] + "</span>" +
+                    "</li>\n");
             }
         } else if (q[i]['question_type'] === '填空题') {
             var len = $(".div_question").length + 1;
-            $('#question_list').append("                                               <div class=\"div_question\" id = " + len + ">\n" +
-                "                                                        <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                            <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
-                "                                                        <div>\n" +
-                "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
-                "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
-                "                                                        </div>\n" +
-                "                                                            </div>\n" +
-                "                                                    <div>\n" +
-                "                                                        <input style=\"display: none\" name=\"questiontype\" value=\"填空题\">\n" +
-                "                                                        <input style=\"display: none\" name=\"questionnumber\" value= " + len + ">\n" +
-                "</div>" +
-                "                                                            </form>\n" +
-                "                                                </div>");
+            $('#question_list').append("" +
+                "<div class=\"div_question\" id = " + len + ">\n" +
+                "   <form method=\"post\" class=\"form-horizontal\">\n" +
+                "       <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
+                "           <div>\n" +
+                "               <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+                "               <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
+                "           </div>\n" +
+                "       </div>\n" +
+                "       <div>\n" +
+                "           <input style=\"display: none\" name=\"questiontype\" value=\"填空题\">\n" +
+                "           <input style=\"display: none\" name=\"questionnumber\" value= " + len + ">\n" +
+                "       </div>" +
+                "   </form>\n" +
+                "</div><br>");
         } else if (q[i]['question_type'] === '简答题') {
             var len = $(".div_question").length + 1;
-            $('#question_list').append("                                      <div class=\"div_question\" id = " + len + ">\n" +
-                "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                    <div onclick = \"toggle_edit(event)\" class='toggle'>\n" +
-                "                                                        <div>\n" +
-                "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
-                "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
-                "<textarea class=\'form-control\' name=\'answerarea\' disabled>答题区域</textarea>" +
-                "                                                        </div>\n" +
-                "                                                    </div>\n" +
-                "                                                    <div>\n" +
-                "                                                        <input style=\"display: none\" name=\"questiontype\" value=\'简答题\'>\n" +
-                "                                                        <input style=\"display: none\" name=\"questionnumber\" value= " + len + ">\n" +
-                "</div>" +
-                "                                                        </form>\n" +
-                "                                                </div>");
+            $('#question_list').append("" +
+                "<div class=\"div_question\" id = " + len + ">\n" +
+                "   <form method=\"post\" class=\"form-horizontal\">\n" +
+                "       <div onclick = \"toggle_edit(event)\" class='toggle'>\n" +
+                "           <div>\n" +
+                "               <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+                "               <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
+                "               <textarea class=\'form-control\' name=\'answerarea\' disabled>答题区域</textarea>" +
+                "           </div>\n" +
+                "       </div>\n" +
+                "       <div>\n" +
+                "           <input style=\"display: none\" name=\"questiontype\" value=\'简答题\'>\n" +
+                "           <input style=\"display: none\" name=\"questionnumber\" value= " + len + ">\n" +
+                "       </div>" +
+                "   </form>\n" +
+                "</div><br>");
         } else if (q[i]['question_type'] === '矩阵题') {
             var len = $(".div_question").length + 1;
-            $('#question_list').append("                                <div class=\"div_question\" id = " + len + ">\n" +
-                "                                                    <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                        <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
-                "                                                            <div>\n" +
-                "                                                                <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
-                "                                                                <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
-                "                                                            </div>\n" +
-                "                                                            <div>\n" +
-                "                                                                <table class=\"table table-responsive-sm text-left\"  style=\"table-layout:fixed;\">\n" +
-                "                                                                    <thead>\n" +
-                "                                                                    <tr>\n" +
-                "                                                                        <td></td>\n" +
-                "                                                                    </tr>\n" +
-                "                                                                    </thead>\n" +
-                "                                                                    <tbody>\n" +
-                "                                                                    </tbody>\n" +
-                "                                                                </table>\n" +
-                "                                                            </div>\n" +
-                "                                                        </div>\n" +
-                "                                                        <div>\n" +
-                "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
-                "                                                                   value=\"矩阵题\">\n" +
-                "<input style=\"display: none\" name=\"questionnumber\"\n" +
-                "                                                                   value= " + len + ">\n" +
-                "</div>" +
-                "                                                    </form>\n" +
-                "                                                </div>");
+            $('#question_list').append("" +
+                "<div class=\"div_question\" id = " + len + ">\n" +
+                "   <form method=\"post\" class=\"form-horizontal\">\n" +
+                "       <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
+                "           <div>\n" +
+                "               <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+                "               <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + " </h5>\n" +
+                "           </div>\n" +
+                "           <div>\n" +
+                "               <table class=\"table table-responsive-sm text-left\"  style=\"table-layout:fixed;\">\n" +
+                "                   <thead>\n" +
+                "                       <tr>\n" +
+                "                           <td></td>\n" +
+                "                       </tr>\n" +
+                "                   </thead>\n" +
+                "                   <tbody></tbody>\n" +
+                "               </table>\n" +
+                "           </div>\n" +
+                "       </div>\n" +
+                "       <div>\n" +
+                "           <input style=\"display: none\" name=\"questiontype\" + value=\"矩阵题\">\n" +
+                "           <input style=\"display: none\" name=\"questionnumber\" + value= " + len + ">\n" +
+                "       </div>" +
+                "   </form>\n" +
+                "</div><br>");
             for (var x = 0; x < JSON.parse(q[i]['content'])['column'].length; x++) {
-                $('.div_question').last().find('table').eq(0).children('thead').children().eq(0).append(" <td>" + JSON.parse(q[i]['content'])['column'][x] + "</td>\n")
+                $('.div_question').last().find('table').eq(0).children('thead').children().eq(0).append("" +
+                    "<td>" + JSON.parse(q[i]['content'])['column'][x] + "</td>\n");
             }
             for (var y = 0; y < JSON.parse(q[i]['content'])['rows'].length; y++) {
-                $('.div_question').last().find('table').eq(0).children('tbody').append("<tr>\n" +
-                    "                                                                        <td>" + JSON.parse(q[i]['content'])['rows'][y] + "\n" +
-                    "                                                                        </td>\n" +
-                    "                                                                    </tr>\n");
+                $('.div_question').last().find('table').eq(0).children('tbody').append("" +
+                    "<tr>\n" +
+                    "   <td>" + JSON.parse(q[i]['content'])['rows'][y] + "\n" +
+                    "   </td>\n" +
+                    "</tr>\n");
                 for (var z = 0; z < JSON.parse(q[i]['content'])['column'].length; z++) {
-                    $('.div_question').last().find('table').eq(0).children('tbody').children().eq(y).append("<td><a class=\"ft-circle\"</a></td>")
+                    $('.div_question').last().find('table').eq(0).children('tbody').children().eq(y).append("" +
+                        "<td><a class=\"ft-circle\"</a></td>");
                 }
             }
         } else if (q[i]['question_type'] === '表格题') {
             var len = $(".div_question").length + 1;
-            $('#question_list').append("                                                <div class=\"div_question\" id = " + len + ">\n" +
-                "                                                     <form method=\"post\" class=\"form-horizontal\">\n" +
-                "                                                   <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
-                "                                                        <div>\n" +
-                "                                                            <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
-                "                                                            <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + "  </h5>\n" +
-                "                                                        </div>\n" +
-                "                                                         <div>\n" +
-                "                                                            <table class=\"table table-responsive-sm text-left\" style=\"table-layout: fixed;\">\n" +
-                "                                                                <thead>\n" +
-                "                                                                <tr>\n" +
-                "                                                                    <td></td>\n" +
-                "                                                                </tr>\n" +
-                "                                                                </thead>\n" +
-                "                                                                <tbody>\n" +
-                "                                                                </tbody>\n" +
-                "                                                            </table></div></div>\n" +
-                "                                                        <div>\n" +
-                "                                                            <input style=\"display: none\" name=\"questiontype\"\n" +
-                "                                                                   value=\"表格题\">\n" +
-                "<input style=\"display: none\" name=\"questionnumber\"\n" +
-                "                                                                   value= " + len + ">\n" +
-                "</div>" +
-                "                                            </form>\n" +
-                "                                            </div>");
+            $('#question_list').append("" +
+                "<div class=\"div_question\" id = " + len + ">\n" +
+                "   <form method=\"post\" class=\"form-horizontal\">\n" +
+                "       <div onclick=\"toggle_edit(event)\" class='toggle'>\n" +
+                "           <div>\n" +
+                "               <h5 style=\"display: inline\">" + len + '.' + ' ' + "</h5>\n" +
+                "               <h5 style=\"display: inline\">" + JSON.parse(q[i]['content'])['title'] + "  </h5>\n" +
+                "           </div>\n" +
+                "           <div>\n" +
+                "               <table class=\"table table-responsive-sm text-left\" style=\"table-layout: fixed;\">\n" +
+                "                   <thead>\n" +
+                "                       <tr>\n" +
+                "                           <td></td>\n" +
+                "                       </tr>\n" +
+                "                   </thead>\n" +
+                "                   <tbody></tbody>\n" +
+                "               </table>" +
+                "           </div>" +
+                "       </div>\n" +
+                "       <div>\n" +
+                "           <input style=\"display: none\" name=\"questiontype\" + value=\"表格题\">\n" +
+                "           <input style=\"display: none\" name=\"questionnumber\" + value= " + len + ">\n" +
+                "       </div>" +
+                "       <center><button class=\"btn mr-1 btn-secondary\" onclick=\"return download_form(" + q[i]['question_id'] + ")\">导出模板</button>" + "&emsp;&emsp;" +
+                "       <button class=\"btn mr-1 btn-secondary\" onclick=\"upload_form()\">导入表格</button>"+
+                "   </form>\n" +
+                "</div><br>");
             for (var x = 0; x < JSON.parse(q[i]['content'])['column'].length; x++) {
-                $('.div_question').last().find('table').eq(0).children('thead').children().eq(0).append(" <td>" + JSON.parse(q[i]['content'])['column'][x] + "</td>\n")
+                $('.div_question').last().find('table').eq(0).children('thead').children().eq(0).append("" +
+                    "<td>" + JSON.parse(q[i]['content'])['column'][x] + "</td>\n"
+                );
             }
             for (var y = 0; y < JSON.parse(q[i]['content'])['rows'].length; y++) {
-                $('.div_question').last().find('table').eq(0).children('tbody').append("                                                                <tr>\n" +
-                    "                                                                    <td>" + JSON.parse(q[i]['content'])['rows'][y] +
-                    "                                                                    </td> " +
-                    "                                                                </tr>\n"
+                $('.div_question').last().find('table').eq(0).children('tbody').append("" +
+                    "<tr>\n" +
+                    "   <td>" + JSON.parse(q[i]['content'])['rows'][y] +
+                    "   </td> " +
+                    "</tr>\n"
                 );
                 for (var z = 0; z < JSON.parse(q[i]['content'])['column'].length; z++) {
-                    $('.div_question').last().find('table').eq(0).children('tbody').children().eq(y).append("<td><textarea disabled style='width: 100%'></textarea></td>\n")
+                    $('.div_question').last().find('table').eq(0).children('tbody').children().eq(y).append("" +
+                        "<td>" +
+                        "   <textarea disabled style='width: 100%'></textarea>" +
+                        "</td>\n"
+                    );
                 }
             }
         } else if (q[i]['question_type'] === '附件题') {
 
         }
     }
-    for (i = 0; i < {{ preview_length|safe }}; i++) {
-        $("#pages").append("<li><a id=" + i + " class=\"\" onclick=\"preview(this.text)\" >" + i + "</a></li>")
-    }
 
     value_num = {{ page_num|safe }}
-        document.getElementById(value_num).className = 'active'
+
+    //上一页按钮
+    if(value_num != 0){
+        $("#pages").append("<li><a name=" + (value_num-1) + " class=\"\" onclick=\"preview(this.name)\" >上一页</a></li>")
+    }else{
+        $("#pages").append("<li><a name=" + (value_num) + " class=\"\" onclick=\"preview(this.name)\" >上一页</a></li>")
+    }
+
+    //显示题目
+    for (i = 0; i < {{ preview_length|safe }}; i++) {
+        $("#pages").append("<li><a id=" + i + " class=\"\" onclick=\"preview(this.id)\" >" + (i+1) + "</a></li>")
+
+    }
+
+    page_len = {{ preview_length|safe }}
+    //下一页按钮
+    if(value_num != (page_len-1)){
+        $("#pages").append("<li><a name=" + (value_num+1) + " class=\"\" onclick=\"preview(this.name)\" >下一页</a></li>")
+    }else{
+        $("#pages").append("<li><a name=" + (value_num) + " class=\"\" onclick=\"preview(this.name)\" >下一页</a></li>")
+    }
+
+    //当前页面按钮显示
+    document.getElementById(value_num).className = 'active'
 
     function preview(value) {
         window.location.href = "{% url 'user' %}?page=" + value + ""
+    }
+
+    function download_form(value){
+        window.location.href = "{% url 'download_form' %}?form=" + value + ""
+        return false
+    }
+
+    function upload_form(){
+
     }
 </script>
 
