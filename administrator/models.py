@@ -85,3 +85,16 @@ class TableTimeliner(models.Model):
         db_table = 'Table_Timeliner'
         ordering = ['table_timeliner_col_start']
 
+
+class TableUploadFile(models.Model):
+    table_upload_file_id = models.AutoField(db_column='Table_Upload_File_col_id', primary_key=True)
+    table_upload_file_name = models.CharField(db_column='Table_Upload_File_col_name', max_length=128)
+    table_upload_file_time = models.CharField(db_column='Table_Upload_File_col_time', max_length=128)
+    table_upload_file_evaluation = models.CharField(db_column='Table_Upload_File_col_evaluation', max_length=128)
+    table_upload_file_timeliner = models.CharField(db_column='Table_Upload_File_col_timeliner', max_length=128)
+    table_upload_file_cover = models.CharField(db_column='Table_Upload_File_col_cover', max_length=128)
+
+    class Meta:
+        managed = True
+        db_table = 'Table_Upload_File'
+
