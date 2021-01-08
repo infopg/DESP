@@ -42,7 +42,7 @@ urlpatterns = [
     url(r'expert', include('expert.urls')),
     url(r'manager', include('manager.urls')),
 
-    url(r'^uploadFile/', views.upload_file, name='upload_file'),  # 项目timeliner上传文件
+    url(r'uploadFile', views.upload_file, name='upload_file'),  # 项目timeliner上传文件
     url(r'^fp/', include('django_drf_filepond.urls')),
     url(r'^download_form/', login_views.download_form, name='download_form'),
 ]

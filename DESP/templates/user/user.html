@@ -395,8 +395,10 @@
                 "           <input style=\"display: none\" name=\"questiontype\" + value=\"表格题\">\n" +
                 "           <input style=\"display: none\" name=\"questionnumber\" + value= " + len + ">\n" +
                 "       </div>" +
-                "       <center><button class=\"btn mr-1 btn-secondary\" onclick=\"return download_form(" + q[i]['question_id'] + ")\">导出模板</button>" + "&emsp;&emsp;" +
-                "       <button class=\"btn mr-1 btn-secondary\" onclick=\"upload_form()\">导入表格</button>"+
+                "       <div>" +
+                "           <button class=\"btn mr-1 btn-secondary\" onclick=\"return download_form(" + q[i]['question_id'] + ")\">导出模板</button>" + "&emsp;&emsp;" +
+                "           <button class=\"btn mr-1 btn-secondary\" onclick=\"upload_form()\">导入表格</button>"+
+                "       </div>"+
                 "   </form>\n" +
                 "</div><br>");
             for (var x = 0; x < JSON.parse(q[i]['content'])['column'].length; x++) {

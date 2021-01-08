@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription><ShortName>工具书集锦在线</ShortName><Description>CNKI工具书集锦在线</Description><InputEncoding>UTF8</InputEncoding><Flag toolbar="true" menubar="true" taskbar="true"/><Url type="text/html" template="http://gongjushu.cnki.net/refbook/BasicSearch.aspx?kw={searchTerms}&amp;op="/></OpenSearchDescription>

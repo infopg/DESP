@@ -86,15 +86,13 @@ class TableTimeliner(models.Model):
         ordering = ['table_timeliner_col_start']
 
 
-
-
 class TableUploadFile(models.Model):
-    table_upload_file_id = models.AutoField(db_column='Table_Upload_File_col_id', primary_key=True)
-    table_upload_file_name = models.CharField(db_column='Table_Upload_File_col_name', max_length=128)
-    table_upload_file_time = models.CharField(db_column='Table_Upload_File_col_time', max_length=128)
-    table_upload_file_evaluation = models.CharField(db_column='Table_Upload_File_col_evaluation', max_length=128)
-    table_upload_file_timeliner = models.CharField(db_column='Table_Upload_File_col_timeliner', max_length=128)
-    table_upload_file_cover = models.CharField(db_column='Table_Upload_File_col_cover', max_length=128)
+    table_upload_file_col_id = models.AutoField(db_column='Table_Upload_File_col_id', primary_key=True)
+    table_upload_file_col_name = models.CharField(db_column='Table_Upload_File_col_name', max_length=256)
+    table_upload_file_col_time = models.CharField(db_column='Table_Upload_File_col_time', max_length=256)
+    table_upload_file_col_evaluation = models.CharField(db_column='Table_Upload_File_col_evaluation', max_length=256)
+    table_upload_file_col_timeliner = models.CharField(db_column='Table_Upload_File_col_timeliner', max_length=256)
+    table_upload_file_col_cover = models.CharField(db_column='Table_Upload_File_col_cover', max_length=256)
 
     class Meta:
         managed = True

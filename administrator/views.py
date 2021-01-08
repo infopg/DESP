@@ -3,9 +3,16 @@ from __future__ import unicode_literals
 import ast
 import codecs
 import csv
+import datetime
+import io
 import json
 import os
+import random
+import shutil
+import string
+import tempfile
 import time
+import zipfile
 from decimal import *
 from io import BytesIO
 
@@ -13,32 +20,147 @@ import xlrd
 import xlwt
 from django.core import serializers
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse, FileResponse
 from django.shortcuts import HttpResponse, render
 from django.utils.encoding import escape_uri_path
 from django.utils.http import urlquote
 from xlwt import Workbook
 
+from DESP import settings
 from administrator import models
-from administrator.models import TableEvaluationIndicator, TableQuestionContent
+from administrator.models import TableEvaluationIndicator, TableQuestionContent, TableUploadFile
 from login.models import TableUser
 from supervisor.models import TableEvaluation
 from supervisor.models import TableOrganization
 
 
+def test(request):
+    if request.method == "POST":
+        manager = request.session.get('user_name')
+        pro_name_eval = request.POST.get("pro_name_d_1")
+        pro_name = request.POST.get("pro_name_d_2")
+        print("----")
+        print(manager)
+        print(pro_name_eval)
+        print(pro_name)
+        print("----")
+
+    # if request.method == "POST":    # 请求方法为POST时，进行处理
+    #     form = request.POST.get("form_auto")
+    #     pro_name_eval = request.POST.get("pro_name_d_1")
+    #     pro_name = request.POST.get("pro_name_d_2")
+    #
+    #     print("----")
+    #     print(form)
+    #     print(pro_name_eval)
+    #     print(pro_name)
+    #     print("----")
+
+    return JsonResponse({'message': 'Done'})
+
+
+def download_file(request):
+    if request.method == "POST":
+        pro_name_eval = request.POST.get("pro_name_d_1")
+        pro_name = request.POST.get("pro_name_d_2")
+        tmp = "length_" + pro_name
+        file_num = request.POST.get(tmp)
+        tmp = "checkall_" + pro_name
+        check_all = request.POST.get(tmp)
+
+        file_name = []
+        if check_all == "select":
+            for x in range(0, int(file_num)):
+                text = "checkson" + str(x)
+                tmp = request.POST.get(text)
+                file_name.append(tmp)
+        else:
+            for x in range(0, int(file_num)):
+                text = "checksoncheck" + pro_name + str(x)
+                tmp = request.POST.get(text)
+                if tmp == "select":
+                    text = "checkson" + str(x)
+                    tmp = request.POST.get(text)
+                    file_name.append(tmp)
+
+        co_dict = []
+        filenames = []
+        for x in file_name:
+            file_record = TableUploadFile.objects.get(table_upload_file_col_name=x)
+            tmp = {}
+            tmp['download_url'] = 'uploadFile/' + file_record.table_upload_file_col_cover
+            tmp['name'] = file_record.table_upload_file_col_name
+            co_dict.append(tmp)
+            filenames.append('uploadFile/' + file_record.table_upload_file_col_cover)
+
+        if len(co_dict) == 1:
+            for x in co_dict:
+                filename = x['name']
+                filepath = x['download_url']
+                file = open(filepath, 'rb')
+                response = FileResponse(file)
+                response['Content-Type'] = 'application/octet-stream'
+                response['Content-Disposition'] = 'attachment;filename="{0}"'.format(escape_uri_path(filename))
+                return response
+        else:
+            zip_sub = "Proj_" + str(pro_name)
+            zip_name = zip_sub + ".zip"
+            s = io.BytesIO()
+            zf = zipfile.ZipFile(s, "w")
+            for f in co_dict:
+                f_url = 'uploadFile/' + f['name']
+                print(f_url)
+                shutil.copy(f['download_url'], f_url)
+                fdir, fname = os.path.split(f_url)
+                zip_path = os.path.join(zip_sub, fname)
+                zf.write(f_url, zip_path)
+                os.remove(f_url)
+            zf.close()
+            response = HttpResponse(s.getvalue(), content_type="application/x-zip-compressed")
+            response['Content-Disposition'] = 'attachment; filename="{0}"'.format(escape_uri_path(zip_name))
+            return response
+
+
 def upload_file(request):
-    if request.method == "POST":    # 请求方法为POST时，进行处理
-        myFile = request.FILES.get("myfile", None)    # 获取上传的文件，如果没有文件，则默认为None
-        print("------")
-        print(myFile.name)
-        print("------")
+    if request.method == "POST":  # 请求方法为POST时，进行处理
+        myFile = request.FILES.get("myfile", None)  # 获取上传的文件，如果没有文件，则默认为None
         if not myFile:
-            return HttpResponse("no files for upload!")
-            # return JsonResponse({'message': 'no files'})
-        destination = open(os.path.join("uploadFile", myFile.name), 'wb+')    # 打开特定的文件进行二进制的写操作
-        for chunk in myFile.chunks():      # 分块写入文件
+            # return HttpResponse({'message': 'no files for upload!'})
+            return render(request, 'standard/timeliner.html')
+            # return render(request, 'standard/timeliner.html', {'upload_flag': True})
+
+        pro_name_eval = request.POST.get("pro_name_1")
+        pro_name = request.POST.get("pro_name_2")
+        now = datetime.datetime.now()  # 获得当前时间
+        random_name = ''.join(random.sample(string.ascii_letters + string.digits, 20))  # 创建随机名
+
+        if TableUploadFile.objects.filter(Q(table_upload_file_col_name=myFile.name)).exists():
+            record = TableUploadFile.objects.get(table_upload_file_col_name=myFile.name)
+            if record.table_upload_file_col_evaluation == pro_name_eval:
+                if record.table_upload_file_col_timeliner == pro_name:
+                    # 删除已有文件
+                    delete_file_path = settings.BASE_DIR + os.sep + "uploadFile" + os.sep + record.table_upload_file_col_cover
+                    if os.path.exists(delete_file_path):
+                        os.remove(delete_file_path)
+                    # 修改数据库记录
+                    record.table_upload_file_col_time = now
+                    record.table_upload_file_col_cover = random_name
+                    record.save()
+        else:
+            new_record = {
+                "table_upload_file_col_name": myFile.name,
+                "table_upload_file_col_time": now,
+                "table_upload_file_col_evaluation": pro_name_eval,
+                "table_upload_file_col_timeliner": pro_name,
+                "table_upload_file_col_cover": random_name
+            }
+            models.TableUploadFile.objects.create(**new_record)
+
+        destination = open(os.path.join("uploadFile", random_name), 'wb+')  # 打开特定的文件进行二进制的写操作
+        for chunk in myFile.chunks():  # 分块写入文件
             destination.write(chunk)
         destination.close()
+
         return JsonResponse({'message': 'Done'})
 
 
@@ -174,7 +296,6 @@ def standard(request):
             } for x in mList
         ]
 
-
         evalobj = TableEvaluation.objects.get(table_evaluation_col_name=current_eval)
         questionaire_preview = set(
             TableQuestionContent.objects.filter(table_question_content_col_evalname=evalobj).values_list(
@@ -183,22 +304,22 @@ def standard(request):
         for eachquestion in questionaire_preview:
             group.append(eachquestion)
         id = request.GET.get('id')
-        indiname=current_eval
-        notroot=0
+        indiname = current_eval
+        notroot = 0
         for each in _data:
-            if each['id']==int(id):
-                indiname=each['name']
-            if each['pId']== int(id):
-                notroot+=1;
-        index=0
+            if each['id'] == int(id):
+                indiname = each['name']
+            if each['pId'] == int(id):
+                notroot += 1;
+        index = 0
         for each in group:
             if each[0] == int(id):
                 break
             else:
-                index=index+1
+                index = index + 1
         list = []
         for i in range(0, len(questionaire_preview)):
-             list.append(TableQuestionContent.objects.filter(table_question_content_col_indicator_id=group[i][0]))
+            list.append(TableQuestionContent.objects.filter(table_question_content_col_indicator_id=group[i][0]))
 
         preview = []
         if index == None:
@@ -208,7 +329,7 @@ def standard(request):
                     'question_type': x.table_question_content_col_question_type,
                     'content': x.table_question_content_col_content
                 })
-        elif index >=len(list):
+        elif index >= len(list):
             print("no question here")
         else:
             for x in list[index]:
@@ -224,8 +345,9 @@ def standard(request):
             'table_timeliner_col_evaluation')
         return render(request, 'standard/standard.html',
                       {'question': preview, 'data': _data, 'evalname': evalname, 'admin': administrator,
-                       'timeevalname': timeevalname,'id':id,'notroot':notroot,'indiname':indiname,
-                       'current_eval': current_eval, 'current_admin': current_admin, 'preview_length': len(list),'questionlist':list})
+                       'timeevalname': timeevalname, 'id': id, 'notroot': notroot, 'indiname': indiname,
+                       'current_eval': current_eval, 'current_admin': current_admin, 'preview_length': len(list),
+                       'questionlist': list})
 
     else:
         administrator = request.session['user_name']
@@ -399,6 +521,42 @@ def timeliner(request):
         table_timeliner_col_evaluation=request.GET.get('timeevalname')).order_by('table_timeliner_col_start')
     dateline_list = models.TableTimeliner.objects.filter(
         table_timeliner_col_evaluation=request.GET.get('timeevalname')).order_by('table_timeliner_col_start')
+
+    test_list = []
+    if TableUploadFile.objects.filter(Q(table_upload_file_col_evaluation=current_eval)):
+        # test_list_tmp_0 = TableUploadFile.objects.get(table_upload_file_col_evaluation=current_eval)
+        for x in timeline_list:
+            tmp = []
+            if TableUploadFile.objects.filter(Q(table_upload_file_col_evaluation=current_eval)
+                                              &Q(table_upload_file_col_timeliner=x.table_timeliner_col_name)):
+                test_list_tmp_1 = TableUploadFile.objects.filter(Q(table_upload_file_col_evaluation=current_eval)
+                                                              &Q(table_upload_file_col_timeliner=x.table_timeliner_col_name))
+                for y in test_list_tmp_1:
+                    tmp.append({
+                        'file_name': y.table_upload_file_col_name,
+                    })
+            test_list.append({
+                'table_timeliner_col_id': x.table_timeliner_col_id,
+                'table_timeliner_col_start': x.table_timeliner_col_start,
+                'table_timeliner_col_name': x.table_timeliner_col_name,
+                'table_timeliner_col_content': x.table_timeliner_col_content,
+                'table_timeliner_col_end': x.table_timeliner_col_end,
+                'table_timeliner_col_status': x.table_timeliner_col_status,
+                'table_upload_file': tmp,
+            })
+    else:
+        for x in timeline_list:
+            tmp = []
+            test_list.append({
+                'table_timeliner_col_id': x.table_timeliner_col_id,
+                'table_timeliner_col_start': x.table_timeliner_col_start,
+                'table_timeliner_col_name': x.table_timeliner_col_name,
+                'table_timeliner_col_content': x.table_timeliner_col_content,
+                'table_timeliner_col_end': x.table_timeliner_col_end,
+                'table_timeliner_col_status': x.table_timeliner_col_status,
+                'table_upload_file': tmp,
+            })
+
     date_length = len(dateline_list)
     order_list = []
     order_count = 0
@@ -417,6 +575,7 @@ def timeliner(request):
         date.table_timeliner_col_end = date_use_end
     return render(request, 'standard/timeliner.html',
                   {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
+                   'test_list': test_list,
                    'timeline_list': timeline_list, 'dateline': dateline, 'current_eval': current_eval})
 
 
@@ -443,7 +602,6 @@ def timeliner_create(request):
                 return JsonResponse({'state': 0, 'message': 'Create Error: ' + str(e)})
         else:
             return JsonResponse({'message': '结束时间不得晚于开始时间！'})
-
 
 def timeliner_edit(request):
     if request.method == 'GET':
@@ -474,7 +632,6 @@ def timeliner_edit(request):
         else:
             return JsonResponse({'message': '结束时间不得晚于开始时间！'})
 
-
 def timeliner_delete(request):
     # pdb.set_trace()
     if request.method == 'POST':
@@ -490,7 +647,6 @@ def timeliner_delete(request):
                     return JsonResponse({'state': 1, 'message': '修改成功!'})
                 except Exception as e:
                     return JsonResponse({'state': 0, 'message': 'Edit Error: ' + str(e)})
-
 
 ## 上传功能
 def excel_import_indicator(filename, this_eval_name, this_admin_name):
@@ -597,7 +753,6 @@ def excel_import_indicator(filename, this_eval_name, this_admin_name):
     except:
         return JsonResponse({'message': '表格填写格式问题！'})
 
-
 def upload_indicator(request):
     if request.method == 'GET':
         return render(request, 'standard/standard.html')
@@ -616,7 +771,6 @@ def upload_indicator(request):
         else:
             return JsonResponse({'message': '文件格式错误！'})
 
-
 def download_indicator(request):
     # pdb.set_trace()
     file = open('DESP/uploads/indicator/TableIndicator_Import.xlsx', 'rb')
@@ -624,7 +778,6 @@ def download_indicator(request):
     response['Content-Type'] = 'application/octet-stream'  # 设置头信息，告诉浏览器这是个文件
     response['Content-Disposition'] = 'attachment;filename="TableIndicator_Import.xlsx"'
     return response
-
 
 def questionaire(request):
     a = request.GET.get('nodeID')
@@ -635,9 +788,9 @@ def questionaire(request):
     evalname = TableEvaluation.objects.filter(
         Q(table_evaluation_col_administrator=administrator) & Q(table_evaluation_col_status='启用')).values(
         'table_evaluation_col_name')
-    current_eval=TableEvaluationIndicator.objects.filter(
+    current_eval = TableEvaluationIndicator.objects.filter(
         Q(table_evaluation_indicator_col_id=a)).values('table_evaluation_indicator_col_evaluation_name')
-    current=current_eval[0]['table_evaluation_indicator_col_evaluation_name']
+    current = current_eval[0]['table_evaluation_indicator_col_evaluation_name']
     print(administrator)
     data = [
         {
@@ -665,8 +818,8 @@ def questionaire(request):
         for key in question:
             if question[key] == None:
                 question[key] = ''
-    return render(request, 'standard/questionaire.html', {'data': data, 'evalname': evalname,'admin':administrator,'id':a,'current_eval':current})
-
+    return render(request, 'standard/questionaire.html',
+                  {'data': data, 'evalname': evalname, 'admin': administrator, 'id': a, 'current_eval': current})
 
 def choice_add(request):
     print(request.POST)
@@ -691,7 +844,8 @@ def choice_add(request):
     list = []
     for i in range(0, len(existquestion)):
         list.append(existquestion[i][0])
-    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=request.POST['indicatorID'])
+    indicator = TableEvaluationIndicator.objects.filter(
+        table_evaluation_indicator_col_id=request.POST['indicatorID'])
     evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
     evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     if int(request.POST['questionnumber']) in list:
@@ -708,8 +862,9 @@ def choice_add(request):
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
             'table_question_content_col_evalname': evalname_object
         }
-        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
-            table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
+        TableQuestionContent.objects.filter(
+            Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
+                table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
         return JsonResponse({'msg': 'success'})
     else:
         question = {
@@ -728,7 +883,6 @@ def choice_add(request):
         }
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
-
 
 def blank_add(request):
     if 'required' in request.POST:
@@ -743,7 +897,8 @@ def blank_add(request):
         importanswer = 'on'
     else:
         importanswer = 'off'
-    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=request.POST['indicatorID'])
+    indicator = TableEvaluationIndicator.objects.filter(
+        table_evaluation_indicator_col_id=request.POST['indicatorID'])
     evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
     evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     data = {}
@@ -768,8 +923,9 @@ def blank_add(request):
             'table_question_content_col_content': json.dumps(data, ensure_ascii=False),
             'table_question_content_col_evalname': evalname_object
         }
-        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
-            table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
+        TableQuestionContent.objects.filter(
+            Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
+                table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
         return JsonResponse({'msg': 'success'})
     else:
         question = {
@@ -788,7 +944,6 @@ def blank_add(request):
         }
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
-
 
 def answer_add(request):
     if 'required' in request.POST:
@@ -803,7 +958,8 @@ def answer_add(request):
         importanswer = 'on'
     else:
         importanswer = 'off'
-    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=request.POST['indicatorID'])
+    indicator = TableEvaluationIndicator.objects.filter(
+        table_evaluation_indicator_col_id=request.POST['indicatorID'])
     evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
     evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     data = {}
@@ -829,8 +985,9 @@ def answer_add(request):
             'table_question_content_col_mark_scheme': None,
             'table_question_content_col_evalname': evalname_object
         }
-        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
-            table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
+        TableQuestionContent.objects.filter(
+            Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
+                table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
         return JsonResponse({'msg': 'success'})
     else:
         question = {
@@ -849,7 +1006,6 @@ def answer_add(request):
         }
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
-
 
 def matrix_add(request):
     if 'required' in request.POST:
@@ -868,7 +1024,8 @@ def matrix_add(request):
     data['title'] = request.POST['choicetitle']
     data['column'] = request.POST.getlist('choice')
     data['rows'] = str(request.POST['row']).splitlines()
-    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=request.POST['indicatorID'])
+    indicator = TableEvaluationIndicator.objects.filter(
+        table_evaluation_indicator_col_id=request.POST['indicatorID'])
     evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
     evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     existquestion = TableQuestionContent.objects.filter(
@@ -892,8 +1049,9 @@ def matrix_add(request):
             'table_question_content_col_mark_scheme': None,
             'table_question_content_col_evalname': evalname_object
         }
-        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
-            table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
+        TableQuestionContent.objects.filter(
+            Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
+                table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
         return JsonResponse({'msg': 'success'})
     else:
         question = {
@@ -913,7 +1071,6 @@ def matrix_add(request):
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
 
-
 def form_add(request):
     print(request.POST)
     if 'required' in request.POST:
@@ -928,7 +1085,8 @@ def form_add(request):
         importanswer = 'on'
     else:
         importanswer = 'off'
-    indicator = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=request.POST['indicatorID'])
+    indicator = TableEvaluationIndicator.objects.filter(
+        table_evaluation_indicator_col_id=request.POST['indicatorID'])
     evalname = indicator.values_list('table_evaluation_indicator_col_evaluation_name')[0][0]
     evalname_object = TableEvaluation.objects.get(table_evaluation_col_name=evalname)
     data = {}
@@ -956,8 +1114,9 @@ def form_add(request):
             'table_question_content_col_mark_scheme': None,
             'table_question_content_col_evalname': evalname_object
         }
-        TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
-            table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
+        TableQuestionContent.objects.filter(
+            Q(table_question_content_col_indicator_id=request.POST['indicatorID']) & Q(
+                table_question_content_col_question_number=request.POST['questionnumber'])).update(**question)
         return JsonResponse({'msg': 'success'})
     else:
         question = {
@@ -976,7 +1135,6 @@ def form_add(request):
         }
         TableQuestionContent.objects.create(**question)
         return JsonResponse({'msg': 'success'})
-
 
 def accumulation(request):
     print(request.POST)
@@ -997,10 +1155,10 @@ def accumulation(request):
         TableQuestionContent.objects.filter(Q(table_question_content_col_indicator_id=indicatorID) & Q(
             table_question_content_col_question_number=questionnumber)).create(
             table_question_content_col_mark_scheme=scheme, table_question_content_col_indicator_id=indicatorID,
-            table_question_content_col_question_number=questionnumber, table_question_content_col_markmethod=markmethod,
+            table_question_content_col_question_number=questionnumber,
+            table_question_content_col_markmethod=markmethod,
             table_question_content_col_question_type=questiontype)
     return JsonResponse({'msg': 'success'})
-
 
 def questionaire_manage(request):
     current_eval = request.GET.get('timeevalname')
@@ -1035,9 +1193,9 @@ def questionaire_manage(request):
     #     'table_timeliner_col_evaluation')
     # print(eval_data)
     return render(request, 'standard/manage.html',
-                  {'data': _data, 'current_eval': current_eval, 'current_eval1': current_eval1, 'eval_data': eval_data,
+                  {'data': _data, 'current_eval': current_eval, 'current_eval1': current_eval1,
+                   'eval_data': eval_data,
                    'evalname': evalname, 'admin': administrator})
-
 
 def questionaire_submit(request):
     print(request.POST)
@@ -1052,7 +1210,6 @@ def questionaire_submit(request):
     elif request.POST['questiontype'] == '表格题':
         form_add(request)
     return JsonResponse({'msg': 'success'})
-
 
 def question_delete(request):
     print(request.POST)
@@ -1071,12 +1228,10 @@ def question_delete(request):
         obj.save()
     return JsonResponse({'msg': '删除成功！'})
 
-
 def questionaire_delete(request):
     nodeID = request.POST['nodeID']
     TableQuestionContent.objects.filter(table_question_content_col_indicator_id=nodeID).delete()
     return JsonResponse({'msg': '删除成功!'})
-
 
 def scheme_show(request):
     indicatorID = request.POST['indicatorID']
@@ -1093,21 +1248,17 @@ def scheme_show(request):
     else:
         return JsonResponse({'msg': 'Notcreatedyet'})
 
-
 def export_answer(request):  # 导出答案部分
     pass
-
 
 def import_answer(request):  # 导入答案部分
     org_dasdad = request.GET.get('adas')
     pass
 
-
 def questionaire_status(request):
     org_name = request.GET.get('evalname')
     status = request.GET.get('status')
     pass
-
 
 def calculate(request):
     # pdb.set_trace()
@@ -1164,13 +1315,12 @@ def calculate(request):
             list3 = []
 
     return render(request, 'standard/calculate.html',
-                  {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname, 'current_eval': current_eval,
-                   'timeline_list': timeline_list, 'dateline': dateline, 'org_eval': org_eval, 'timeline_list': res})
-
+                  {'evalname': evalname, 'admin': administrator, 'timeevalname': timeevalname,
+                   'current_eval': current_eval,
+                   'timeline_list': timeline_list, 'dateline': dateline, 'org_eval': org_eval,
+                   'timeline_list': res})
 
 def review(request):
     current_eval = request.GET.get('timeevalname')
     administrator = request.session['user_name']
-    return render(request,'standard/review.html',{'admin': administrator,'current_eval': current_eval})
-
-
+    return render(request, 'standard/review.html', {'admin': administrator, 'current_eval': current_eval})

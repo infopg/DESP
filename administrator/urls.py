@@ -3,7 +3,7 @@ from django.conf.urls import url, re_path
 from administrator import views
 from administrator.views import standard, timeliner, choice_add, questionaire_manage, blank_add, answer_add, matrix_add, \
     form_add, accumulation, export_answer, import_answer, questionaire_submit, questionaire_delete, question_delete, \
-    scheme_show, calculate,review
+    scheme_show, calculate, review, test
 
 urlpatterns = [
     url('/standard', standard, name='standard'),
@@ -12,9 +12,10 @@ urlpatterns = [
     re_path(r'/indicator_export$', views.indicator_export, name='indicator_export'),
     re_path(r'/upload_indicator$', views.upload_indicator, name='upload_indicator'),
     url(r'^download_indicator/', views.download_indicator, name="download_indicator"),
-    # 下载问卷测试/问卷状态改变测试
+    # 下载问卷测试/问卷状态改变测试/文件下载测试
     url(r'^export_questionaire/', views.export_questionaire, name='export_questionaire'),
     url(r'^question_status/', views.questionaire_status, name='question_status'),
+    url(r'/download_file$', views.download_file, name="download_file"),
     #
     re_path(r'/timeliner_create$', views.timeliner_create, name='timeliner_create'),
     re_path(r'/timeliner_edit$', views.timeliner_edit, name='timeliner_edit'),
@@ -36,4 +37,6 @@ urlpatterns = [
     url(r'scheme_show$', scheme_show, name='scheme_show'),
     url(r'/calculate', calculate, name='calculate'),
     url(r'/review', review, name='review'),
+    url(r'/test', test, name='test'),
+
 ]

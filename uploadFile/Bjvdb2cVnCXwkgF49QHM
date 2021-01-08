@@ -1,0 +1,6 @@
+[Upgrade]
+UpgradeUrlNew=http://update.cnki.net/cajviewer702/cajviewer.xml
+TrayIconTip=CAJViewer Auto Upgrade Agent
+Mutex=CAJVIEWER 7.0
+AutoUpgMutex=CAJVIEWER_AUTOUPG
+AppName=CAJViewer 7.0

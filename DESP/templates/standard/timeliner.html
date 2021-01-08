@@ -22,9 +22,9 @@
             display: none;
             position: absolute;
             top: 25%;
-            left: 25%;
-            width: 55%;
-            height: 55%;
+            left: 40%;
+            width: 25%;
+            height: auto;
             padding: 20px;
             border: 10px solid orange;
             background-color: white;
@@ -61,10 +61,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'layui/css/layui.css' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'layui/css/modules/laydate/default/laydate.css' %}"
           media="all">
-{#    <link rel="stylesheet" type="text/css" href="{% static 'layui_exts/laydateNote/laydateNote.css' %}" media="all">#}
-{#    <link rel="stylesheet" type="text/css" href="{% static 'test2/lib/jquery-ui-1.8.4.js' %}" media="all">#}
-{#    <link rel="stylesheet" type="text/css" href="{% static 'test2/example/reset.css' %}" media="all">#}
-{#    <link rel="stylesheet" type="text/css" href="{% static 'test2/jquery.ganttView.css' %}" media="all">#}
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'layui_exts/laydateNote/laydateNote.css' %}" media="all">#}
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'test2/lib/jquery-ui-1.8.4.js' %}" media="all">#}
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'test2/example/reset.css' %}" media="all">#}
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'test2/jquery.ganttView.css' %}" media="all">#}
     <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
 
 </head>
@@ -325,7 +325,7 @@
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
-                                        <p>欢迎你，管理员&nbsp&nbsp&nbsp{{ admin }}</p>
+                    <p>欢迎你，管理员&nbsp&nbsp&nbsp{{ admin }}</p>
 
                     <ul class="layui-nav-item">
                         <li class="dropdown layui-nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
@@ -353,7 +353,6 @@
         </div>
     </nav>
     <!--End of sidebar and navibar-->
-
     <div class="main-panel">
         <div class="main-content">
             <div class="content-wrapper">
@@ -403,7 +402,7 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            {% for t in timeline_list %}
+                                                            {% for t in test_list %}
                                                                 <tr>
                                                                     <td>{{ t.table_timeliner_col_start }}</td>
                                                                     <td>{{ t.table_timeliner_col_name }}</td>
@@ -416,46 +415,88 @@
                                                                                 data-toggle="modal"
                                                                                 data-target="#mymodal_edit"
                                                                                 id="{{ t.table_timeliner_col_id }}"
-                                                                                onclick="timeliner_edit(this.id)"><i
-                                                                                class="layui-icon">编辑</i>
+                                                                                onclick="timeliner_edit(this.id)">
+                                                                            <i class="layui-icon">编辑</i>
                                                                         </button>
                                                                         <button type="button"
                                                                                 class="btn mr-1 btn-secondary"
                                                                                 data-toggle="modal"
                                                                                 data-target="#mymodal_delete"
                                                                                 id="{{ t.table_timeliner_col_id }}"
-                                                                                onclick="go(this.id)"><i
-                                                                                class="layui-icon">删除</i>
+                                                                                onclick="go(this.id)">
+                                                                            <i class="layui-icon">删除</i>
                                                                         </button>
-                                                                        {# TODO 现在下面两个button都是重复出现的， #}
-                                                                         <button type="button"
-                                                                                class="btn mr-1 btn-secondary">
-                                                                            <i class="layui-icon">
-                                                                                <a href="javascript:void(0)"
-                                                                                   onclick="document.getElementById('light').style.display='block';
-                                                                                    document.getElementById('fade').style.display='block'">上传文件
-                                                                                </a>
-                                                                            </i>
-                                                                        </button>
-                                                                        <div id="light" class="white_content">
-                                                                            <form enctype="multipart/form-data"
-                                                                                  action="/uploadFile/"
-                                                                                  method="post">
-                                                                                {% csrf_token %}
-                                                                                <input type="file" name="myfile" id="{{ t.table_timeliner_col_name }}"/><br>
-                                                                                <button class="btn mr-1 btn-secondary"
-                                                                                        type="submit" value="upload">提交
-                                                                                </button>
-                                                                            </form><br><br>
-                                                                            <a href="javascript:void(0)"
-                                                                               onclick="document.getElementById('light').style.display='none';
-                                                                               document.getElementById('fade').style.display='none'">点此次关闭本窗口
-                                                                            </a>
-                                                                        </div>
+                                                                        {#  上传文件  #}
                                                                         <button type="button"
                                                                                 class="btn mr-1 btn-secondary"
-                                                                                id="downLoad" onclick="downLoad()"><i
-                                                                                class="layui-icon">附件下载</i></button>
+                                                                                {# <i class="layui-icon"><a #}
+                                                                                href="javascript:void(0)"
+                                                                                onclick="document.getElementById('light01+{{ t.table_timeliner_col_name }}').style.display='block';
+                                                                                        document.getElementById('fade').style.display='block'">
+                                                                            上传文件
+                                                                            {#</a></i>#}
+                                                                        </button>
+                                                                        <div id="light01+{{ t.table_timeliner_col_name }}"
+                                                                             class="white_content">
+                                                                            <form enctype="multipart/form-data" method="post" action="/uploadFile/">
+                                                                                {# action="/uploadFile/"#}
+                                                                                工作项目: {{ t.table_timeliner_col_name }}<br><br>
+                                                                                {% csrf_token %}
+                                                                                <input type="file" name="myfile" id="{{ t.table_timeliner_col_name }}"/><br><br>
+                                                                                <input style="display: none" type="text" name="pro_name_1" value="{{ current_eval }}">
+                                                                                <input style="display: none" type="text" name="pro_name_2" value="{{ t.table_timeliner_col_name }}"><br>
+                                                                                <button class="btn mr-1 btn-secondary"
+                                                                                        type="submit" value="upload"
+                                                                                        onclick="AjaxSubmitFile()">提交
+                                                                                </button>
+                                                                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                                                                <a href="javascript:void(0)"
+                                                                                    onclick="document.getElementById('light01+{{ t.table_timeliner_col_name }}').style.display='none';
+                                                                                       document.getElementById('fade').style.display='none'">关闭
+                                                                                </a>
+                                                                            </form>
+                                                                        </div>
+                                                                        {#  下载文件  #}
+                                                                        <button type="submit"
+                                                                                class="btn mr-1 btn-secondary"
+                                                                                href="javascript:void(0)"
+                                                                                onclick="document.getElementById('light02+{{ t.table_timeliner_col_name }}').style.display='block';">下载文件
+                                                                        </button>
+                                                                        <div id="light02+{{ t.table_timeliner_col_name }}"
+                                                                             class="white_content">
+                                                                            <form enctype="multipart/form-data" action="{% url 'download_file' %}"
+                                                                                  method="post" name="download_files">
+                                                                                工作项目: {{ t.table_timeliner_col_name }}
+                                                                                <br><br>
+                                                                                {% csrf_token %}
+                                                                                <input style="display: none" type="text" name="pro_name_d_1" value="{{ current_eval }}">
+                                                                                <input style="display: none" type="text" name="pro_name_d_2" value="{{ t.table_timeliner_col_name }}">
+                                                                                <input style="display: none" type="text" name="length_{{ t.table_timeliner_col_name }}" value="{{ t.table_upload_file | length }}">
+                                                                                <input style="display: none" type="text" name="checkall_{{ t.table_timeliner_col_name }}" value="no_select">
+                                                                                <input type="checkbox"
+                                                                                       id="check_{{ t.table_timeliner_col_name }}"
+                                                                                       name="check_box_{{ t.table_timeliner_col_name }}"
+                                                                                       onclick="checkall('{{ t.table_timeliner_col_name }}')">
+                                                                                <strong>全选</strong><br>
+                                                                                {% for u in t.table_upload_file %}
+                                                                                    <input style="display: none" type="text" name="checkson{{ forloop.counter0 }}" value="{{ u.file_name }}">
+                                                                                    <input style="display: none" type="text" name="checksoncheck{{ t.table_timeliner_col_name }}{{ forloop.counter0 }}" value="no_select">
+                                                                                    <input type="checkbox"
+                                                                                           id="checkson_{{ t.table_timeliner_col_name }}{{ forloop.counter0 }}"
+                                                                                           name="checkson_box_{{ t.table_timeliner_col_name }}"
+                                                                                           value="{{ u.file_name }}"
+                                                                                           onclick="checkone('{{ t.table_timeliner_col_name }}','{{ forloop.counter0 }}')">
+                                                                                    {{ u.file_name }}<br>
+                                                                                {% endfor %}<br><br>
+                                                                                <button class="btn mr-1 btn-secondary"
+                                                                                        type="submit">下载
+                                                                                </button>
+                                                                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                                                                                <a href="javascript:void(0)"
+                                                                                   onclick="document.getElementById('light02+{{ t.table_timeliner_col_name }}').style.display='none';">关闭
+                                                                                </a>
+                                                                            </form>
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
                                                             {% endfor %}
@@ -505,9 +546,92 @@
 <!-- END CONVEX JS-->
 <!-- BEGIN BUTTON JS -->
 <script>
+    function AjaxSubmitFile() {
+        var myfile = document.getElementsByName("myfile").files[0];
+        $.ajax({})
+
+    }
+</script>
+<script>
+    function checkone(value1, value2){
+        text1 = "checkson_" + value1 + value2
+        text2 = "checksoncheck" + value1 + value2
+        console.log(text1)
+
+        var checked = document.getElementById(text1).checked;
+        var check_one = document.getElementsByName(text2);
+        if (checked) {
+            for (var n = 0; n < check_one.length; n++) {
+                    check_one[n].value = "select";
+                }
+        }else {
+            for (var n = 0; n < check_one.length; n++) {
+                check_one[n].value = "no_select";
+            }
+        }
+    }
+
+    function checkall(value){
+        text1 = "check_" + value
+        text2 = "checkson_box_" + value
+        text3 = "checkall_" + value
+        {#document.getElementById("check").onclick = function () {#}
+        var checked = document.getElementById(text1).checked;
+        var checkson = document.getElementsByName(text2);
+        var checkall = document.getElementsByName(text3);
+        if (checked){
+            for (var i = 0; i < checkson.length; i++) {
+                checkson[i].checked = true;
+                for (var n = 0; n < checkall.length; n++) {
+                    checkall[n].value = "select";
+                }
+            }
+        } else {
+            for (var i = 0; i < checkson.length; i++) {
+                checkson[i].checked = false;
+                for (var n = 0; n < checkall.length; n++) {
+                    checkall[n].value = "no_select";
+                }
+            }
+        }
+    }
+</script>
+<script>
     function go(id) {
         itemid = id
     }
+</script>
+<script>
+    var files = {{ test_list|safe }};
+    var count = len(files)
+    console.log(files[0])
+    for (var i = 0; i < count; i++) {
+        $('#light02+' + files[i]['table_upload_file_col_'])
+    }
+    var pro_name = files[0]['indicator_id'];
+    $('#question_list').append("<input style=\'display: none\' name='\indicatorID\'\n value=" + indicator_id + ">");
+</script>
+<script>
+    $(document).ready(function () {
+        $(function () {
+            $("#upload_flag").dialog({
+                modal: true,
+                closeOnEscape: false,
+                dialogClass: "no-close",
+                resizable: false,
+                draggable: false,
+                width: 600,
+                buttons: [
+                    {
+                        text: "OK",
+                        click: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                ]
+            });
+        });
+    });
 </script>
 <script>
     function timeliner_edit(id) {
@@ -1011,7 +1135,7 @@
 {#//页面一打开就执行，放入ready是为了layer所需配件（css、扩展模块）加载完毕#}
 {#        layer.ready(function () {#}
 {#            layer.open({#}
-                {#type: 2,#}
+{#type: 2,#}
 {#                title: '欢迎页',#}
 {#                maxmin: true,#}
 {#                area: ['800px', '500px'],#}
