@@ -413,13 +413,17 @@ def edit(request):
     if request.method == 'POST':
         # pdb.set_trace()
         editdata = eval(request.POST.get('datalist'))
-
         del editdata[0]
+        print(editdata)
+
         create_parent = editdata[0][0]
+        print(create_parent)
         evalname = TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=create_parent).values_list(
             'table_evaluation_indicator_col_evaluation_name')[0][0]
+        print(evalname)
 
         for item in editdata:
+            print(item)
             if item[0] == "":
                 postdata = {
                     "table_evaluation_indicator_col_name": item[1],
@@ -442,31 +446,40 @@ def edit(request):
                     except Exception as e:
                         return JsonResponse({'message': 'Edit Error: ' + str(e)})
                 else:
-                    return JsonResponse({'message': '子级指标的和不应超过100%'})
+                    return JsonResponse({'message': '子级指标的和不应超过100%哦'})
             else:
+                print('root')
                 postdata_edit = {
                     "table_evaluation_indicator_col_name": item[1],
                     "table_evaluation_indicator_col_weight": item[2],
                 }
+                print(postdata_edit)
                 list = []
                 parentid = \
                     TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=item[0]).values_list(
                         'table_evaluation_indicator_col_parent_name')[0][0]
+                # if parentid==None:
+                #     break
+                print(parentid)
                 for a in TableEvaluationIndicator.objects.filter(
                         Q(table_evaluation_indicator_col_parent_name=parentid) &
                         ~Q(
                             table_evaluation_indicator_col_id=item[0])):
+                    print(a)
                     list.append(a.table_evaluation_indicator_col_weight)
+                    print(list)
                 result = sum(list)
-                if result + Decimal(float(item[2])) <= 100:
-                    try:
-                        TableEvaluationIndicator.objects.filter(
-                            table_evaluation_indicator_col_id=item[0]).update(**postdata_edit)
-                        continue
-                    except Exception as e:
-                        return JsonResponse({'message': 'Edit Error: ' + str(e)})
-                else:
-                    return JsonResponse({'message': '子级指标的和不应超过100%'})
+                print(result)
+                if parentid!=None:
+                    if result + Decimal(float(item[2])) <= 100:
+                        try:
+                            TableEvaluationIndicator.objects.filter(
+                                table_evaluation_indicator_col_id=item[0]).update(**postdata_edit)
+                            continue
+                        except Exception as e:
+                            return JsonResponse({'message': 'Edit Error: ' + str(e)})
+                    else:
+                        return JsonResponse({'message': '子级指标的和不应超100%'})
         return JsonResponse({'message': '修改成功!'})
 
 
