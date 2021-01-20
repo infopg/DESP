@@ -345,6 +345,7 @@ def user_create(request):
         username = models.TableUser.objects.filter(table_user_col_name=user_name)
         if username.exists():
             message = '该用户名已存在，请重新输入'
+            print(message)
             return JsonResponse({'message': message})
         useremail = models.TableUser.objects.filter(table_user_col_email=user_email)
         if useremail.exists():
