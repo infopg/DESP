@@ -432,39 +432,32 @@ def edit(request):
                     "table_evaluation_indicator_col_administrator_name": administrator
                 }
                 list = []
-                # for a in TableEvaluationIndicator.objects.filter(
-                #         Q(table_evaluation_indicator_col_parent_name=create_parent)):
-                #     list.append(a.table_evaluation_indicator_col_weight)
-                # result = sum(list)
-                result = 0
-                for each in editdata:
-                    list.append(float(each[2]))
-                    # print(each[2])
-                result = sum(list[1:])
-                print(result)
-                if parentid != None:
-                    if result <= 100:
-                        try:
-                            TableEvaluationIndicator.objects.create(**postdata)
-                            continue
-                        except Exception as e:
-                            return JsonResponse({'message': 'Edit Error: ' + str(e)})
-                    else:
-                        return JsonResponse({'message': '子级指标的和不应超过100%哦'})
+                for a in TableEvaluationIndicator.objects.filter(
+                        Q(table_evaluation_indicator_col_parent_name=create_parent)):
+                    list.append(a.table_evaluation_indicator_col_weight)
+                result = sum(list)
+                if result + round(Decimal(float(item[2])), 2) <= 100:
+                    try:
+                        TableEvaluationIndicator.objects.create(**postdata)
+                        continue
+                    except Exception as e:
+                        return JsonResponse({'message': 'Edit Error: ' + str(e)})
+                else:
+                    return JsonResponse({'message': '子级指标的和不应超过100%哦'})
             else:
-                # print('root')
+                print('root')
                 postdata_edit = {
                     "table_evaluation_indicator_col_name": item[1],
                     "table_evaluation_indicator_col_weight": item[2],
                 }
-                # print(postdata_edit)
+                print(postdata_edit)
                 list = []
                 parentid = \
                     TableEvaluationIndicator.objects.filter(table_evaluation_indicator_col_id=item[0]).values_list(
                         'table_evaluation_indicator_col_parent_name')[0][0]
                 # if parentid==None:
                 #     break
-                # print(parentid)
+                print(parentid)
                 # for a in TableEvaluationIndicator.objects.filter(
                 #         Q(table_evaluation_indicator_col_parent_name=parentid) &
                 #         ~Q(
