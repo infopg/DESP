@@ -1183,15 +1183,36 @@ def questionaire_manage(request):
         Q(table_evaluation_col_administrator=administrator))  # & Q(table_evaluation_col_status='启用'))
     eval_data = [
         {
-            'org_id': TableOrganization.objects.filter(
-                Q(table_organization_col_name=project.table_evaluation_col_organization)).values_list(
-                'table_organization_col_id')[0][0],
+            # 'org_id': TableOrganization.objects.filter(
+            #     Q(table_organization_col_name=project.table_evaluation_col_organization)).values_list(
+            #     'table_organization_col_id')[0][0],
             'org_name': project.table_evaluation_col_organization,
             'project_name': project.table_evaluation_col_name,
             'project_admin': project.table_evaluation_col_administrator,
             'questionaire_status': project.table_evaluation_col_status,
         } for project in evalname
     ]
+    name_ind=[]
+    name = ''
+    for each in eval_data:
+        print(each)
+        if each['project_name'] == current_eval:
+            print(current_eval)
+            for each1 in each['org_name']:
+                if each1!=',':
+                    name+=each1
+                else:
+                    print(name,'\n')
+                    name_ind.append(name)
+                    name = ''
+                if len(name)==len(each['org_name']):
+                    print(name, '\n')
+                    name_ind.append(name)
+                    name = ''
+
+
+    print(name_ind)
+
     o = TableOrganization.objects.all()
     if o.exists():
         _data = [
@@ -1207,7 +1228,7 @@ def questionaire_manage(request):
     #     'table_timeliner_col_evaluation')
     # print(eval_data)
     return render(request, 'standard/manage.html',
-                  {'data': _data, 'current_eval': current_eval, 'current_eval1': current_eval1,
+                  {'name':name_ind,'data': _data, 'current_eval': current_eval, 'current_eval1': current_eval1,
                    'eval_data': eval_data,
                    'evalname': evalname, 'admin': administrator})
 

@@ -454,7 +454,7 @@ def evaluation_edit(request):
                     table_evaluation_col_organization=evalutaion_organization,
                     table_evaluation_col_deliver=evaluation_deliver,
                     table_evaluation_col_mark=evaluation_mark)
-                return JsonResponse({'state': 1, 'message': '创建成功!'})
+                return JsonResponse({'state': 1, 'message': '修改成功!'})
             except Exception as e:
                 return JsonResponse({'state': 0, 'message': 'Create Error: ' + str(e)})
         else:
@@ -465,11 +465,11 @@ def evaluation_delete(request):
         evaluation_id = request.POST.get('delete_id')
         for eval_del in models.TableEvaluation.objects.filter(table_evaluation_col_id=evaluation_id):
             if eval_del.table_evaluation_col_status == '启用':
-                return JsonResponse({'state': 0, 'message': 'Edit Error: '})
+                return JsonResponse({'state': 0, 'message': '项目已启动，无法删除 '})
             else:
                 try:
                     models.TableEvaluation.objects.get(table_evaluation_col_id=evaluation_id).delete()
-                    return JsonResponse({'state': 1, 'message': '修改成功!'})
+                    return JsonResponse({'state': 1, 'message': '删除成功!'})
                 except Exception as e:
                     return JsonResponse({'state': 0, 'message': 'Edit Error: ' + str(e)})
 

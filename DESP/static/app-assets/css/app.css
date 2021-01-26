@@ -5953,7 +5953,7 @@ button.close {
      -moz-box-direction : normal;
       -ms-flex-direction : column;
           flex-direction : column;
-  width : 100%;
+  width : 550px;
   pointer-events : auto;
   background-color : #FFFFFF;
   -webkit-background-clip : padding-box;

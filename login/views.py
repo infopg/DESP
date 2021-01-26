@@ -120,8 +120,18 @@ def supervisor(request):
         return redirect('/')
     org_eval = TableEvaluation.objects.all()
     organizations =TableOrganization.objects.filter(~Q(table_organization_col_name="机构树"))
+    o = TableOrganization.objects.all()
+    if o.exists():
+        data1 = [
+            {
+                'id': x.table_organization_col_id,
+                'name': x.table_organization_col_name,
+                'pId': x.table_organization_col_parent_name.table_organization_col_id if x.table_organization_col_parent_name else 0,
+                'open': 1,
+            } for x in o
+        ]
     users = models.TableUser.objects.filter(table_user_col_type_id=1)
-    return render(request, 'supervisor/evaluation.html/', locals())
+    return render(request, 'supervisor/evaluation.html',locals())
 
 
 def administrator(request):
@@ -140,10 +150,10 @@ def administrator(request):
         Q(table_evaluation_col_administrator=administrator))  # & Q(table_evaluation_col_status='启用'))
     eval_data = [
         {
-            'org_id': TableOrganization.objects.filter(
-                Q(table_organization_col_name=project.table_evaluation_col_organization)).values_list(
-                'table_organization_col_id')[0][0],
-            'org_name': project.table_evaluation_col_organization,
+            # 'org_id': TableOrganization.objects.filter(
+            #     Q(table_organization_col_name=project.table_evaluation_col_organization)).values_list(
+            #     'table_organization_col_id')[0][0],
+            # 'org_name': project.table_evaluation_col_organization,
             'project_name': project.table_evaluation_col_name,
             'project_admin': project.table_evaluation_col_administrator,
             'questionaire_status': project.table_evaluation_col_status,

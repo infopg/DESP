@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css"
           href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'ztreecss/zTreeStyle/zTreeStyle.css' %}">
     <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
 
 </head>
@@ -55,13 +56,17 @@
                     <div>
                         <label>绑定机构</label>
                         <div>
+{#                            <datalist id="orglist_eval">#}
+{#                                {% for orgs in organizations %}#}
+{#                                    <option>{{ orgs.table_organization_col_name }}</option>#}
+{#                                {% endfor %}#}
+{#                            </datalist>#}
+                            <ul id="root" class="ztree"></ul>
+                            <input name="btn" type="button" onClick="getSelectedNodes();" value="获取选中id"/>
                             <input type="text" id="create_org"
-                                   name="org_eval" list="orglist_eval" required>
-                            <datalist id="orglist_eval">
-                                {% for orgs in organizations %}
-                                    <option>{{ orgs.table_organization_col_name }}</option>
-                                {% endfor %}
-                            </datalist>
+                                   name="org_eval" list="orglist_eval"  required style="visibility: hidden;" >
+
+
                         </div>
                     </div>
 
@@ -525,7 +530,66 @@
 <script src="{% static 'app-assets/js/notification-sidebar.js' %}"></script>
 <!-- END CONVEX JS-->
 <!-- BEGIN PAGE LEVEL JS-->
+<script src="{% static 'layui/layui.js' %}" charset="utf-8"></script>
 <script src="{% static 'app-assets/js/data-tables/datatable-styling.js' %}"></script>
+<script src="{% static 'ztreejs/jquery.ztree.core.js' %}"></script>
+<script type="text/javascript" src="{% static 'ztreejs/jquery.ztree.exhide.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'ztreejs/fuzzysearch.js' %}"></script>
+<script type="text/javascript" src="{% static 'ztreejs/jquery.ztree.excheck.js' %}"></script>
+
+<script>
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
+    });
+    var setting = {
+        check:{
+            enable : true,
+            chkboxType:{"Y":"s","N":"s"}
+
+        },
+        view: {
+            selectedMulti: false,
+            nameIsHTML: true
+        },
+        edit: {
+            enable: false,
+            editNameSelectAll: false
+        },
+        data: {
+            simpleData: {
+                enable: true
+
+            },
+            keep: {
+                parent: true
+
+            }
+        },
+        callback: {
+            onClick: function (e, treeId, treeNode, clickFlag) {
+			 		zTree.checkNode(treeNode, !treeNode.checked, true);
+			 	}
+			},
+
+
+    };
+    var zTree = $.fn.zTree.init($("#root"), setting, {{ data1 | safe}})
+    zTree.expandAll(false);
+
+    function getSelectedNodes() {
+        var selectedNode = zTree.getCheckedNodes();
+        var all='';
+        for (var i = 0; i < selectedNode.length; i++) {
+            {#alert(selectedNode[i].name);#}
+            all=all+selectedNode[i].name+',';
+            {#document.getElementById("create_org").value=selectedNode[i].name;#}
+        }
+        document.getElementById("create_org").value=all;
+
+    }
+
+</script>
+
 <script>
     function go(id) {
         itemid = id
@@ -592,9 +656,9 @@
 
                 dataType: "json",
 
-                success: function () {
+                success: function (data) {
                     window.location = 'supervisor';
-                    toastr.success(data.message);
+                    alert(data.message);
                 },
                 error: function () {
                     toastr.error('Error');
@@ -636,7 +700,7 @@
 
                 success: function (data) {
                     window.location = 'supervisor';
-                    toastr.success(data.message);
+                    alert(data.message);
 
                 },
                 error: function () {
@@ -659,7 +723,7 @@
                 dataType: "json",
                 success: function (data) {
                     window.location = 'supervisor';
-                    toastr.success(data.message);
+                    alert(data.message);
 
                 },
                 error: function () {
@@ -697,6 +761,52 @@
         });
     });
 
+</script>
+
+
+<!-- END PAGE LEVEL JS-->
+<script>
+    layui.use('element', function () {
+        var $ = layui.jquery
+            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        //触发事件
+        var active = {
+            tabAdd: function () {
+                //新增一个Tab项
+                element.tabAdd('demo', {
+                    title: '新选项' + (Math.random() * 1000 | 0) //用于演示
+                    , content: '内容' + (Math.random() * 1000 | 0)
+                    , id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+                })
+            }
+            , tabDelete: function (othis) {
+                //删除指定Tab项
+                element.tabDelete('demo', '44'); //删除：“商品管理”
+
+
+                othis.addClass('layui-btn-disabled');
+            }
+            , tabChange: function () {
+                //切换到指定Tab项
+                element.tabChange('demo', '22'); //切换到：用户管理
+            }
+        };
+
+        $('.site-demo-active').on('click', function () {
+            var othis = $(this), type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+
+        //Hash地址的定位
+        var layid = location.hash.replace(/^#test=/, '');
+        element.tabChange('test', layid);
+
+        element.on('tab(test)', function (elem) {
+            location.hash = 'test=' + $(this).attr('lay-id');
+        });
+
+    });
 </script>
 <!-- END PAGE LEVEL JS-->
 </body>
