@@ -10,6 +10,7 @@ from login.forms import ForgetForm, ResetForm
 from login.utils.email_send import send_register_email
 
 from supervisor.models import TableEvaluation
+
 from supervisor.models import TableOrganization
 from administrator.models import TableTimeliner
 from . import forms
@@ -128,8 +129,81 @@ def supervisor(request):
                 'name': x.table_organization_col_name,
                 'pId': x.table_organization_col_parent_name.table_organization_col_id if x.table_organization_col_parent_name else 0,
                 'open': 1,
+                'checked': 0
             } for x in o
         ]
+    # print(type(data1))
+
+    data_org = TableEvaluation.objects.all()
+    # print(data_org[1].table_evaluation_col_id)
+    evaindex=[]
+    for each in data_org:
+        evaindex.append(each.table_evaluation_col_id)
+    # print(evaindex)
+    length=len(evaindex)
+    # print(data_org)
+    orgs = []
+    inde=[]
+    name = ''
+    for each in data_org:
+        # print(each.table_evaluation_col_organization)
+        for letter in each.table_evaluation_col_organization:
+            i=0
+            # print(letter)
+            if letter != ',':
+                name += letter
+            else:
+                # print(name, '\n')
+                inde.append(name)
+                name = ''
+            if len(name) == len(each.table_evaluation_col_organization):
+                # print(name, '\n')
+                inde.append(name)
+                orgs.append(inde)
+                inde=[]
+                name = ''
+                i+=1
+        if i==0:
+            orgs.append(inde)
+            inde = []
+            name = ''
+    # print(orgs)
+
+    p = TableOrganization.objects.all()
+    index=0
+    data2 = []
+    data2_a=[]
+    for x in orgs:
+        for each in p:
+            for each1 in x:
+                # print(each.table_organization_col_name)
+                if each1 == each.table_organization_col_name:
+                    # print(each1)
+                    index += 1
+            if index == 0:
+                data2.append({
+                    'id': each.table_organization_col_id,
+                    'name': each.table_organization_col_name,
+                    'pId': each.table_organization_col_parent_name.table_organization_col_id if each.table_organization_col_parent_name else 0,
+                    'open': 1,
+                    'checked': 0
+                })
+            else:
+                data2.append({
+                'id': each.table_organization_col_id,
+                'name': each.table_organization_col_name,
+                'pId': each.table_organization_col_parent_name.table_organization_col_id if each.table_organization_col_parent_name else 0,
+                'open': 1,
+                'checked': 1
+                })
+                index = 0
+        # print(data2)
+        data2_a.append(data2)
+        data2=[]
+    # print(data2_a[3])
+    # rett=data2_a[3]
+
+
     users = models.TableUser.objects.filter(table_user_col_type_id=1)
     return render(request, 'supervisor/evaluation.html',locals())
 

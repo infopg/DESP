@@ -454,7 +454,7 @@ def evaluation_edit(request):
                     table_evaluation_col_organization=evalutaion_organization,
                     table_evaluation_col_deliver=evaluation_deliver,
                     table_evaluation_col_mark=evaluation_mark)
-                return JsonResponse({'state': 1, 'message': '修改成功!'})
+                return JsonResponse({'state': 1, 'message': '创建成功!'})
             except Exception as e:
                 return JsonResponse({'state': 0, 'message': 'Create Error: ' + str(e)})
         else:
