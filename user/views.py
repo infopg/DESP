@@ -29,80 +29,14 @@ from django.utils.encoding import escape_uri_path
 def user(request):
     user_name = request.session['user_name']
     current_eval = request.GET.get('evalname')
-    print(current_eval)
+    # print(current_eval)
     orgid = \
         models.TableUser.objects.filter(table_user_col_name=user_name).values_list('table_user_col_organization')[0][0]
     orgname = \
     TableOrganization.objects.filter(table_organization_col_id=orgid).values_list('table_organization_col_name')[0][
             0]
-    print(orgname)
-
-    # data_org = TableEvaluation.objects.all()
-    # evaindex = []
-    # for each in data_org:
-    #     evaindex.append(each.table_evaluation_col_id)
-    # # print(evaindex)
-    # # print(data_org)
-    #
-    # orgs = []
-    # inde = []
-    # name = ''
-    # for each in data_org:
-    #     # print(each.table_evaluation_col_organization)
-    #     for letter in each.table_evaluation_col_organization:
-    #         i = 0
-    #         # print(letter)
-    #         if letter != ',':
-    #             name += letter
-    #         else:
-    #             # print(name, '\n')
-    #             inde.append(name)
-    #             name = ''
-    #         if len(name) == len(each.table_evaluation_col_organization):
-    #             # print(name, '\n')
-    #             inde.append(name)
-    #             orgs.append(inde)
-    #             inde = []
-    #             name = ''
-    #             i += 1
-    #     if i == 0:
-    #         orgs.append(inde)
-    #         inde = []
-    #         name = ''
-    # # print(orgs)
-    # i=0
-    # count=0
-    # listeval=[]
-    # for x in orgs:
-    #     index = 0
-    #     # print(x)
-    #     for each1 in x:
-    #             # print(each.table_organization_col_name)
-    #         if each1 == orgname:
-    #                 # print(each1)
-    #             index += 1
-    #     if index==0:
-    #         i+=1
-    #         # print(i)
-    #     else:
-    #         t=i+count
-    #         eval = TableEvaluation.objects.filter(table_evaluation_col_id=evaindex[t])
-    #         listeval.append(eval)
-    #         count+=1
-    #         # print(t, count)
-    #         # print(eval)
-    # evals=[]
-    # all_question=[]
-    # for each in listeval:
-    #     # print(each[0].table_evaluation_col_name)
-    #     evals.append(each[0].table_evaluation_col_name)
-    # # eval = TableEvaluation.objects.filter(table_evaluation_col_id=evaindex[i])
-    # name1=request.GET.get('name1')
-    # for each in evals:
-        # print(each)
     eval = TableEvaluation.objects.filter(table_evaluation_col_name=current_eval)
     if len(eval) != 0:
-        # if index>0:
         questionaire_answer = set(
             TableQuestionContent.objects.filter(
                 table_question_content_col_evalname=eval[0].table_evaluation_col_id).values_list(
@@ -139,9 +73,6 @@ def user(request):
                           { 'current_eval':current_eval,'question': question,
                            'preview_length': len(list),
                            'user': user_name, 'orgname': orgname, 'page_num': page_num})
-
-            # print(question)
-            # all_question.append(question)
         else:
             return render(request, 'user/user.html', {'current_eval':current_eval,'user': user_name, 'orgname': orgname})
     else:

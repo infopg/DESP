@@ -1,16 +1,12 @@
 from django.contrib.auth.hashers import make_password, check_password
-
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views import View
-
 from administrator.models import TableTimeliner, TableQuestionContent
 from login import models
 from login.forms import ForgetForm, ResetForm
 from login.utils.email_send import send_register_email
-
 from supervisor.models import TableEvaluation
-
 from supervisor.models import TableOrganization
 from administrator.models import TableTimeliner
 from . import forms
@@ -246,31 +242,22 @@ def user(request):
     orgname = \
         TableOrganization.objects.filter(table_organization_col_id=orgid).values_list('table_organization_col_name')[0][
             0]
-    print(orgname)
-
     data_org = TableEvaluation.objects.all()
     evaindex = []
     for each in data_org:
         evaindex.append(each.table_evaluation_col_id)
-    # print(evaindex)
-    # print(data_org)
-
     orgs = []
     inde = []
     name = ''
     for each in data_org:
-        # print(each.table_evaluation_col_organization)
         for letter in each.table_evaluation_col_organization:
             i = 0
-            # print(letter)
             if letter != ',':
                 name += letter
             else:
-                # print(name, '\n')
                 inde.append(name)
                 name = ''
             if len(name) == len(each.table_evaluation_col_organization):
-                # print(name, '\n')
                 inde.append(name)
                 orgs.append(inde)
                 inde = []
@@ -280,41 +267,30 @@ def user(request):
             orgs.append(inde)
             inde = []
             name = ''
-    # print(orgs)
     i = 0
     count = 0
     listeval = []
     for x in orgs:
         index = 0
-        # print(x)
         for each1 in x:
-            # print(each.table_organization_col_name)
             if each1 == orgname:
-                # print(each1)
                 index += 1
         if index == 0:
             i += 1
-            # print(i)
         else:
             t = i + count
             eval = TableEvaluation.objects.filter(table_evaluation_col_id=evaindex[t])
             listeval.append(eval)
             count += 1
-            # print(t, count)
-            # print(eval)
+
     evals = []
-    all_question = []
     for each in listeval:
-        # print(each[0].table_evaluation_col_name)
         evals.append(each[0].table_evaluation_col_name)
-    # eval = TableEvaluation.objects.filter(table_evaluation_col_id=evaindex[i])
     name1 = request.GET.get('name1')
     if len(evals)==0:
         return render(request, 'login/usrselect.html', {'user': user_name, 'orgname': orgname})
     for each in evals:
-        # print(each)
         if len(each) != 0:
-            # if index>0:
             questionaire_answer = set(
                 TableQuestionContent.objects.filter(
                     table_question_content_col_evalname=eval[0].table_evaluation_col_id).values_list(
@@ -347,19 +323,14 @@ def user(request):
                             'indicator_id': x.table_question_content_col_indicator_id
                         })
                     page_num = num
-                # print(evals)
                 return render(request, 'login/usrselect.html',
                               {'name1': name1, 'names': evals, 'l': len(evals), 'question': question,
                                'preview_length': len(list),
                                'user': user_name, 'orgname': orgname, 'page_num': page_num})
 
-                # print(question)
-                # all_question.append(question)
             else:
-                # print(evals)
                 return render(request, 'login/usrselect.html', {'names': evals, 'user': user_name, 'orgname': orgname})
         else:
-            # print(evals)
             return render(request, 'login/usrselect.html', {'names': evals, 'user': user_name, 'orgname': orgname})
 
 
@@ -400,7 +371,6 @@ def manager(request):
         date_new_end = str(date_end).replace('-', '/')
         date_use_end = date_new_end[-2:] + date_new_end[4:8] + date_new_end[0:4]
         date.table_timeliner_col_end = date_use_end
-    # print(timeline_list)
     return render(request, 'manager/manager.html',
                   {'evalname': evalname, 'timeevalname': timeevalname, 'user_name': administrator,
                    'timeline_list': timeline_list, 'dateline': dateline, 'admin': administrator})

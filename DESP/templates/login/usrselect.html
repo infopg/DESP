@@ -32,7 +32,7 @@
           href="{% static 'app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
     <link rel="stylesheet" href="{% static 'ztreecss/zTreeStyle/zTreeStyle.css' %}">
-    <link rel="stylesheet" href="{% static 'layui/css/layui.css'%}">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
 </head>
 <body data-col="2-columns" class=" 2-columns ">
 <!-- ////////////////////////////////////////////////////////////////////////////-->
@@ -81,11 +81,6 @@
 </div>
 
 <div class="wrapper nav-collapsed menu-collapsed">
-
-
-
-
-
     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -101,6 +96,7 @@
             </div>
             <div class="navbar-container">
                 <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <p>欢迎你，{{ orgname }}用户&nbsp&nbsp&nbsp{{ user }}</p>
                     <ul class="layui-nav-item">
                         <li class="dropdown layui-nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown"
                                                                     class="nav-link position-relative dropdown-user-link dropdown-toggle"><span
@@ -117,8 +113,8 @@
                                 <div class="arrow_box_right">
 
                                     <a href="" class="dropdown-item " data-toggle="modal"
-                                                data-target="#password_edit"><i class="layui-icon layui-icon-user"
-                                                                        style="font-size: 18px; color:black;"></i>
+                                       data-target="#password_edit"><i class="layui-icon layui-icon-user"
+                                                                       style="font-size: 18px; color:black;"></i>
                                         <span>修改密码</span></a>
                                 </div>
                             </div>
@@ -130,40 +126,40 @@
     </nav>
 
     <div class="main-panel">
-            <div class="content-wrapper">
-                <div class="container-fluid"><!-- Base style table -->
-                    <section id="base-style">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="card-title-wrap bar-success">
-                                            <h4 class="card-title">欢迎</h4>
-                                            <table class="layui-table" lay-even="" lay-skin="nob">
-                                                <colgroup>
-                                                    <col width="150">
-                                                    <col width="150">
-                                                    <col width="200">
-                                                    <col>
-                                                </colgroup>
-                                                <thead>
-                                                <tr>
-                                                    <th>项目名称</th>
-                                                    <th>选择</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody id = tbody>
-                                                </tbody>
-                                            </table>
+        <div class="content-wrapper">
+            <div class="container-fluid"><!-- Base style table -->
+                <section id="base-style">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title-wrap bar-success">
+                                        <h4 class="card-title">欢迎</h4>
+                                        <table class="layui-table" lay-even="" lay-skin="nob">
+                                            <colgroup>
+                                                <col width="150">
+                                                <col width="150">
+                                                <col width="200">
+                                                <col>
+                                            </colgroup>
+                                            <thead>
+                                            <tr>
+                                                <th>项目名称</th>
+                                                <th>选择</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id=tbody>
+                                            </tbody>
+                                        </table>
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
-                </div>
+                    </div>
+                </section>
             </div>
+        </div>
 
         <footer class="footer footer-static footer-light">
             <p class="clearfix text-muted text-center px-2"><span>Copyright  &copy; CNIC <a href="#" id="pixinventLink"
@@ -199,8 +195,9 @@
 <!-- END PAGE LEVEL JS-->
 <script>
     {#var e_d = {{ eval_data|safe }};#}
-    var nameall={{ names|safe }}
-    for(var i = 0; i < nameall.length; i++) {
+    var nameall =
+    {{ names|safe }}
+    for (var i = 0; i < nameall.length; i++) {
         var questionaire = i + 10000;
         var id_org_id = i + 20000;
         var id_org_name = i + 30000;
@@ -212,23 +209,22 @@
 
         $("#tbody").append("" +
             "<tr>" +
-            "<td id ="+ id_project_name +">" + nameall[i] + "</td>" +
+            "<td id =" + id_project_name + ">" + nameall[i] + "</td>" +
             "<td>" +
-                "<button class='btn mr-1 btn-secondary' id=" + bt_change + " " +
-                    "onclick='to_questionaire(" +id_project_name+ "," + id_project_admin + ")'>选择此项目" +
-                "</button>" +
+            "<button class='btn mr-1 btn-secondary' id=" + bt_change + " " +
+            "onclick='to_questionaire(" + id_project_name + "," + id_project_admin + ")'>选择此项目" +
+            "</button>" +
             "</tr>");
     }
-
 
 
 </script>
 <script>
 
-     //点击“查看”前往项目管理对应页面
-    function to_questionaire(x,y){
+    //点击“查看”前往项目管理对应页面
+    function to_questionaire(x, y) {
         var text1 = document.getElementById(x).innerHTML;
-        window.location.href = "{% url 'questions' %}?evalname="+text1+"&page="+0;
+        window.location.href = "{% url 'questions' %}?evalname=" + text1 + "&page=" + 0;
     }
 
 </script>
@@ -237,7 +233,7 @@
         $.ajaxSetup({
             data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
         });
-                $("#password_edit").submit(function () {
+        $("#password_edit").submit(function () {
             var edit_password = $("#password_reset").val();
             var edit_password_twice = $('#password_reset_twice').val();
             $.ajax({
