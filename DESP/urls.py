@@ -31,6 +31,7 @@ urlpatterns = [
     path('supervisor', login_views.supervisor, name='supervisor'),
     path('administrator', login_views.administrator, name='administrator'),
     path('user', login_views.user, name='user'),
+    # path('users', user_views.user, name='users'),
     path('expert', login_views.expert, name='expert'),
     path('manager', login_views.manager, name='manager'),
     path('captcha', include('captcha.urls')),

@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" class="loading">
+<html lang="en" class="loading" xmlns="http://www.w3.org/1999/html">
 <head>
     <style>
         ul.pagination {
@@ -73,6 +73,8 @@
 <div class="wrapper nav-collapsed menu-collapsed">
     <nav class="navbar navbar-expand-lg navbar-light bg-faded">
         <div class="container-fluid">
+            <div class="logo clearfix"><a href="{% url 'user' %}" class="logo-text float-left">返回</a>
+            </div>
             <div class="navbar-header">
                 <span class="d-lg-none navbar-right navbar-collapse-toggle">
                     <a class="open-navbar-container">
@@ -132,6 +134,12 @@
                                 <div class="card-title-wrap bar-success">
                                     <h4 class="card-title">问卷填写</h4>
                                 </div>
+                                    <div id="names">                                </div>
+{#                            <select>#}
+{#                                {% for each in names %}#}
+{#                                    <option value='{{ each }}'>参与项目{{ each }}</option>#}
+{#                                 {% endfor %}#}
+{#                            </select>#}
                             </div>
                             <div class="card-body">
                                 <div class="card-block">
@@ -426,13 +434,15 @@
         }
     }
 
-    value_num = {{ page_num|safe }}
 
+
+
+    value_num = {{ page_num|safe }}
     //上一页按钮
     if(value_num != 0){
-        $("#pages").append("<li><a name=" + (value_num-1) + " class=\"\" onclick=\"preview(this.name)\" >上一页</a></li>")
+        $("#pages").append("<li><a id=" + (value_num-1) + " class=\"\" onclick=\"preview(this.id)\" >上一页</a></li>")
     }else{
-        $("#pages").append("<li><a name=" + (value_num) + " class=\"\" onclick=\"preview(this.name)\" >上一页</a></li>")
+        $("#pages").append("<li><a id=" + (value_num) + " class=\"\" onclick=\"preview(this.id)\" >上一页</a></li>")
     }
 
     //显示题目
@@ -444,16 +454,18 @@
     page_len = {{ preview_length|safe }}
     //下一页按钮
     if(value_num != (page_len-1)){
-        $("#pages").append("<li><a name=" + (value_num+1) + " class=\"\" onclick=\"preview(this.name)\" >下一页</a></li>")
+        $("#pages").append("<li><a id=" + (value_num+1) + " class=\"\" onclick=\"preview(this.id)\" >下一页</a></li>")
     }else{
-        $("#pages").append("<li><a name=" + (value_num) + " class=\"\" onclick=\"preview(this.name)\" >下一页</a></li>")
+        $("#pages").append("<li><a id=" + (value_num) + " class=\"\" onclick=\"preview(this.id)\" >下一页</a></li>")
     }
 
     //当前页面按钮显示
     document.getElementById(value_num).className = 'active'
 
-    function preview(value) {
-        window.location.href = "{% url 'user' %}?page=" + value + ""
+
+
+    function preview(id) {
+        window.location.href = "{% url 'questions' %}?evalname="+ "{{ current_eval|safe }}"+ "&page="+ id
     }
 
     function download_form(value){

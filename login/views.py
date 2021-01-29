@@ -25,7 +25,6 @@ from xlwt import Workbook
 from django.utils.encoding import escape_uri_path
 
 
-
 # Create your views here.
 def login(request):
     # pdb.set_trace()
@@ -94,6 +93,7 @@ def login(request):
     login_form = forms.UserForm()
     return render(request, 'login/login.html', locals())
 
+
 def reset(request):
     user_name = request.session['user_name']
     if request.method == 'POST':
@@ -104,9 +104,9 @@ def reset(request):
             return JsonResponse({'message': message})
         try:
             models.TableUser.objects.filter(table_user_col_name=user_name).update(
-                                                                              table_user_col_password=make_password(
-                                                                                  user_password)
-                                                                              )
+                table_user_col_password=make_password(
+                    user_password)
+            )
             print(user_password)
             return JsonResponse({'state': 1, 'message': '修改成功!'})
         except Exception as e:
@@ -120,7 +120,7 @@ def supervisor(request):
     if not request.session.get('is_login', None) or request.session['permission'] != 0:  # 没登录过的或权限不对的，都直接返回到登录界面
         return redirect('/')
     org_eval = TableEvaluation.objects.all()
-    organizations =TableOrganization.objects.filter(~Q(table_organization_col_name="机构树"))
+    organizations = TableOrganization.objects.filter(~Q(table_organization_col_name="机构树"))
     o = TableOrganization.objects.all()
     if o.exists():
         data1 = [
@@ -136,19 +136,19 @@ def supervisor(request):
 
     data_org = TableEvaluation.objects.all()
     # print(data_org[1].table_evaluation_col_id)
-    evaindex=[]
+    evaindex = []
     for each in data_org:
         evaindex.append(each.table_evaluation_col_id)
     # print(evaindex)
-    length=len(evaindex)
+    length = len(evaindex)
     # print(data_org)
     orgs = []
-    inde=[]
+    inde = []
     name = ''
     for each in data_org:
         # print(each.table_evaluation_col_organization)
         for letter in each.table_evaluation_col_organization:
-            i=0
+            i = 0
             # print(letter)
             if letter != ',':
                 name += letter
@@ -160,19 +160,19 @@ def supervisor(request):
                 # print(name, '\n')
                 inde.append(name)
                 orgs.append(inde)
-                inde=[]
+                inde = []
                 name = ''
-                i+=1
-        if i==0:
+                i += 1
+        if i == 0:
             orgs.append(inde)
             inde = []
             name = ''
     # print(orgs)
 
     p = TableOrganization.objects.all()
-    index=0
+    index = 0
     data2 = []
-    data2_a=[]
+    data2_a = []
     for x in orgs:
         for each in p:
             for each1 in x:
@@ -190,22 +190,21 @@ def supervisor(request):
                 })
             else:
                 data2.append({
-                'id': each.table_organization_col_id,
-                'name': each.table_organization_col_name,
-                'pId': each.table_organization_col_parent_name.table_organization_col_id if each.table_organization_col_parent_name else 0,
-                'open': 1,
-                'checked': 1
+                    'id': each.table_organization_col_id,
+                    'name': each.table_organization_col_name,
+                    'pId': each.table_organization_col_parent_name.table_organization_col_id if each.table_organization_col_parent_name else 0,
+                    'open': 1,
+                    'checked': 1
                 })
                 index = 0
         # print(data2)
         data2_a.append(data2)
-        data2=[]
+        data2 = []
     # print(data2_a[3])
     # rett=data2_a[3]
 
-
     users = models.TableUser.objects.filter(table_user_col_type_id=1)
-    return render(request, 'supervisor/evaluation.html',locals())
+    return render(request, 'supervisor/evaluation.html', locals())
 
 
 def administrator(request):
@@ -234,7 +233,8 @@ def administrator(request):
             'enddate': project.table_evaluation_col_finish_time,
         } for project in evalname
     ]
-    return render(request, 'login/administrator.html', {'eval_data': eval_data, 'evalname': evalname,'admin':administrator})
+    return render(request, 'login/administrator.html',
+                  {'eval_data': eval_data, 'evalname': evalname, 'admin': administrator})
 
 
 def user(request):
@@ -247,45 +247,120 @@ def user(request):
         TableOrganization.objects.filter(table_organization_col_id=orgid).values_list('table_organization_col_name')[0][
             0]
     print(orgname)
-    eval = TableEvaluation.objects.filter(table_evaluation_col_organization=orgname)
-    if len(eval)!=0:
-        questionaire_answer = set(
-            TableQuestionContent.objects.filter(table_question_content_col_evalname=eval[0].table_evaluation_col_id).values_list('table_question_content_col_indicator_id'))
-        group = []
-        for eachquestion in questionaire_answer:
-            group.append(eachquestion)
-        list = []
-        for i in range(0, len(questionaire_answer)):
-            list.append(TableQuestionContent.objects.filter(table_question_content_col_indicator_id=group[i][0]))
-        if len(list)!=0:
-            page = request.GET.get('page')
-            question = []
-            if page == None:
-                for x in list[0]:
-                    question.append({
-                        'question_id': x.table_question_content_col_question_id,
-                        'question_type': x.table_question_content_col_question_type,
-                        'content': x.table_question_content_col_content,
-                        'indicator_id': x.table_question_content_col_indicator_id
-                    })
-                page_num = 0
+
+    data_org = TableEvaluation.objects.all()
+    evaindex = []
+    for each in data_org:
+        evaindex.append(each.table_evaluation_col_id)
+    # print(evaindex)
+    # print(data_org)
+
+    orgs = []
+    inde = []
+    name = ''
+    for each in data_org:
+        # print(each.table_evaluation_col_organization)
+        for letter in each.table_evaluation_col_organization:
+            i = 0
+            # print(letter)
+            if letter != ',':
+                name += letter
             else:
-                num = int(page)
-                for x in list[num]:
-                    question.append({
-                        'question_id': x.table_question_content_col_question_id,
-                        'question_type': x.table_question_content_col_question_type,
-                        'content': x.table_question_content_col_content,
-                        'indicator_id': x.table_question_content_col_indicator_id
-                    })
-                page_num = num
-            print(question)
-            return render(request, 'user/user.html', {'question': question, 'preview_length': len(list),
-                                                      'user': user_name, 'orgname': orgname, 'page_num': page_num})
+                # print(name, '\n')
+                inde.append(name)
+                name = ''
+            if len(name) == len(each.table_evaluation_col_organization):
+                # print(name, '\n')
+                inde.append(name)
+                orgs.append(inde)
+                inde = []
+                name = ''
+                i += 1
+        if i == 0:
+            orgs.append(inde)
+            inde = []
+            name = ''
+    # print(orgs)
+    i = 0
+    count = 0
+    listeval = []
+    for x in orgs:
+        index = 0
+        # print(x)
+        for each1 in x:
+            # print(each.table_organization_col_name)
+            if each1 == orgname:
+                # print(each1)
+                index += 1
+        if index == 0:
+            i += 1
+            # print(i)
         else:
-            return render(request, 'user/user.html', {'user': user_name, 'orgname': orgname})
-    else:
-        return render(request, 'user/user.html', {'user': user_name, 'orgname': orgname})
+            t = i + count
+            eval = TableEvaluation.objects.filter(table_evaluation_col_id=evaindex[t])
+            listeval.append(eval)
+            count += 1
+            # print(t, count)
+            # print(eval)
+    evals = []
+    all_question = []
+    for each in listeval:
+        # print(each[0].table_evaluation_col_name)
+        evals.append(each[0].table_evaluation_col_name)
+    # eval = TableEvaluation.objects.filter(table_evaluation_col_id=evaindex[i])
+    name1 = request.GET.get('name1')
+    if len(evals)==0:
+        return render(request, 'login/usrselect.html', {'user': user_name, 'orgname': orgname})
+    for each in evals:
+        # print(each)
+        if len(each) != 0:
+            # if index>0:
+            questionaire_answer = set(
+                TableQuestionContent.objects.filter(
+                    table_question_content_col_evalname=eval[0].table_evaluation_col_id).values_list(
+                    'table_question_content_col_indicator_id'))
+            group = []
+            for eachquestion in questionaire_answer:
+                group.append(eachquestion)
+            list = []
+            for i in range(0, len(questionaire_answer)):
+                list.append(TableQuestionContent.objects.filter(table_question_content_col_indicator_id=group[i][0]))
+            if len(list) != 0:
+                page = request.GET.get('page')
+                question = []
+                if page == None:
+                    for x in list[0]:
+                        question.append({
+                            'question_id': x.table_question_content_col_question_id,
+                            'question_type': x.table_question_content_col_question_type,
+                            'content': x.table_question_content_col_content,
+                            'indicator_id': x.table_question_content_col_indicator_id
+                        })
+                    page_num = 0
+                else:
+                    num = int(page)
+                    for x in list[num]:
+                        question.append({
+                            'question_id': x.table_question_content_col_question_id,
+                            'question_type': x.table_question_content_col_question_type,
+                            'content': x.table_question_content_col_content,
+                            'indicator_id': x.table_question_content_col_indicator_id
+                        })
+                    page_num = num
+                # print(evals)
+                return render(request, 'login/usrselect.html',
+                              {'name1': name1, 'names': evals, 'l': len(evals), 'question': question,
+                               'preview_length': len(list),
+                               'user': user_name, 'orgname': orgname, 'page_num': page_num})
+
+                # print(question)
+                # all_question.append(question)
+            else:
+                # print(evals)
+                return render(request, 'login/usrselect.html', {'names': evals, 'user': user_name, 'orgname': orgname})
+        else:
+            # print(evals)
+            return render(request, 'login/usrselect.html', {'names': evals, 'user': user_name, 'orgname': orgname})
 
 
 def expert(request):
@@ -293,7 +368,7 @@ def expert(request):
         return redirect('/')
     administrator = request.session['user_name']
 
-    return render(request, 'expert/expert.html',{'user_name':administrator})
+    return render(request, 'expert/expert.html', {'user_name': administrator})
 
 
 def manager(request):
@@ -326,8 +401,9 @@ def manager(request):
         date_use_end = date_new_end[-2:] + date_new_end[4:8] + date_new_end[0:4]
         date.table_timeliner_col_end = date_use_end
     # print(timeline_list)
-    return render(request, 'manager/manager.html', {'evalname': evalname, 'timeevalname': timeevalname,'user_name':administrator,
-                   'timeline_list': timeline_list, 'dateline': dateline,'admin':administrator})
+    return render(request, 'manager/manager.html',
+                  {'evalname': evalname, 'timeevalname': timeevalname, 'user_name': administrator,
+                   'timeline_list': timeline_list, 'dateline': dateline, 'admin': administrator})
 
 
 def logout(request):
@@ -401,6 +477,7 @@ def abstract(request):
 def Aboutus(request):
     return render(request, 'login/Aboutus.html')
 
+
 def download_form(request):
     question_id = request.GET.get('form')
     select_question = TableQuestionContent.objects.get(table_question_content_col_question_id=question_id)
@@ -443,7 +520,7 @@ def download_form(request):
     worksheet.write(1, 3, question_num, style)
 
     for x in range(0, len(content_column)):
-        worksheet.write(2, x, str(x+1), style)
+        worksheet.write(2, x, str(x + 1), style)
         worksheet.write(3, x, content_column[x], style)
 
     output = BytesIO()
